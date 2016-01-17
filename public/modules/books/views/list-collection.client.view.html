@@ -1,0 +1,35 @@
+<section data-ng-controller="ListCollectionController" ng-show="authentication.user" data-ng-init="findCollection()">
+    <div class="page-header">
+        <h1 >
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
+            Mes Collections
+        </h1>
+    </div>
+    <div ng-hide="isLoaded" class="text-center elements-margin-top" >
+        <img src="/assets/img/loader-large.gif">
+    </div>
+
+    <!-- Liste des collections -->
+
+    <div ng-show="isLoaded" class="row">
+        <div class="col-md-12" >
+            <accordion close-others="oneAtTime" >
+                <accordion-group class="collection-header-field" ng-repeat="item in collectionTab" >
+                    <accordion-heading >
+                        <span class="hidden-xs badge view-collection-missing pull-right">{{item.owned + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
+                        <div style="font-weight: bold;" >{{item.name}}</div>
+                    </accordion-heading>
+                    <ul class="list-group" >
+                        <li ng-click="goTo(book._id)" class="list-group-item {{book.bought ? 'collection-header-field' : 'view-collection-missing'}}" ng-repeat="book in item.books" >
+                            {{book.collectionName + ' T. ' + book.volume + (book.title ? ' - ' + book.title : '')}}
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+
+    <!-- Panneau des statistiques -->
+
+    <section data-ng-include="'modules/common/statistics-panel/views/statistics-panel.client.view.html'" ></section>
+</section>

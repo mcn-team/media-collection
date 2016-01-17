@@ -1,0 +1,117 @@
+<script type="text/ng-template" id="apiSearchClientModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Liste des sites de recherche</h3>
+    </div>
+
+    <div data-ng-hide="isSelected" class="col-xs-12" >
+        <div class="col-xs-6 cursor-pointer" data-ng-repeat="item in choices" >
+            <a class="list-group-item" data-ng-click="selectChoice(item)" data-ng-bind="item.pageTitle" ></a>
+        </div>
+    </div>
+    <div data-ng-show="isSelected && isLoaded" class="col-xs-12 modal-main-container" >
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.title" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.title.isChecked" >
+                </span>
+                <span class="input-group-addon">Titre</span>
+                <select class="form-control" data-ng-model="selectedModel.title" ng-options="opt for opt in choiceList.title.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.authorsList" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.authorsList.isChecked" >
+                </span>
+                <span class="input-group-addon">Auteurs</span>
+                <select class="form-control" data-ng-model="selectedModel.authorsList" ng-options="opt for opt in choiceList.authorsList.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.publisher" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.publisher.isChecked" >
+                </span>
+                <span class="input-group-addon">Éditeur</span>
+                <select class="form-control" data-ng-model="selectedModel.publisher" ng-options="opt for opt in choiceList.publisher.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.collectionName" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.collectionName.isChecked" >
+                </span>
+                <span class="input-group-addon">Collection</span>
+                <select class="form-control" data-ng-model="selectedModel.collectionName" ng-options="opt for opt in choiceList.collectionName.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.pageCount" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.pageCount.isChecked" >
+                </span>
+                <span class="input-group-addon">Pages</span>
+                <select class="form-control" data-ng-model="selectedModel.pageCount" ng-options="opt for opt in choiceList.pageCount.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.isbn" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.isbn.isChecked" >
+                </span>
+                <span class="input-group-addon">ISBN</span>
+                <select class="form-control" data-ng-model="selectedModel.isbn" ng-options="opt for opt in choiceList.isbn.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.creatorsList" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.creatorsList.isChecked" >
+                </span>
+                <span class="input-group-addon">Créateurs</span>
+                <select class="form-control" data-ng-model="selectedModel.creatorsList" ng-options="opt for opt in choiceList.creatorsList.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.producersList" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.producersList.isChecked" >
+                </span>
+                <span class="input-group-addon">Producteurs</span>
+                <select class="form-control" data-ng-model="selectedModel.producersList" ng-options="opt for opt in choiceList.producersList.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.actorsList" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.actorsList.isChecked" >
+                </span>
+                <span class="input-group-addon">Acteurs</span>
+                <select class="form-control" data-ng-model="selectedModel.actorsList" ng-options="opt for opt in choiceList.actorsList.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.channel" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.channel.isChecked" >
+                </span>
+                <span class="input-group-addon">Chaine</span>
+                <select class="form-control" data-ng-model="selectedModel.channel" ng-options="opt for opt in choiceList.channel.list" ></select>
+            </div>
+        </div>
+        <div class="col-xs-6 modal-sub-container" data-ng-show="choiceList.date" >
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="checkbox" data-ng-model="choiceList.date.isChecked" >
+                </span>
+                <span class="input-group-addon">Date</span>
+                <select class="form-control" data-ng-model="selectedModel.date" ng-options="opt for opt in choiceList.date.list" ></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button ng-show="!nothingFound" class="btn btn-primary" ng-click="validateModal()">OK</button>
+        <button class="btn btn-warning" ng-click="cancelModal()">Cancel</button>
+    </div>
+</script>

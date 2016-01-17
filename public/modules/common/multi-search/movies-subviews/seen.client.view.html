@@ -1,0 +1,16 @@
+<section>
+    <div class="col-xs-offset-2 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 {{$parent.$parent.multiSearch.dates.type === 'between' ? 'col-md-4 col-lg-6' : 'col-md-7 col-lg-8' }} col-xs-6 col-sm-2 multi-search-margin-bottom" >
+        <label class="control-label" >Vu</label>
+        <div >
+            <button class="btn btn-success" ng-show="$parent.$parent.multiSearch.seenSearch === true" ng-click="$parent.$parent.multiSearch.seenSearch = false" data-ng-model="$parent.$parent.multiSearch.seenSearch" >
+                <img class="form-icon-btn-size" ng-src="/assets/img/view8.png">
+            </button>
+            <button class="btn btn-danger" ng-show="$parent.$parent.multiSearch.seenSearch === false" ng-click="$parent.$parent.multiSearch.seenSearch = undefined" data-ng-model="$parent.$parent.multiSearch.seenSearch" >
+                <img class="form-icon-btn-size" ng-src="/assets/img/eye48.png">
+            </button>
+            <button class="btn btn-default" ng-show="$parent.$parent.multiSearch.seenSearch === undefined" ng-click="$parent.$parent.multiSearch.seenSearch = true" data-ng-model="$parent.$parent.multiSearch.seenSearch" >
+                <img class="form-icon-btn-size" ng-src="/assets/img/forbidden4-black.png">
+            </button>
+        </div>
+    </div>
+</section>

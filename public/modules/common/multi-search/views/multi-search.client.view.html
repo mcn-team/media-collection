@@ -1,0 +1,80 @@
+<section>
+    <div class="col-md-12" ng-show="$parent.multiSearchOn" >
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" >Recherche multi-crit&egrave;res</h3>
+            </div>
+            <div class="panel-body" >
+                <div class="{{$parent.multiSearch.collectionSearch ? 'col-sm-5 col-md-5' : 'col-sm-6 col-md-6'}} col-xs-12 col-lg-3 multi-search-margin-bottom">
+                    <label class="control-label" for="collectionSearch" >Collection</label>
+                    <input class="form-control" id="collectionSearch" data-ng-model="$parent.multiSearch.collectionSearch" placeholder="Collection" formnovalidate="formnovalidate">
+                </div>
+                <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/volume.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/episode.client.view.html'" ></section>
+                <div class="col-xs-12 {{$parent.multiSearch.collectionSearch ? 'col-sm-5 col-md-5 col-lg-3' : 'col-sm-6 col-md-6 col-lg-4'}} multi-search-margin-bottom">
+                    <label class="control-label" for="titleSearch" >Titre</label>
+                    <input class="form-control" id="titleSearch" data-ng-model="$parent.$parent.multiSearch.titleSearch" placeholder="Titre">
+                </div>
+                <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/authors.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/publisher.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/actors.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/directors.client.view.html'" ></section>
+                <div class="col-xs-4 col-sm-2 col-md-1 col-lg-1 multi-search-margin-bottom multi-search-button-center" >
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.dates.type === 'exact'" ng-click="$parent.multiSearch.dates.type = 'since'" data-ng-model="$parent.multiSearch.dates.type" >Le</button>
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.dates.type === 'between'" ng-click="$parent.multiSearch.dates.type = undefined" data-ng-model="$parent.multiSearch.dates.type" >Entre</button>
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.dates.type === 'since'" ng-click="$parent.multiSearch.dates.type = 'before'" data-ng-model="$parent.multiSearch.dates.type" >Depuis</button>
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.dates.type === 'before'" ng-click="$parent.multiSearch.dates.type = 'between'" data-ng-model="$parent.multiSearch.dates.type" >Avant</button>
+                    <button class="btn btn-default" ng-show="$parent.multiSearch.dates.type === undefined" ng-click="$parent.multiSearch.dates.type = 'exact'" data-ng-model="$parent.multiSearch.dates.type" >
+                        <img class="form-icon-btn-size" ng-src="/assets/img/forbidden4-black.png">
+                    </button>
+                </div>
+                <div class="col-xs-8 {{$parent.multiSearch.dates.type === 'between' ? 'col-sm-3' : 'col-sm-6' }} col-md-3 col-lg-2 multi-search-margin-bottom">
+                    <label class="control-label" for="dateStart" >{{$parent.multiSearch.dates.type === 'between' ? 'Entre le...' : 'Date'}}</label>
+                    <input ng-disabled="$parent.multiSearch.dates.type === undefined" class="form-control" type="date" id="dateStart" data-ng-model="$parent.multiSearch.dates.start" >
+                </div>
+                <div ng-show="$parent.multiSearch.dates.type === 'between'" class="col-xs-offset-4 col-xs-8 col-sm-offset-0 col-sm-3 col-md-offset-0 col-md-3 col-lg-offset-0 col-lg-2 multi-search-margin-bottom">
+                    <label class="control-label" for="dateEnd" >Et le...</label>
+                    <input class="form-control" type="date" id="dateEnd" data-ng-model="$parent.multiSearch.dates.end" >
+                </div>
+                <div class="col-xs-4 col-sm-2 col-md-1 col-lg-1 multi-search-margin-bottom">
+                    <label class="control-label" >Achet&eacute;</label>
+                    <div >
+                        <button class="btn btn-success" ng-show="$parent.multiSearch.boughtSearch === true" ng-click="$parent.multiSearch.boughtSearch = false" data-ng-model="$parent.multiSearch.boughtSearch" >
+                            <img class="form-icon-btn-size" ng-src="/assets/img/correct2.png">
+                        </button>
+                        <button class="btn btn-danger" ng-show="$parent.multiSearch.boughtSearch === false" ng-click="$parent.multiSearch.boughtSearch = undefined" data-ng-model="$parent.multiSearch.boughtSearch" >
+                            <img class="form-icon-btn-size" ng-src="/assets/img/delete100.png">
+                        </button>
+                        <button class="btn btn-default" ng-show="$parent.multiSearch.boughtSearch === undefined" ng-click="$parent.multiSearch.boughtSearch = true" data-ng-model="$parent.multiSearch.boughtSearch" >
+                            <img class="form-icon-btn-size" ng-src="/assets/img/forbidden4-black.png">
+                        </button>
+                    </div>
+                </div>
+                <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/read.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/pages.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/seen.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/duration.client.view.html'" ></section>
+                <div class="col-xs-4 col-sm-2 col-md-1 col-lg-1 multi-search-margin-bottom multi-search-button-center">
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.prices.type === 'exact'" ng-click="$parent.multiSearch.prices.type = 'more'" data-ng-model="$parent.multiSearch.prices.type" >#</button>
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.prices.type === 'between'" ng-click="$parent.multiSearch.prices.type = undefined" data-ng-model="$parent.multiSearch.prices.type" >Entre</button>
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.prices.type === 'more'" ng-click="$parent.multiSearch.prices.type = 'less'" data-ng-model="$parent.multiSearch.prices.type" >Plus</button>
+                    <button class="btn btn-primary" ng-show="$parent.multiSearch.prices.type === 'less'" ng-click="$parent.multiSearch.prices.type = 'between'" data-ng-model="$parent.multiSearch.prices.type" >Moins</button>
+                    <button class="btn btn-default" ng-show="$parent.multiSearch.prices.type === undefined" ng-click="$parent.multiSearch.prices.type = 'exact'" data-ng-model="$parent.multiSearch.prices.type" >
+                        <img class="form-icon-btn-size" ng-src="/assets/img/forbidden4-black.png">
+                    </button>
+                </div>
+                <div class="col-xs-8 {{$parent.multiSearch.prices.type === 'between' ? 'col-sm-2' : 'col-sm-4' }} col-md-2 col-lg-2 multi-search-margin-bottom">
+                    <label class="control-label" for="priceStart" >Prix</label>
+                    <input ng-disabled="$parent.multiSearch.prices.type === undefined" class="form-control" type="number" id="priceStart" data-ng-model="$parent.multiSearch.prices.start" placeholder="{{$parent.multiSearch.prices.type === 'between' ? 'Entre...' : 'Prix'}}" >
+                </div>
+                <div ng-show="$parent.multiSearch.prices.type === 'between'" class="col-xs-offset-4 col-xs-8 col-sm-offset-0 col-sm-2 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2 multi-search-margin-bottom multi-search-button-center">
+                    <input class="form-control" type="number" id="priceEnd" data-ng-model="$parent.multiSearch.prices.end" placeholder="Et..." >
+                </div>
+                <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 view-field-info-margin-top ">
+                    <button data-ng-disabled="loading || !$parent.multiSearch" class="btn btn-primary pull-right" ng-click="restoreList()" >Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</section>

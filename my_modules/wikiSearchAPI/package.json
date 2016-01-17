@@ -1,0 +1,16 @@
+{
+    "name": "wiki-search-api",
+    "version": "0.0.1",
+    "author": {
+        "name": "starlight"
+    },
+    "engines": {
+        "node": "0.10.x",
+        "npm": "2.5.x"
+    },
+    "main": "./lib/mediaWikiApi.js",
+    "description": "MediaWiki Search only API.",
+    "dependencies": {
+        "request": "2.53.x"
+    }
+}

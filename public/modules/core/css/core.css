@@ -1,0 +1,87 @@
+.content {
+    margin-top: 50px;
+}
+.undecorated-link:hover {
+    text-decoration: none;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+.ng-invalid.ng-dirty {
+    border-color: #FA787E;
+}
+.ng-valid.ng-dirty {
+    border-color: #78FA89;
+}
+
+.thumbnail-image-size {
+    max-height: 200px;
+    max-width: 127px;
+}
+
+.micro-margin-top {
+    margin-top: 2%;
+}
+
+.elements-margin-top {
+    margin-top: 5%;
+}
+
+.dashbord-div {
+    margin-top: 5%;
+}
+
+.dashbord-div a {
+    height: auto;
+    width: auto;
+}
+
+
+.dashbord-div a img {
+    height: 100%;
+    width: 100%;
+}
+
+.dashbord-div a:active img {
+    height: 98%;
+    width: 98%;
+    margin-top: 2%;
+    margin-right: 2%;
+}
+
+.thumbnail.right-caption > a {
+    float: left;
+    margin-right: 9px;
+}
+
+.thumbnail.right-caption {
+    float: left;
+}
+
+.thumbnail.right-caption > .caption {
+    padding: 4px;
+}
+
+.hidden-op {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
+    border: none;
+    -webkit-transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -o-transition: opacity 3s ease-in-out;
+    transition: opacity 3s ease-in-out;
+}
+
+.latest-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-padding-left {
+    padding-left: 0;
+}
+

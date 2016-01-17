@@ -1,0 +1,206 @@
+<section data-ng-controller="FormTvShowsController" data-ng-init="createInit()">
+    <div ng-include="'modules/tv-shows/views/search-tv-show-modal.client.view.html'"></div>
+    <div class="page-header">
+        <h1 data-ng-bind="mainTitle"></h1>
+    </div>
+    <div ng-hide="isLoaded" class="elements-margin-top text-center col-xs-12" >
+        <img src="/assets/img/loader-large.gif">
+    </div>
+    <div class="col-xs-12" ng-show="isLoaded && !isDuplicate">
+        <h3>Rechercher une s&eacute;rie :</h3>
+        <div class="col-xs-12 input-group">
+            <input type="text" data-ng-model="mediaModel.searchTvShow" id="search-tv-show" class="form-control" placeholder="Entrez un titre">
+            <span class="input-group-btn">
+                <button class="btn btn-info" id="searchByTitle" type="button" data-ng-disabled="!mediaModel.searchTvShow" ng-click="searchTVShowsByTitle();" >
+                    <img class="form-icon-btn-size" ng-src="/assets/img/magnifier13.png">
+                </button>
+            </span>
+        </div>
+    </div>
+    <div data-ng-show="isLoaded" class="col-xs-12">
+        <fieldset>
+            <div class="form-group">
+                <div class="col-xs-12 col-md-6 row">
+                    <h3>Information générales</h3>
+                    <div class="col-xs-12">
+                        Note :
+                        <rating ng-model="mediaModel.tvShowRate" max="ratingMax" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                        <span class="label" ng-class="{'label-danger': overStar<3, 'label-info': overStar>=3 && overStar<7, 'label-success': overStar>=7}" ng-show="overStar && !isReadonly">{{overStar}}/{{ratingMax}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <label class="control-label" for="serie">Série</label>
+                        <input type="text" data-ng-model="mediaModel.name" list="serieList" id="serie" class="form-control" placeholder="Série" required>
+                        <datalist id="serieList" >
+                            <option data-ng-repeat="serie in existingSeries" value="{{serie}}"></option>
+                        </datalist>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <label class="control-label" for="season">Saison</label>
+                        <div class="controls">
+                            <input type="number" step="1" min="0" data-ng-model="mediaModel.season" id="season" class="form-control" placeholder="#" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                        <label class="control-label" for="episodes">Épisodes</label>
+                        <div class="controls">
+                            <input type="number" step="1" min="0" data-ng-model="mediaModel.episodes" id="episodes" class="form-control" placeholder="#" tooltip-html-unsafe="{{episodeHelper}}"  tooltip-trigger="focus" tooltip-placement="bottom" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                        <label class="control-label" for="price" >Prix</label>
+                        <div class="controls">
+                            <input type="number" step="0.01" min="0" data-ng-model="mediaModel.price" id="price" class="form-control" placeholder="$">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                        <label class="control-label" for="lastSeen" >Dernier vu</label>
+                        <div class="controls">
+                            <button ng-hide="isLastSeen" class="btn btn-default" ng-click="isLastSeen = !isLastSeen">
+                                <img class="" ng-src="/assets/img/forbidden4-black.png">
+                            </button>
+                            <input ng-show="isLastSeen" type="number" step="1" min="0" data-ng-model="mediaModel.lastSeen" id="lastSeen" class="form-control" placeholder="#">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label" for="producer">Producteur</label>
+                    </div>
+                    <div class="col-xs-12" ng-repeat="item in mediaModel.producersList"  >
+                        <div class="input-group">
+                            <input type="text" ng-model="item" ng-blur="updateField('producersList', $index, item)" class="form-control " >
+                            <span class="input-group-btn">
+                                <button class="pull-right btn btn-danger" type="button" ng-click="deleteField('producersList', $index)" >
+                                    <img class="form-icon-btn-size" ng-src="/assets/img/delete96.png">
+                                </button>
+                            </span>
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <input type="text" data-ng-model="mediaModel.producer" id="producer" class="form-control" placeholder="Producteur">
+                            <span class="input-group-btn">
+                                <button class="pull-right btn btn-success" id="addProducorBtn" type="button" data-ng-disabled="checkField('producer')" ng-click="addField('producersList', 'producer')" >
+                                    <img class="form-icon-btn-size" ng-src="/assets/img/plus24.png">
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label" for="actor">Acteur</label>
+                    </div>
+                    <div class="col-xs-12" ng-repeat="item in mediaModel.actorsList"  >
+                        <div class="input-group">
+                            <input type="text" ng-model="item" ng-blur="updateField('actorsList', $index, item)" class="form-control " >
+                            <span class="input-group-btn">
+                                <button class="pull-right btn btn-danger" type="button" ng-click="deleteField('actorsList', $index)" >
+                                    <img class="form-icon-btn-size" ng-src="/assets/img/delete96.png">
+                                </button>
+                            </span>
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <input type="text" data-ng-model="mediaModel.actor" id="actor" class="form-control" placeholder="Acteur">
+                            <span class="input-group-btn">
+                                <button class="pull-right btn btn-success" id="addActorBtn" type="button" data-ng-disabled="checkField('actor')" ng-click="addField('actorsList', 'actor')" >
+                                    <img class="form-icon-btn-size" ng-src="/assets/img/plus24.png">
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label" for="creator">Cr&eacute;ateur</label>
+                    </div>
+                    <div class="col-xs-12" ng-repeat="item in mediaModel.creatorsList" >
+                        <div class="input-group">
+                            <input type="text" ng-model="item" ng-blur="updateField('creatorsList', $index, item)" class="form-control " >
+                            <span class="input-group-btn">
+                                <button class="pull-right btn btn-danger" type="button" ng-click="deleteField('creatorsList', $index)" >
+                                    <img class="form-icon-btn-size" ng-src="/assets/img/delete96.png">
+                                </button>
+                            </span>
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <input type="text" data-ng-model="mediaModel.creator" id="creator" class="form-control" placeholder="Créateur">
+                            <span class="input-group-btn">
+                                <button class="pull-right btn btn-success" id="addCreatorBtn" type="button" data-ng-disabled="checkField('creator')" ng-click="addField('creatorsList', 'creator')" >
+                                    <img class="form-icon-btn-size" ng-src="/assets/img/plus24.png">
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 row">
+                    <h3>Informations supplémentaires</h3>
+                    <div class="col-xs-6 col-md-5">
+                        <label class="control-label" for="channel">Chaine</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="mediaModel.channel" id="channel" class="form-control" placeholder="Chaine">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <label class="control-label" for="duration">Durée</label>
+                        <div class="controls">
+                            <input type="number" step="1" min="0" data-ng-model="mediaModel.duration" id="duration" class="form-control" placeholder="en minute" tooltip="{{durationHelper}}" tooltip-trigger="focus" tooltip-placement="bottom" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <label class="control-label" for="year" >Année</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="mediaModel.year" id="year" class="form-control" placeholder="Année" >
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8">
+                        <label class="control-label" >Image</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="mediaModel.cover" id="cover" class="form-control" placeholder="http://" >
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-2">
+                        <label class="control-label" >Vu</label>
+                        <div >
+                            <button class="btn btn-success" ng-show="mediaModel.seen === 'SEEN'" ng-click="mediaModel.seen = 'ONGOING'" data-ng-model="mediaModel.seen" >
+                                <img class="form-icon-btn-size" ng-src="/assets/img/view8.png">
+                            </button>
+                            <button class="btn btn-info" ng-show="mediaModel.seen === 'ONGOING'" ng-click="mediaModel.seen = 'NOTSEEN'" data-ng-model="mediaModel.seen" >
+                                <img class="form-icon-btn-size" ng-src="/assets/img/widescreen11.png">
+                            </button>
+                            <button class="btn btn-danger" ng-show="mediaModel.seen === 'NOTSEEN'" ng-click="mediaModel.seen = 'SEEN'" data-ng-model="mediaModel.seen" >
+                                <img class="form-icon-btn-size" ng-src="/assets/img/eye48.png">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-2">
+                        <label class="control-label" >Acheté</label>
+                        <div>
+                            <button class="btn btn-success" ng-show="mediaModel.bought === true" ng-click="mediaModel.bought = false" data-ng-model="mediaModel.bought" >
+                                <img class="form-icon-btn-size" ng-src="/assets/img/correct2.png">
+                            </button>
+                            <button class="btn btn-danger" ng-show="mediaModel.bought === false" ng-click="mediaModel.bought = true" data-ng-model="mediaModel.bought" >
+                                <img class="form-icon-btn-size" ng-src="/assets/img/delete100.png">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label" for="summary">Résumé</label>
+                        <div class="controls">
+                            <textarea class="summary-textarea form-control text" id="summary" data-ng-model="mediaModel.summary" placeholder="Résumé" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <section data-ng-include="'modules/common/custom-fields/views/custom-fields.client.view.html'"></section>
+                <div class="col-xs-12 form-group">
+                    <input type="submit" ng-click="create();" value="Valider" class="btn btn-success pull-right view-field-info-margin-right view-field-info-margin-top">
+                    <input type="submit" ng-click="cancelPage();" value="Annuler" class="btn btn-danger pull-right view-field-info-margin-right view-field-info-margin-top">
+                </div>
+                <div data-ng-show="error" class="text-danger col-md-12">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</section>

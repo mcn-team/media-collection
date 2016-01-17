@@ -1,0 +1,22 @@
+.feed-fade-out {
+    opacity: 0;
+    border: none;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+.feed-fade-in {
+    opacity: 1;
+    border: none;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+.feed-controls {
+    opacity: 0.2;
+    cursor: pointer;
+}

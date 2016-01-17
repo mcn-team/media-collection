@@ -1,0 +1,61 @@
+<section data-ng-controller="ListBooksController as ListBookCtrl" ng-show="authentication.user" data-ng-init="find()">
+    <div class="page-header">
+        <h1>
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-model="multiSearchOn" ng-click="multiSearchOn = !multiSearchOn" >{{multiSearchOn ? 'Recherche rapide' : 'Recherche multi-critères'}}</button>
+            Mes Livres
+        </h1>
+    </div>
+    <div ng-hide="isLoaded" class="elements-margin-top text-center" >
+        <img src="/assets/img/loader-large.gif">
+    </div>
+
+    <!-- Panneau de recherche rapide -->
+
+    <div  class="col-md-12 listBookFilter" ng-show="!multiSearchOn && isLoaded">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" >Recherche rapide</h3>
+            </div>
+            <div class="panel-body">
+                <div class="quicksearch-input col-xs-12 col-sm-5 col-md-4 col-lg-3 ">
+                    <input class="form-control" id="searchBookInput" name="searchBookInput" ng-model="search" placeholder="Search...">
+                </div>
+                <div ng-show="search" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                <span class="list-group-item" >
+                    {{filteredBooks.length}}
+                    <span ng-show="filteredBooks.length > 1"> correspondances</span>
+                    <span ng-show="filteredBooks.length < 2"> correspondance</span>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- panneau de recherche multi-critères -->
+
+    <section data-ng-include="'modules/common/multi-search/views/multi-search.client.view.html'"></section>
+
+    <!-- Liste des livres -->
+
+    <div ng-show="isLoaded" class="col-md-12 view-field-info-margin-top list-group">
+        <a data-ng-repeat="book in filteredBooks = (multiSearch ? (books | MultiSearchFilter:multiSearch) : (books | listBookFilter:search))"
+           data-ng-href="#!/books/{{book._id}}" class="list-group-item">
+            <div class="media">
+                <div class="hidden-xs media-left media-middle">
+                    <img class="list-cover-size" ng-src="{{book.cover}}">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading list-title" data-ng-bind="book.collectionName ? book.collectionName + ' T. ' + book.volume + (book.title ? ' : ' + book.title : '') : book.title" ></h4>
+                    <p ng-show="book.authors" class="list-group-item-text"><span class="list-people">Auteur(s) :</span> {{formatAuthors(book.authors)}}</p>
+                    <p ng-show="book.publisher" class="list-group-item-text"><span class="list-people">&Eacute;diteur :</span> {{book.publisher}}</p>
+                    <h6 ng-show="book.summary" class="list-group-item-text" data-ng-bind="book.summary.TruncIsh(450)" ></h6>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Panneau des statistiques -->
+
+    <section data-ng-include="'modules/common/statistics-panel/views/statistics-panel.client.view.html'" ></section>
+</section>

@@ -1,0 +1,30 @@
+<script type="text/ng-template" id="searchTvShowModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Liste de correspondance</h3>
+    </div>
+    <div ng-show="!nothingFound" class="modal-body">
+        <ul>
+            <li ng-repeat="tvShow in tvShowList">
+                <a class="collection-header-field" ng-click="getTvShowInfo(tvShow);">{{ tvShow.title ? tvShow.title : tvShow.originalTitle }}</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="nothingFound" class="modal-body">
+        <p>Aucune correspondance trouv&eacute;e pour : {{stringSearched}}</p>
+    </div>
+    <div collapse="isCollapsed">
+        <div class="media well">
+            <div class="media-left media-middle">
+                <img ng-show="selected.tvShow.coverHref" class="media-object list-cover-size" ng-src="{{selected.tvShow.coverHref}}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading" ng-bind="selected.tvShow.title ? selected.tvShow.title : selected.tvShow.originalTitle"></h4>
+                <small class="list-group-item-text" data-ng-bind="selected.tvShow.summary"></small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-show="!nothingFound" class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

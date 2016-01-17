@@ -1,0 +1,19 @@
+<section ng-class="ngClass" ng-controller="myApiFilmController">
+    <link rel="stylesheet" type="text/css" href="http://cdn.traileraddict.com/css/rembed.css">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+        <h2>
+            <span class="list-title">Dernier Trailers</span>
+            <img ng-click="nextFeed()" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
+            <img ng-hide="trailerProp.isPaused" ng-click="pauseFeed()" ng-src="/assets/img/pause3.png" class="feed-controls pull-right" >
+            <img ng-show="trailerProp.isPaused" ng-click="pauseFeed()" ng-src="/assets/img/play48.png" class="feed-controls pull-right" >
+            <img ng-click="previousFeed()" ng-src="/assets/img/leftarrow7.png" class="feed-controls pull-right" >
+        </h2>
+        <h4>
+            <a href="{{trailers[trailerProp.idx].link}}" class="latest-title">{{trailers[trailerProp.idx].title}}</a>
+        </h4>
+        <div class="outer-embed-ta" ng-class="trailerProp.ngClass">
+            <iframe width="100%" ng-src="{{trustSrc(trailers[trailerProp.idx].trailerLink)}}" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="false" scrolling="no" class="embed-ta"></iframe>
+        </div>
+        <p>Trailer from <a href="http://www.traileraddict.com/trailerapi">Trailer Addict</a>, featured by <a href="http://www.myapifilms.com/taapi.jsp">myApiFilm.com</a>.</p>
+    </div>
+</section>

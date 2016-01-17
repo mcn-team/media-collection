@@ -1,0 +1,90 @@
+<section ng-controller="rssFeedController">
+    <div class="col-xs-12 col-md-6 row">
+        <div class="col-xs-12">
+            <h2>
+                <a href="http://www.planetebd.com">{{formatFeedTitle(feeds['sortie_bd'].feed.title)}}</a>
+                <img ng-click="nextFeed('sortie_bd')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
+                <img ng-hide="feedsProperties['sortie_bd'].isPaused" ng-click="pauseFeed('sortie_bd')" ng-src="/assets/img/pause3.png" class="feed-controls pull-right" >
+                <img ng-show="feedsProperties['sortie_bd'].isPaused" ng-click="pauseFeed('sortie_bd')" ng-src="/assets/img/play48.png" class="feed-controls pull-right" >
+                <img ng-click="previousFeed('sortie_bd')" ng-src="/assets/img/leftarrow7.png" class="feed-controls pull-right" >
+            </h2>
+            <div ng-class="feedsProperties['sortie_bd'].ngClass" class="media" >
+                <div class="media-left media-middle">
+                <a href="{{feeds['sortie_bd'].feed.entries[feedsProperties['sortie_bd'].idx].link}}">
+                    <img class="media-object" ng-src="{{parseRssFeedContent(feeds['sortie_bd'].feed.entries[feedsProperties['sortie_bd'].idx].content).img}}" alt="...">
+                </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="{{feeds['sortie_bd'].feed.entries[feedsProperties['sortie_bd'].idx].link}}" target="_blank">{{feeds['sortie_bd'].feed.entries[feedsProperties['sortie_bd'].idx].title}}</a></h4>
+                    <h5 class="hidden-xs" >{{parseRssFeedContent(feeds['sortie_bd'].feed.entries[feedsProperties['sortie_bd'].idx].content).summary.TruncIsh(250)}}</h5>
+                    <p ><b>{{parseRssFeedContent(feeds['sortie_bd'].feed.entries[feedsProperties['sortie_bd'].idx].content).author}}</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <h2>
+                <a href="http://www.planetebd.com">{{formatFeedTitle(feeds['sortie_manga'].feed.title)}}</a>
+                <img ng-click="nextFeed('sortie_manga')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
+                <img ng-hide="feedsProperties['sortie_manga'].isPaused" ng-click="pauseFeed('sortie_manga')" ng-src="/assets/img/pause3.png" class="feed-controls pull-right" >
+                <img ng-show="feedsProperties['sortie_manga'].isPaused" ng-click="pauseFeed('sortie_manga')" ng-src="/assets/img/play48.png" class="feed-controls pull-right" >
+                <img ng-click="previousFeed('sortie_manga')" ng-src="/assets/img/leftarrow7.png" class="feed-controls pull-right" >
+            </h2>
+            <div ng-class="feedsProperties['sortie_manga'].ngClass" class="media">
+                <div class="media-left media-middle">
+                    <a href="{{feeds['sortie_manga'].feed.entries[feedsProperties['sortie_manga'].idx].link}}">
+                        <img class="media-object" ng-src="{{parseRssFeedContent(feeds['sortie_manga'].feed.entries[feedsProperties['sortie_manga'].idx].content).img}}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="{{feeds['sortie_manga'].feed.entries[feedsProperties['sortie_manga'].idx].link}}" target="_blank">{{feeds['sortie_manga'].feed.entries[feedsProperties['sortie_manga'].idx].title}}</a></h4>
+                    <h5 class="hidden-xs" >{{parseRssFeedContent(feeds['sortie_manga'].feed.entries[feedsProperties['sortie_manga'].idx].content).summary.TruncIsh(250)}}</h5>
+                    <p ><b>{{parseRssFeedContent(feeds['sortie_manga'].feed.entries[feedsProperties['sortie_manga'].idx].content).author}}</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6 row">
+        <div class="col-xs-12">
+            <h2>
+                <a href="http://www.fnac.com">Fnac - Nouveaut&eacute;s Films</a>
+                <img ng-click="nextFeed('sortie_film')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
+                <img ng-hide="feedsProperties['sortie_film'].isPaused" ng-click="pauseFeed('sortie_film')" ng-src="/assets/img/pause3.png" class="feed-controls pull-right" >
+                <img ng-show="feedsProperties['sortie_film'].isPaused" ng-click="pauseFeed('sortie_film')" ng-src="/assets/img/play48.png" class="feed-controls pull-right" >
+                <img ng-click="previousFeed('sortie_film')" ng-src="/assets/img/leftarrow7.png" class="feed-controls pull-right" >
+            </h2>
+            <div ng-class="feedsProperties['sortie_film'].ngClass" class="media">
+                <div class="media-left media-middle">
+                    <a href="{{feeds['sortie_film'].feed.entries[feedsProperties['sortie_film'].idx].link}}">
+                        <img class="media-object" ng-src="{{parseFnacFeedContent(feeds['sortie_film'].feed.entries[feedsProperties['sortie_film'].idx].content).img}}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="{{feeds['sortie_film'].feed.entries[feedsProperties['sortie_film'].idx].link}}" target="_blank">{{feeds['sortie_film'].feed.entries[feedsProperties['sortie_film'].idx].title}}</a></h4>
+                    <h5 class="hidden-xs">{{parseFnacFeedContent(feeds['sortie_film'].feed.entries[feedsProperties['sortie_film'].idx].content).description.TruncIsh(250) || 'Aucun Résumé'}}</h5>
+                    <p ><b>{{parseFnacFeedContent(feeds['sortie_film'].feed.entries[feedsProperties['sortie_film'].idx].content).price}}</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <h2>
+                <a href="http://www.fnac.com">Fnac - Nouveaut&eacute;s S&eacute;ries</a>
+                <img ng-click="nextFeed('sortie_series')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
+                <img ng-hide="feedsProperties['sortie_series'].isPaused" ng-click="pauseFeed('sortie_series')" ng-src="/assets/img/pause3.png" class="feed-controls pull-right" >
+                <img ng-show="feedsProperties['sortie_series'].isPaused" ng-click="pauseFeed('sortie_series')" ng-src="/assets/img/play48.png" class="feed-controls pull-right" >
+                <img ng-click="previousFeed('sortie_series')" ng-src="/assets/img/leftarrow7.png" class="feed-controls pull-right" >
+            </h2>
+            <div ng-class="feedsProperties['sortie_series'].ngClass" class="media" >
+                <div class="media-left media-middle">
+                    <a href="{{feeds['sortie_series'].feed.entries[feedsProperties['sortie_series'].idx].link}}">
+                        <img class="media-object" ng-src="{{parseFnacFeedContent(feeds['sortie_series'].feed.entries[feedsProperties['sortie_series'].idx].content).img}}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="{{feeds['sortie_series'].feed.entries[feedsProperties['sortie_series'].idx].link}}" target="_blank">{{feeds['sortie_series'].feed.entries[feedsProperties['sortie_series'].idx].title}}</a></h4>
+                    <h5 class="hidden-xs" >{{parseFnacFeedContent(feeds['sortie_series'].feed.entries[feedsProperties['sortie_series'].idx].content).description.TruncIsh(250) || 'Aucun Résumé'}}</h5>
+                    <p ><b>{{parseFnacFeedContent(feeds['sortie_series'].feed.entries[feedsProperties['sortie_series'].idx].content).price}}</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
