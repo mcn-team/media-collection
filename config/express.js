@@ -28,17 +28,16 @@ module.exports = function(db) {
     var app = express();
 
     // Globbing model files
-    config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
-        require(path.resolve(modelPath));
-    });
+    require('../app/models/user.server.model');
+    require('../app/models/book.server.model');
+    require('../app/models/movie.server.model');
+    require('../app/models/series.server.model');
+    require('../app/models/tv-show.server.model');
 
     // Setting application local variables
     app.locals.title = config.app.title;
     app.locals.description = config.app.description;
     app.locals.keywords = config.app.keywords;
-//    app.locals.facebookAppId = config.facebook.clientID;
-    app.locals.jsFiles = config.getJavaScriptAssets();
-    app.locals.cssFiles = config.getCSSAssets();
 
     // Passing the request url to environment locals
     app.use(function(req, res, next) {
@@ -114,9 +113,15 @@ module.exports = function(db) {
     app.use(express.static(path.resolve('./public')));
 
     // Globbing routing files
-    config.getGlobbedFiles('./app/routes/**/*.js').forEach(function(routePath) {
-        require(path.resolve(routePath))(app);
-    });
+    require('../app/routes/allocine-api.server.routes')(app);
+    require('../app/routes/books.server.routes')(app);
+    require('../app/routes/core.server.routes')(app);
+    require('../app/routes/lang.server.routes')(app);
+    require('../app/routes/movies.server.routes')(app);
+    require('../app/routes/my-api-film-api.server.routes')(app);
+    require('../app/routes/series.server.routes')(app);
+    require('../app/routes/tv-shows.server.routes')(app);
+    require('../app/routes/users.server.routes')(app);
 
     // Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
     app.use(function(err, req, res, next) {
