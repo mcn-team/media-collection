@@ -29,3 +29,4 @@ node_modules
 public/lib/
 .idea/
 .editorconfig
+public/index.html

@@ -110,6 +110,7 @@ module.exports = function(db) {
     app.disable('x-powered-by');
 
     // Setting the app router and static folder
+    console.log(path.resolve('./public'));
     app.use(express.static(path.resolve('./public')));
 
     // Globbing routing files

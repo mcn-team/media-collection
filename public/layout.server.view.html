@@ -35,7 +35,13 @@
     <link href="/assets/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
     <!--Application CSS Files-->
-    {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+
+    <link rel="stylesheet" href="lib/angular/angular-csp.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.css">
+
+    <!-- inject:css -->
+    <!-- endinject -->
 
     <!-- HTML5 Shim -->
     <!--[if lt IE 9]>
@@ -47,7 +53,7 @@
     <header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
     <section class="content">
         <section class="container">
-            {% block content %}{% endblock %}
+            <section data-ui-view></section>
         </section>
     </section>
 
@@ -57,12 +63,23 @@
     </script>
 
     <!--Application JavaScript Files-->
-    {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
-    {% if process.env.NODE_ENV === 'development' %}
-    <!--Livereload script rendered -->
-    <script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>
-    {% endif %}
+    <script type="text/javascript" src="lib/angular/angular.js" ></script>
+    <script type="text/javascript" src="lib/angular-animate/angular-animate.js" ></script>
+    <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js" ></script>
+    <script type="text/javascript" src="lib/angular-cookies/angular-cookies.js" ></script>
+    <script type="text/javascript" src="lib/angular-mocks/ngMock.js" ></script>
+    <script type="text/javascript" src="lib/angular-resource/angular-resource.js" ></script>
+    <script type="text/javascript" src="lib/angular-sanitize/angular-sanitize.js" ></script>
+    <script type="text/javascript" src="lib/angular-touch/angular-touch.js" ></script>
+    <script type="text/javascript" src="lib/angular-ui-router/release/angular-ui-router.js" ></script>
+    <script type="text/javascript" src="lib/angular-ui-utils/ui-utils.js" ></script>
+    <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" src="lib/jquery/dist/jquery.min.js" ></script>
+
+    <!-- inject:js -->
+    <!-- endinject -->
+
 </body>
 
 </html>
