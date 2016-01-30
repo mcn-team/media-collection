@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = {
-//    db: 'mongodb://localhost/mediacollection-dev',
-    db: 'mongodb://meanproj:m34npr0j@dogen.mongohq.com:10003/mean-db-test',
+    db: 'mongodb://localhost:27017/mc',
     app: {
         title: 'MediaCollection - Development Environment'
     },
