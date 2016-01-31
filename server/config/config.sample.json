@@ -1,0 +1,23 @@
+{
+  "connections": [
+    {
+      "host": "localhost",
+      "port": 4000,
+      "labels": [
+        "REST API",
+        "API"
+      ],
+      "routes": {
+        "cors": {
+          "origin": [
+            "http://localhost:*"
+          ]
+        }
+      }
+    }
+  ],
+  "dbConnectionString": "mongodb://localhost:27017/mc",
+  "colors": true,
+  "secretJWT": "123456",
+  "clientPath": "webapp"
+}
