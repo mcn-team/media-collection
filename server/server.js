@@ -5,11 +5,16 @@ const _ = require('lodash');
 const Chalk = require('chalk');
 const config = require('./config');
 
+// Create the HAPI server and set his parameters if needed
 const server = new Hapi.Server();
 
+// Set the different server listeners
 _.forEach(config.connections, (element) => {
     server.connection(element);
 });
+
+// Call all initialisation modules
+require('./init');
 
 Chalk.enabled = config.colors;
 
