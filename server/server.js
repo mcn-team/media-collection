@@ -14,7 +14,7 @@ _.forEach(config.connections, (element) => {
 });
 
 // Call all initialisation modules
-require('./init');
+require('./init')(server);
 
 Chalk.enabled = config.colors;
 
