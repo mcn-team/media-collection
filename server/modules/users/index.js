@@ -2,8 +2,8 @@
 
 const userModule = {
     register: (server, options, next) => {
-        //req model
-        //req routes
+        require('./model');
+        require('./routes')(server);
         next();
     }
 };
