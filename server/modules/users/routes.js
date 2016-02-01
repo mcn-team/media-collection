@@ -6,11 +6,11 @@ module.exports = (server) => {
     server.route({
         method: 'POST',
         path: '/signup',
-        //config: {
-        //    pre: [
-        //        { method: () => {}, assign: 'userExists' }
-        //    ]
-        //},
         handler: users.signUpUser
+    });
+    server.route({
+        method: 'POST',
+        path: '/login',
+        handler: users.logInUser
     });
 };
