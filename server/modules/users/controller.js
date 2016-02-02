@@ -1,7 +1,6 @@
 'use strict';
 
 const userServices = require('./services');
-const logger = require('../../utils/logger');
 
 exports.signUpUser = (request, reply) => {
     userServices.addUser(request.payload, (err, res) => {
