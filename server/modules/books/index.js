@@ -2,6 +2,7 @@
 
 const bookModule = {
     register: (server, options, next) => {
+        require('./model');
         next();
     }
 };
