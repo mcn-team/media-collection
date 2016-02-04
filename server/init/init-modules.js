@@ -1,5 +1,9 @@
 'use strict';
 
 module.exports = (server) => {
-    server.register(require('../modules/users').module, require('../modules/users').options);
+    const users = require('../modules/users');
+    const books = require('../modules/books');
+
+    server.register(users.module, users.options);
+    server.register(books.module, books.options);
 };
