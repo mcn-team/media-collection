@@ -3,6 +3,7 @@
 const bookModule = {
     register: (server, options, next) => {
         require('./model');
+        require('./routes')(server);
         next();
     }
 };
