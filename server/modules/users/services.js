@@ -2,7 +2,8 @@
 
 const User = require('mongoose').model('User');
 const config = require('../../config');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
+const _ = require('lodash');
 
 exports.addUser = (payload, callback) => {
     let newUser = new User(payload);
@@ -11,7 +12,8 @@ exports.addUser = (payload, callback) => {
             callback({ error: err, code: 503 });
         } else {
             const token = jwt.sign({ user: user._id }, config.secretJWT);
-            callback(null, { data: token, code: 201 });
+            user.password = undefined;
+            callback(null, { data: { token: token, user: user }, code: 201 });
         }
     });
 };
@@ -27,7 +29,8 @@ exports.authenticateUser = (payload, callback) => {
                 callback({ error: 'Wrong password', code: 401 });
             } else {
                 const token = jwt.sign({ user: user._id }, config.secretJWT);
-                callback(null, { data: token, code: 200 });
+                user.password = undefined;
+                callback(null, { data: { token: token, user: user }, code: 200 });
             }
         }
     });

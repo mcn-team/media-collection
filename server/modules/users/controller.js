@@ -7,7 +7,7 @@ exports.signUpUser = (request, reply) => {
         if (err) {
             return reply(err.error).code(err.code);
         } else {
-            return reply(res).code(res.code);
+            return reply(res.data).code(res.code);
         }
     });
 };
@@ -17,7 +17,7 @@ exports.logInUser = (request, reply) => {
         if (err) {
             return reply(err.error).code(err.code);
         } else {
-            return reply(res).code(res.code);
+            return reply(res.data).code(res.code);
         }
     });
 };
