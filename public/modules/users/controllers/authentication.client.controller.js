@@ -11,7 +11,7 @@ angular.module('users').controller('AuthenticationController', [
 
         $scope.signup = function() {
             UserServices.signup($scope.credentials).then(function (response) {
-                $scope.authentication.user = response;
+                $scope.authentication.user = response.data.user;
                 $location.path('/');
             }, function (response) {
                 $scope.error = response.message;
@@ -20,7 +20,7 @@ angular.module('users').controller('AuthenticationController', [
 
         $scope.signin = function() {
             UserServices.login($scope.credentials).then(function (response) {
-                $scope.authentication.user = response;
+                $scope.authentication.user = response.data.user;
                 $location.path('/');
             }, function (response) {
                 $scope.error = response.message;
