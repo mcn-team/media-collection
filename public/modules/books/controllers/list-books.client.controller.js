@@ -2,9 +2,9 @@
 
 angular.module('books').controller('ListBooksController', [
     '$scope', '$location', '$anchorScroll',
-    'Authentication', 'Books', 'BooksExposed', 'StatsBookService', 'BooksDataService', 'BookServices',
+    'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices',
     function($scope, $location, $anchorScroll,
-             Authentication, Books, BooksExposed, StatisticsService, BooksDataService, BookServices) {
+             Authentication, StatisticsService, BooksDataService, BookServices) {
 
         $scope.authentication = Authentication;
         $scope.mediaType = 'Book';

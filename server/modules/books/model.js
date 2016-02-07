@@ -16,13 +16,9 @@ const bookSchema = new Schema({
     },
     collectionName: {
         type: String,
-        default:'',
         trim: true
     },
-    volume: {
-        type: Number,
-        required: 'Volume is required'
-    },
+    volume: Number,
     authors: [
         String
     ],

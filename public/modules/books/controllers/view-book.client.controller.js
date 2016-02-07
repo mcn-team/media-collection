@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('books').controller('ViewBookController', ['$scope', '$location', '$stateParams', 'Books', 'Authentication',
-    'BooksDataService', '$modal', '$log', 'BooksExposed',
-    function ($scope, $location, $stateParams, Books, Authentication, BookServices, $modal, $log, BooksExposed) {
+angular.module('books').controller('ViewBookController', [
+    '$scope', '$location', '$stateParams', '$modal', '$log',
+    'BookServices', 'Books', 'Authentication', 'BooksDataService', 'BooksExposed',
+    function ($scope, $location, $stateParams, $modal, $log, BookServices, Books, Authentication, BooksDataService, BooksExposed) {
         $scope.authentication = Authentication;
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -28,7 +29,7 @@ angular.module('books').controller('ViewBookController', ['$scope', '$location',
                 size: size,
                 resolve: {
                     BookData: function () {
-                        return BookServices.createBookFromBookModel($scope.mediaModel);
+                        return BooksDataService.createBookFromBookModel($scope.mediaModel);
                     },
                     MissingVolumes: function () {
                         return result;
@@ -48,7 +49,7 @@ angular.module('books').controller('ViewBookController', ['$scope', '$location',
                 if (result.length > 0) {
                     openAutoAddModal(size, result);
                 } else {
-                    console.log('no missing volumes previous to this one');
+                    console.log('No missing volumes previous to this one');
                     //TODO if no missing volumes previous to this one
                 }
             });
@@ -61,11 +62,14 @@ angular.module('books').controller('ViewBookController', ['$scope', '$location',
             };
 
             function findBookCallback() {
-                $scope.mediaModel = BookServices.fillBookModel($scope.book);
+                $scope.mediaModel = BooksDataService.fillBookModel($scope.book);
                 $scope.isLoaded = true;
             }
 
-            Books.get( { bookId: $stateParams.bookId } ).$promise.then(function(result) { $scope.book = result; findBookCallback(); });
+            BookServices.getBook($stateParams.bookId).then(function (result) {
+                $scope.book = result.data;
+                findBookCallback();
+            });
         };
 
         // Remove existing Book

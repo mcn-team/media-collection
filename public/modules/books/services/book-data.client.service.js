@@ -100,9 +100,6 @@ angular.module('books').factory('BooksDataService', ['Books',
             if (model.author) {
                 authorsTab.push(model.author);
             }
-            if (!model.collectionName || model.collectionName === '') {
-                model.volumeId = '-';
-            }
 
             return new Books ({
                 type: model.type,
