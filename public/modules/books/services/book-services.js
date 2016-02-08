@@ -19,6 +19,10 @@ angular.module('books').factory('BookServices', [
             return $http.post(Config.migrationApiUrl + booksEndpoint, newBook);
         };
 
+        bookServices.updateBook = function (bookId, editedBook) {
+            return $http.put(Config.migrationApiUrl + booksEndpoint + '/' + bookId, editedBook);
+        };
+
         return bookServices;
     }
 ]);

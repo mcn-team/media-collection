@@ -158,7 +158,7 @@ angular.module('books').controller('CreateBookController', [
                 $location.path('books/' + response.data._id);
                 $scope.mediaModel = {};
             }, function (errorResponse) {
-                console.log(errorResponse);
+                console.error(errorResponse);
                 $scope.error = errorResponse.data.message;
                 $scope.mediaModel.authorsList.pop();
             });

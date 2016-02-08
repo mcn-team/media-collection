@@ -18,4 +18,9 @@ module.exports = (server) => {
         path: '/{bookId}',
         handler: controller.getBook
     });
+    server.route({
+        method: 'PUT',
+        path: '/{bookId}',
+        handler: controller.updateBook
+    });
 };

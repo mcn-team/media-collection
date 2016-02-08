@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('books').controller('EditBookController', ['$scope', '$stateParams', '$location', 'Authentication', 'Books', 'BooksDataService',
-    function($scope, $stateParams, $location, Authentication, Books, BooksDataService) {
+angular.module('books').controller('EditBookController', [
+    '$scope', '$stateParams', '$location',
+    'Authentication', 'BooksDataService', 'BookServices',
+    function($scope, $stateParams, $location, Authentication, BooksDataService, BookServices) {
         $scope.authentication = Authentication;
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
@@ -22,12 +24,17 @@ angular.module('books').controller('EditBookController', ['$scope', '$stateParam
         $scope.update = function() {
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book._id = $scope.mediaModel._id;
-            book.$update(function() {
+
+            var successUpdateCallback = function (response) {
                 $location.path('books/' + book._id);
                 $scope.mediaModel = {};
-            }, function(errorResponse) {
+            };
+
+            var failureUpdateCallback = function (errorResponse) {
                 $scope.error = errorResponse.data.message;
-            });
+            };
+
+            BookServices.updateBook(book._id, book).then(successUpdateCallback, failureUpdateCallback);
         };
 
         // Find existing Book
@@ -73,11 +80,17 @@ angular.module('books').controller('EditBookController', ['$scope', '$stateParam
                 };
             }
 
-            Books.get( { bookId: $stateParams.bookId } ).$promise.then(function(result) {
-                $scope.mediaModel = BooksDataService.fillBookModel(result);
-                $scope.mediaModel._id = result._id;
+            var successGetBookCallback = function (response) {
+                $scope.mediaModel = BooksDataService.fillBookModel(response.data);
+                $scope.mediaModel._id = response.data._id;
                 getOneCallback();
-            });
+            };
+            var failureGetBookCallback = function (errorResponse) {
+                console.error(errorResponse);
+                //TODO
+            };
+
+            BookServices.getBook($stateParams.bookId).then(successGetBookCallback, failureGetBookCallback);
         };
 
         $scope.cancelEditBook = function () {
