@@ -8,19 +8,28 @@ module.exports = (server) => {
         path: '/',
         handler: controller.getAllBooks
     });
+
     server.route({
         method: 'POST',
         path: '/',
         handler: controller.createBook
     });
+
     server.route({
         method: 'GET',
         path: '/{bookId}',
         handler: controller.getBook
     });
+
     server.route({
         method: 'PUT',
         path: '/{bookId}',
         handler: controller.updateBook
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/latest',
+        handler: controller.getLatestBook
     });
 };

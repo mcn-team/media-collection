@@ -33,3 +33,9 @@ exports.updateBook = (request, reply) => {
         return commonResponse(reply, err, res);
     });
 };
+
+exports.getLatestBook = (request, reply) => {
+    services.findLatest((err, res) => {
+        return commonResponse(reply, err, res);
+    });
+};

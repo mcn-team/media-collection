@@ -47,3 +47,13 @@ exports.updateBook = (payload, callback) => {
         }
     });
 };
+
+exports.findLatest = (callback) => {
+    Book.findOne().sort('-created').exec((err, book) => {
+        if (err) {
+            callback({ error: err, code: 503 });
+        } else {
+            callback(null, { data: book, code: 200 });
+        }
+    });
+};
