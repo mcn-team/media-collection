@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'BooksExposed', 'MoviesExposed', 'TvShowsExposed',
-    'LanguagesService',
-    function($scope, Authentication, BooksExposed, MoviesExposed, TvShowsExposed, LanguagesService) {
+angular.module('core').controller('HomeController', [
+    '$scope', 'Authentication',
+    'BookServices', 'MoviesExposed', 'TvShowsExposed', 'LanguagesService',
+    function($scope, Authentication, BookServices, MoviesExposed, TvShowsExposed, LanguagesService) {
         // This provides Authentication context.
         $scope.authentication = Authentication;
         $scope.isLoaded = false;
@@ -23,7 +24,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             $scope.translation = LanguagesService.getPreloaded();
             $scope.isLoaded = true;
         }
-
 
         function getDisplayList(list) {
             var formatted = '';
@@ -53,8 +53,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                 $scope.lastTvShow = latestCallback(result, 'producers', 'show', 750);
             });
 
-            BooksExposed.lastOne().$promise.then(function(result) {
-                $scope.lastBookResult = latestCallback(result, 'authors', 'book', 240);
+            BookServices.getLatest().then(function(result) {
+                $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
             });
 
             MoviesExposed.lastOne().$promise.then(function(result) {

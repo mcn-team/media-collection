@@ -23,6 +23,10 @@ angular.module('books').factory('BookServices', [
             return $http.put(Config.migrationApiUrl + booksEndpoint + '/' + bookId, editedBook);
         };
 
+        bookServices.getLatest = function () {
+            return $http.get(Config.migrationApiUrl + booksEndpoint + '/latest');
+        };
+
         return bookServices;
     }
 ]);
