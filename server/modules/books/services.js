@@ -57,3 +57,18 @@ exports.findLatest = (callback) => {
         }
     });
 };
+
+exports.findCollectionName = (callback) => {
+    const options = {
+        collectionName: {
+            $nin: [ null, '' ]
+        }
+    };
+    Book.distinct('collectionName', options).exec((err, collections) => {
+        if (err) {
+            callback({ error: err, code: 503 });
+        } else {
+            callback(null, { data: collections, code: 200 });
+        }
+    });
+};

@@ -39,3 +39,9 @@ exports.getLatestBook = (request, reply) => {
         return commonResponse(reply, err, res);
     });
 };
+
+exports.getCollectionNamesList = (request, reply) => {
+    services.findCollectionName((err, res) => {
+        return commonResponse(reply, err, res);
+    });
+};

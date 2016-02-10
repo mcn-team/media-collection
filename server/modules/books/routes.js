@@ -32,4 +32,10 @@ module.exports = (server) => {
         path: '/latest',
         handler: controller.getLatestBook
     });
+
+    server.route({
+        method: 'GET',
+        path: '/names',
+        handler: controller.getCollectionNamesList
+    });
 };
