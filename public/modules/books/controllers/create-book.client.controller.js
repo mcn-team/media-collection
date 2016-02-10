@@ -39,7 +39,9 @@ angular.module('books').controller('CreateBookController', [
                 $scope.mediaModel[val] = {};
             };
 
-            $scope.listExisting = BooksExposed.getCollectionNames();
+            BookServices.getCollectionNames().then(function (result) {
+                $scope.listExisting = result.data;
+            });
 
             $scope.mediaModel = {
                 authorsList: [],

@@ -27,6 +27,10 @@ angular.module('books').factory('BookServices', [
             return $http.get(Config.migrationApiUrl + booksEndpoint + '/latest');
         };
 
+        bookServices.getCollectionNames = function () {
+            return $http.get(Config.migrationApiUrl + booksEndpoint + '/names');
+        };
+
         return bookServices;
     }
 ]);
