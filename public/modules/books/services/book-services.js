@@ -31,6 +31,10 @@ angular.module('books').factory('BookServices', [
             return $http.get(Config.migrationApiUrl + booksEndpoint + '/names');
         };
 
+        bookServices.getBookByISBN = function (isbn) {
+            return $http.get(Config.migrationApiUrl + '/isbn/' + isbn);
+        };
+
         return bookServices;
     }
 ]);

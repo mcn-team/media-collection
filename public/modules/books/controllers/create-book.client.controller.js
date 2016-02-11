@@ -2,8 +2,8 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$modal', 'BookServices',
-    'Authentication', 'BooksDataService', 'BooksExposed', 'WikipediaExposed',
-    function($scope, $location, $modal, BookServices, Authentication, BooksDataService, BooksExposed, WikipediaExposed) {
+    'Authentication', 'BooksDataService', 'WikipediaExposed',
+    function($scope, $location, $modal, BookServices, Authentication, BooksDataService, WikipediaExposed) {
         $scope.authentication = Authentication;
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -87,13 +87,9 @@ angular.module('books').controller('CreateBookController', [
             };
 
             $scope.searchByIsbn = function() {
-                BooksExposed.getBookByISBN( { isbn: $scope.mediaModel.searchIsbn } ).$promise.then(function(result) {
-                    if (result.error) {
-                        $scope.error = result.error;
-                    } else {
-                        $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
-                        $scope.mediaModel = BooksDataService.fillBookModel(result);
-                    }
+                BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
+                    $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
+                    $scope.mediaModel = BooksDataService.fillBookModel(response.data);
                 });
             };
 
