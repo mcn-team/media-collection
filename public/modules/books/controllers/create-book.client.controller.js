@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('books').controller('CreateBookController', [
-    '$scope', '$location', '$modal', 'BookServices',
-    'Authentication', 'BooksDataService', 'WikipediaExposed',
-    function($scope, $location, $modal, BookServices, Authentication, BooksDataService, WikipediaExposed) {
+    '$scope', '$location', '$modal', 'Authentication',
+    'BookServices', 'BooksDataService',
+    function($scope, $location, $modal, Authentication, BookServices, BooksDataService) {
         $scope.authentication = Authentication;
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -29,7 +29,6 @@ angular.module('books').controller('CreateBookController', [
                 $scope.isLoaded = true;
                 $scope.isCustomField = $scope.mediaModel.customFields ? true : false;
             }
-
 
             $scope.addCustomField = function (key, val) {
                 if (!$scope.mediaModel[key]) {
@@ -94,14 +93,14 @@ angular.module('books').controller('CreateBookController', [
             };
 
             $scope.searchByTitle = function () {
-                WikipediaExposed.searchByTitle({ typeSearch: 'books', toSearch: $scope.mediaModel.searchTitle }).$promise.then(function (result) {
+                BookServices.wikiSearchByTitle($scope.mediaModel.searchTitle).then(function (response) {
                     var modal = $modal.open({
                         templateUrl: 'apiSearchClientModal.html',
                         controller: 'ApiSearchModalController',
                         size: 'lg',
                         resolve: {
                             WikipediaChoices: function () {
-                                return result;
+                                return response.data;
                             }
                         }
                     });
@@ -115,7 +114,6 @@ angular.module('books').controller('CreateBookController', [
             };
 
             //Author fields
-
             $scope.addAuthorField = function() {
                 if (!$scope.mediaModel.authorsList){
                     $scope.mediaModel.authorsList = [];

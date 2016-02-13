@@ -44,6 +44,14 @@ angular.module('books').factory('BookServices', [
             return $http.get(Config.migrationApiUrl + endpoint + route);
         };
 
+        bookServices.wikiSearchByTitle = function (title) {
+            return $http.get(Config.migrationApiUrl + '/wiki/title/' + title);
+        };
+
+        bookServices.wikiSearchById = function (id) {
+            return $http.get(Config.migrationApiUrl + '/wiki/type/book/id/' + id);
+        };
+
         return bookServices;
     }
 ]);
