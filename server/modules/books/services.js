@@ -62,7 +62,32 @@ exports.findCollections = (callback) => {
     const aggregation = [{
         $group: {
             _id: "$collectionName",
-            data: { $push: "$$ROOT" }
+            data: { $push: "$$ROOT" },
+            boughtTotal: {
+                $sum: {
+                    $cond: { if: { $eq: [ "$bought", true ] }, then: 1, else: 0 }
+                }
+            },
+            toBoughtTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ "$bought", false ] }, 1, 0 ]
+                }
+            },
+            readTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ '$read', 'READ' ] }, 1, 0 ]
+                }
+            },
+            notReadTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ '$read', 'NOTREAD' ] }, 1, 0 ]
+                }
+            },
+            onGoingTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ '$read', 'ONGOING' ] }, 1, 0 ]
+                }
+            }
         }
     }];
 
