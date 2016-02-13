@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('books').factory('BooksDataService', ['Books',
-    function(Books) {
+angular.module('books').factory('BooksDataService', [
+    'Books', 'lodash',
+    function(Books, _) {
         // Book data service logic
         // ...
 
@@ -119,6 +120,50 @@ angular.module('books').factory('BooksDataService', ['Books',
                 summary: model.summary,
                 customFields: model.customFields
             });
+        };
+
+        function sortAsc (a, b) {
+            return a - b;
+        }
+
+        function sortBooks (a, b) {
+            return a.volume - b.volume;
+        }
+
+        function sortCollections (a, b) {
+            return a.name > b.name ? 1 : -1;
+        }
+
+        bookServices.computeMissing = function (collections) {
+            collections = _.filter(collections, function (item) {
+                return item._id !== null;
+            });
+            _.forEach(collections, function (element) {
+                var volumes = [];
+
+                element.missing = 0;
+
+                _.forEach(element.data, function (book) {
+                    volumes.push(parseInt(book.volume));
+                });
+                volumes.sort(sortAsc);
+
+                for (var i = 1; i < volumes[volumes.length - 1]; i++) {
+                    if (_.indexOf(volumes, i) < 0) {
+                        element.missing += 1;
+                        element.data.push({
+                            collectionName: element._id,
+                            volume: i,
+                            bought: false
+                        });
+                    }
+                }
+                element.data.sort(sortBooks);
+            });
+
+            collections.sort(sortCollections);
+
+            return collections;
         };
 
         return bookServices;

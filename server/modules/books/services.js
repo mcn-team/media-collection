@@ -59,6 +59,7 @@ exports.findLatest = (callback) => {
 };
 
 exports.findCollections = (callback) => {
+    //try with $cond after (or before) $group
     const aggregation = [{
         $group: {
             _id: "$collectionName",
