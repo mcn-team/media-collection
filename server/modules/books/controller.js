@@ -40,7 +40,7 @@ exports.getLatestBook = (request, reply) => {
     });
 };
 
-exports.getCollections = (request, reply) => {
+exports.getCollectionsList = (request, reply) => {
     services.findCollections((err, res) => {
         return commonResponse(reply, err, res);
     });

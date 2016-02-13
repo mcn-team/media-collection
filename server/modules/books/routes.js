@@ -36,7 +36,7 @@ module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/collections',
-        handler: controller.getCollections
+        handler: controller.getCollectionsList
     });
 
     server.route({
