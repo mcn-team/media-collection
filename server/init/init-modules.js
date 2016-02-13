@@ -1,11 +1,19 @@
 'use strict';
 
+
 module.exports = (server) => {
+    const loadModules = (module) => {
+        server.register(module.module, module.options);
+        console.log(module.module.register.attributes.name + ' module loaded');
+    };
+
     const users = require('../modules/users');
     const books = require('../modules/books');
     const googleBookApi = require('../modules/google-book-api');
+    const wikipediaApi = require('../modules/wikipedia-api');
 
-    server.register(users.module, users.options);
-    server.register(books.module, books.options);
-    server.register(googleBookApi.module, googleBookApi.options);
+    loadModules(users);
+    loadModules(books);
+    loadModules(googleBookApi);
+    loadModules(wikipediaApi);
 };
