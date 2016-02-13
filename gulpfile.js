@@ -13,7 +13,7 @@ var del = require('del');
 var inject = require('gulp-inject');
 var _ = require('lodash');
 
-var JS_PATH = ['./public/**/*.js', '!./public/lib/**/*.js'];
+var JS_PATH = ['./public/**/*.js', '!./public/lib/**/*.js', '!./public/node_modules/**/*.js'];
 var CSS_PATH = ['./public/**/*.css'];
 var HTML_PATH = ['./public/**/*.html', '!./public/index.html'];
 var INJECT_PATH;
