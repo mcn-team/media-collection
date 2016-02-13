@@ -51,3 +51,9 @@ exports.getCollectionNamesList = (request, reply) => {
         return commonResponse(reply, err, res);
     });
 };
+
+exports.getCollection = (request, reply) => {
+    services.findOneCollection(request.params, (err, res) => {
+        return commonResponse(reply, err, res);
+    });
+};

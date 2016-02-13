@@ -115,3 +115,13 @@ exports.findCollectionName = (callback) => {
         }
     });
 };
+
+exports.findOneCollection = (params, callback) => {
+    Book.find({ collectionName: params.collection }).exec(function (err, collection) {
+        if (err) {
+            callback({ error: err, code: 503 });
+        } else {
+            callback(null, { data: collection, code: 200 });
+        }
+    });
+};

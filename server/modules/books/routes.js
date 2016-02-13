@@ -44,4 +44,10 @@ module.exports = (server) => {
         path: '/names',
         handler: controller.getCollectionNamesList
     });
+
+    server.route({
+        method: 'GET',
+        path: '/collections/{collection}',
+        handler: controller.getCollection
+    });
 };
