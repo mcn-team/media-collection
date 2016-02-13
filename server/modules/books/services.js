@@ -58,6 +58,23 @@ exports.findLatest = (callback) => {
     });
 };
 
+exports.findCollections = (callback) => {
+    const aggregation = [{
+        $group: {
+            _id: "$collectionName",
+            data: { $push: "$$ROOT" }
+        }
+    }];
+
+    Book.aggregate(aggregation).exec((err, collections) => {
+        if (err) {
+            callback({ error: err, code: 503 });
+        } else {
+            callback(null, { data: collections, code: 200 });
+        }
+    });
+};
+
 exports.findCollectionName = (callback) => {
     const options = {
         collectionName: {
