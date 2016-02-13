@@ -134,7 +134,7 @@ angular.module('books').factory('BooksDataService', [
             return a.name > b.name ? 1 : -1;
         }
 
-        bookServices.computeMissing = function (collections) {
+        bookServices.computeMissing = function (collections, limit) {
             collections = _.filter(collections, function (item) {
                 return item._id !== null;
             });
@@ -148,7 +148,8 @@ angular.module('books').factory('BooksDataService', [
                 });
                 volumes.sort(sortAsc);
 
-                for (var i = 1; i < volumes[volumes.length - 1]; i++) {
+                var max = limit || volumes[volumes.length - 1];
+                for (var i = 1; i < max; i++) {
                     if (_.indexOf(volumes, i) < 0) {
                         element.missing += 1;
                         element.data.push({

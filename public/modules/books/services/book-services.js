@@ -35,8 +35,13 @@ angular.module('books').factory('BookServices', [
             return $http.get(Config.migrationApiUrl + '/isbn/' + isbn);
         };
 
-        bookServices.getCollections = function () {
+        bookServices.getCollectionsList = function () {
             return $http.get(Config.migrationApiUrl + endpoint + '/collections');
+        };
+
+        bookServices.getCollection = function (collectionName, volume) {
+            var route = '/collections/' + encodeURI(collectionName) + '/volumes/' + volume;
+            return $http.get(Config.migrationApiUrl + endpoint + route);
         };
 
         return bookServices;

@@ -2,8 +2,8 @@
 
 angular.module('books').controller('ViewBookController', [
     '$scope', '$location', '$stateParams', '$modal', '$log',
-    'BookServices', 'Books', 'Authentication', 'BooksDataService', 'BooksExposed',
-    function ($scope, $location, $stateParams, $modal, $log, BookServices, Books, Authentication, BooksDataService, BooksExposed) {
+    'lodash', 'BookServices', 'Books', 'Authentication', 'BooksDataService',
+    function ($scope, $location, $stateParams, $modal, $log, _, BookServices, Books, Authentication, BooksDataService) {
         $scope.authentication = Authentication;
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -45,7 +45,14 @@ angular.module('books').controller('ViewBookController', [
         }
 
         $scope.addMissing = function (size) {
-            BooksExposed.getMissing({collection: $scope.mediaModel.collectionName, volume: $scope.mediaModel.volumeId}).$promise.then(function (result) {
+            BookServices.getCollection($scope.mediaModel.collectionName, $scope.mediaModel.volumeId).then(function (response) {
+                var data = {
+                    _id: $scope.mediaModel.collectionName,
+                    data: response.data
+                };
+                var result = _.filter(BooksDataService.computeMissing([data], $scope.mediaModel.volumeId)[0].data, function (item) {
+                    return !item.title;
+                });
                 if (result.length > 0) {
                     openAutoAddModal(size, result);
                 } else {

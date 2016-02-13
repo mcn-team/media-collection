@@ -117,7 +117,7 @@ exports.findCollectionName = (callback) => {
 };
 
 exports.findOneCollection = (params, callback) => {
-    Book.find({ collectionName: params.collection }).exec(function (err, collection) {
+    Book.find({ collectionName: params.collection, volume: { $lt: params.volume } }).exec(function (err, collection) {
         if (err) {
             callback({ error: err, code: 503 });
         } else {

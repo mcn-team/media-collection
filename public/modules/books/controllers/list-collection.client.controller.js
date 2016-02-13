@@ -19,7 +19,7 @@ angular.module('books').controller('ListCollectionController', [
             };
             $scope.books = [];
 
-            BookServices.getCollections().then(function (result) {
+            BookServices.getCollectionsList().then(function (result) {
                 $scope.collectionsList = BooksDataService.computeMissing(result.data);
                 $scope.stats = StatsBookService.calculate($scope.collectionsList);
             });
