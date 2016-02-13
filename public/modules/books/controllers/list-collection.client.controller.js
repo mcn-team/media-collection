@@ -2,8 +2,8 @@
 
 angular.module('books').controller('ListCollectionController', [
     '$scope', '$location', '$anchorScroll', 'Authentication',
-    'StatsBookService', 'BooksExposed', 'BookServices', 'BooksDataService',
-    function($scope, $location, $anchorScroll, Authentication, StatsBookService, BooksExposed, BookServices, BooksDataService) {
+    'StatsBookService', 'BookServices', 'BooksDataService',
+    function($scope, $location, $anchorScroll, Authentication, StatsBookService, BookServices, BooksDataService) {
         $scope.authentication = Authentication;
         $scope.goToStats = function() {
             $location.hash('stats');
@@ -19,16 +19,10 @@ angular.module('books').controller('ListCollectionController', [
             };
             $scope.books = [];
 
-            function getCollectionCallback() {
-                $scope.collectionTab.sort(function(a, b) { return a.name > b.name ? 1 : -1; });
-                $scope.stats = StatsBookService.calculate($scope.collectionTab);
-                $scope.isLoaded = true;
-            }
-
             BookServices.getCollections().then(function (result) {
                 $scope.collectionsList = BooksDataService.computeMissing(result.data);
+                $scope.stats = StatsBookService.calculate($scope.collectionsList);
             });
-            BooksExposed.getCollections().$promise.then(function(result){$scope.collectionTab = result; getCollectionCallback(); });
         };
     }
 ]);

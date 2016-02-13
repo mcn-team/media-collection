@@ -58,7 +58,7 @@ angular.module('books').factory('StatsBookService', [
 
         var collectionsStatistics = function (collection) {
             statistics.mediaMissing.value += collection.missing;
-            angular.forEach(collection.books, function (current) {
+            angular.forEach(collection.data, function (current) {
                 bookStatistics(current);
             });
         };
