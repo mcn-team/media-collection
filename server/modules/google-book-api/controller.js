@@ -1,13 +1,10 @@
 'use strict';
 
 const services = require('./services');
+const responseHelper = require('../../utils/response-helper');
 
 exports.getBookFromGoogle = (request, reply) => {
     services.findBookByIsbn(request.params, (err, res) => {
-        if (err) {
-            return reply(err.error).code(err.code);
-        } else {
-            return reply(res.data).code(res.code);
-        }
+        return responseHelper.controllerReply(err, res, reply);
     });
 };
