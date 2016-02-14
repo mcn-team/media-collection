@@ -1,10 +1,11 @@
 'use strict';
 
 // List Tv shows controller
-angular.module('tv-shows').controller('ListTvShowsController', ['$scope', '$location', '$anchorScroll', 'Authentication', 'TvShows',
-    'TvShowsDataService', 'StatsTvShowsService',
+angular.module('tv-shows').controller('ListTvShowsController', [
+    '$scope', '$location', '$anchorScroll', 'Authentication',
+    'TvShows', 'TvShowsDataService', 'StatsTvShowsService',
     function($scope, $location, $anchorScroll, Authentication, TvShows, TvShowsService, StatsService) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
 
         $scope.goToStats = function() {
             $location.hash('stats');

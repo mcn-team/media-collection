@@ -1,9 +1,10 @@
 'use strict';
 
 // Movies controller
-angular.module('movies').controller('EditMoviesController', ['$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies',
+angular.module('movies').controller('EditMoviesController', [
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies',
     function($scope, $stateParams, $location, Authentication, MovieDataService, Movies) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = false;
         $scope.ratingMax = 10;
         $scope.isReadonly = false;

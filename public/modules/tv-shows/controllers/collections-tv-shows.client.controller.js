@@ -4,10 +4,11 @@
 
 'use strict';
 
-angular.module('tv-shows').controller('CollectionsTvShowsController', ['$scope', '$location', '$anchorScroll', 'Authentication',
+angular.module('tv-shows').controller('CollectionsTvShowsController', [
+    '$scope', '$location', '$anchorScroll', 'Authentication',
     'TvShowsExposed', 'StatsTvShowsService',
     function ($scope, $location, $anchorScroll, Authentication, TvShowsExposed, StatsService) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.oneAtTime = true;
 
         $scope.goToStats = function() {

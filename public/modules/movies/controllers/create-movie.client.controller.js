@@ -1,10 +1,11 @@
 'use strict';
 
 // Movies controller
-angular.module('movies').controller('CreateMoviesController', ['$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication', 'Movies',
+angular.module('movies').controller('CreateMoviesController', [
+    '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication', 'Movies',
     'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MoviesExposed',
     function($scope, $stateParams, $location, $modal, $log, Authentication, Movies, AlloCineExposed, TypesMovieService, MovieDataService, MoviesExposed) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.isDuplicate = false;
         $scope.ratingMax = 10;

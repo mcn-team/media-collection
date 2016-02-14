@@ -4,7 +4,7 @@ angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$modal', 'Authentication',
     'BookServices', 'BooksDataService',
     function($scope, $location, $modal, Authentication, BookServices, BooksDataService) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
@@ -144,7 +144,7 @@ angular.module('books').controller('CreateBookController', [
 
         $scope.create = function() {
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
-            book.user = Authentication.user._id;
+            book.user = $scope.authentication.user._id;
             if (book.collectionName && !book.volume) {
                 $scope.error = 'Volume is missing';
                 return;

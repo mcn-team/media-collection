@@ -1,13 +1,10 @@
-/**
- * Created by Kaze on 24/02/2015.
- */
-
 'use strict';
 
-angular.module('series').controller('SeriesCreateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Series',
-    'SeriesDataService', 'SeriesExposed',
+angular.module('series').controller('SeriesCreateController', [
+    '$scope', '$stateParams', '$location', 'Authentication',
+    'Series', 'SeriesDataService', 'SeriesExposed',
     function($scope, $stateParams, $location, Authentication, Series, SeriesDataService, SeriesExposed) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
 
         $scope.debugFunc = function () {
             var series = SeriesDataService.createSeriesFromModel($scope.mediaModel);

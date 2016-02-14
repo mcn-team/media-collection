@@ -1,9 +1,10 @@
 'use strict';
 
 // Series controller
-angular.module('series').controller('SeriesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Series',
+angular.module('series').controller('SeriesController', [
+    '$scope', '$stateParams', '$location', 'Authentication', 'Series',
     function($scope, $stateParams, $location, Authentication, Series) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
 
         // Remove existing Series
         $scope.remove = function(series) {
