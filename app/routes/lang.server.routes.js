@@ -5,5 +5,5 @@ module.exports = function(app) {
     var lang = require('../../app/controllers/lang.server.controller');
 
     app.route('/lang')
-        .get(users.requiresLogin, lang.getLang);
+        .get(lang.getLang);
 };

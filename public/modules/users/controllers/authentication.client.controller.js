@@ -6,7 +6,7 @@ angular.module('users').controller('AuthenticationController', [
     function($scope, $http, $location, Authentication, UserServices) {
         $scope.authentication = Authentication.isAuthenticated();
 
-        if ($scope.authentication.user) {
+        if ($scope.authentication && $scope.authentication.user) {
             $location.path('/');
         }
 

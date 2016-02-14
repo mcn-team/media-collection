@@ -3,7 +3,7 @@
 angular.module('core').controller('HeaderController', [
     '$scope', 'Authentication', 'Menus',
     function($scope, Authentication, Menus) {
-        $scope.authentication = Authentication.checkAuth();
+        $scope.authentication = Authentication.isAuthenticated();
         $scope.isCollapsed = false;
         $scope.menu = Menus.getMenu('topbar');
 
