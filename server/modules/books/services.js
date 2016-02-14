@@ -2,27 +2,17 @@
 
 const Book = require('mongoose').model('Book');
 
+const responseHelper = require('../../utils/response-helper');
+
 exports.findBooks = (callback) => {
     Book.find().sort('-created').populate('user', 'displayName').exec((err, books) => {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else if (!books) {
-            callback({ error: 'No resource found', code: 404 });
-        } else {
-            callback(null, { data: books, code: 200 });
-        }
+        responseHelper.serviceCallback(err, books, 200, callback);
     });
 };
 
 exports.findOneBook = (params, callback) => {
     Book.findOne({ _id: params.bookId }).populate('user', 'displayName').exec((err, book) => {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else if (!book) {
-            callback({ error: 'No resource found', code: 404 });
-        } else {
-            callback(null, { data: book, code: 200 });
-        }
+        responseHelper.serviceCallback(err, book, 200, callback);
     });
 };
 
@@ -30,31 +20,19 @@ exports.saveBook = (payload, callback) => {
     const newBook = new Book(payload);
 
     newBook.save(function(err, book) {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: book, code: 201 });
-        }
+        responseHelper.serviceCallback(err, book, 201, callback);
     });
 };
 
 exports.updateBook = (payload, callback) => {
     Book.findOneAndUpdate({ _id: payload._id }, payload).exec(function (err, book) {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: book, code: 201 });
-        }
+        responseHelper.serviceCallback(err, book, 201, callback);
     });
 };
 
 exports.findLatest = (callback) => {
     Book.findOne().sort('-created').exec((err, book) => {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: book, code: 200 });
-        }
+        responseHelper.serviceCallback(err, book, 200, callback);
     });
 };
 
@@ -93,11 +71,7 @@ exports.findCollections = (callback) => {
     }];
 
     Book.aggregate(aggregation).exec((err, collections) => {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: collections, code: 200 });
-        }
+        responseHelper.serviceCallback(err, collections, 200, callback);
     });
 };
 
@@ -108,20 +82,12 @@ exports.findCollectionName = (callback) => {
         }
     };
     Book.distinct('collectionName', options).exec((err, collections) => {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: collections, code: 200 });
-        }
+        responseHelper.serviceCallback(err, collections, 200, callback);
     });
 };
 
 exports.findOneCollection = (params, callback) => {
     Book.find({ collectionName: params.collection, volume: { $lt: params.volume } }).exec(function (err, collection) {
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: collection, code: 200 });
-        }
+        responseHelper.serviceCallback(err, collection, 200, callback);
     });
 };

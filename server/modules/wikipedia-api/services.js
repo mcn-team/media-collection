@@ -1,5 +1,6 @@
 'use strict';
 
+const responseHelper = require('../../utils/response-helper');
 const MediaWiki = require('../../../my_modules/wikiSearchAPI/lib/mediaWikiApi');
 
 exports.findByTitle = (params, callback) => {
@@ -18,6 +19,6 @@ exports.findById = (params, callback) => {
     const WikiApi = new MediaWiki();
 
     WikiApi.searchInfoById(params.id, params.type, (response) => {
-        callback(null, { data: response, code: 200 });
+        responseHelper.serviceCallback(null, response, 200, callback);
     });
 };
