@@ -1,23 +1,16 @@
 'use strict';
 
 const userServices = require('./services');
+const responseHelper = require('../../utils/response-helper');
 
 exports.signUpUser = (request, reply) => {
     userServices.addUser(request.payload, (err, res) => {
-        if (err) {
-            return reply(err.error).code(err.code);
-        } else {
-            return reply(res.data).code(res.code);
-        }
+        return responseHelper.controllerReply(err, res, reply);
     });
 };
 
 exports.logInUser = (request, reply) => {
     userServices.authenticateUser(request.payload, (err, res) => {
-        if (err) {
-            return reply(err.error).code(err.code);
-        } else {
-            return reply(res.data).code(res.code);
-        }
+        return responseHelper.controllerReply(err, res, reply);
     });
 };

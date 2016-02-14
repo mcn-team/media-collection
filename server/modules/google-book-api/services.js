@@ -2,6 +2,7 @@
 
 const request = require('request');
 
+const responseHelper = require('../../utils/response-helper');
 const apiUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
 function parseData(json, isbn) {
@@ -48,10 +49,6 @@ exports.findBookByIsbn = (params, callback) => {
             }
         }
 
-        if (err) {
-            callback({ error: err, code: 503 });
-        } else {
-            callback(null, { data: response, code: 200 });
-        }
+        responseHelper.serviceCallback(err, response, 200, callback);
     });
 };
