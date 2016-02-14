@@ -1,4 +1,4 @@
-<section data-ng-controller="ViewBookController" ng-show="authentication.user" data-ng-init="findOneView()">
+<section data-ng-controller="ViewBookController" ng-if="authentication.user" data-ng-init="findOneView()">
     <section data-ng-include="'modules/books/views/books-auto-add.client.modal.html'"></section>
     <div data-ng-hide="isLoaded" class="elements-margin-top text-center col-xs-12" >
         <img src="/assets/img/loader-large.gif">

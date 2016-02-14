@@ -1,4 +1,4 @@
-<section data-ng-controller="ListCollectionController" ng-show="authentication.user" data-ng-init="findCollection()">
+<section data-ng-controller="ListCollectionController" ng-if="authentication.user" data-ng-init="findCollection()">
     <div class="page-header">
         <h1 >
             <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>

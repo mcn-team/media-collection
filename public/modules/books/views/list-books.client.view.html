@@ -1,4 +1,4 @@
-<section data-ng-controller="ListBooksController as ListBookCtrl" ng-show="authentication.user" data-ng-init="find()">
+<section data-ng-controller="ListBooksController as ListBookCtrl" ng-if="authentication.user" data-ng-init="find()">
     <div class="page-header">
         <h1>
             <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>

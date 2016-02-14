@@ -1,4 +1,4 @@
-<section data-ng-controller="CreateBookController" ng-show="authentication.user" data-ng-init="initCreate()">
+<section data-ng-controller="CreateBookController" ng-if="authentication.user" data-ng-init="initCreate()">
     <section data-ng-include="'modules/wikipedia-api/views/api-search.client.modal.html'" ></section>
     <div class="page-header">
         <h1 data-ng-show="mediaModel.type === 'book'" >{{isDuplicate ? 'Dupliquer un' : 'Nouveau'}} livre</h1>
