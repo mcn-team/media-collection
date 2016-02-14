@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('books').controller('ViewBookController', ['$scope', '$location', '$stateParams', 'Books', 'Authentication',
-    'BooksDataService', '$modal', '$log', 'BooksExposed',
-    function ($scope, $location, $stateParams, Books, Authentication, BookServices, $modal, $log, BooksExposed) {
+angular.module('books').controller('ViewBookController', [
+    '$scope', '$location', '$stateParams', '$modal', '$log',
+    'lodash', 'BookServices', 'Books', 'Authentication', 'BooksDataService',
+    function ($scope, $location, $stateParams, $modal, $log, _, BookServices, Books, Authentication, BooksDataService) {
         $scope.authentication = Authentication;
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -28,7 +29,7 @@ angular.module('books').controller('ViewBookController', ['$scope', '$location',
                 size: size,
                 resolve: {
                     BookData: function () {
-                        return BookServices.createBookFromBookModel($scope.mediaModel);
+                        return BooksDataService.createBookFromBookModel($scope.mediaModel);
                     },
                     MissingVolumes: function () {
                         return result;
@@ -44,11 +45,18 @@ angular.module('books').controller('ViewBookController', ['$scope', '$location',
         }
 
         $scope.addMissing = function (size) {
-            BooksExposed.getMissing({collection: $scope.mediaModel.collectionName, volume: $scope.mediaModel.volumeId}).$promise.then(function (result) {
+            BookServices.getCollection($scope.mediaModel.collectionName, $scope.mediaModel.volumeId).then(function (response) {
+                var data = {
+                    _id: $scope.mediaModel.collectionName,
+                    data: response.data
+                };
+                var result = _.filter(BooksDataService.computeMissing([data], $scope.mediaModel.volumeId)[0].data, function (item) {
+                    return !item.title;
+                });
                 if (result.length > 0) {
                     openAutoAddModal(size, result);
                 } else {
-                    console.log('no missing volumes previous to this one');
+                    console.log('No missing volumes previous to this one');
                     //TODO if no missing volumes previous to this one
                 }
             });
@@ -61,11 +69,14 @@ angular.module('books').controller('ViewBookController', ['$scope', '$location',
             };
 
             function findBookCallback() {
-                $scope.mediaModel = BookServices.fillBookModel($scope.book);
+                $scope.mediaModel = BooksDataService.fillBookModel($scope.book);
                 $scope.isLoaded = true;
             }
 
-            Books.get( { bookId: $stateParams.bookId } ).$promise.then(function(result) { $scope.book = result; findBookCallback(); });
+            BookServices.getBook($stateParams.bookId).then(function (result) {
+                $scope.book = result.data;
+                findBookCallback();
+            });
         };
 
         // Remove existing Book

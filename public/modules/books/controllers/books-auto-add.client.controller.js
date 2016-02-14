@@ -4,11 +4,11 @@
 
 'use strict';
 
-angular.module('books').controller('BookAutoAddController', ['$scope', '$modalInstance', 'BookData', 'Books', 'MissingVolumes',
-    function ($scope, $modalInstance, BookData, Books, MissingVolumes) {
+angular.module('books').controller('BookAutoAddController', [
+    '$scope', '$modalInstance', 'lodash', 'BookData', 'Books', 'MissingVolumes',
+    function ($scope, $modalInstance, _, BookData, Books, MissingVolumes) {
         $scope.listMissing = [];
 
-        console.log(BookData);
         $scope.infoMedia = [
             {key: 'type', display: 'Type', checked: true},
             {key: 'authors', display: 'Auteurs', checked: true},
@@ -24,13 +24,14 @@ angular.module('books').controller('BookAutoAddController', ['$scope', '$modalIn
             bought: BookData.bought
         };
         $scope.media = BookData;
-        for (var i = 0; i < MissingVolumes.length; i++) {
+
+        _.forEach(MissingVolumes, function (element) {
             $scope.listMissing.push({
-                displayName: $scope.media.collectionName + ' T. ' + MissingVolumes[i],
-                volumeId: MissingVolumes[i],
+                displayName: element.collectionName + ' T. ' + element.volume,
+                volumeId: element.volume,
                 isChecked: true
             });
-        }
+        });
 
         $scope.checkList = function (status) {
             angular.forEach($scope.listMissing, function (current) {

@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('books').controller('CreateBookController', ['$scope', 'Authentication',  '$location', 'Books',
-    'BooksDataService', 'BooksExposed', 'WikipediaExposed', '$modal',
-    function($scope, Authentication, $location, Books, BookServices, BooksExposed, WikipediaExposed, $modal) {
+angular.module('books').controller('CreateBookController', [
+    '$scope', '$location', '$modal', 'Authentication',
+    'BookServices', 'BooksDataService',
+    function($scope, $location, $modal, Authentication, BookServices, BooksDataService) {
         $scope.authentication = Authentication;
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -24,12 +25,10 @@ angular.module('books').controller('CreateBookController', ['$scope', 'Authentic
 
         $scope.initCreate = function() {
             function cloneCallback(result) {
-                $scope.mediaModel = BookServices.fillDupBookModel(result);
+                $scope.mediaModel = BooksDataService.fillDupBookModel(result);
                 $scope.isLoaded = true;
                 $scope.isCustomField = $scope.mediaModel.customFields ? true : false;
-                console.log($scope.mediaModel);
             }
-
 
             $scope.addCustomField = function (key, val) {
                 if (!$scope.mediaModel[key]) {
@@ -39,7 +38,9 @@ angular.module('books').controller('CreateBookController', ['$scope', 'Authentic
                 $scope.mediaModel[val] = {};
             };
 
-            $scope.listExisting = BooksExposed.getCollectionNames();
+            BookServices.getCollectionNames().then(function (result) {
+                $scope.listExisting = result.data;
+            });
 
             $scope.mediaModel = {
                 authorsList: [],
@@ -74,7 +75,7 @@ angular.module('books').controller('CreateBookController', ['$scope', 'Authentic
             if ($location.search() && $location.search().param) {
                 $scope.isDuplicate = true;
                 $scope.isLoaded = false;
-                Books.get( { bookId: $location.search().param } ).$promise.then(function(result) {
+                BookServices.getBook($location.search().param).then(function(result) {
                     cloneCallback(result);
                 });
             }
@@ -85,25 +86,21 @@ angular.module('books').controller('CreateBookController', ['$scope', 'Authentic
             };
 
             $scope.searchByIsbn = function() {
-                BooksExposed.getBookByISBN( { isbn: $scope.mediaModel.searchIsbn } ).$promise.then(function(result) {
-                    if (result.error) {
-                        $scope.error = result.error;
-                    } else {
-                        $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
-                        $scope.mediaModel = BookServices.fillBookModel(result);
-                    }
+                BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
+                    $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
+                    $scope.mediaModel = BooksDataService.fillBookModel(response.data);
                 });
             };
 
             $scope.searchByTitle = function () {
-                WikipediaExposed.searchByTitle({ typeSearch: 'books', toSearch: $scope.mediaModel.searchTitle }).$promise.then(function (result) {
+                BookServices.wikiSearchByTitle($scope.mediaModel.searchTitle).then(function (response) {
                     var modal = $modal.open({
                         templateUrl: 'apiSearchClientModal.html',
                         controller: 'ApiSearchModalController',
                         size: 'lg',
                         resolve: {
                             WikipediaChoices: function () {
-                                return result;
+                                return response.data;
                             }
                         }
                     });
@@ -117,7 +114,6 @@ angular.module('books').controller('CreateBookController', ['$scope', 'Authentic
             };
 
             //Author fields
-
             $scope.addAuthorField = function() {
                 if (!$scope.mediaModel.authorsList){
                     $scope.mediaModel.authorsList = [];
@@ -147,16 +143,18 @@ angular.module('books').controller('CreateBookController', ['$scope', 'Authentic
         // Validation du formulaire de la page Nouveau Livre
 
         $scope.create = function() {
-            var book = BookServices.createBookFromBookModel($scope.mediaModel);
-            console.log(book);
-            // Redirect after save
-            book.$save(function(response) {
-                $location.path('books/' + response._id);
+            var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
+            book.user = Authentication.user._id;
+            if (book.collectionName && !book.volume) {
+                $scope.error = 'Volume is missing';
+                return;
+            }
 
-                // Clear form fields
+            BookServices.addBook(book).then(function (response) {
+                $location.path('books/' + response.data._id);
                 $scope.mediaModel = {};
-            }, function(errorResponse) {
-                console.log(errorResponse);
+            }, function (errorResponse) {
+                console.error(errorResponse);
                 $scope.error = errorResponse.data.message;
                 $scope.mediaModel.authorsList.pop();
             });
