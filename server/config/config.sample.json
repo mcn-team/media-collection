@@ -11,6 +11,9 @@
         "cors": {
           "origin": [
             "http://localhost:*"
+          ],
+          "additionalHeaders": [
+            "auth-web-token"
           ]
         }
       }

@@ -48,16 +48,18 @@ angular.module('core').controller('HomeController', [
             return result;
         }
 
-        TvShowsExposed.getLatest().$promise.then(function (result) {
-            $scope.lastTvShow = latestCallback(result, 'producers', 'show', 750);
-        });
+        if ($scope.authentication) {
+            TvShowsExposed.getLatest().$promise.then(function (result) {
+                $scope.lastTvShow = latestCallback(result, 'producers', 'show', 750);
+            });
 
-        BookServices.getLatest().then(function(result) {
-            $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
-        });
+            BookServices.getLatest().then(function(result) {
+                $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
+            });
 
-        MoviesExposed.lastOne().$promise.then(function(result) {
-            $scope.lastMovieResult = latestCallback(result, 'actors', 'movie', 240);
-        });
+            MoviesExposed.lastOne().$promise.then(function(result) {
+                $scope.lastMovieResult = latestCallback(result, 'actors', 'movie', 240);
+            });
+        }
     }
 ]);
