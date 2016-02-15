@@ -4,7 +4,7 @@ angular.module('books').controller('EditBookController', [
     '$scope', '$stateParams', '$location',
     'Authentication', 'BooksDataService', 'BookServices',
     function($scope, $stateParams, $location, Authentication, BooksDataService, BookServices) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
 

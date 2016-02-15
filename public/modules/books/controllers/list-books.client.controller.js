@@ -3,10 +3,9 @@
 angular.module('books').controller('ListBooksController', [
     '$scope', '$location', '$anchorScroll',
     'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices',
-    function($scope, $location, $anchorScroll,
-             Authentication, StatisticsService, BooksDataService, BookServices) {
+    function($scope, $location, $anchorScroll, Authentication, StatisticsService, BooksDataService, BookServices) {
 
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Book';
 
         $scope.goToStats = function() {

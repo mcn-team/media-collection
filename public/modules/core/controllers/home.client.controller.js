@@ -5,7 +5,7 @@ angular.module('core').controller('HomeController', [
     'BookServices', 'MoviesExposed', 'TvShowsExposed', 'LanguagesService',
     function($scope, Authentication, BookServices, MoviesExposed, TvShowsExposed, LanguagesService) {
         // This provides Authentication context.
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.isAuthenticated();
         $scope.isLoaded = false;
         $scope.fadeInClass = {
             book: 'hidden-op',
@@ -48,7 +48,7 @@ angular.module('core').controller('HomeController', [
             return result;
         }
 
-        if ($scope.authentication.user) {
+        if ($scope.authentication) {
             TvShowsExposed.getLatest().$promise.then(function (result) {
                 $scope.lastTvShow = latestCallback(result, 'producers', 'show', 750);
             });
@@ -60,8 +60,6 @@ angular.module('core').controller('HomeController', [
             MoviesExposed.lastOne().$promise.then(function(result) {
                 $scope.lastMovieResult = latestCallback(result, 'actors', 'movie', 240);
             });
-        } else {
-            $scope.isLoaded = true;
         }
     }
 ]);

@@ -4,7 +4,8 @@ angular.module('books').controller('ListCollectionController', [
     '$scope', '$location', '$anchorScroll', 'Authentication',
     'StatsBookService', 'BookServices', 'BooksDataService',
     function($scope, $location, $anchorScroll, Authentication, StatsBookService, BookServices, BooksDataService) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
+
         $scope.goToStats = function() {
             $location.hash('stats');
             $anchorScroll();

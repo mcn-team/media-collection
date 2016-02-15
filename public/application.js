@@ -30,6 +30,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
     function($locationProvider, $httpProvider) {
         $locationProvider.hashPrefix('!');
         $httpProvider.defaults.useXDomain = true;
+        $httpProvider.interceptors.push('InterceptorsService');
     }
 ]);
 
