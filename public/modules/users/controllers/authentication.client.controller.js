@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('users').controller('AuthenticationController', [
-    '$scope', '$http', '$location',
+    '$scope', '$http', '$state',
     'Authentication', 'UserServices',
-    function($scope, $http, $location, Authentication, UserServices) {
+    function($scope, $http, $state, Authentication, UserServices) {
         $scope.authentication = Authentication.isAuthenticated();
 
         if ($scope.authentication && $scope.authentication.user) {
-            $location.path('/');
+            $state.go('home');
         }
 
         $scope.signup = function() {
             UserServices.signup($scope.credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
-                $location.path('/');
+                $state.go('home');
             }, function (response) {
                 $scope.error = response.message;
             });
@@ -22,7 +22,7 @@ angular.module('users').controller('AuthenticationController', [
         $scope.signin = function() {
             UserServices.login($scope.credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
-                $location.path('/');
+                $state.go('home');
             }, function (response) {
                 $scope.error = response.message;
             });
