@@ -1,9 +1,11 @@
 'use strict';
 
-const User = require('mongoose').model('User');
-const config = require('../../config');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const User = require('mongoose').model('User');
+
+const config = require('../../config');
+const responseHelper = require('../../utils/response-helper');
 
 exports.addUser = (payload, callback) => {
     let newUser = new User(payload);
@@ -33,5 +35,11 @@ exports.authenticateUser = (payload, callback) => {
                 callback(null, { data: { token: token, user: user }, code: 200 });
             }
         }
+    });
+};
+
+exports.updateUser = (params, payload, callback) => {
+    User.findOneAndUpdate({ _id: params.userId }, payload).exec((err, user) => {
+        responseHelper.serviceCallback(err, _.merge(user, payload), 200, callback);
     });
 };

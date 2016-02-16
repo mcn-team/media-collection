@@ -13,3 +13,13 @@ exports.logInPayload = {
     username: Joi.string().alphanum().trim().required(),
     password: Joi.string().required()
 };
+
+exports.userIdParams = {
+    userId: Joi.string().hex().length(24)
+};
+
+exports.updatePayload = {
+    username: Joi.string().alphanum().trim(),
+    displayName: Joi.string().alphanum().trim(),
+    email: Joi.string().email().trim()
+};

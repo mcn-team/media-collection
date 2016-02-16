@@ -14,6 +14,7 @@ module.exports = (server) => {
         },
         handler: users.signUpUser
     });
+
     server.route({
         method: 'POST',
         path: '/login',
@@ -23,5 +24,18 @@ module.exports = (server) => {
             }
         },
         handler: users.logInUser
+    });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}',
+        config: {
+            auth: 'RequiresLogin',
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.updatePayload
+            }
+        },
+        handler: users.updateUser
     });
 };

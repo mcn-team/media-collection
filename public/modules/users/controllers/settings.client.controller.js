@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('users').controller('SettingsController', [
-    '$scope', '$http', '$location', 'Users', 'Authentication',
-    function($scope, $http, $location, Users, Authentication) {
+    '$scope', '$http', '$location', 'Authentication', 'UserServices',
+    function($scope, $http, $location, Authentication, UserServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.user = $scope.authentication.user;
 
@@ -41,11 +41,14 @@ angular.module('users').controller('SettingsController', [
         $scope.updateUserProfile = function(isValid) {
             if (isValid) {
                 $scope.success = $scope.error = null;
-                var user = new Users($scope.user);
-
-                user.$update(function(response) {
+                var user = {
+                    displayName: $scope.user.displayName,
+                    username: $scope.user.username,
+                    email: $scope.user.email
+                };
+                UserServices.updateUser($scope.user._id, user).then(function(response) {
                     $scope.success = true;
-                    Authentication.setCredentials(response);
+                    Authentication.credentials.user = response;
                 }, function(response) {
                     $scope.error = response.data.message;
                 });

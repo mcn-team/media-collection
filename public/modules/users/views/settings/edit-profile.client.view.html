@@ -4,12 +4,8 @@
         <form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
             <fieldset>
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" class="form-control" data-ng-model="user.firstName" placeholder="First Name">
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
+                    <label for="displayName">Display Name</label>
+                    <input type="text" required id="displayName" name="displayName" class="form-control" data-ng-model="user.displayName" placeholder="Display Name">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
