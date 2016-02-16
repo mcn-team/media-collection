@@ -5,13 +5,21 @@ const Joi = require('joi');
 exports.signUpPayload = {
     username: Joi.string().alphanum().trim().required(),
     password: Joi.string().required(),
-    firstName: Joi.string().alphanum(),
-    lastName: Joi.string().alphanum(),
-    displayName: Joi.string().alphanum(),
-    email: Joi.string().email()
+    displayName: Joi.string().alphanum().trim().required(),
+    email: Joi.string().email().trim().required()
 };
 
 exports.logInPayload = {
     username: Joi.string().alphanum().trim().required(),
     password: Joi.string().required()
+};
+
+exports.userIdParams = {
+    userId: Joi.string().hex().length(24)
+};
+
+exports.updatePayload = {
+    username: Joi.string().alphanum().trim(),
+    displayName: Joi.string().alphanum().trim(),
+    email: Joi.string().email().trim()
 };

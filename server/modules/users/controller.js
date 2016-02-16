@@ -14,3 +14,9 @@ exports.logInUser = (request, reply) => {
         return responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.updateUser = (request, reply) => {
+    userServices.updateUser(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
