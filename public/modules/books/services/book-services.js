@@ -33,6 +33,10 @@ angular.module('books').factory('BookServices', [
             return $http.put(buildEndpoint('/books/' + bookId), editedBook, httpConfig);
         };
 
+        bookServices.deleteBook = function (bookId) {
+            return $http.delete(buildEndpoint('/books/' + bookId), httpConfig);
+        };
+
         bookServices.getLatest = function () {
             return $http.get(buildEndpoint('/books/latest'), httpConfig);
         };

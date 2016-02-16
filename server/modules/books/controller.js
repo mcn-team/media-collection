@@ -50,3 +50,9 @@ exports.getCollection = (request, reply) => {
         return responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.deleteBook = (request, reply) => {
+    services.removeBook(request.params, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};

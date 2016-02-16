@@ -80,20 +80,10 @@ angular.module('books').controller('ViewBookController', [
         };
 
         // Remove existing Book
-        $scope.remove = function(book) {
-            if ( book ) {
-                book.$remove();
-
-                for (var i in $scope.books) {
-                    if ($scope.books[i] === book) {
-                        $scope.books.splice(i, 1);
-                    }
-                }
-            } else {
-                $scope.book.$remove(function() {
-                    $location.path('books');
-                });
-            }
+        $scope.remove = function() {
+            BookServices.deleteBook($stateParams.bookId).then(function () {
+                $location.path('books');
+            });
         };
     }
 ]);

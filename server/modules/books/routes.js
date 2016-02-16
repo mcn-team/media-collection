@@ -74,4 +74,13 @@ module.exports = (server) => {
         },
         handler: controller.getCollection
     });
+
+    server.route({
+        method: 'DELETE',
+        path: '/{bookId}',
+        config: {
+            auth: 'RequiresLogin'
+        },
+        handler: controller.deleteBook
+    });
 };
