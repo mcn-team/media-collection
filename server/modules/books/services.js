@@ -87,7 +87,13 @@ exports.findCollectionName = (callback) => {
 };
 
 exports.findOneCollection = (params, callback) => {
-    Book.find({ collectionName: params.collection, volume: { $lt: params.volume } }).exec(function (err, collection) {
+    Book.find({ collectionName: params.collection, volume: { $lt: params.volume } }).exec((err, collection) => {
         responseHelper.serviceCallback(err, collection, 200, callback);
+    });
+};
+
+exports.removeBook = (params, callback) => {
+    Book.findOneAndRemove({ _id: params.bookId }).exec((err, response) => {
+        responseHelper.serviceCallback(err, response, 204, callback);
     });
 };
