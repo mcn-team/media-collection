@@ -5,5 +5,5 @@ module.exports = function(app) {
     var myApiFilm = require('../../app/controllers/my-api-film-api.server.controller');
 
     app.route('/api/myApiFilm/latestTrailer')
-        .get(users.requiresLogin, myApiFilm.getLastTrailer);
+        .get(myApiFilm.getLastTrailer);
 };

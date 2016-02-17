@@ -4,10 +4,11 @@
 
 'use strict';
 
-angular.module('series').controller('SeriesViewController', ['$scope', '$stateParams', 'Authentication', 'Series',
-    'SeriesDataService',
+angular.module('series').controller('SeriesViewController', [
+    '$scope', '$stateParams', 'Authentication',
+    'Series', 'SeriesDataService',
     function($scope, $stateParams, Authentication, Series, SeriesDataService) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
 
         // Find existing Series
         $scope.findOne = function() {

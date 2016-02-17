@@ -6,16 +6,16 @@ module.exports = function(app) {
 
     // Series Routes
     app.route('/series')
-        .get(users.requiresLogin, series.list)
-        .post(users.requiresLogin, series.create);
+        .get(series.list)
+        .post(series.create);
 
     app.route('/series/:seriesId')
-        .get(users.requiresLogin, series.read)
-        .put(users.requiresLogin, series.update)
-        .delete(users.requiresLogin, series.delete);
+        .get(series.read)
+        .put(series.update)
+        .delete(series.delete);
 
     app.route('/api/series/names')
-        .get(users.requiresLogin, series.getCollectionNames);
+        .get(series.getCollectionNames);
 
     // Finish by binding the Series middleware
     app.param('seriesId', series.seriesByID);

@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('movies').controller('ListMoviesController', ['$scope', '$location', '$anchorScroll', 'Authentication', 'StatsMovieService', 'MovieDataService', 'Movies',
-    'LanguagesService',
+angular.module('movies').controller('ListMoviesController', [
+    '$scope', '$location', '$anchorScroll', 'Authentication',
+    'StatsMovieService', 'MovieDataService', 'Movies', 'LanguagesService',
     function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, Movies, LanguagesService) {
+        $scope.authentication = Authentication.checkAuth();
 
-        $scope.authentication = Authentication;
         $scope.mediaType = 'Movie';
 
         $scope.goToStats = function() {

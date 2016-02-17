@@ -6,24 +6,24 @@ module.exports = function(app) {
 
     // Tv shows Routes
     app.route('/tv-shows')
-        .get(users.requiresLogin, tvShows.list)
-        .post(users.requiresLogin, tvShows.create);
+        .get(tvShows.list)
+        .post(tvShows.create);
 
     app.route('/tv-shows/:tvShowId')
-        .get(users.requiresLogin, tvShows.read)
-        .put(users.requiresLogin, tvShows.update)
-        .delete(users.requiresLogin, tvShows.delete);
+        .get(tvShows.read)
+        .put(tvShows.update)
+        .delete(tvShows.delete);
 
     // TV Shows API Routes
 
     app.route('/api/tvshows/names')
-        .get(users.requiresLogin, tvShows.getCollectionNames);
+        .get(tvShows.getCollectionNames);
 
     app.route('/api/tvshows/collections')
-        .get(users.requiresLogin, tvShows.getCollections);
+        .get(tvShows.getCollections);
 
     app.route('/api/tvshows/latest')
-        .get(users.requiresLogin, tvShows.getLatest);
+        .get(tvShows.getLatest);
 
     // Finish by binding the Tv show middleware
     app.param('tvShowId', tvShows.tvShowByID);
