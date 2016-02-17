@@ -97,3 +97,9 @@ exports.removeBook = (params, callback) => {
         responseHelper.serviceCallback(err, response, 204, callback);
     });
 };
+
+exports.insertMany = (payload, callback) => {
+    Book.insertMany(payload, (err, response) => {
+        responseHelper.serviceCallback(err, response, 204, callback);
+    });
+};

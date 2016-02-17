@@ -23,6 +23,7 @@ angular.module('books').controller('ListCollectionController', [
             BookServices.getCollectionsList().then(function (result) {
                 $scope.collectionsList = BooksDataService.computeMissing(result.data);
                 $scope.stats = StatsBookService.calculate($scope.collectionsList);
+                $scope.isLoaded = true;
             });
         };
     }

@@ -56,3 +56,9 @@ exports.deleteBook = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.createMultiple = (request, reply) => {
+    services.insertMany(request.payload, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    })
+};

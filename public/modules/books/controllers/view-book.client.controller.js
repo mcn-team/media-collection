@@ -2,8 +2,8 @@
 
 angular.module('books').controller('ViewBookController', [
     '$scope', '$location', '$stateParams', '$modal', '$log',
-    'lodash', 'BookServices', 'Books', 'Authentication', 'BooksDataService',
-    function ($scope, $location, $stateParams, $modal, $log, _, BookServices, Books, Authentication, BooksDataService) {
+    'lodash', 'BookServices', 'Authentication', 'BooksDataService',
+    function ($scope, $location, $stateParams, $modal, $log, _, BookServices, Authentication, BooksDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
