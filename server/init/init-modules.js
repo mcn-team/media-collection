@@ -7,9 +7,15 @@ module.exports = (server) => {
     const googleBookApi = require('../modules/google-book-api');
     const wikipediaApi = require('../modules/wikipedia-api');
 
-    server.register(users.module, users.options);
-    server.register(books.module, books.options);
-    server.register(auth.module);
-    server.register(googleBookApi.module, googleBookApi.options);
-    server.register(wikipediaApi.module, wikipediaApi.options);
+    server.register(users.module, users.options, onError);
+    server.register(books.module, books.options, onError);
+    server.register(auth.module, onError);
+    server.register(googleBookApi.module, googleBookApi.options, onError);
+    server.register(wikipediaApi.module, wikipediaApi.options, onError);
+};
+
+const onError = (err) => {
+    if (err) {
+        throw err;
+    }
 };
