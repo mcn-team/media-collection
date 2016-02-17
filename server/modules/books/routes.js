@@ -83,4 +83,13 @@ module.exports = (server) => {
         },
         handler: controller.deleteBook
     });
+
+    server.route({
+        method: 'POST',
+        path: '/many',
+        config: {
+            auth: 'RequiresLogin'
+        },
+        handler: controller.createMultiple
+    });
 };
