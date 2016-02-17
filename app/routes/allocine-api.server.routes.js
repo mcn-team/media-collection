@@ -6,9 +6,9 @@ module.exports = function(app) {
 
     // AlloCine Search Movie by title
     app.route('/api/allocine/search')
-        .get(users.requiresLogin, allocine.searchAPI);
+        .get(allocine.searchAPI);
 
     // AlloCine Search specific media
     app.route('/api/allocine/getMediaInfo')
-        .get(users.requiresLogin, allocine.getMediaInfo);
+        .get(allocine.getMediaInfo);
 };

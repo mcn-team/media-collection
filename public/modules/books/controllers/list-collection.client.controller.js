@@ -1,8 +1,11 @@
 'use strict';
 
-angular.module('books').controller('ListCollectionController', ['$scope', '$location', 'Authentication', '$anchorScroll', 'StatsBookService', 'BooksExposed',
-    function($scope, $location, Authentication, $anchorScroll, StatisticsService, BooksExposed) {
-        $scope.authentication = Authentication;
+angular.module('books').controller('ListCollectionController', [
+    '$scope', '$location', '$anchorScroll', 'Authentication',
+    'StatsBookService', 'BookServices', 'BooksDataService',
+    function($scope, $location, $anchorScroll, Authentication, StatsBookService, BookServices, BooksDataService) {
+        $scope.authentication = Authentication.checkAuth();
+
         $scope.goToStats = function() {
             $location.hash('stats');
             $anchorScroll();
@@ -17,13 +20,11 @@ angular.module('books').controller('ListCollectionController', ['$scope', '$loca
             };
             $scope.books = [];
 
-            function getCollectionCallback() {
-                $scope.collectionTab.sort(function(a, b) { return a.name > b.name ? 1 : -1; });
-                $scope.stats = StatisticsService.calculate($scope.collectionTab);
+            BookServices.getCollectionsList().then(function (result) {
+                $scope.collectionsList = BooksDataService.computeMissing(result.data);
+                $scope.stats = StatsBookService.calculate($scope.collectionsList);
                 $scope.isLoaded = true;
-            }
-
-            BooksExposed.getCollections().$promise.then(function(result){$scope.collectionTab = result; getCollectionCallback(); });
+            });
         };
     }
 ]);

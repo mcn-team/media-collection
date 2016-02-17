@@ -1,32 +1,29 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-    function($scope, $http, $location, Authentication) {
-        $scope.authentication = Authentication;
+angular.module('users').controller('AuthenticationController', [
+    '$scope', '$http', '$state',
+    'Authentication', 'UserServices',
+    function($scope, $http, $state, Authentication, UserServices) {
+        $scope.authentication = Authentication.isAuthenticated();
 
-        // If user is signed in then redirect back home
-        if ($scope.authentication.user) $location.path('/');
+        if ($scope.authentication && $scope.authentication.user) {
+            $state.go('home');
+        }
 
         $scope.signup = function() {
-            $http.post('/auth/signup', $scope.credentials).success(function(response) {
-                // If successful we assign the response to the global user model
-                $scope.authentication.user = response;
-
-                // And redirect to the index page
-                $location.path('/');
-            }).error(function(response) {
+            UserServices.signup($scope.credentials).then(function (response) {
+                Authentication.setCredentials(response.data);
+                $state.go('home');
+            }, function (response) {
                 $scope.error = response.message;
             });
         };
 
         $scope.signin = function() {
-            $http.post('/auth/signin', $scope.credentials).success(function(response) {
-                // If successful we assign the response to the global user model
-                $scope.authentication.user = response;
-
-                // And redirect to the index page
-                $location.path('/');
-            }).error(function(response) {
+            UserServices.login($scope.credentials).then(function (response) {
+                Authentication.setCredentials(response.data);
+                $state.go('home');
+            }, function (response) {
                 $scope.error = response.message;
             });
         };

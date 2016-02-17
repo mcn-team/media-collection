@@ -1,11 +1,12 @@
 'use strict';
 
 
-angular.module('light-rss-feed').controller('rssFeedController', ['$scope', 'Authentication', '$interval', '$timeout',
+angular.module('light-rss-feed').controller('rssFeedController', [
+    '$scope', 'Authentication', '$interval', '$timeout',
     'FeedList', 'planeteBDFeedService', 'fnacFeedService',
     function($scope, Authentication, $interval, $timeout, FeedList, planeteBDService, fnacFeedService) {
         // This provides Authentication context.
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.isAuthenticated();
         $scope.feeds = {};
         $scope.feedsProperties = {};
 

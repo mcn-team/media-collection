@@ -4,7 +4,8 @@
 
 'use strict';
 
-angular.module('tv-shows').controller('FormTvShowsController', ['$scope', '$stateParams', '$location', '$log', 'Authentication', 'TvShows',
+angular.module('tv-shows').controller('FormTvShowsController', [
+    '$scope', '$stateParams', '$location', '$log', 'Authentication', 'TvShows',
     'TvShowsExposed', 'TvShowsDataService', '$modal','AlloCineAPIExposed',
     function($scope, $stateParams, $location, $log, Authentication, TvShows, TvShowsExposed, TvShowService, $modal, AlloCineExposed) {
 
@@ -106,7 +107,7 @@ angular.module('tv-shows').controller('FormTvShowsController', ['$scope', '$stat
             };
         };
 
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
         $scope.mediaModel = {

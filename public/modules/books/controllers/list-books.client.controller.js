@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('books').controller('ListBooksController', ['$scope', '$location', 'Authentication', 'Books', '$anchorScroll', 'BooksExposed', 'StatsBookService', 'BooksDataService',
-    function($scope, $location, Authentication, Books, $anchorScroll, BooksExposed, StatisticsService, BooksDataService) {
+angular.module('books').controller('ListBooksController', [
+    '$scope', '$location', '$anchorScroll',
+    'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices',
+    function($scope, $location, $anchorScroll, Authentication, StatisticsService, BooksDataService, BookServices) {
 
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Book';
 
         $scope.goToStats = function() {
@@ -14,8 +16,8 @@ angular.module('books').controller('ListBooksController', ['$scope', '$location'
         $scope.find = function () {
             $scope.multiSearchOn = false;
 
-            Books.query().$promise.then(function (result) {
-                $scope.books = result;
+            BookServices.getAllBooks().then(function (result) {
+                $scope.books = result.data;
                 $scope.isLoaded = true;
                 $scope.$watch('filteredBooks', function () {
                     $scope.stats = StatisticsService.calculate($scope.filteredBooks);

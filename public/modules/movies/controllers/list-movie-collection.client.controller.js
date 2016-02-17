@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('movies').controller('ListMovieCollectionController', ['$scope', '$location', 'Authentication', '$anchorScroll', 'StatsMovieService', 'MoviesExposed',
+angular.module('movies').controller('ListMovieCollectionController', [
+    '$scope', '$location', 'Authentication', '$anchorScroll', 'StatsMovieService', 'MoviesExposed',
     function($scope, $location, Authentication, $anchorScroll, StatsMovieService, MoviesExposed) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
 
         $scope.goToStats = function() {
             $location.hash('stats');

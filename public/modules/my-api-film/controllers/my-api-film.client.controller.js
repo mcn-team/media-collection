@@ -1,11 +1,11 @@
 'use strict';
 
 
-angular.module('my-api-film').controller('myApiFilmController', ['$scope', '$sce', 'Authentication', 'myApiFilmExposed',
-    '$interval', '$timeout',
-    function($scope, $sce, Authentication, ApiFilmExposed, $interval, $timeout) {
+angular.module('my-api-film').controller('myApiFilmController', [
+    '$scope', '$sce', '$interval', '$timeout','Authentication', 'myApiFilmExposed',
+    function($scope, $sce, $interval, $timeout, Authentication, ApiFilmExposed) {
         // This provides Authentication context.
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
 
         $scope.ngClass = 'hidden-op';
 

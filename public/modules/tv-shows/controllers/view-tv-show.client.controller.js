@@ -1,9 +1,10 @@
 'use strict';
 
 // Tv shows controller
-angular.module('tv-shows').controller('ViewTvShowsController', ['$scope', '$stateParams', '$location', 'Authentication', 'TvShows', 'TvShowsDataService',
+angular.module('tv-shows').controller('ViewTvShowsController', [
+    '$scope', '$stateParams', '$location', 'Authentication', 'TvShows', 'TvShowsDataService',
     function($scope, $stateParams, $location, Authentication, TvShows, TvShowsService) {
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
         $scope.showPercent = false;

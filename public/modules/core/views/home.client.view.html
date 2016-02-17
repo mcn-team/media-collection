@@ -1,5 +1,5 @@
 <section data-ng-controller="HomeController">
-    <div ng-hide="authentication.user" class="row" >
+    <div ng-if="!authentication.user" class="row" >
         <div class="elements-margin-top thumbnail col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" >
             <div class="caption">
                 <p>
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="authentication.user" >
+    <div ng-if="authentication.user" >
         <div id="dashboard" class="dashbord-div col-xs-12 col-md-push-3 col-md-6" >
             <div class="col-xs-4">
                 <a popover="Ajouter un livre" popover-trigger="mouseenter" type="button" class="btn btn-default " href="/#!/books/create" >

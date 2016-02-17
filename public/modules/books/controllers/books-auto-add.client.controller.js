@@ -4,11 +4,11 @@
 
 'use strict';
 
-angular.module('books').controller('BookAutoAddController', ['$scope', '$modalInstance', 'BookData', 'Books', 'MissingVolumes',
-    function ($scope, $modalInstance, BookData, Books, MissingVolumes) {
+angular.module('books').controller('BookAutoAddController', [
+    '$scope', '$modalInstance', 'lodash', 'BookData', 'MissingVolumes', 'BookServices',
+    function ($scope, $modalInstance, _, BookData, MissingVolumes, BookServices) {
         $scope.listMissing = [];
 
-        console.log(BookData);
         $scope.infoMedia = [
             {key: 'type', display: 'Type', checked: true},
             {key: 'authors', display: 'Auteurs', checked: true},
@@ -19,18 +19,21 @@ angular.module('books').controller('BookAutoAddController', ['$scope', '$modalIn
             {key: 'bookRate', display: 'Note', checked: true},
             {key: 'customFields', display: 'Champs personnalisés', checked: true}
         ];
+
         $scope.infoStatus = {
             read: BookData.read,
             bought: BookData.bought
         };
+
         $scope.media = BookData;
-        for (var i = 0; i < MissingVolumes.length; i++) {
+
+        _.forEach(MissingVolumes, function (element) {
             $scope.listMissing.push({
-                displayName: $scope.media.collectionName + ' T. ' + MissingVolumes[i],
-                volumeId: MissingVolumes[i],
+                displayName: element.collectionName + ' T. ' + element.volume,
+                volumeId: element.volume,
                 isChecked: true
             });
-        }
+        });
 
         $scope.checkList = function (status) {
             angular.forEach($scope.listMissing, function (current) {
@@ -40,8 +43,9 @@ angular.module('books').controller('BookAutoAddController', ['$scope', '$modalIn
 
         $scope.validateModal = function () {
             $scope.isUploading = true;
+            var payload = [];
             angular.forEach($scope.listMissing, function (cuurent) {
-                var book = new Books({
+                var book = {
                     collectionName: $scope.media.collectionName,
                     volume: cuurent.volumeId,
                     title: '',
@@ -50,17 +54,21 @@ angular.module('books').controller('BookAutoAddController', ['$scope', '$modalIn
                     isbn: '',
                     bought: $scope.infoStatus.bought,
                     read: $scope.infoStatus.read
-                });
+                };
+
                 angular.forEach($scope.infoMedia, function (current) {
                     if (current.checked) {
                         book[current.key] = $scope.media[current.key];
                     }
                 });
-                book.$save(function(response) {},
-                    function(errorResponse) {
-                    $modalInstance.dismiss(errorResponse.data.message);
-                });
+
+                payload.push(book);
             });
+
+            BookServices.multipleAdd(payload).then(function (response) {}, function (errorResponse) {
+                $modalInstance.dismiss(errorResponse);
+            });
+
             $modalInstance.close();
         };
 
