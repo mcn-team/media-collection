@@ -1,8 +1,9 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+const User = require('../users/model').model;
+
 const config = require('../../config');
-const User = require('mongoose').model('User');
 
 const loginScheme = (server, options) => {
     return {
