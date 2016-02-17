@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('books').factory('BooksDataService', [
-    'Books', 'lodash',
-    function(Books, _) {
+    'lodash',
+    function(_) {
         // Book data service logic
         // ...
 
@@ -102,7 +102,7 @@ angular.module('books').factory('BooksDataService', [
                 authorsTab.push(model.author);
             }
 
-            return new Books ({
+            return new Object({
                 type: model.type,
                 title: model.title,
                 collectionName: model.collectionName,

@@ -66,6 +66,10 @@ angular.module('books').factory('BookServices', [
             return $http.get(buildEndpoint('/wiki/type/book/id/' + id), httpConfig);
         };
 
+        bookServices.multipleAdd = function (payload) {
+            return $http.post(buildEndpoint('/books/many'), payload, httpConfig);
+        };
+
         return bookServices;
     }
 ]);
