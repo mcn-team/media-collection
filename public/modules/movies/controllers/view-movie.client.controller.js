@@ -2,8 +2,8 @@
 
 // View Movie controller
 angular.module('movies').controller('ViewMoviesController', [
-    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies',
-    function($scope, $stateParams, $location, Authentication, MovieDataService, Movies) {
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices',
+    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -33,10 +33,10 @@ angular.module('movies').controller('ViewMoviesController', [
                 $scope.isLoaded = true;
             }
 
-            Movies.get({ movieId: $stateParams.movieId }).$promise.then(function(result) {
-                    $scope.movie = result;
-                    findMovieCallback();
-                });
+            MovieServices.getMovie($stateParams.movieId).then(function(response) {
+                $scope.movie = response.data;
+                findMovieCallback();
+            });
         };
 
         // Remove existing Movie

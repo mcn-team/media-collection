@@ -17,3 +17,9 @@ exports.saveMovie = (payload, callback) => {
         responseHelper.serviceCallback(err, movie, 201, callback);
     });
 };
+
+exports.findOneMovie = (params, callback) => {
+    Movie.findOne({ _id: params.movieId }).exec((err, movie) => {
+        responseHelper.serviceCallback(err, movie, 200, callback);
+    });
+};
