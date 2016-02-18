@@ -30,7 +30,7 @@ angular.module('books').factory('BookServices', [
         };
 
         bookServices.updateBook = function (bookId, editedBook) {
-            return $http.put(buildEndpoint('/books/' + bookId), editedBook, httpConfig);
+            return $http.patch(buildEndpoint('/books/' + bookId), editedBook, httpConfig);
         };
 
         bookServices.deleteBook = function (bookId) {
