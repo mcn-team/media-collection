@@ -32,4 +32,17 @@ module.exports = (server) => {
         },
         handler: controller.getMovie
     });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{movieId}',
+        config: {
+            auth: 'RequiresLogin',
+            validate: {
+                params: validator.movieParams,
+                payload: validator.editMoviePayload
+            }
+        },
+        handler: controller.updateBook
+    });
 };

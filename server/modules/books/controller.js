@@ -22,7 +22,7 @@ exports.createBook = (request, reply) => {
 };
 
 exports.updateBook = (request, reply) => {
-    services.updateBook(request.payload, (err, res) => {
+    services.updateBook(request.params, request.payload, (err, res) => {
         return responseHelper.controllerReply(err, res, reply);
     });
 };

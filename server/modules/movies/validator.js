@@ -1,11 +1,10 @@
 'use strict';
 
 const Joi = require('joi');
+const _ = require('lodash');
 
-exports.moviePayload = {
+const commonMoviePayload = {
     _id: Joi.string().hex().length(24),
-    title: Joi.string().trim().required(),
-    type: Joi.string().required(),
     movieRate: Joi.number().min(0).max(10),
     collectionName: Joi.string().trim(),
     episode: Joi.number(),
@@ -25,6 +24,16 @@ exports.moviePayload = {
     user: Joi.string().hex().length(24)
 };
 
+exports.moviePayload = _.merge({
+    title: Joi.string().trim().required(),
+    type: Joi.string().required()
+}, commonMoviePayload);
+
 exports.movieParams = {
     movieId: Joi.string().hex().length(24)
 };
+
+exports.editMoviePayload = _.merge({
+    title: Joi.string().trim(),
+    type: Joi.string()
+}, commonMoviePayload);
