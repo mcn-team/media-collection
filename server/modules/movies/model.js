@@ -21,16 +21,9 @@ const movieSchema = new Schema({
         default: 0
     },
 
-    collectionName: {
-        type: String,
-        default: '',
-        trim: true
-    },
+    collectionName: String,
 
-    episode: {
-        type: Number,
-        required: 'Episode field is missing'
-    },
+    episode: Number,
 
     directors: [ String ],
 

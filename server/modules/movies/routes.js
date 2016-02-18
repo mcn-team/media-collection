@@ -1,6 +1,7 @@
 'use strict';
 
 const controller = require('./controller');
+const validator = require('./validator');
 
 module.exports = (server) => {
     server.route({
@@ -10,5 +11,17 @@ module.exports = (server) => {
             auth: 'RequiresLogin'
         },
         handler: controller.getMoviesList
+    });
+
+    server.route({
+        method: 'POST',
+        path: '/',
+        config: {
+            auth: 'RequiresLogin',
+            validate: {
+                payload: validator.moviePayload
+            }
+        },
+        handler: controller.createMovie
     });
 };

@@ -9,3 +9,11 @@ exports.findMovies = (callback) => {
         responseHelper.serviceCallback(err, books, 200, callback);
     });
 };
+
+exports.saveMovie = (payload, callback) => {
+    const newMovie = new Movie(payload);
+
+    newMovie.save((err, movie) => {
+        responseHelper.serviceCallback(err, movie, 201, callback);
+    });
+};

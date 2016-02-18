@@ -8,3 +8,9 @@ exports.getMoviesList = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.createMovie = (request, reply) => {
+    services.saveMovie(request.payload, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
