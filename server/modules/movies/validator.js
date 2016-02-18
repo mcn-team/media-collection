@@ -15,10 +15,12 @@ exports.moviePayload = {
     actors: Joi.array().items(Joi.string()),
     price: Joi.number().precision(2).positive(),
     duration: Joi.number().integer().positive(),
-    releaseDate: Joi.date().iso(),
+    releasedDate: Joi.date().iso(),
     seen: Joi.boolean(),
     bought: Joi.boolean(),
     cover: Joi.string().uri(),
+    summary: Joi.string(),
+    customFields: Joi.array(),
     created: Joi.date().iso(),
     user: Joi.string().hex().length(24)
 };

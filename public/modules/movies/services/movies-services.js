@@ -21,6 +21,10 @@ angular.module('movies').factory('MovieServices', [
             return $http.get(buildEndpoint('/movies'), httpConfig);
         };
 
+        movieServices.createMovie = (data) => {
+            return $http.post(buildEndpoint('/movies'), data, httpConfig);
+        };
+
         return movieServices;
     }
 ]);

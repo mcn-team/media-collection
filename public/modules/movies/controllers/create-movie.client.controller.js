@@ -3,8 +3,8 @@
 // Movies controller
 angular.module('movies').controller('CreateMoviesController', [
     '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication', 'Movies',
-    'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MoviesExposed',
-    function($scope, $stateParams, $location, $modal, $log, Authentication, Movies, AlloCineExposed, TypesMovieService, MovieDataService, MoviesExposed) {
+    'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MoviesExposed', 'MovieServices',
+    function($scope, $stateParams, $location, $modal, $log, Authentication, Movies, AlloCineExposed, TypesMovieService, MovieDataService, MoviesExposed, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.isDuplicate = false;
@@ -117,18 +117,13 @@ angular.module('movies').controller('CreateMoviesController', [
             // Create new Movie object
             var movie = MovieDataService.createMovieFromMovieModel($scope.mediaModel);
 
-            // Redirect after save
-            movie.$save(function(response) {
-                $location.path('/movies/' + response._id);
+            MovieServices.createMovie(movie).then(function(response) {
+                $location.path('/movies/' + response.data._id);
 
                 // Clear form fields
                 $scope.mediaModel = {};
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
-                $scope.mediaModel.actorsList.pop();
-                $scope.mediaModel.producersList.pop();
-                $scope.mediaModel.directorsList.pop();
-                $scope.mediaModel.scenaristsList.pop();
             });
         };
 
