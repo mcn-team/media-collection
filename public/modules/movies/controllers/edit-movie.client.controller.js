@@ -2,8 +2,8 @@
 
 // Movies controller
 angular.module('movies').controller('EditMoviesController', [
-    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies',
-    function($scope, $stateParams, $location, Authentication, MovieDataService, Movies) {
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies', 'MovieServices',
+    function($scope, $stateParams, $location, Authentication, MovieDataService, Movies, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = false;
         $scope.ratingMax = 10;
@@ -27,7 +27,7 @@ angular.module('movies').controller('EditMoviesController', [
 
             movie._id = $scope.mediaModel._id;
 
-            movie.$update(function() {
+            MovieServices.updateMovie(movie._id, movie).then(function() {
                 $location.path('movies/' + movie._id);
                 $scope.mediaModel = {};
             }, function(errorResponse) {

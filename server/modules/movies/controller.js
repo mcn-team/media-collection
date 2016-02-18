@@ -20,3 +20,9 @@ exports.getMovie = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.updateBook = (request, reply) => {
+    services.updateMovie(request.params, request.payload, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};

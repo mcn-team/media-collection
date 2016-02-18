@@ -1,6 +1,7 @@
 'use strict';
 
 const Book = require('mongoose').model('Book');
+const _ = require('lodash');
 
 const responseHelper = require('../../utils/response-helper');
 
@@ -24,9 +25,9 @@ exports.saveBook = (payload, callback) => {
     });
 };
 
-exports.updateBook = (payload, callback) => {
-    Book.findOneAndUpdate({ _id: payload._id }, payload).exec(function (err, book) {
-        responseHelper.serviceCallback(err, book, 201, callback);
+exports.updateBook = (params, payload, callback) => {
+    Book.findOneAndUpdate({ _id: params.bookId }, payload).exec(function (err, book) {
+        responseHelper.serviceCallback(err, _.merge(book, payload), 201, callback);
     });
 };
 

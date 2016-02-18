@@ -29,6 +29,10 @@ angular.module('movies').factory('MovieServices', [
             return $http.get(buildEndpoint('/movies/' + id), httpConfig);
         };
 
+        movieServices.updateMovie = function (id, data) {
+            return $http.patch(buildEndpoint('/movies/' + id), data, httpConfig);
+        };
+
         return movieServices;
     }
 ]);

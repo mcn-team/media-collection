@@ -31,7 +31,7 @@ module.exports = (server) => {
     });
 
     server.route({
-        method: 'PUT',
+        method: 'PATCH',
         path: '/{bookId}',
         config: {
             auth: 'RequiresLogin'
