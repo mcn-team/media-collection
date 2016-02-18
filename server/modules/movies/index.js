@@ -13,5 +13,5 @@ movieModule.register.attributes = { name: 'movie-module' };
 exports.module = movieModule;
 exports.options = {
     select: ['API'],
-    routes: { prefix: '/movies' }
+    routes: { prefix: '/api/movies' }
 };
