@@ -14,3 +14,9 @@ exports.createMovie = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getMovie = (request, reply) => {
+    services.findOneMovie(request.params, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};

@@ -18,10 +18,18 @@ module.exports = (server) => {
         path: '/',
         config: {
             auth: 'RequiresLogin',
-            validate: {
-                payload: validator.moviePayload
-            }
+            validate: { payload: validator.moviePayload }
         },
         handler: controller.createMovie
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{movieId}',
+        config: {
+            auth: 'RequiresLogin',
+            validate: { params: validator.movieParams }
+        },
+        handler: controller.getMovie
     });
 };

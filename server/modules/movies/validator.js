@@ -24,3 +24,7 @@ exports.moviePayload = {
     created: Joi.date().iso(),
     user: Joi.string().hex().length(24)
 };
+
+exports.movieParams = {
+    movieId: Joi.string().hex().length(24)
+};
