@@ -19,7 +19,7 @@ exports.findOneBook = (params, callback) => {
 exports.saveBook = (payload, callback) => {
     const newBook = new Book(payload);
 
-    newBook.save(function(err, book) {
+    newBook.save((err, book) => {
         responseHelper.serviceCallback(err, book, 201, callback);
     });
 };
