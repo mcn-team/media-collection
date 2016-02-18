@@ -2,8 +2,8 @@
 
 // View Movie controller
 angular.module('movies').controller('ViewMoviesController', [
-    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices',
-    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices) {
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices', 'Movies',
+    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices, Movies) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -34,7 +34,7 @@ angular.module('movies').controller('ViewMoviesController', [
             }
 
             MovieServices.getMovie($stateParams.movieId).then(function(response) {
-                $scope.movie = response.data;
+                $scope.movie = new Movies(response.data);
                 findMovieCallback();
             });
         };
