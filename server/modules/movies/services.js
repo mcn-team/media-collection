@@ -30,3 +30,9 @@ exports.updateMovie = (params, payload, callback) => {
         responseHelper.serviceCallback(err, _.merge(movie, payload), 201, callback);
     });
 };
+
+exports.removeMovie = (params, callback) => {
+    Movie.findOneAndRemove({ _id: params.movieId }).exec((err, response) => {
+        responseHelper.serviceCallback(err, response, 204, callback);
+    });
+};

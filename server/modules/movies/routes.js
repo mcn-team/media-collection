@@ -45,4 +45,14 @@ module.exports = (server) => {
         },
         handler: controller.updateBook
     });
+
+    server.route({
+        method: 'DELETE',
+        path: '/{movieId}',
+        config: {
+            auth: 'RequiresLogin',
+            validate: { params: validator.movieParams }
+        },
+        handler: controller.deleteMovie
+    });
 };
