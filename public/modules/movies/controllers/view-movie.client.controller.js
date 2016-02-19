@@ -2,8 +2,8 @@
 
 // View Movie controller
 angular.module('movies').controller('ViewMoviesController', [
-    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices', 'Movies',
-    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices, Movies) {
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices',
+    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -34,26 +34,16 @@ angular.module('movies').controller('ViewMoviesController', [
             }
 
             MovieServices.getMovie($stateParams.movieId).then(function(response) {
-                $scope.movie = new Movies(response.data);
+                $scope.movie = response.data;
                 findMovieCallback();
             });
         };
 
         // Remove existing Movie
-        $scope.remove = function(movie) {
-            if ( movie ) {
-                movie.$remove();
-
-                for (var i in $scope.movies) {
-                    if ($scope.movies [i] === movie) {
-                        $scope.movies.splice(i, 1);
-                    }
-                }
-            } else {
-                $scope.movie.$remove(function() {
-                    $location.path('movies');
-                });
-            }
+        $scope.remove = function() {
+            MovieServices.deleteMovie($scope.movie._id).then(function() {
+                $location.path('movies');
+            });
         };
     }
 ]);

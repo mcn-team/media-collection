@@ -33,6 +33,10 @@ angular.module('movies').factory('MovieServices', [
             return $http.patch(buildEndpoint('/movies/' + id), data, httpConfig);
         };
 
+        movieServices.deleteMovie = function (id) {
+            return $http.delete(buildEndpoint('/movies/' + id), httpConfig);
+        };
+
         return movieServices;
     }
 ]);
