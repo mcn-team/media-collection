@@ -26,3 +26,9 @@ exports.updateBook = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.deleteMovie = (request, reply) => {
+    services.removeMovie(request.params, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
