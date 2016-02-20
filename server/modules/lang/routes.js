@@ -1,15 +1,15 @@
 'use strict';
 
+const controllers = require('./controllers');
+const validator = require('./validator');
+
 module.exports = (server) => {
     server.route({
         method: 'GET',
         path: '/',
-        handler: (request, reply) => {
-            if (request.query && request.query.lang) {
-
-            }
-            const lang = require('./language_' + request.query.lang + '.json');
-            reply(lang).code(200);
-        }
+        config: {
+            validate: { query: validator.langQuery }
+        },
+        handler: controllers.getLanguageFile
     });
 };
