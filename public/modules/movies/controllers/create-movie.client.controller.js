@@ -79,7 +79,6 @@ angular.module('movies').controller('CreateMoviesController', [
 
             $scope.updateField = function(itemList, idx, newStr) {
                 $scope.mediaModel[itemList][idx] = newStr;
-                console.log($scope.mediaModel[itemList]);
             };
 
             $scope.deleteField = function(itemList, index) {

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('movies').factory('MovieDataService', [
-    'TypesMovieService', 'Movies', 'lodash',
-    function(TypeService, Movies, _) {
+    'TypesMovieService', 'lodash',
+    function(TypeService, _) {
 
         var movieServices = {};
 
@@ -101,7 +101,7 @@ angular.module('movies').factory('MovieDataService', [
                 model.episode = 0;
             }
 
-            return new Movies ({
+            return {
                 type: model.selectedType ? model.selectedType.value : '',
                 title: model.title,
                 collectionName: model.collectionName,
@@ -119,7 +119,7 @@ angular.module('movies').factory('MovieDataService', [
                 movieRate: model.movieRate,
                 customFields: model.customFields,
                 summary: model.summary
-            });
+            };
         };
 
         function sortAsc (a, b) {
