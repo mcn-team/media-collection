@@ -37,6 +37,10 @@ angular.module('movies').factory('MovieServices', [
             return $http.delete(buildEndpoint('/movies/' + id), httpConfig);
         };
 
+        movieServices.getLatest = function () {
+            return $http.get(buildEndpoint('/movies/latest'), httpConfig);
+        };
+
         return movieServices;
     }
 ]);
