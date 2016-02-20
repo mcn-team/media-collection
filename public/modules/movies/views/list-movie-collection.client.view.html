@@ -16,11 +16,11 @@
             <accordion close-others="oneAtTime" >
                 <accordion-group class="collection-header-field" ng-repeat="item in collectionTab" >
                     <accordion-heading >
-                        <span class="hidden-xs badge view-collection-missing pull-right">{{item.owned + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
-                        <div style="font-weight: bold;" >{{item.name}}</div>
+                        <span class="hidden-xs badge view-collection-missing pull-right">{{item.boughtTotal + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
+                        <div style="font-weight: bold;" >{{item._id}}</div>
                     </accordion-heading>
                     <ul class="list-group" >
-                        <li ng-click="goTo(movie._id)" class="list-group-item {{movie.bought ? 'collection-header-field' : 'view-collection-missing'}}" ng-repeat="movie in item.movies" >
+                        <li ng-click="goTo(movie._id)" class="list-group-item {{movie.bought ? 'collection-header-field' : 'view-collection-missing'}}" ng-repeat="movie in item.data" >
                             {{movie.collectionName + ' Ep. ' + movie.episode + (movie.title ? ' - ' + movie.title : '')}}
                         </li>
                     </ul>

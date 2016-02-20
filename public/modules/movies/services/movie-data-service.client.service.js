@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('movies').factory('MovieDataService', ['TypesMovieService', 'Movies',
-    function(TypeService, Movies) {
+angular.module('movies').factory('MovieDataService', [
+    'TypesMovieService', 'Movies', 'lodash',
+    function(TypeService, Movies, _) {
 
         var movieServices = {};
 
@@ -105,7 +106,7 @@ angular.module('movies').factory('MovieDataService', ['TypesMovieService', 'Movi
                 directors: directorsTab,
                 scenarists: scenaristsTab,
                 releasedDate: model.releasedDate,
-                price: model.price,
+                price: model.price || undefined,
                 seen: model.seen,
                 bought: model.bought,
                 duration: model.duration,
@@ -114,6 +115,51 @@ angular.module('movies').factory('MovieDataService', ['TypesMovieService', 'Movi
                 customFields: model.customFields,
                 summary: model.summary
             });
+        };
+
+        function sortAsc (a, b) {
+            return a - b;
+        }
+
+        function sortMovies (a, b) {
+            return a.episode - b.episode;
+        }
+
+        function sortCollections (a, b) {
+            return a.name > b.name ? 1 : -1;
+        }
+
+        movieServices.computeMissing = function (collections, limit) {
+            collections = _.filter(collections, function (item) {
+                return item._id !== null && item._id !== '';
+            });
+            _.forEach(collections, function (element) {
+                var volumes = [];
+
+                element.missing = 0;
+
+                _.forEach(element.data, function (book) {
+                    volumes.push(parseInt(book.episode));
+                });
+                volumes.sort(sortAsc);
+
+                var max = limit || volumes[volumes.length - 1];
+                for (var i = 1; i < max; i++) {
+                    if (_.indexOf(volumes, i) < 0) {
+                        element.missing += 1;
+                        element.data.push({
+                            collectionName: element._id,
+                            episode: i,
+                            bought: false
+                        });
+                    }
+                }
+                element.data.sort(sortMovies);
+            });
+
+            collections.sort(sortCollections);
+
+            return collections;
         };
 
         return movieServices;
