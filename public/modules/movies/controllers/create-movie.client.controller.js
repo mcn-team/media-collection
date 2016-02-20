@@ -3,9 +3,9 @@
 // Movies controller
 angular.module('movies').controller('CreateMoviesController', [
     '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication',
-    'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MovieServices',
+    'AlloCineExposed', 'AllocineDataService', 'TypesMovieService', 'MovieDataService', 'MovieServices',
     function($scope, $stateParams, $location, $modal, $log, Authentication,
-             AlloCineExposed, TypesMovieService, MovieDataService, MovieServices) {
+             AlloCineExposed, AllocineDataService, TypesMovieService, MovieDataService, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.isDuplicate = false;
@@ -138,14 +138,9 @@ angular.module('movies').controller('CreateMoviesController', [
         };
 
         $scope.searchFilmByTitle = function () {
-            function searchCallback(result) {
-                //console.log(result);
-                $scope.movieList = result;
+            AlloCineExposed.searchByName('movie', $scope.mediaModel.searchMovie).then(function (response) {
+                $scope.movieList = AllocineDataService.formatSearchResult(response.data);
                 $scope.open();
-            }
-
-            AlloCineExposed.search($scope.mediaModel.searchMovie, 20, 'movie').$promise.then(function(result) {
-                searchCallback(result);
             });
         };
 

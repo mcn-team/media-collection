@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('movies').controller('searchMovieModalController', ['$scope', '$modalInstance', 'movieList', 'AlloCineAPIExposed',
-    function ($scope, $modalInstance, movieList, AlloCineExposed) {
+angular.module('movies').controller('searchMovieModalController', [
+    '$scope', '$modalInstance', 'movieList', 'AllocineDataService', 'AlloCineExposed',
+    function ($scope, $modalInstance, movieList, AllocineDataService, AlloCineExposed) {
         $scope.isCollapsed = true;
         $scope.nothingFound = false;
 
@@ -18,17 +19,14 @@ angular.module('movies').controller('searchMovieModalController', ['$scope', '$m
         $scope.getMovieInfo = function (movie) {
             $scope.selected.movie = movie;
 
-            function movieInfoCallback(result) {
+            AlloCineExposed.getMovieById('movie', movie.code).then(function (response) {
+                var result = AllocineDataService.formatFindResult(response.data);
                 $scope.selected.movie.scenarists = result.scenarists;
                 $scope.selected.movie.producers = result.producers;
                 $scope.selected.movie.duration = result.duration;
                 $scope.selected.movie.summary = result.summary.replace(/<[^>]*>/g, '');
                 $scope.selected.movie.shortSummary = result.shortSummary.replace(/<[^>]*>/g, '');
                 $scope.isCollapsed = false;
-            }
-
-            AlloCineExposed.getMediaInfo(movie.code, 'movie').$promise.then(function(result) {
-                movieInfoCallback(result);
             });
         };
 
