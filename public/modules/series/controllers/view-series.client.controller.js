@@ -6,15 +6,14 @@
 
 angular.module('series').controller('SeriesViewController', [
     '$scope', '$stateParams', 'Authentication',
-    'Series', 'SeriesDataService',
-    function($scope, $stateParams, Authentication, Series, SeriesDataService) {
+    'SeriesDataService', 'SeriesServices',
+    function($scope, $stateParams, Authentication, SeriesDataService, SeriesServices) {
         $scope.authentication = Authentication.checkAuth();
 
         // Find existing Series
         $scope.findOne = function() {
-            Series.get({ seriesId: $stateParams.seriesId }).$promise.then(function (result) {
-                $scope.mediaModel = SeriesDataService.fillModelViewFromSeries(result);
-                console.log($scope.mediaModel);
+            SeriesServices.getTvShow($stateParams.seriesId).then(function (response) {
+                $scope.mediaModel = SeriesDataService.fillModelViewFromSeries(response.data);
             });
         };
     }

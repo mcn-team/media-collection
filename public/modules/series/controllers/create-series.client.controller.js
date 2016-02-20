@@ -2,8 +2,8 @@
 
 angular.module('series').controller('SeriesCreateController', [
     '$scope', '$stateParams', '$location', 'Authentication',
-    'Series', 'SeriesDataService', 'SeriesExposed',
-    function($scope, $stateParams, $location, Authentication, Series, SeriesDataService, SeriesExposed) {
+    'SeriesServices', 'SeriesDataService', 'SeriesExposed',
+    function($scope, $stateParams, $location, Authentication, SeriesServices, SeriesDataService, SeriesExposed) {
         $scope.authentication = Authentication.checkAuth();
 
         $scope.debugFunc = function () {
@@ -107,14 +107,13 @@ angular.module('series').controller('SeriesCreateController', [
             // Create new Series object
             var series = SeriesDataService.createSeriesFromModel($scope.mediaModel);
 
-            // Redirect after save
-            series.$save(function(response) {
-                $location.path('series/' + response._id);
+            SeriesServices.createTvShow(series).then(function(response) {
+                $location.path('series/' + response.data._id);
 
                 // Clear form fields
                 delete $scope.mediaModel;
             }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
+                console.error(errorResponse.data);
             });
         };
     }

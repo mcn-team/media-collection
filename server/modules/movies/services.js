@@ -20,7 +20,7 @@ exports.saveMovie = (payload, callback) => {
 };
 
 exports.findOneMovie = (params, callback) => {
-    Movie.findOne({ _id: params.movieId }).exec((err, movie) => {
+    Movie.findOne({ _id: params.movieId }).populate('user').exec((err, movie) => {
         responseHelper.serviceCallback(err, movie, 200, callback);
     });
 };

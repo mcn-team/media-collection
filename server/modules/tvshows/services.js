@@ -12,7 +12,7 @@ exports.findTvShows = (callback) => {
 };
 
 exports.saveTvShow = (payload, callback) => {
-    const newTvShow = new TvShows(payload);
+    const newTvShow = new TvShow(payload);
 
     newTvShow.save((err, tvShow) => {
         responseHelper.serviceCallback(err, tvShow, 201, callback);
@@ -20,7 +20,7 @@ exports.saveTvShow = (payload, callback) => {
 };
 
 exports.findOneTvShow = (params, callback) => {
-    TvShow.findOne({ _id: params.tvShowId }).exec((err, tvShow) => {
+    TvShow.findOne({ _id: params.tvShowId }).populate('user').exec((err, tvShow) => {
         responseHelper.serviceCallback(err, tvShow, 200, callback);
     });
 };

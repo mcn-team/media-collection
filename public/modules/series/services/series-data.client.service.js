@@ -4,8 +4,8 @@
 
 'use strict';
 
-angular.module('series').factory('SeriesDataService', ['Series',
-    function (Series) {
+angular.module('series').factory('SeriesDataService', [
+    function () {
         var dataService = {};
 
         function getSeasonTab(array) {
@@ -38,7 +38,7 @@ angular.module('series').factory('SeriesDataService', ['Series',
         function fillBaseSeriesModel(series) {
             return {
                 seriesType: series.type,
-                seriesName: series.series,
+                seriesName: series.name,
                 seriesRate: series.seriesRate,
                 seen: series.seen,
                 bought: series.bought,
@@ -49,15 +49,14 @@ angular.module('series').factory('SeriesDataService', ['Series',
                 cover: series.cover || undefined,
                 price: series.price || undefined,
                 seriesProducersList: series.producers,
-                //producer: getListLastOne(series.producers),
                 seriesCreatorsList: series.creators,
-                //creator: getListLastOne(series.creators),
                 seriesActorsList: series.actors,
-                //actor: getListLastOne(series.actors),
                 channel: series.channel || undefined,
                 duration: series.duration || undefined,
                 summary: series.summary || undefined,
-                customFields: series.customFields
+                customFields: series.customFields,
+                user: series.user.displayName,
+                created: series.created
             };
         }
 
@@ -106,9 +105,9 @@ angular.module('series').factory('SeriesDataService', ['Series',
                 return tab;
             }
 
-            return new Series({
+            return {
                 type: model.seriesType ? model.seriesType : 'tvshows' ,
-                series: model.seriesName,
+                name: model.seriesName,
                 seriesRate: model.seriesRate || 7,
                 seen: model.seen,
                 bought: model.bought,
@@ -125,7 +124,7 @@ angular.module('series').factory('SeriesDataService', ['Series',
                 duration: model.duration || undefined,
                 summary: model.summary || undefined,
                 customFields: model.customFields
-            });
+            };
         };
 
         return dataService;
