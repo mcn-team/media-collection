@@ -64,4 +64,13 @@ module.exports = (server) => {
         },
         handler: controller.getLatestMovie
     });
+
+    server.route({
+        method: 'GET',
+        path: '/collections',
+        config: {
+            auth: 'RequiresLogin'
+        },
+        handler: controller.getCollectionsList
+    });
 };
