@@ -24,8 +24,13 @@ angular.module('movies').factory('MovieDataService', [
             if (!movieModel[list]) {
                 movieModel[list] = [];
             }
+        };
 
-            return movieModel;
+        movieServices.initAllLists = function (model) {
+            movieServices.initMovieModelLists(model, 'actorsList');
+            movieServices.initMovieModelLists(model, 'producersList');
+            movieServices.initMovieModelLists(model, 'directorsList');
+            movieServices.initMovieModelLists(model, 'scenaristsList');
         };
 
         movieServices.getLimitedList = function (array) {
