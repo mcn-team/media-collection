@@ -5,6 +5,7 @@ module.exports = (server) => {
     const users = require('../modules/users');
     const books = require('../modules/books');
     const movies = require('../modules/movies');
+    const tvshows = require('../modules/tvshows');
     const googleBookApi = require('../modules/google-book-api');
     const wikipediaApi = require('../modules/wikipedia-api');
     const allocineApi = require('../modules/allocine-api');
@@ -13,6 +14,7 @@ module.exports = (server) => {
     server.register(users.module, users.options, onError);
     server.register(books.module, books.options, onError);
     server.register(movies.module, movies.options, onError);
+    server.register(tvshows.module, tvshows.options, onError);
     server.register(googleBookApi.module, googleBookApi.options, onError);
     server.register(wikipediaApi.module, wikipediaApi.options, onError);
     server.register(allocineApi.module, allocineApi.options, onError);
