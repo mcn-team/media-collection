@@ -8,3 +8,9 @@ exports.searchByName = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.findById = (request, reply) => {
+    services.findById(request.params, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};

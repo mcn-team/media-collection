@@ -13,4 +13,14 @@ module.exports = (server) => {
         },
         handler: controller.searchByName
     });
+
+    server.route({
+        method: 'GET',
+        path: '/type/{type}/id/{id}',
+        config: {
+            auth: 'RequiresLogin',
+            validate: { params: validator.idParams }
+        },
+        handler: controller.findById
+    });
 };

@@ -9,3 +9,9 @@ exports.searchByName = (params, callback) => {
         responseHelper.serviceCallback(err, { result: result.feed[params.type], filter: params.type }, 200, callback);
     });
 };
+
+exports.findById = (params, callback) => {
+    allocine.api(params.type, { code: params.id }, (err, result) => {
+        responseHelper.serviceCallback(err, { result: result[params.type], filter: params.type }, 200, callback);
+    });
+};
