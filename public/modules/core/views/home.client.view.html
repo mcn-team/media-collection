@@ -85,19 +85,6 @@
                 </div>
             </div>
         </div>
-        <div ng-class="fadeInClass.show" class="col-xs-12 micro-margin-top">
-            <div class="thumbnail right-caption col-xs-12">
-                <h5 class="text-center" data-ng-bind="translation.LAST_ADDED_SERIES" ></h5>
-                <a title="{{lastTvShow.tvShowName}}" data-ng-href="#!/tv-shows/{{lastTvShow._id}}" >
-                    <img class="thumbnail-image-size" ng-src="{{lastTvShow.cover || 'http://placehold.it/127x200'}}" alt="{{lastTvShow.tvShowName}}">
-                </a>
-                <div class="caption">
-                    <h4 title="{{lastTvShow.tvShowName}}" class="latest-title">{{lastTvShow.tvShowName}}</h4>
-                    <p class="author-p" data-ng-bind="lastTvShow.producers || lastTvShow.creators || lastTvShow.actors"></p>
-                    <h5 class="hidden-xs">{{lastTvShow.summary}}</h5>
-                </div>
-            </div>
-        </div>
     </div>
     <div ng-show="authentication.user && isLoaded">
         <div class="col-md-12" ng-include="'modules/light-rss-feed/views/light-rss-feed.client.view.html'"></div>

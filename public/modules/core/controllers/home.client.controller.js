@@ -2,8 +2,8 @@
 
 angular.module('core').controller('HomeController', [
     '$scope', 'Authentication',
-    'BookServices', 'MovieServices', 'TvShowsExposed', 'LanguagesService',
-    function($scope, Authentication, BookServices, MovieServices, TvShowsExposed, LanguagesService) {
+    'BookServices', 'MovieServices', 'LanguagesService',
+    function($scope, Authentication, BookServices, MovieServices, LanguagesService) {
         // This provides Authentication context.
         $scope.authentication = Authentication.isAuthenticated();
         $scope.isLoaded = false;
@@ -49,10 +49,6 @@ angular.module('core').controller('HomeController', [
         }
 
         if ($scope.authentication) {
-            TvShowsExposed.getLatest().$promise.then(function (result) {
-                $scope.lastTvShow = latestCallback(result, 'producers', 'show', 750);
-            });
-
             BookServices.getLatest().then(function(result) {
                 $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
             });
