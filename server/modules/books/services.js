@@ -82,6 +82,7 @@ exports.findCollectionName = (callback) => {
             $nin: [ null, '' ]
         }
     };
+
     Book.distinct('collectionName', options).exec((err, collections) => {
         responseHelper.serviceCallback(err, collections, 200, callback);
     });

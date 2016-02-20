@@ -2,9 +2,10 @@
 
 // Movies controller
 angular.module('movies').controller('CreateMoviesController', [
-    '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication', 'Movies',
-    'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MoviesExposed', 'MovieServices',
-    function($scope, $stateParams, $location, $modal, $log, Authentication, Movies, AlloCineExposed, TypesMovieService, MovieDataService, MoviesExposed, MovieServices) {
+    '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication',
+    'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MovieServices',
+    function($scope, $stateParams, $location, $modal, $log, Authentication,
+             AlloCineExposed, TypesMovieService, MovieDataService, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.isDuplicate = false;
@@ -30,7 +31,9 @@ angular.module('movies').controller('CreateMoviesController', [
                 $scope.isDuplicate = true;
             }
 
-            $scope.listExisting = MoviesExposed.getCollectionNames();
+            MovieServices.getCollectionNames().then(function (response) {
+                $scope.listExisting = response.data;
+            });
 
             $scope.addCustomField = function () {
                 if (!$scope.mediaModel.customFields) {
@@ -46,11 +49,8 @@ angular.module('movies').controller('CreateMoviesController', [
             $scope.mediaModel.movieRate = 7;
             if ($location.search() && $location.search().param) {
                 $scope.isLoaded = false;
-                Movies.get(
-                    { movieId: $location.search().param } )
-                    .$promise
-                    .then(function(result) {
-                        cloneCallback(result);
+                MovieServices.getMovie($location.search().param).then(function(result) {
+                        cloneCallback(result.data);
                     });
             }
 
@@ -61,10 +61,7 @@ angular.module('movies').controller('CreateMoviesController', [
             $scope.mediaModel.seen = false;
 
             // Init Movie Model Lists
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'actorsList');
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'producersList');
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'directorsList');
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'scenaristsList');
+            MovieDataService.initAllLists($scope.mediaModel);
 
             // Variables for Type field
             if (!$scope.mediaModel.typeList) {
@@ -90,7 +87,9 @@ angular.module('movies').controller('CreateMoviesController', [
             };
 
             $scope.checkField = function (key, val) {
-                return val ? ($scope.mediaModel[key] && $scope.mediaModel[key][val] ? false : true) : ($scope.mediaModel[key] ? false : true);
+                return val
+                    ? ($scope.mediaModel[key] && $scope.mediaModel[key][val] ? false : true)
+                    : ($scope.mediaModel[key] ? false : true);
             };
 
             $scope.addField = function(itemList, item) {

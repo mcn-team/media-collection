@@ -44,3 +44,9 @@ exports.getCollectionsList = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getCollectionNames = (request, reply) => {
+    services.findCollectionNames((err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
