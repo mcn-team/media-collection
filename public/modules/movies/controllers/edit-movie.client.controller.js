@@ -2,8 +2,8 @@
 
 // Movies controller
 angular.module('movies').controller('EditMoviesController', [
-    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies', 'MovieServices',
-    function($scope, $stateParams, $location, Authentication, MovieDataService, Movies, MovieServices) {
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices',
+    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = false;
         $scope.ratingMax = 10;
@@ -52,7 +52,6 @@ angular.module('movies').controller('EditMoviesController', [
 
                 $scope.updateField = function(itemList, idx, newStr) {
                     $scope.mediaModel[itemList][idx] = newStr;
-                    console.log($scope.mediaModel[itemList]);
                 };
 
                 $scope.deleteField = function(itemList, index) {
@@ -78,9 +77,9 @@ angular.module('movies').controller('EditMoviesController', [
                 $scope.isLoaded = true;
             }
 
-            Movies.get( { movieId: $stateParams.movieId } ).$promise.then(function (result) {
-                $scope.mediaModel = MovieDataService.fillMovieModel(result);
-                $scope.mediaModel._id = result._id;
+            MovieServices.getMovie($stateParams.movieId).then(function (response) {
+                $scope.mediaModel = MovieDataService.fillMovieModel(response.data);
+                $scope.mediaModel._id = response.data._id;
                 getOneCallback();
             });
         };
