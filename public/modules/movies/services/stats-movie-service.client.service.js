@@ -61,7 +61,7 @@ angular.module('movies').factory('StatsMovieService', [
 
         var collectionsStatistics = function (collection) {
             statistics.mediaMissing.value += collection.missing;
-            angular.forEach(collection.movies, function (current) {
+            angular.forEach(collection.data, function (current) {
                 movieStatistics(current);
             });
         };
@@ -113,7 +113,6 @@ angular.module('movies').factory('StatsMovieService', [
                 statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / statistics.media.value);
                 statistics.mediaMissing = undefined;
             } else {
-                statistics.mediaMissing.value -= statistics.toBought.value;
                 statistics.bought.percent = Math.floor(statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
                 statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
                 statistics.mediaMissing.percent = Math.floor(statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));

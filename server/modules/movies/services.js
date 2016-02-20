@@ -42,3 +42,36 @@ exports.findLatest = (callback) => {
         responseHelper.serviceCallback(err, movie, 200, callback);
     });
 };
+
+exports.findCollections = (callback) => {
+    const aggregation = [{
+        $group: {
+            _id: "$collectionName",
+            data: { $push: "$$ROOT" },
+            boughtTotal: {
+                $sum: {
+                    $cond: { if: { $eq: [ "$bought", true ] }, then: 1, else: 0 }
+                }
+            },
+            toBoughtTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ "$bought", false ] }, 1, 0 ]
+                }
+            },
+            seenTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ '$seen', true ] }, 1, 0 ]
+                }
+            },
+            notSeenTotal: {
+                $sum: {
+                    $cond: [ { $eq: [ '$seen', false ] }, 1, 0 ]
+                }
+            }
+        }
+    }];
+
+    Movie.aggregate(aggregation).exec((err, collections) => {
+        responseHelper.serviceCallback(err, collections, 200, callback);
+    });
+};

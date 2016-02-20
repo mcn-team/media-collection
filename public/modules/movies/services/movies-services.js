@@ -41,6 +41,10 @@ angular.module('movies').factory('MovieServices', [
             return $http.get(buildEndpoint('/movies/latest'), httpConfig);
         };
 
+        movieServices.getCollections = function () {
+            return $http.get(buildEndpoint('/movies/collections'), httpConfig);
+        };
+
         return movieServices;
     }
 ]);

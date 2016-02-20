@@ -38,3 +38,9 @@ exports.getLatestMovie = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getCollectionsList = (request, reply) => {
+    services.findCollections((err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
