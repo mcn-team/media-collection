@@ -36,3 +36,9 @@ exports.removeMovie = (params, callback) => {
         responseHelper.serviceCallback(err, response, 204, callback);
     });
 };
+
+exports.findLatest = (callback) => {
+    Movie.findOne().sort('-created').exec((err, movie) => {
+        responseHelper.serviceCallback(err, movie, 200, callback);
+    });
+};

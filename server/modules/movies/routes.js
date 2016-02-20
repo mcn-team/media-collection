@@ -55,4 +55,13 @@ module.exports = (server) => {
         },
         handler: controller.deleteMovie
     });
+
+    server.route({
+        method: 'GET',
+        path: '/latest',
+        config: {
+            auth: 'RequiresLogin'
+        },
+        handler: controller.getLatestMovie
+    });
 };

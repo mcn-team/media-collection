@@ -32,3 +32,9 @@ exports.deleteMovie = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getLatestMovie = (request, reply) => {
+    services.findLatest((err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
