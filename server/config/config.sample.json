@@ -21,6 +21,8 @@
   ],
   "dbConnectionString": "mongodb://localhost:27017/mc",
   "colors": true,
+  "logRoute": true,
+  "logFiles": false,
   "secretJWT": "123456",
   "clientPath": "webapp"
 }
