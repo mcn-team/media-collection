@@ -73,4 +73,13 @@ module.exports = (server) => {
         },
         handler: controller.getCollectionsList
     });
+
+    server.route({
+        method: 'GET',
+        path: '/names',
+        config: {
+            auth: 'RequiresLogin'
+        },
+        handler: controller.getCollectionNames
+    });
 };

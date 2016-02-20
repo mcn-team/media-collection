@@ -75,3 +75,15 @@ exports.findCollections = (callback) => {
         responseHelper.serviceCallback(err, collections, 200, callback);
     });
 };
+
+exports.findCollectionNames = (callback) => {
+    const options = {
+        collectionName: {
+            $nin: [ null, '' ]
+        }
+    };
+
+    Movie.distinct('collectionName', options).exec((err, names) => {
+        responseHelper.serviceCallback(err, names, 200, callback);
+    });
+};
