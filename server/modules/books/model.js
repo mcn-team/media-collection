@@ -4,24 +4,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-    title: {
-        type: String,
-        default: '',
-        trim: true
-    },
+    title: String,
     type: {
         type: String,
-        default: 'book',
-        required: 'Media type is required'
+        enum: [ 'book', 'comics', 'manga']
     },
-    collectionName: {
-        type: String,
-        trim: true
-    },
+    collectionName: String,
     volume: Number,
-    authors: [
-        String
-    ],
+    authors: [ String ],
     isbn: String,
     publishingDate: {
         type: Date,
@@ -32,24 +22,22 @@ const bookSchema = new Schema({
     read: {
         type: String,
         enum: [ 'NOTREAD', 'ONGOING', 'READ'],
-        required: 'Reading status is required',
         default: 'NOTREAD'
     },
     bought: {
         type: Boolean,
-        default: true,
-        required: 'Purchase status is required'
+        default: true
     },
     pageCount: {
-        type: String,
-        default: '0'
+        type: Number,
+        default: 0
     },
     bookRate: {
         type: Number,
         default: 0
     },
     summary: String,
-    price: String,
+    price: Number,
     customFields: [{
         name: String,
         value: String
