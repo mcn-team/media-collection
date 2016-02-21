@@ -9,6 +9,11 @@
   "author": "Kaze",
   "license": "MIT",
   "dependencies": {
+    "angular": "^1.5.0",
+    "angular-bootstrap": "^0.12.2",
+    "angular-resource": "^1.5.0",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap": "^3.3.6",
     "ng-lodash": "^0.2.3"
   }
 }

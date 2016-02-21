@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
     // Init module configuration options
     var applicationModuleName = 'mediacollection';
-    var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngLodash'];
+    var applicationModuleVendorDependencies = ['ngResource',  'ui.router', 'ui.bootstrap', 'ngLodash'];
 
     // Add a new vertical module
     var registerModule = function(moduleName, dependencies) {
