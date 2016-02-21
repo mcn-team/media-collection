@@ -9,8 +9,7 @@
   },
   "scripts": {
     "start": "grunt",
-    "test": "grunt test",
-    "postinstall": "bower install --config.interactive=false"
+    "test": "grunt test"
   },
   "dependencies": {
     "allocine-api": "0.1.6",
