@@ -14,7 +14,7 @@ angular.module('books').factory('BookServices', [
                     'auth-web-token': creds
                 }
             };
-            return Config.migrationApiUrl + path;
+            return Config.apiRoute + path;
         };
 
         bookServices.getAllBooks = function () {

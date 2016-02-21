@@ -14,15 +14,15 @@ angular.module('users').factory('UserServices', [
                     'auth-web-token': creds
                 }
             };
-            return Config.migrationApiUrl + path;
+            return Config.apiRoute + path;
         };
 
         userApi.login = function (payload) {
-            return $http.post(Config.migrationApiUrl + '/users/login', payload);
+            return $http.post(Config.apiRoute + '/users/login', payload);
         };
 
         userApi.signup = function (payload) {
-            return $http.post(Config.migrationApiUrl + '/users/signup', payload);
+            return $http.post(Config.apiRoute + '/users/signup', payload);
         };
 
         userApi.updateUser = function (userId, payload) {

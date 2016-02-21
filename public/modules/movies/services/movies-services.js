@@ -14,7 +14,7 @@ angular.module('movies').factory('MovieServices', [
                     'auth-web-token': creds
                 }
             };
-            return Config.migrationApiUrl + path;
+            return Config.apiRoute + path;
         };
 
         movieServices.getAllMovies = function () {

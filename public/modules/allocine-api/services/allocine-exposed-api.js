@@ -14,7 +14,7 @@ angular.module('allocine-api').factory('AlloCineExposed', [
                     'auth-web-token': creds
                 }
             };
-            return Config.migrationApiUrl + path;
+            return Config.apiRoute + path;
         };
 
         allocineExposed.searchByName = function (type, name) {
