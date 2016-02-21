@@ -25,7 +25,7 @@ exports.authenticateUser = (payload, callback) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else if (!user) {
-            callback({ error: 'Wrong username', code: 404 });
+            callback({ error: 'Wrong username', code: 401 });
         } else {
             if (user.password !== payload.password) {
                 callback({ error: 'Wrong password', code: 401 });

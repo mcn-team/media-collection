@@ -2,11 +2,21 @@
 
 const Hapi = require('hapi');
 const _ = require('lodash');
+const path = require('path');
 const Chalk = require('chalk');
+
 const config = require('./config');
 
 // Create the HAPI server and set his parameters if needed
-const server = new Hapi.Server();
+const server = new Hapi.Server({
+    connections: {
+        routes: {
+            files: {
+                relativeTo: path.resolve(__dirname + '/../public')
+            }
+        }
+    }
+});
 
 // Set the different server listeners
 _.forEach(config.connections, (element) => {

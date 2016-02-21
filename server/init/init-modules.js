@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = (server) => {
+    const inert = require('inert');
+    const staticFiles = require('../modules/static-files');
+    const lang = require('../modules/lang');
     const auth = require('../modules/auth');
     const users = require('../modules/users');
     const books = require('../modules/books');
@@ -9,6 +12,9 @@ module.exports = (server) => {
     const wikipediaApi = require('../modules/wikipedia-api');
     const allocineApi = require('../modules/allocine-api');
 
+    server.register(inert, onError);
+    server.register(staticFiles.module, onError);
+    server.register(lang.module, lang.options, onError);
     server.register(auth.module, onError);
     server.register(users.module, users.options, onError);
     server.register(books.module, books.options, onError);

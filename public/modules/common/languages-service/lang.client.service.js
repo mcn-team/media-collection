@@ -26,7 +26,7 @@ angular.module('languages').factory('LanguagesService', ['$resource',
                     }
                 };
 
-                return $resource('lang', { lang: '@lang' }, exposed);
+                return $resource('api/lang', { lang: '@lang' }, exposed);
             };
 
             return languageService;
