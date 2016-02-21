@@ -10,13 +10,13 @@
   "author": "Kaze",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.1",
-    "hapi": "^12.1.0",
-    "inert": "^3.2.0",
-    "joi": "^7.2.3",
-    "jsonwebtoken": "^5.5.4",
-    "lodash": "^4.1.0",
-    "mongoose": "^4.3.7",
-    "request": "^2.69.0"
+    "chalk": "~1.1.1",
+    "hapi": "~12.1.0",
+    "inert": "~3.2.0",
+    "joi": "~7.2.3",
+    "jsonwebtoken": "~5.5.4",
+    "lodash": "~4.1.0",
+    "mongoose": "~4.3.7",
+    "request": "~2.69.0"
   }
 }
