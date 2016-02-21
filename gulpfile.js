@@ -78,6 +78,6 @@ gulp.task('watch', ['inject'], function () {
     gulp.watch(HTML_PATH, ['inject']);
 });
 
-gulp.task('serve', ['dev:path', 'watch']);
+gulp.task('default', ['dev:path', 'watch']);
 
 gulp.task('build', ['prod:path', 'prod:files', 'inject']);
