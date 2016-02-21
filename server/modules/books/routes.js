@@ -1,6 +1,7 @@
 'use strict';
 
 const controller = require('./controller');
+const validator = require('./validator');
 
 module.exports = (server) => {
     server.route({
@@ -16,7 +17,8 @@ module.exports = (server) => {
         method: 'POST',
         path: '/',
         config: {
-            auth: 'RequiresLogin'
+            auth: 'RequiresLogin',
+            validate: { payload: validator.bookCreatePayload }
         },
         handler: controller.createBook
     });
@@ -25,7 +27,8 @@ module.exports = (server) => {
         method: 'GET',
         path: '/{bookId}',
         config: {
-            auth: 'RequiresLogin'
+            auth: 'RequiresLogin',
+            validate: { params: validator.bookParams }
         },
         handler: controller.getBook
     });
@@ -34,7 +37,11 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/{bookId}',
         config: {
-            auth: 'RequiresLogin'
+            auth: 'RequiresLogin',
+            validate: {
+                params: validator.bookParams,
+                payload: validator.bookEditPayload
+            }
         },
         handler: controller.updateBook
     });
@@ -70,7 +77,8 @@ module.exports = (server) => {
         method: 'GET',
         path: '/collections/{collection}/volumes/{volume}',
         config: {
-            auth: 'RequiresLogin'
+            auth: 'RequiresLogin',
+            validate: { params: validator.collectionsParams }
         },
         handler: controller.getCollection
     });
@@ -79,7 +87,8 @@ module.exports = (server) => {
         method: 'DELETE',
         path: '/{bookId}',
         config: {
-            auth: 'RequiresLogin'
+            auth: 'RequiresLogin',
+            validate: { params: validator.bookParams }
         },
         handler: controller.deleteBook
     });

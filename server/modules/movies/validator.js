@@ -30,7 +30,7 @@ exports.moviePayload = _.merge({
 }, commonMoviePayload);
 
 exports.movieParams = {
-    movieId: Joi.string().hex().length(24)
+    movieId: Joi.string().hex().length(24).required()
 };
 
 exports.editMoviePayload = _.merge({
