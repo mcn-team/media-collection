@@ -1,5 +1,7 @@
 'use strict';
 
 angular.module('mediacollection').constant('Config', {
-    migrationApiUrl: 'http://localhost:4000/api'
+    baseApiUrl: 'http://localhost:4000/api',
+    coreUrl: 'http://localhost:4000',
+    apiRoute: '/api'
 });
