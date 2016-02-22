@@ -70,19 +70,19 @@ angular.module('books').factory('BooksDataService', [
 
         bookServices.fillBookModel = function (book) {
             return {
-                type: book.type ? book.type : 'book',
+                type: book.type || 'book',
                 title: book.title,
                 custom: {},
                 collectionName: book.collectionName ? book.collectionName : undefined,
-                volumeId: parseInt(book.volume) ? parseInt(book.volume) : undefined,
+                volumeId: parseInt(book.volume) || undefined,
                 displayAuthors: bookServices.getDisplayAuthorsList(book.authors),
                 authorsList: bookServices.getLimitedAuthorsList(book.authors),
                 author: bookServices.getListLastOne(book.authors),
                 publishingDate: book.publishingDate ? new Date(book.publishingDate) : undefined,
                 isbn: book.isbn,
                 publisher: book.publisher,
-                pageCount: parseInt(book.pageCount),
-                price: parseFloat(book.price),
+                pageCount: parseInt(book.pageCount) || undefined,
+                price: parseFloat(book.price) || undefined,
                 read: book.read,
                 bought: book.bought,
                 cover: book.cover,
@@ -93,13 +93,21 @@ angular.module('books').factory('BooksDataService', [
         };
 
         bookServices.createBookFromBookModel = function (model) {
-
             var authorsTab = [];
             angular.forEach(model.authorsList, function (current) {
                 authorsTab.push(current);
             });
+
+            if (model.collectionName === '') {
+                model.collectionName = undefined;
+            }
+
             if (model.author) {
                 authorsTab.push(model.author);
+            }
+
+            if (model.publishingDate) {
+                model.publishingDate.setMinutes(-model.publishingDate.getTimezoneOffset());
             }
 
             return new Object({
@@ -108,7 +116,7 @@ angular.module('books').factory('BooksDataService', [
                 collectionName: model.collectionName,
                 volume: model.volumeId,
                 authors: authorsTab,
-                publishingDate: model.publishingDate,
+                publishingDate: model.publishingDate ? model.publishingDate.toISOString() : undefined,
                 publisher: model.publisher,
                 price: model.price,
                 isbn: model.isbn,

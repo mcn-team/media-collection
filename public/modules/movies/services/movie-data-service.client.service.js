@@ -67,7 +67,7 @@ angular.module('movies').factory('MovieDataService', [
                 selectedType: TypeService.getType(movie.type),
                 title: movie.title,
                 collectionName: movie.collectionName ? movie.collectionName : undefined,
-                episode: parseInt(movie.episode) ? parseInt(movie.episode) : undefined,
+                episode: parseInt(movie.episode) || undefined,
                 displayActors: movieServices.getDisplayList(movie.actors),
                 actorsList: movieServices.getLimitedList(movie.actors),
                 actor: movie.actors[movie.actors.length - 1],
@@ -81,8 +81,8 @@ angular.module('movies').factory('MovieDataService', [
                 scenaristsList: movieServices.getLimitedList(movie.scenarists),
                 scenarist: movie.scenarists[movie.scenarists.length - 1],
                 releasedDate: movie.releasedDate ? new Date(movie.releasedDate) : undefined,
-                duration: parseInt(movie.duration),
-                price: parseFloat(movie.price),
+                duration: parseInt(movie.duration) || undefined,
+                price: parseFloat(movie.price) || undefined,
                 bought: movie.bought,
                 cover: movie.cover,
                 movieRate: movie.movieRate,
@@ -101,6 +101,10 @@ angular.module('movies').factory('MovieDataService', [
                 model.episode = 0;
             }
 
+            if (model.releasedDate) {
+                model.releasedDate.setMinutes(-model.releasedDate.getTimezoneOffset());
+            }
+
             return {
                 type: model.selectedType ? model.selectedType.value : '',
                 title: model.title,
@@ -110,7 +114,7 @@ angular.module('movies').factory('MovieDataService', [
                 producers: producersTab,
                 directors: directorsTab,
                 scenarists: scenaristsTab,
-                releasedDate: model.releasedDate,
+                releasedDate: model.releasedDate ? model.releasedDate.toISOString() : undefined,
                 price: model.price || undefined,
                 seen: model.seen,
                 bought: model.bought,
