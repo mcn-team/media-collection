@@ -1,6 +1,6 @@
 {
-  "name": "hapi-server",
-  "version": "0.0.1",
+  "name": "mediacollection-server",
+  "version": "0.1.0",
   "description": "HAPI server for Media Collection",
   "main": "server.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "author": "Kaze",
   "license": "MIT",
   "dependencies": {
+    "allocine-api": "~0.1.9",
     "chalk": "~1.1.1",
     "hapi": "~12.1.0",
     "inert": "~3.2.0",
