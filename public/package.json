@@ -1,6 +1,6 @@
 {
-  "name": "media-collection-app",
-  "version": "0.0.1",
+  "name": "mediacollection-webapp",
+  "version": "0.1.0",
   "description": "",
   "main": "application.js",
   "scripts": {
