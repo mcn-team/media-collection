@@ -1,7 +1,7 @@
 {
   "name": "mediacollection",
   "description": "Store, organize and browse your media",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "MediaCollection Team",
   "engines": {
     "node": "0.10.x",
@@ -9,8 +9,7 @@
   },
   "scripts": {
     "start": "grunt",
-    "test": "grunt test",
-    "postinstall": "bower install --config.interactive=false"
+    "test": "grunt test"
   },
   "dependencies": {
     "allocine-api": "0.1.6",

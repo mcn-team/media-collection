@@ -1,8 +1,10 @@
 'use strict';
 
-angular.module('movies').controller('ListMovieCollectionController', ['$scope', '$location', 'Authentication', '$anchorScroll', 'StatsMovieService', 'MoviesExposed',
-    function($scope, $location, Authentication, $anchorScroll, StatsMovieService, MoviesExposed) {
-        $scope.authentication = Authentication;
+angular.module('movies').controller('ListMovieCollectionController', [
+    '$scope', '$location', 'Authentication', '$anchorScroll',
+    'StatsMovieService', 'MovieServices', 'MovieDataService',
+    function($scope, $location, Authentication, $anchorScroll, StatsMovieService, MovieServices, MovieDataService) {
+        $scope.authentication = Authentication.checkAuth();
 
         $scope.goToStats = function() {
             $location.hash('stats');
@@ -19,15 +21,10 @@ angular.module('movies').controller('ListMovieCollectionController', ['$scope', 
 
             $scope.movies = [];
 
-            function getCollectionCallback() {
-                $scope.collectionTab.sort(function(a, b) { return a.name > b.name ? 1 : -1; });
+            MovieServices.getCollections().then(function(result) {
+                $scope.collectionTab = MovieDataService.computeMissing(result.data);
                 $scope.stats = StatsMovieService.calculate($scope.collectionTab);
                 $scope.isLoaded = true;
-            }
-
-            MoviesExposed.getCollections().$promise.then(function(result) {
-                $scope.collectionTab = result;
-                getCollectionCallback();
             });
         };
     }

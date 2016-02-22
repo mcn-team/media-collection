@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'BooksExposed', 'MoviesExposed', 'TvShowsExposed',
-    'LanguagesService',
-    function($scope, Authentication, BooksExposed, MoviesExposed, TvShowsExposed, LanguagesService) {
+angular.module('core').controller('HomeController', [
+    '$scope', 'Authentication',
+    'BookServices', 'MovieServices', 'LanguagesService',
+    function($scope, Authentication, BookServices, MovieServices, LanguagesService) {
         // This provides Authentication context.
-        $scope.authentication = Authentication;
+        $scope.authentication = Authentication.isAuthenticated();
         $scope.isLoaded = false;
         $scope.fadeInClass = {
             book: 'hidden-op',
@@ -23,7 +24,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             $scope.translation = LanguagesService.getPreloaded();
             $scope.isLoaded = true;
         }
-
 
         function getDisplayList(list) {
             var formatted = '';
@@ -48,20 +48,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             return result;
         }
 
-        if ($scope.authentication.user) {
-            TvShowsExposed.getLatest().$promise.then(function (result) {
-                $scope.lastTvShow = latestCallback(result, 'producers', 'show', 750);
+        if ($scope.authentication) {
+            BookServices.getLatest().then(function(result) {
+                $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
             });
 
-            BooksExposed.lastOne().$promise.then(function(result) {
-                $scope.lastBookResult = latestCallback(result, 'authors', 'book', 240);
+            MovieServices.getLatest().then(function(result) {
+                $scope.lastMovieResult = latestCallback(result.data, 'actors', 'movie', 240);
             });
-
-            MoviesExposed.lastOne().$promise.then(function(result) {
-                $scope.lastMovieResult = latestCallback(result, 'actors', 'movie', 240);
-            });
-        } else {
-            $scope.isLoaded = true;
         }
     }
 ]);

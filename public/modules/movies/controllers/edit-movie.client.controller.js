@@ -1,9 +1,10 @@
 'use strict';
 
 // Movies controller
-angular.module('movies').controller('EditMoviesController', ['$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'Movies',
-    function($scope, $stateParams, $location, Authentication, MovieDataService, Movies) {
-        $scope.authentication = Authentication;
+angular.module('movies').controller('EditMoviesController', [
+    '$scope', '$stateParams', '$location', 'Authentication', 'MovieDataService', 'MovieServices',
+    function($scope, $stateParams, $location, Authentication, MovieDataService, MovieServices) {
+        $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = false;
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
@@ -26,7 +27,7 @@ angular.module('movies').controller('EditMoviesController', ['$scope', '$statePa
 
             movie._id = $scope.mediaModel._id;
 
-            movie.$update(function() {
+            MovieServices.updateMovie(movie._id, movie).then(function() {
                 $location.path('movies/' + movie._id);
                 $scope.mediaModel = {};
             }, function(errorResponse) {
@@ -51,7 +52,6 @@ angular.module('movies').controller('EditMoviesController', ['$scope', '$statePa
 
                 $scope.updateField = function(itemList, idx, newStr) {
                     $scope.mediaModel[itemList][idx] = newStr;
-                    console.log($scope.mediaModel[itemList]);
                 };
 
                 $scope.deleteField = function(itemList, index) {
@@ -77,9 +77,9 @@ angular.module('movies').controller('EditMoviesController', ['$scope', '$statePa
                 $scope.isLoaded = true;
             }
 
-            Movies.get( { movieId: $stateParams.movieId } ).$promise.then(function (result) {
-                $scope.mediaModel = MovieDataService.fillMovieModel(result);
-                $scope.mediaModel._id = result._id;
+            MovieServices.getMovie($stateParams.movieId).then(function (response) {
+                $scope.mediaModel = MovieDataService.fillMovieModel(response.data);
+                $scope.mediaModel._id = response.data._id;
                 getOneCallback();
             });
         };

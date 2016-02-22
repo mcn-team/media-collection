@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('books').factory('BooksDataService', ['Books',
-    function(Books) {
+angular.module('books').factory('BooksDataService', [
+    'lodash',
+    function(_) {
         // Book data service logic
         // ...
 
@@ -100,11 +101,8 @@ angular.module('books').factory('BooksDataService', ['Books',
             if (model.author) {
                 authorsTab.push(model.author);
             }
-            if (!model.collectionName || model.collectionName === '') {
-                model.volumeId = '-';
-            }
 
-            return new Books ({
+            return new Object({
                 type: model.type,
                 title: model.title,
                 collectionName: model.collectionName,
@@ -122,6 +120,51 @@ angular.module('books').factory('BooksDataService', ['Books',
                 summary: model.summary,
                 customFields: model.customFields
             });
+        };
+
+        function sortAsc (a, b) {
+            return a - b;
+        }
+
+        function sortBooks (a, b) {
+            return a.volume - b.volume;
+        }
+
+        function sortCollections (a, b) {
+            return a.name > b.name ? 1 : -1;
+        }
+
+        bookServices.computeMissing = function (collections, limit) {
+            collections = _.filter(collections, function (item) {
+                return item._id !== null;
+            });
+            _.forEach(collections, function (element) {
+                var volumes = [];
+
+                element.missing = 0;
+
+                _.forEach(element.data, function (book) {
+                    volumes.push(parseInt(book.volume));
+                });
+                volumes.sort(sortAsc);
+
+                var max = limit || volumes[volumes.length - 1];
+                for (var i = 1; i < max; i++) {
+                    if (_.indexOf(volumes, i) < 0) {
+                        element.missing += 1;
+                        element.data.push({
+                            collectionName: element._id,
+                            volume: i,
+                            bought: false
+                        });
+                    }
+                }
+                element.data.sort(sortBooks);
+            });
+
+            collections.sort(sortCollections);
+
+            return collections;
         };
 
         return bookServices;

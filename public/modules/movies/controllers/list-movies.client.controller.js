@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('movies').controller('ListMoviesController', ['$scope', '$location', '$anchorScroll', 'Authentication', 'StatsMovieService', 'MovieDataService', 'Movies',
-    'LanguagesService',
-    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, Movies, LanguagesService) {
+angular.module('movies').controller('ListMoviesController', [
+    '$scope', '$location', '$anchorScroll', 'Authentication',
+    'StatsMovieService', 'MovieDataService', 'MovieServices', 'LanguagesService',
+    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, MovieServices, LanguagesService) {
+        $scope.authentication = Authentication.checkAuth();
 
-        $scope.authentication = Authentication;
         $scope.mediaType = 'Movie';
 
         $scope.goToStats = function() {
@@ -16,8 +17,8 @@ angular.module('movies').controller('ListMoviesController', ['$scope', '$locatio
         $scope.find = function() {
             $scope.multiSearchOn = false;
 
-            Movies.query().$promise.then(function (result) {
-                $scope.movies = result;
+            MovieServices.getAllMovies().then(function (response) {
+                $scope.movies = response.data;
                 $scope.$watch('filteredMovies', function () {
                     $scope.stats = StatsMovieService.calculate($scope.filteredMovies);
                 }, true);
@@ -26,12 +27,10 @@ angular.module('movies').controller('ListMoviesController', ['$scope', '$locatio
                         $scope.translation = result;
                         $scope.isLoaded = true;
                         LanguagesService.setPreloaded($scope.translation);
-                        console.log($scope.translation);
                     });
                 } else {
                     $scope.translation = LanguagesService.getPreloaded();
                     $scope.isLoaded = true;
-                    console.log($scope.translation);
                 }
             });
 

@@ -1,10 +1,12 @@
 'use strict';
 
 // Movies controller
-angular.module('movies').controller('CreateMoviesController', ['$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication', 'Movies',
-    'AlloCineAPIExposed', 'TypesMovieService', 'MovieDataService', 'MoviesExposed',
-    function($scope, $stateParams, $location, $modal, $log, Authentication, Movies, AlloCineExposed, TypesMovieService, MovieDataService, MoviesExposed) {
-        $scope.authentication = Authentication;
+angular.module('movies').controller('CreateMoviesController', [
+    '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication',
+    'AlloCineExposed', 'AllocineDataService', 'TypesMovieService', 'MovieDataService', 'MovieServices',
+    function($scope, $stateParams, $location, $modal, $log, Authentication,
+             AlloCineExposed, AllocineDataService, TypesMovieService, MovieDataService, MovieServices) {
+        $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.isDuplicate = false;
         $scope.ratingMax = 10;
@@ -29,7 +31,9 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
                 $scope.isDuplicate = true;
             }
 
-            $scope.listExisting = MoviesExposed.getCollectionNames();
+            MovieServices.getCollectionNames().then(function (response) {
+                $scope.listExisting = response.data;
+            });
 
             $scope.addCustomField = function () {
                 if (!$scope.mediaModel.customFields) {
@@ -45,11 +49,8 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
             $scope.mediaModel.movieRate = 7;
             if ($location.search() && $location.search().param) {
                 $scope.isLoaded = false;
-                Movies.get(
-                    { movieId: $location.search().param } )
-                    .$promise
-                    .then(function(result) {
-                        cloneCallback(result);
+                MovieServices.getMovie($location.search().param).then(function(result) {
+                        cloneCallback(result.data);
                     });
             }
 
@@ -60,10 +61,7 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
             $scope.mediaModel.seen = false;
 
             // Init Movie Model Lists
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'actorsList');
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'producersList');
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'directorsList');
-            $scope.mediaModel = MovieDataService.initMovieModelLists($scope.mediaModel, 'scenaristsList');
+            MovieDataService.initAllLists($scope.mediaModel);
 
             // Variables for Type field
             if (!$scope.mediaModel.typeList) {
@@ -81,7 +79,6 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
 
             $scope.updateField = function(itemList, idx, newStr) {
                 $scope.mediaModel[itemList][idx] = newStr;
-                console.log($scope.mediaModel[itemList]);
             };
 
             $scope.deleteField = function(itemList, index) {
@@ -89,7 +86,9 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
             };
 
             $scope.checkField = function (key, val) {
-                return val ? ($scope.mediaModel[key] && $scope.mediaModel[key][val] ? false : true) : ($scope.mediaModel[key] ? false : true);
+                return val
+                    ? ($scope.mediaModel[key] && $scope.mediaModel[key][val] ? false : true)
+                    : ($scope.mediaModel[key] ? false : true);
             };
 
             $scope.addField = function(itemList, item) {
@@ -116,18 +115,13 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
             // Create new Movie object
             var movie = MovieDataService.createMovieFromMovieModel($scope.mediaModel);
 
-            // Redirect after save
-            movie.$save(function(response) {
-                $location.path('/movies/' + response._id);
+            MovieServices.createMovie(movie).then(function(response) {
+                $location.path('/movies/' + response.data._id);
 
                 // Clear form fields
                 $scope.mediaModel = {};
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
-                $scope.mediaModel.actorsList.pop();
-                $scope.mediaModel.producersList.pop();
-                $scope.mediaModel.directorsList.pop();
-                $scope.mediaModel.scenaristsList.pop();
             });
         };
 
@@ -143,14 +137,9 @@ angular.module('movies').controller('CreateMoviesController', ['$scope', '$state
         };
 
         $scope.searchFilmByTitle = function () {
-            function searchCallback(result) {
-                //console.log(result);
-                $scope.movieList = result;
+            AlloCineExposed.searchByName('movie', $scope.mediaModel.searchMovie).then(function (response) {
+                $scope.movieList = AllocineDataService.formatSearchResult(response.data);
                 $scope.open();
-            }
-
-            AlloCineExposed.search($scope.mediaModel.searchMovie, 20, 'movie').$promise.then(function(result) {
-                searchCallback(result);
             });
         };
 

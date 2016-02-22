@@ -23,19 +23,24 @@ Installer Media collection nécessite :
 - [MongoDB](http://www.mongodb.org/downloads)
 - [Node.js](http://nodejs.org/download/)
 
-puis à la racine du projet, tapez :
+puis dans les dossiers `app` et `public`, tapez :
 ```
-npm install -g yo
 npm install 
 ```
 ###Execution
 
 Pour lancer Media Collection, tapez à la racine du projet
 ```
-grunt 
+gulp
 ```
+
+et lancer le serveur avec la commande node ou tout autre utilitaire de votre choix (pm2, nodemon, etc) depuis la racine: 
+```
+node server/server.js
+```
+
 L'application est disponible sur : 
-- http://localhost:3000
+- http://localhost:4000
 
 
 ####Contributeurs

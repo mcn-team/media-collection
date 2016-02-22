@@ -1,5 +1,5 @@
 <section data-ng-controller="HomeController">
-    <div ng-hide="authentication.user" class="row" >
+    <div ng-if="!authentication.user" class="row" >
         <div class="elements-margin-top thumbnail col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" >
             <div class="caption">
                 <p>
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="authentication.user" >
+    <div ng-if="authentication.user" >
         <div id="dashboard" class="dashbord-div col-xs-12 col-md-push-3 col-md-6" >
             <div class="col-xs-4">
                 <a popover="Ajouter un livre" popover-trigger="mouseenter" type="button" class="btn btn-default " href="/#!/books/create" >
@@ -43,21 +43,6 @@
                     <img ng-src="/assets/img/list-collection-movies.png">
                 </a>
             </div>
-            <div style="margin-top: 5%" class="col-xs-4">
-                <a popover="Ajouter une série TV" popover-trigger="mouseenter" type="button" class="btn btn-default " href="/#!/tv-shows/create" >
-                    <img ng-src="/assets/img/add-tvseries.png">
-                </a>
-            </div>
-            <div style="margin-top: 5%" class="col-xs-4">
-                <a popover="Liste des séries TV" popover-trigger="mouseenter" type="button" class="btn btn-default" href="/#!/tv-shows" >
-                    <img ng-src="/assets/img/list-tvseries.png">
-                </a>
-            </div>
-            <div style="margin-top: 5%" class="col-xs-4">
-                <a popover="Liste des collections de séries TV" popover-trigger="mouseenter" type="button" class="btn btn-default" href="/#!/tv-shows/collections" >
-                    <img ng-src="/assets/img/list-collection-shows.png">
-                </a>
-            </div>
         </div>
         <div ng-class="fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
             <div class="thumbnail">
@@ -82,19 +67,6 @@
                     <h4 title="{{lastMovieResult.title}}" class="latest-title">{{lastMovieResult.title}}</h4>
                     <p class="author-p" data-ng-bind="lastMovieResult.actors"></p>
                     <h5 class="hidden-xs">{{lastMovieResult.summary}}</h5>
-                </div>
-            </div>
-        </div>
-        <div ng-class="fadeInClass.show" class="col-xs-12 micro-margin-top">
-            <div class="thumbnail right-caption col-xs-12">
-                <h5 class="text-center" data-ng-bind="translation.LAST_ADDED_SERIES" ></h5>
-                <a title="{{lastTvShow.tvShowName}}" data-ng-href="#!/tv-shows/{{lastTvShow._id}}" >
-                    <img class="thumbnail-image-size" ng-src="{{lastTvShow.cover || 'http://placehold.it/127x200'}}" alt="{{lastTvShow.tvShowName}}">
-                </a>
-                <div class="caption">
-                    <h4 title="{{lastTvShow.tvShowName}}" class="latest-title">{{lastTvShow.tvShowName}}</h4>
-                    <p class="author-p" data-ng-bind="lastTvShow.producers || lastTvShow.creators || lastTvShow.actors"></p>
-                    <h5 class="hidden-xs">{{lastTvShow.summary}}</h5>
                 </div>
             </div>
         </div>

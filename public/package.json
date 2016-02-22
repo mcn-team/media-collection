@@ -1,0 +1,19 @@
+{
+  "name": "mediacollection-webapp",
+  "version": "0.1.0",
+  "description": "",
+  "main": "application.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kaze",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-bootstrap": "~0.11.2",
+    "angular-resource": "~1.5.0",
+    "angular-ui-router": "~0.2.18",
+    "bootstrap": "~3.3.6",
+    "ng-lodash": "~0.2.3"
+  }
+}
