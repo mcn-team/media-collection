@@ -80,7 +80,7 @@ angular.module('movies').factory('MovieDataService', [
                 displayScenarists: movieServices.getDisplayList(movie.scenarists),
                 scenaristsList: movieServices.getLimitedList(movie.scenarists),
                 scenarist: movie.scenarists[movie.scenarists.length - 1],
-                releasedDate: movie.releasedDate ? movie.releasedDate.split('T')[0] : undefined,
+                releasedDate: movie.releasedDate ? new Date(movie.releasedDate) : undefined,
                 duration: parseInt(movie.duration),
                 price: parseFloat(movie.price),
                 bought: movie.bought,

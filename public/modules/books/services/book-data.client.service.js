@@ -78,7 +78,7 @@ angular.module('books').factory('BooksDataService', [
                 displayAuthors: bookServices.getDisplayAuthorsList(book.authors),
                 authorsList: bookServices.getLimitedAuthorsList(book.authors),
                 author: bookServices.getListLastOne(book.authors),
-                publishingDate: book.publishingDate ? book.publishingDate.split('T')[0] : undefined,
+                publishingDate: book.publishingDate ? new Date(book.publishingDate) : undefined,
                 isbn: book.isbn,
                 publisher: book.publisher,
                 pageCount: parseInt(book.pageCount),
