@@ -1,7 +1,5 @@
 @media (min-width: 992px) {
-    .nav-users {
-        position: fixed;
-    }
+    .nav-users { position: fixed; }
 }
 .remove-account-container {
     display: inline-block;

@@ -14,7 +14,7 @@ angular.module('allocine-api').factory('AllocineDataService', [
                     title: current.title || '',
                     originalTitle: current.originalTitle || '',
                     prodYear: current.productionYear || '',
-                    releaseDate: current.release ? current.release.releaseDate : '1970-01-01',
+                    releaseDate: current.release ? new Date(current.release.releaseDate) : undefined,
                     directors: current.castingShort && current.castingShort.directors ? current.castingShort.directors.trim().split(',') : [],
                     actors: current.castingShort && current.castingShort.actors ? current.castingShort.actors.trim().split(',') : [],
                     producers: current.castingShort && current.castingShort.producers ? current.castingShort.producers.trim().split(',') : [],

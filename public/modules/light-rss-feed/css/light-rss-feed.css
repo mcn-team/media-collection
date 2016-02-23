@@ -6,7 +6,6 @@
     -o-transition: opacity 1s ease-in-out;
     transition: opacity 1s ease-in-out;
 }
-
 .feed-fade-in {
     opacity: 1;
     border: none;
@@ -15,7 +14,6 @@
     -o-transition: opacity 1s ease-in-out;
     transition: opacity 1s ease-in-out;
 }
-
 .feed-controls {
     opacity: 0.2;
     cursor: pointer;
