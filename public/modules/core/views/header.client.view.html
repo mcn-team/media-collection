@@ -8,7 +8,7 @@
         </button>
         <a href="/#!/" class="navbar-brand">MediaCollection</a>
     </div>
-    <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
+    <nav class="collapse navbar-collapse" data-uib-collapse="!isCollapsed" role="navigation">
         <ul class="nav navbar-nav" data-ng-show="menu.shouldRender(authentication.user);">
             <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-show="item.shouldRender(authentication.user);" data-uib-dropdown class="{{item.menuItemClass}}" >
                 <a id="single-button" class="dropdown-toggle" data-uib-dropdown-toggle data-ng-disabled="disabled">

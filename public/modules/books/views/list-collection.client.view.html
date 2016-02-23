@@ -13,19 +13,19 @@
 
     <div ng-show="isLoaded" class="row">
         <div class="col-md-12" >
-            <accordion close-others="oneAtTime" >
-                <accordion-group class="collection-header-field" ng-repeat="item in collectionsList" >
-                    <accordion-heading >
+            <uib-accordion close-others="oneAtTime" >
+                <uib-accordion-group class="collection-header-field" ng-repeat="item in collectionsList" >
+                    <uib-accordion-heading >
                         <span class="hidden-xs badge view-collection-missing pull-right">{{item.boughtTotal + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
                         <div style="font-weight: bold;" >{{item._id}}</div>
-                    </accordion-heading>
+                    </uib-accordion-heading>
                     <ul class="list-group" >
                         <li ng-click="goTo(book._id)" class="list-group-item {{book.bought ? 'collection-header-field' : 'view-collection-missing'}}" ng-repeat="book in item.data" >
                             {{book.collectionName + ' T. ' + book.volume + (book.title ? ' - ' + book.title : '')}}
                         </li>
                     </ul>
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
         </div>
     </div>
 
