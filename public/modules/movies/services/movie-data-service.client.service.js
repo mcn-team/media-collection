@@ -101,6 +101,10 @@ angular.module('movies').factory('MovieDataService', [
                 model.episode = 0;
             }
 
+            if (model.cover === '') {
+                delete model.cover
+            }
+
             if (model.releasedDate) {
                 model.releasedDate.setMinutes(-model.releasedDate.getTimezoneOffset());
             }
