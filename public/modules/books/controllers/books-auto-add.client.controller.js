@@ -5,8 +5,8 @@
 'use strict';
 
 angular.module('books').controller('BookAutoAddController', [
-    '$scope', '$modalInstance', 'lodash', 'BookData', 'MissingVolumes', 'BookServices',
-    function ($scope, $modalInstance, _, BookData, MissingVolumes, BookServices) {
+    '$scope', '$uibModalInstance', 'lodash', 'BookData', 'MissingVolumes', 'BookServices',
+    function ($scope, $uibModalInstance, _, BookData, MissingVolumes, BookServices) {
         $scope.listMissing = [];
 
         $scope.infoMedia = [
@@ -66,14 +66,14 @@ angular.module('books').controller('BookAutoAddController', [
             });
 
             BookServices.multipleAdd(payload).then(function (response) {}, function (errorResponse) {
-                $modalInstance.dismiss(errorResponse);
+                $uibModalInstance.dismiss(errorResponse);
             });
 
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
 
         $scope.cancelModal = function () {
-            $modalInstance.dismiss();
+            $uibModalInstance.dismiss();
         };
     }
 ]);

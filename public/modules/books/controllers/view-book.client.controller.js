@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('books').controller('ViewBookController', [
-    '$scope', '$location', '$stateParams', '$modal', '$log',
+    '$scope', '$location', '$stateParams', '$uibModal', '$log',
     'lodash', 'BookServices', 'Authentication', 'BooksDataService',
-    function ($scope, $location, $stateParams, $modal, $log, _, BookServices, Authentication, BooksDataService) {
+    function ($scope, $location, $stateParams, $uibModal, $log, _, BookServices, Authentication, BooksDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -23,7 +23,7 @@ angular.module('books').controller('ViewBookController', [
         ];
 
         function openAutoAddModal(size, result) {
-            var modal = $modal.open({
+            var modal = $uibModal.open({
                 templateUrl: 'booksAutoAddClientModal.html',
                 controller: 'BookAutoAddController',
                 size: size,
@@ -39,8 +39,6 @@ angular.module('books').controller('ViewBookController', [
 
             modal.result.then(function () {
                 $location.path('/books/collections');
-            }, function (error) {
-                $log.error(error);
             });
         }
 

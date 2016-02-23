@@ -5,9 +5,9 @@
 'use strict';
 
 angular.module('wikipedia-api').controller('ApiSearchModalController', [
-    '$scope', '$modalInstance',
+    '$scope', '$uibModalInstance',
     'BookServices', 'WikipediaChoices',
-    function ($scope, $modalInstance, BookServices, WikipediaChoices) {
+    function ($scope, $uibModalInstance, BookServices, WikipediaChoices) {
         $scope.choices = WikipediaChoices;
 
         $scope.selectedModel = {};
@@ -61,11 +61,11 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
             if ($scope.selectedModel.pageCount) {
                 $scope.selectedModel.pageCount = Number($scope.selectedModel.pageCount);
             }
-            $modalInstance.close($scope.selectedModel);
+            $uibModalInstance.close($scope.selectedModel);
         };
 
         $scope.cancelModal = function () {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
     }
 ]);
