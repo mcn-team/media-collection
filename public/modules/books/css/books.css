@@ -1,192 +1,100 @@
-.info-bg-color {
-    background-color: #47b8da;
-}
-
-.danger-bg-color {
-    background-color: #cf3c38;
-}
-
-.success-bg-color {
-    background-color: #4ca64c;
-}
-
-.warning-bg-color {
-    background-color: #ed9e2e;
-}
-
-.view-field-status-margin {
-    margin-left: 15px;
-}
-
-.view-field-margin {
-    margin-left: 20px;
-}
-
-.view-field-info-margin-top {
-    margin-top: 10px;
-}
-
-.view-field-info-margin-right {
-    margin-right: 10px;
-}
-
+.info-bg-color { background-color: #47b8da; }
+.danger-bg-color { background-color: #cf3c38; }
+.success-bg-color { background-color: #4ca64c; }
+.warning-bg-color { background-color: #ed9e2e; }
+.view-field-status-margin { margin-left: 15px; }
+.view-field-margin { margin-left: 20px; }
+.view-field-info-margin-top { margin-top: 10px; }
+.view-field-info-margin-right { margin-right: 10px; }
 .view-collection-missing {
     font-style: oblique;
     color: #999999;
     cursor: default;
 }
-
-.collection-header-field {
-    cursor:  pointer;
-}
-
-.default-cursor {
-    cursor: default;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
+.collection-header-field { cursor:  pointer; }
+.default-cursor { cursor: default; }
+.cursor-pointer { cursor: pointer; }
 .stats-legend-icons {
     display: inline-block;
     height: 10px;
     width: 10px;
 }
-
-.stats-legend-margin-right {
-    margin-right: 10%;
-}
-
+.stats-legend-margin-right { margin-right: 10%; }
 .stats-legend-horizontal-center {
     margin-left: auto;
     margin-right: auto;
 }
-
 .view-cover-image {
     max-height: 220px;
     max-width: 160px;
 }
-
-.view-book-creation-info {
-    margin-top: 50px;
-}
-
+.view-book-creation-info { margin-top: 50px; }
 .summary-textarea {
     max-width: 100%;
     height: 100px;
 }
-
 .align-with-headers {
     margin-top: 20px;
     margin-bottom: 10px;
 }
-
 .multi-search-margin-bottom {
     margin-bottom: 15px;
     max-height: 59px;
 }
-
-.multi-search-button-center {
-    margin-top: 25px;
-}
-
+.multi-search-button-center { margin-top: 25px; }
 .author-p {
     color: #C0C0C0;
     font-size: small;
 }
-
 .quicksearch-input {
     margin-top: 4px;
     margin-bottom: 4px;
 }
-
 .form-icon-btn-size {
     max-height: 18px;
     max-width: 18px;
 }
-
 .list-cover-size {
     height: 110px;
     max-width: 80px;
 }
-
-.cancel-button {
-    width: 76px;
-}
-
-.micro-margin-top-fixed {
-    margin-top: 15px;
-}
-.micro-margin-right-fixed {
-    margin-right: 15px;
-}
-.micro-margin-bottom-fixed {
-    margin-bottom: 15px;
-}
-.micro-margin-left-fixed {
-    margin-left: 15px;
-}
-
-.no-padding-right {
-    padding-right: 0;
-}
-
+.cancel-button { width: 76px; }
+.micro-margin-top-fixed { margin-top: 15px; }
+.micro-margin-right-fixed { margin-right: 15px; }
+.micro-margin-bottom-fixed { margin-bottom: 15px; }
+.micro-margin-left-fixed { margin-left: 15px; }
+.no-padding-right { padding-right: 0; }
 .no-padding-side {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
-
 .custom-field > * {
     overflow: hidden;
     white-space: nowrap;
     text-overflow:ellipsis;
 }
-
-.modal-main-container {
-    padding: 2% 5% 2% 5%;
-}
-
-.modal-sub-container {
-    padding: 1%;
-}
-
+.modal-main-container { padding: 2% 5% 2% 5%; }
+.modal-sub-container { padding: 1%; }
 .list-item-grid {
     margin-left: -1px;
     margin-top: -1px;
 }
-
-.list-grid {
-    display: block;
-}
-
+.list-grid { display: block; }
 .list-group-item-margin > div, .custom-field, .view-subcontainer {
     margin-right: -1px;
     margin-bottom: -1px;
 }
-
-.list-grid-item {
-    margin-right: -1px;
-}
-
-.view-field h4 {
-    font-size: 18px;
-}
-
+.list-grid-item { margin-right: -1px; }
+.view-field h4 { font-size: 18px; }
 .view-status div:first-child {
     border-right: none;
     background-color: transparent;
 }
-
 .view-status div:last-child {
     border-left: none;
     background-color: transparent;
 }
-
-.view-status > div > img {
-    margin-left: 10%;
-}
-
+.view-status > div > img { margin-left: 10%; }
 .padding-side {
     padding-right: 15px;
     padding-left: 15px;
@@ -195,11 +103,7 @@
     margin-left: 15px;
     margin-right: 15px;
 }
-
-.input-group-margin {
-    margin: 5px;
-}
-
+.input-group-margin { margin: 5px; }
 .view-field > .list-group-item > div, .view-field > .list-group-item-margin > .list-group-item > div {
     font-style: oblique;
     cursor: default;
