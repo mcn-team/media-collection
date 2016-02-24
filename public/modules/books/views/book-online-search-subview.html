@@ -1,0 +1,26 @@
+<div class="pull-right">
+    <button class="btn btn-primary" data-ng-show="searchType === 'google'" data-ng-click="searchType = 'wiki'" >Google Livres</button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'google'" >Wikipedia</button>
+</div>
+<h3 data-ng-show="searchType === 'google'">Rechercher par ISBN sur Google Livres :</h3>
+<h3 data-ng-show="searchType === 'wiki'">Rechercher par titre sur Wikipedia :</h3>
+<div ng-show="searchType === 'google' && isLoaded && !isDuplicate">
+    <div class="col-xs-12 micro-margin-top-fixed input-group">
+        <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="Entrez un ISBN" >
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="searchByIsbn" type="button" data-ng-disabled="checkIsbn()" ng-click="searchByIsbn();" >
+                    <img class="form-icon-btn-size" ng-src="/assets/img/magnifier13.png">
+                </button>
+            </span>
+    </div>
+</div>
+<div ng-show="searchType === 'wiki' && isLoaded && !isDuplicate">
+    <div class="col-xs-12 micro-margin-top-fixed input-group">
+        <input type="text" data-ng-model="mediaModel.searchTitle" id="search-wiki" class="form-control" placeholder="Entrez un titre" >
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="searchByTitle" type="button" ng-click="searchByTitle();" >
+                    <img class="form-icon-btn-size" ng-src="/assets/img/magnifier13.png">
+                </button>
+            </span>
+    </div>
+</div>

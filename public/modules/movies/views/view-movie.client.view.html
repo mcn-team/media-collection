@@ -1,7 +1,5 @@
 <section data-ng-controller="ViewMoviesController" data-ng-init="findOneView();">
-    <div ng-hide="movie" class="elements-margin-top text-center col-xs-12" >
-        <img src="/assets/img/loader-large.gif">
-    </div>
+    <mc-loader></mc-loader>
     <div data-ng-show="isLoaded" class="page-header">
         <div class="col-xs-pull-12 col-sm-pull-12 col-md-pull-12 col-lg-pull-12 pull-right" data-ng-show="(authentication.user && movie)">
             <a popover="Dupliquer ce film" popover-trigger="mouseenter" class="btn btn-warning" data-ng-click="duplicateItem();">
