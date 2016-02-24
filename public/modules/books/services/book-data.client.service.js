@@ -46,7 +46,7 @@ angular.module('books').factory('BooksDataService', [
                 title: book.title,
                 collectionName: book.collectionName ? book.collectionName : undefined,
                 volumeId: parseInt(book.volume) ? parseInt(book.volume) : undefined,
-                publishingDate: book.publishingDate.split('T')[0],
+                publishingDate: book.publishingDate ? new Date(book.publishingDate) : undefined,
                 isbn: book.isbn,
                 publisher: book.publisher,
                 pageCount: parseInt(book.pageCount),

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('movies').controller('searchMovieModalController', [
-    '$scope', '$modalInstance', 'movieList', 'AllocineDataService', 'AlloCineExposed',
-    function ($scope, $modalInstance, movieList, AllocineDataService, AlloCineExposed) {
+    '$scope', '$uibModalInstance', 'movieList', 'AllocineDataService', 'AlloCineExposed',
+    function ($scope, $uibModalInstance, movieList, AllocineDataService, AlloCineExposed) {
         $scope.isCollapsed = true;
         $scope.nothingFound = false;
 
@@ -31,11 +31,11 @@ angular.module('movies').controller('searchMovieModalController', [
         };
 
         $scope.ok = function () {
-            $modalInstance.close($scope.selected.movie);
+            $uibModalInstance.close($scope.selected.movie);
         };
 
         $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
     }
 ]);

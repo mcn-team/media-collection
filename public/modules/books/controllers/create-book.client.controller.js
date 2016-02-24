@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('books').controller('CreateBookController', [
-    '$scope', '$location', '$modal', 'Authentication',
+    '$scope', '$location', '$uibModal', 'Authentication',
     'BookServices', 'BooksDataService',
-    function($scope, $location, $modal, Authentication, BookServices, BooksDataService) {
+    function($scope, $location, $uibModal, Authentication, BookServices, BooksDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -25,7 +25,7 @@ angular.module('books').controller('CreateBookController', [
 
         $scope.initCreate = function() {
             function cloneCallback(result) {
-                $scope.mediaModel = BooksDataService.fillDupBookModel(result);
+                $scope.mediaModel = BooksDataService.fillDupBookModel(result.data);
                 $scope.isLoaded = true;
                 $scope.isCustomField = $scope.mediaModel.customFields ? true : false;
             }
@@ -94,7 +94,7 @@ angular.module('books').controller('CreateBookController', [
 
             $scope.searchByTitle = function () {
                 BookServices.wikiSearchByTitle($scope.mediaModel.searchTitle).then(function (response) {
-                    var modal = $modal.open({
+                    var modal = $uibModal.open({
                         templateUrl: 'apiSearchClientModal.html',
                         controller: 'ApiSearchModalController',
                         size: 'lg',

@@ -12,7 +12,7 @@
     <div ng-show="nothingFound" class="modal-body">
         <p>Aucune correspondance trouv&eacute;e pour : {{stringSearched}}</p>
     </div>
-    <div collapse="isCollapsed">
+    <div data-uib-collapse="isCollapsed">
         <div class="media well">
             <div class="media-left media-middle">
                 <img ng-show="selected.movie.coverHref" class="media-object list-cover-size" ng-src="{{selected.movie.coverHref}}">

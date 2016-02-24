@@ -2,9 +2,9 @@
 
 // Movies controller
 angular.module('movies').controller('CreateMoviesController', [
-    '$scope', '$stateParams', '$location', '$modal', '$log', 'Authentication',
+    '$scope', '$stateParams', '$location', '$uibModal', '$log', 'Authentication',
     'AlloCineExposed', 'AllocineDataService', 'TypesMovieService', 'MovieDataService', 'MovieServices',
-    function($scope, $stateParams, $location, $modal, $log, Authentication,
+    function($scope, $stateParams, $location, $uibModal, $log, Authentication,
              AlloCineExposed, AllocineDataService, TypesMovieService, MovieDataService, MovieServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
@@ -26,7 +26,7 @@ angular.module('movies').controller('CreateMoviesController', [
 
         $scope.initCreate = function () {
             function cloneCallback(result) {
-                $scope.mediaModel = MovieDataService.fillMovieModel(result);
+                $scope.mediaModel = MovieDataService.fillMovieModel(result.data);
                 $scope.isLoaded = true;
                 $scope.isDuplicate = true;
             }
@@ -158,7 +158,7 @@ angular.module('movies').controller('CreateMoviesController', [
 
         $scope.open = function (size) {
 
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'searchMovieModalContent.html',
                 controller: 'searchMovieModalController',
                 size: size,
