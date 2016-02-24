@@ -142,7 +142,7 @@ angular.module('books').controller('CreateBookController', [
 
         // Validation du formulaire de la page Nouveau Livre
 
-        $scope.create = function() {
+        $scope.validateForm = function() {
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book.user = $scope.authentication.user._id;
             if (book.collectionName && !book.volume) {

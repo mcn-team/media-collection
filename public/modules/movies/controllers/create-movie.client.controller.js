@@ -111,7 +111,7 @@ angular.module('movies').controller('CreateMoviesController', [
 
 
         // Create new Movie
-        $scope.create = function() {
+        $scope.validateForm = function() {
             // Create new Movie object
             var movie = MovieDataService.createMovieFromMovieModel($scope.mediaModel);
 

@@ -22,7 +22,7 @@ angular.module('movies').controller('EditMoviesController', [
         ];
 
         // Update existing Movie
-        $scope.update = function() {
+        $scope.validateForm = function() {
             var movie = MovieDataService.createMovieFromMovieModel($scope.mediaModel);
 
             movie._id = $scope.mediaModel._id;
@@ -34,6 +34,10 @@ angular.module('movies').controller('EditMoviesController', [
                 $scope.error = errorResponse.data.message;
             });
         };
+
+        MovieServices.getCollectionNames().then(function (response) {
+            $scope.listExisting = response.data;
+        });
 
         // Find existing Movie
         $scope.findOne = function() {
@@ -84,7 +88,7 @@ angular.module('movies').controller('EditMoviesController', [
             });
         };
 
-        $scope.cancelEditMovie = function () {
+        $scope.cancelPage = function () {
             $location.path('/movies/' + $stateParams.movieId);
         };
     }

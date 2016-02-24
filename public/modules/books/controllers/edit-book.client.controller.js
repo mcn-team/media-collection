@@ -23,7 +23,7 @@ angular.module('books').controller('EditBookController', [
         ];
 
         // Update existing Book
-        $scope.update = function() {
+        $scope.validateForm = function() {
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book._id = $scope.mediaModel._id;
 

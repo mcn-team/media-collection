@@ -1,0 +1,9 @@
+<h3>Rechercher un film :</h3>
+<div class="col-xs-12 input-group">
+    <input type="text" data-ng-model="mediaModel.searchMovie" id="search-movie" class="form-control" placeholder="Entrez un titre" required>
+    <span class="input-group-btn">
+        <button class="btn btn-primary" id="searchByTitle" type="button" data-ng-disabled="!mediaModel.searchMovie" data-ng-click="searchFilmByTitle();" >
+            <img class="form-icon-btn-size" data-ng-src="/assets/img/magnifier13.png">
+        </button>
+    </span>
+</div>
