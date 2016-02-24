@@ -13,36 +13,12 @@
     </div>
     <div data-ng-if="authentication.user" >
         <div id="dashboard" class="dashbord-div col-xs-12 col-md-push-3 col-md-6" >
-            <div class="col-xs-4">
-                <a data-uib-popover="Ajouter un livre" data-popover-trigger="mouseenter" type="button" class="btn btn-default " href="/#!/books/create" >
-                    <img data-ng-src="/assets/img/add-book.png">
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a data-uib-popover="Liste des livres" data-popover-trigger="mouseenter" type="button" class="btn btn-default" href="/#!/books" >
-                    <img data-ng-src="/assets/img/list-book.png">
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a data-uib-popover="Liste des collections de livres" data-popover-trigger="mouseenter" type="button" class="btn btn-default" href="/#!/books/collections" >
-                    <img data-ng-src="/assets/img/list-collection-books.png">
-                </a>
-            </div>
-            <div class="col-xs-4 elements-margin-top">
-                <a data-uib-popover="Ajouter un film" data-popover-trigger="mouseenter" type="button" class="btn btn-default " href="/#!/movies/create" >
-                    <img data-ng-src="/assets/img/add-movie.png">
-                </a>
-            </div>
-            <div class="col-xs-4 elements-margin-top">
-                <a data-uib-popover="Liste des films" data-popover-trigger="mouseenter" type="button" class="btn btn-default" href="/#!/movies" >
-                    <img data-ng-src="/assets/img/list-movies.png">
-                </a>
-            </div>
-            <div class="col-xs-4 elements-margin-top">
-                <a data-uib-popover="Liste des collections de films" data-popover-trigger="mouseenter" type="button" class="btn btn-default" href="/#!/movies/collections" >
-                    <img data-ng-src="/assets/img/list-collection-movies.png">
-                </a>
-            </div>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/add-book.png'" data-mc-popover="'Ajouter un livre'" data-mc-url="'/#!/books/create'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-book.png'" data-mc-popover="'Liste des livres'" data-mc-url="'/#!/books'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-books.png'" data-mc-popover="'Liste des collections de livres'" data-mc-url="'/#!/books/collections'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/add-movie.png'" data-mc-popover="'Ajouter un film'" data-mc-url="'/#!/movies/create'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-movies.png'" data-mc-popover="'Liste des films'" data-mc-url="'/#!/movies'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-movies.png'" data-mc-popover="'Liste des collections de films'" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
         </div>
         <div data-ng-class="fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
             <div class="thumbnail">
