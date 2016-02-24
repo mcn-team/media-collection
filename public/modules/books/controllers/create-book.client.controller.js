@@ -160,7 +160,7 @@ angular.module('books').controller('CreateBookController', [
             });
         };
 
-        $scope.cancelAddDupBook = function() {
+        $scope.cancelPage = function() {
             var tmpUrl = $location.url().split('=')[1];
 
             if (tmpUrl) {

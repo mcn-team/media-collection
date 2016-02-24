@@ -7,6 +7,8 @@ angular.module('books').controller('EditBookController', [
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
+        $scope.isLoaded = false;
+        $scope.isEdit = $stateParams.bookId;
 
         $scope.hoveringOver = function(value) {
             $scope.overStar = value;
@@ -36,6 +38,10 @@ angular.module('books').controller('EditBookController', [
 
             BookServices.updateBook(book._id, book).then(successUpdateCallback, failureUpdateCallback);
         };
+
+        BookServices.getCollectionNames().then(function (result) {
+            $scope.listExisting = result.data;
+        });
 
         // Find existing Book
         $scope.findOne = function() {
@@ -78,6 +84,7 @@ angular.module('books').controller('EditBookController', [
                 $scope.checkUpdateVolume = function() {
                     return !$scope.mediaModel.collectionName || $scope.mediaModel.collectionName === '';
                 };
+                $scope.isLoaded = true;
             }
 
             var successGetBookCallback = function (response) {
@@ -93,7 +100,7 @@ angular.module('books').controller('EditBookController', [
             BookServices.getBook($stateParams.bookId).then(successGetBookCallback, failureGetBookCallback);
         };
 
-        $scope.cancelEditBook = function () {
+        $scope.cancelPage = function () {
             $location.path('/books/' + $stateParams.bookId);
         };
     }
