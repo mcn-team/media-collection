@@ -1,12 +1,20 @@
 'use strict';
 
+const logger = require('../../utils/logger');
+
 const authModule = {
     register: (server, options, next) => {
-        require('./authentication')(server);
-        server.auth.strategy('RequiresLogin', 'ValidationLogin');
+        try {
+            require('./authentication')(server);
+            server.auth.strategy('RequiresLogin', 'ValidationLogin');
+            logger.logLoading('Auth');
+        } catch (err) {
+            logger.logLoading('Auth', true);
+            throw err;
+        }
         next();
     }
 };
 authModule.register.attributes = { name: 'auth-module' };
 
-module.exports = { module: authModule };
+exports = module.exports = authModule;

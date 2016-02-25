@@ -1,27 +1,18 @@
 'use strict';
 
-module.exports = (server) => {
-    const inert = require('inert');
-    const staticFiles = require('../modules/static-files');
-    const lang = require('../modules/lang');
-    const auth = require('../modules/auth');
-    const users = require('../modules/users');
-    const books = require('../modules/books');
-    const movies = require('../modules/movies');
-    const googleBookApi = require('../modules/google-book-api');
-    const wikipediaApi = require('../modules/wikipedia-api');
-    const allocineApi = require('../modules/allocine-api');
+const options = require('./plugins-options');
 
-    server.register(inert, onError);
-    server.register(staticFiles.module, onError);
-    server.register(lang.module, lang.options, onError);
-    server.register(auth.module, onError);
-    server.register(users.module, users.options, onError);
-    server.register(books.module, books.options, onError);
-    server.register(movies.module, movies.options, onError);
-    server.register(googleBookApi.module, googleBookApi.options, onError);
-    server.register(wikipediaApi.module, wikipediaApi.options, onError);
-    server.register(allocineApi.module, allocineApi.options, onError);
+module.exports = (server) => {
+    server.register(require('inert'), onError);
+    server.register(require('../modules/static-files'), onError);
+    server.register(require('../modules/lang'), options.lang, onError);
+    server.register(require('../modules/auth'), onError);
+    server.register(require('../modules/users'), options.users, onError);
+    server.register(require('../modules/books'), options.books, onError);
+    server.register(require('../modules/movies'), options.movies, onError);
+    server.register(require('../modules/google-book-api'), options.googleBookApi, onError);
+    server.register(require('../modules/wikipedia-api'), options.wikipediaApi, onError);
+    server.register(require('../modules/allocine-api'), options.allocineApi, onError);
 };
 
 const onError = (err) => {
