@@ -1,18 +1,20 @@
 'use strict';
 
+const logger = require('../../utils/logger');
+
 const wikipediaApiModule = {
     register: (server, options, next) => {
-        require('./routes')(server);
+        try {
+            require('./routes')(server);
+            logger.logLoading('Wikipedia Search API');
+        } catch (err) {
+            logger.logLoading('Wikipedia Search API', true);
+            throw err;
+        }
         next();
     }
 };
 
 wikipediaApiModule.register.attributes = { name: 'wikipedia-api-module' };
 
-module.exports = {
-    module: wikipediaApiModule,
-    options: {
-        select: ['API'],
-        routes: { prefix: '/api/wiki' }
-    }
-};
+exports = module.exports = wikipediaApiModule;

@@ -1,19 +1,21 @@
 'use strict';
 
+const logger = require('../../utils/logger');
+
 const bookModule = {
     register: (server, options, next) => {
-        require('./model');
-        require('./routes')(server);
+        try {
+            require('./model');
+            require('./routes')(server);
+            logger.logLoading('Books');
+        } catch (err) {
+            logger.logLoading('Books', true);
+            throw err;
+        }
         next();
     }
 };
 
 bookModule.register.attributes = { name: 'books-module' };
 
-module.exports = {
-    module: bookModule,
-    options: {
-        select: ['API'],
-        routes: { prefix: '/api/books' }
-    }
-};
+exports = module.exports = bookModule;

@@ -1,19 +1,21 @@
 'use strict';
 
+const logger = require('../../utils/logger');
+
 const userModule = {
     register: (server, options, next) => {
-        require('./model');
-        require('./routes')(server);
+        try {
+            require('./model');
+            require('./routes')(server);
+            logger.logLoading('Users');
+        } catch (err) {
+            logger.logLoading('Users', true);
+            throw err;
+        }
         next();
     }
 };
 
 userModule.register.attributes = { name: 'users-module' };
 
-module.exports = {
-    module: userModule,
-    options: {
-        select: ['API'],
-        routes: { prefix: '/api/users' }
-    }
-};
+exports = module.exports = userModule;

@@ -1,15 +1,20 @@
 'use strict';
 
-const path = require('path');
+const logger = require('../../utils/logger');
 
 const staticFilesModule = {
     register: (server, options, next) => {
-        require('./routes')(server);
-
+        try {
+            require('./routes')(server);
+            logger.logLoading('Static files');
+        } catch (err) {
+            logger.logLoading('Static files', true);
+            throw err;
+        }
         next();
     }
 };
 
 staticFilesModule.register.attributes = { name: 'static-files-module' };
 
-exports.module = staticFilesModule;
+exports = module.exports = staticFilesModule;

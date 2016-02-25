@@ -2,6 +2,14 @@
 
 const Chalk = require('chalk');
 
+const error = (text) => {
+    return Chalk.styles.red.open + text + Chalk.styles.red.close;
+};
+const success = (text) => {
+    return Chalk.styles.green.open + text + Chalk.styles.green.close;
+};
+
+
 exports.logRoute = (code, method, route) => {
     let log;
     switch (true) {
@@ -19,4 +27,20 @@ exports.logRoute = (code, method, route) => {
             break;
     }
     console.log(log + ' ' + Chalk.bold(method) + '\t' + route);
+};
+
+exports.logLoading = (plugin, err) => {
+    let log = plugin.toUpperCase();
+
+    for (let i = log.length; i <= 30; i++) {
+        log += '.';
+    }
+
+    if (err) {
+        log += error('ERROR');
+    } else {
+        log += success('OK');
+    }
+
+    console.log(log);
 };
