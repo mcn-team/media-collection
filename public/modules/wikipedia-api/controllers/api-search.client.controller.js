@@ -13,17 +13,17 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
         $scope.selectedModel = {};
 
         $scope.choiceList = {
-            title: { list: [], isChecked: true },
-            authorsList: { list: [], isChecked: true },
-            publisher: { list: [], isChecked: true },
-            collectionName: { list: [], isChecked: true },
-            pageCount: { list: [], isChecked: true },
-            isbn: { list: [], isChecked: true },
-            creatorsList: { list: [], isChecked: true },
-            producersList: { list: [], isChecked: true },
-            actorsList: { list: [], isChecked: true },
-            channel: { list: [], isChecked: true },
-            date: { list: [], isChecked: true }
+            title: { list: [], isChecked: true, name: 'Titre' },
+            authorsList: { list: [], isChecked: true, name: 'Auteurs' },
+            publisher: { list: [], isChecked: true, name: 'Éditeur' },
+            collectionName: { list: [], isChecked: true, name: 'Collection' },
+            pageCount: { list: [], isChecked: true, name: 'Pages' },
+            isbn: { list: [], isChecked: true, name: 'ISBN' },
+            creatorsList: { list: [], isChecked: true, name: 'Créateurs' },
+            producersList: { list: [], isChecked: true, name: 'Producteurs' },
+            actorsList: { list: [], isChecked: true, name: 'Acteurs' },
+            channel: { list: [], isChecked: true, name: 'Chaine' },
+            date: { list: [], isChecked: true, name: 'Date' }
         };
 
 

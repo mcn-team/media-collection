@@ -1,0 +1,9 @@
+<div class="col-xs-6 modal-sub-container" data-ng-show="element" >
+    <div class="input-group">
+        <span class="input-group-addon">
+            <input type="checkbox" data-ng-model="element.isChecked" >
+        </span>
+        <span class="input-group-addon" data-ng-bind="element.name"></span>
+        <select class="form-control" data-ng-model="selectedModel" data-ng-options="opt for opt in element.list" ></select>
+    </div>
+</div>
