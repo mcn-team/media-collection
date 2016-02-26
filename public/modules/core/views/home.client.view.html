@@ -21,7 +21,7 @@
             <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-movies.png'" data-mc-popover="'Liste des collections de films'" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
         </div>
         <div data-ng-class="fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
-            <div class="thumbnail">
+            <div data-ng-if="lastBookResult" class="thumbnail">
                 <h5 class="text-center" data-ng-bind="translation.LAST_ADDED_BOOK" ></h5>
                 <a title="{{lastBookResult.title}}" data-ng-href="#!/books/{{lastBookResult._id}}" >
                     <img class="thumbnail-image-size" data-ng-src="{{lastBookResult.cover || 'http://placehold.it/127x200'}}" alt="{{lastBookResult.title}}">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div data-ng-class="fadeInClass.movie" class="elements-margin-top col-xs-12 col-sm-6 col-md-3">
-            <div class="thumbnail">
+            <div data-ng-if="lastMovieResult" class="thumbnail">
                 <h5 class="text-center" data-ng-bind="translation.LAST_ADDED_MOVIE" ></h5>
                 <a title="{{lastMovieResult.title}}" data-ng-href="#!/movies/{{lastMovieResult._id}}" >
                     <img class="thumbnail-image-size" data-ng-src="{{lastMovieResult.cover || 'http://placehold.it/127x200'}}" alt="{{lastMovieResult.title}}">

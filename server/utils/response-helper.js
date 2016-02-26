@@ -36,7 +36,7 @@ exports.serviceCallback = (err, response, code, callback) => {
     if (err) {
         error = { error: err, code: 503 };
     } else if (!response) {
-        error = { error: { message: 'Request arguments are missing or incorrect' }, code: 400 };
+        content = { data: { message: 'No content matching or incorrect arguments' }, code: 204 };
     } else {
         content = { data: response, code: code };
     }
