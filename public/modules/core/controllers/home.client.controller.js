@@ -50,11 +50,19 @@ angular.module('core').controller('HomeController', [
 
         if ($scope.authentication) {
             BookServices.getLatest().then(function(result) {
-                $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
+                if (result.status !== 204) {
+                    $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
+                }
+            }, function (errorResponse) {
+                console.error(errorResponse);
             });
 
             MovieServices.getLatest().then(function(result) {
-                $scope.lastMovieResult = latestCallback(result.data, 'actors', 'movie', 240);
+                if (result.status !== 204) {
+                    $scope.lastMovieResult = latestCallback(result.data, 'actors', 'movie', 240);
+                }
+            }, function (errorResponse) {
+                console.error(errorResponse);
             });
         }
     }
