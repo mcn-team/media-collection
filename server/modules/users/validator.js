@@ -5,7 +5,7 @@ const Joi = require('joi');
 exports.signUpPayload = {
     username: Joi.string().alphanum().trim().required(),
     password: Joi.string().required(),
-    displayName: Joi.string().alphanum().trim().required(),
+    displayName: Joi.string().trim().required(),
     email: Joi.string().email().trim().required()
 };
 
