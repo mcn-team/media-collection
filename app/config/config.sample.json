@@ -8,6 +8,9 @@
         "API"
       ],
       "routes": {
+        "files": {
+          "relativeTo": "C:\\path\\to\\public"
+        },
         "cors": {
           "origin": [
             "http://localhost:*"
