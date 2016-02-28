@@ -33,7 +33,11 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
                     if (current.indexOf('List') !== -1 || current === 'isbn') {
                         $scope.choiceList[current].list.push(result[current]);
                     } else {
-                        $scope.choiceList[current].list = result[current];
+                        var tab = [];
+                        angular.forEach(result[current], function (elem) {
+                            tab.push(elem.replace(/<\/?[^>]+(>|$)/g, ' ').replace(/  +/g, ' ').trim());
+                        });
+                        $scope.choiceList[current].list = tab;
                     }
                     $scope.selectedModel[current] = $scope.choiceList[current].list[0];
                 } else {
