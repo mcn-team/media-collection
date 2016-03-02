@@ -1,9 +1,8 @@
 'use strict';
 
-ApplicationConfiguration.registerModule('auth');
 angular.module('mediacollection').factory('InterceptorsService', [
     '$q', 'Authentication',
-    function ($q, $location, Authentication) {
+    function ($q, Authentication) {
         var interceptorService = {};
 
         interceptorService.responseError = function (response) {
