@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('users').factory('Authentication', [
-    '$window', '$location',
-    function ($window, $location) {
+    '$window', '$injector',
+    function ($window, $injector) {
         var authServices = {};
 
         authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
         authServices.user = authServices.credentials ? authServices.credentials.user : null;
         authServices.token = authServices.credentials ? authServices.credentials.token : null;
+
         authServices.checkAuth = function () {
             if (!authServices.credentials) {
-                $location.path('/');
+                $injector.get('$state').go('home');
             }
             return authServices.isAuthenticated();
         };
@@ -33,7 +34,7 @@ angular.module('users').factory('Authentication', [
             authServices.credentials = null;
             authServices.user = null;
             authServices.token = null;
-            $location.path('/');
+            $injector.get('$state').go('home');
         };
 
         return authServices;
