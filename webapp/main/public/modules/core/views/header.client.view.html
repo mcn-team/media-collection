@@ -6,9 +6,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="/#!/" class="navbar-brand">MediaCollection</a>
+        <a href="/#!/" class="navbar-brand">Media Collection</a>
     </div>
-    <nav class="collapse navbar-collapse" data-uib-collapse="!isCollapsed" role="navigation">
+    <nav class="navbar-collapse" data-uib-collapse="!isCollapsed" role="navigation">
         <ul class="nav navbar-nav" data-ng-show="menu.shouldRender(authentication.user);">
             <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-show="item.shouldRender(authentication.user);" data-uib-dropdown class="{{item.menuItemClass}}" >
                 <a id="single-button" class="dropdown-toggle" data-uib-dropdown-toggle data-ng-disabled="disabled">
