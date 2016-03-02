@@ -89,6 +89,9 @@ angular.module('books').controller('CreateBookController', [
                 BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
                     $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
                     $scope.mediaModel = BooksDataService.fillBookModel(response.data);
+                }, function (errorResponse) {
+                    $scope.error = errorResponse.data.error;
+                    console.error(errorResponse);
                 });
             };
 
