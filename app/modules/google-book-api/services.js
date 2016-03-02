@@ -15,9 +15,9 @@ function parseData(json, isbn) {
         authors: []
     };
 
-    bookInfo.title = item.title ? item.title : '';
-    bookInfo.collectionName = item.subtitle ? item.subtitle : '';
-    bookInfo.author = item.authors && item.authors.length > 0 ? item.authors[item.authors.length - 1] : '';
+    bookInfo.title = item.title;
+    bookInfo.collectionName = item.subtitle;
+    bookInfo.author = item.authors && item.authors.length > 0 ? item.authors[item.authors.length - 1] : undefined;
 
     if (item.authors && item.authors.length > 1) {
         for    (var i = 0; i < item.authors.length - 1; i++) {
@@ -26,11 +26,11 @@ function parseData(json, isbn) {
     }
 
     bookInfo.isbn = isbn;
-    bookInfo.publishingDate = item.publishedDate ? item.publishedDate : '';
-    bookInfo.publisher = item.publisher ? item.publisher : '';
-    bookInfo.pageCount = item.pageCount ? item.pageCount : '';
-    bookInfo.summary = item.description ? item.description : '';
-    bookInfo.cover = item.imageLinks ? item.imageLinks.thumbnail : '';
+    bookInfo.publishingDate = item.publishedDate;
+    bookInfo.publisher = item.publisher;
+    bookInfo.pageCount = item.pageCount;
+    bookInfo.summary = item.description;
+    bookInfo.cover = item.imageLinks ? item.imageLinks.thumbnail : undefined;
 
     return bookInfo;
 }
