@@ -9,8 +9,9 @@ const langModule = {
             require('./routes')(server);
             logger.logLoading('Lang');
         } catch (err) {
-            logger.logLoading('Lang', true);
-            throw err;
+            logger.logLoading('Lang', true, () => {
+                throw err;
+            });
         }
         next();
     }

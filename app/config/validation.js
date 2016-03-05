@@ -30,7 +30,9 @@ const configSchema = {
     logRoute: Joi.boolean().required(),
     logFiles: Joi.boolean().required(),
     secretJWT: Joi.string().required(),
-    clientPath: Joi.string().required()
+    clientPath: Joi.string().required(),
+    storagePath: Joi.string().required(),
+    coverDirectory: Joi.string().required()
 };
 
 exports.validate = (config, callback) => {

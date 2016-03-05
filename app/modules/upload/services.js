@@ -3,13 +3,14 @@
 const fs = require('fs');
 const _ = require('lodash');
 const rimraf = require('rimraf');
+const path = require('path');
 
 const config = require('../../config');
 const responseHelper = require('../../utils/response-helper');
 
 exports.storeCover = (payload, params, callback) => {
     const ext = getExtensionName(payload.file.hapi.filename);
-    const filename = config.storagePath + config.coverDirectory + params.mediaId + '.' + ext;
+    const filename = path.join(config.storagePath, config.coverDirectory, params.mediaId) + '.' + ext;
 
     removeFile(filename, (error) => {
         if (error) {

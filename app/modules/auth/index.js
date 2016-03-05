@@ -9,8 +9,9 @@ const authModule = {
             server.auth.strategy('RequiresLogin', 'ValidationLogin');
             logger.logLoading('Auth');
         } catch (err) {
-            logger.logLoading('Auth', true);
-            throw err;
+            logger.logLoading('Auth', true, () => {
+                throw err;
+            });
         }
         next();
     }

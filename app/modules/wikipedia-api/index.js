@@ -8,8 +8,9 @@ const wikipediaApiModule = {
             require('./routes')(server);
             logger.logLoading('Wikipedia Search API');
         } catch (err) {
-            logger.logLoading('Wikipedia Search API', true);
-            throw err;
+            logger.logLoading('Wikipedia Search API', true, () => {
+                throw err;
+            });
         }
         next();
     }

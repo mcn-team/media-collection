@@ -9,8 +9,9 @@ const bookModule = {
             require('./routes')(server);
             logger.logLoading('Books');
         } catch (err) {
-            logger.logLoading('Books', true);
-            throw err;
+            logger.logLoading('Books', true, () => {
+                throw err;
+            });
         }
         next();
     }

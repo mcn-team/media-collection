@@ -8,8 +8,9 @@ const staticFilesModule = {
             require('./routes')(server);
             logger.logLoading('Static files');
         } catch (err) {
-            logger.logLoading('Static files', true);
-            throw err;
+            logger.logLoading('Static files', true, () => {
+                throw err;
+            });
         }
         next();
     }
