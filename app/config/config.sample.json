@@ -22,6 +22,8 @@
       }
     }
   ],
+  "filesPath": "C:\\path\\to\\file-storage",
+  "coverDirectory": "covers",
   "dbConnectionString": "mongodb://localhost:27017/mc",
   "colors": true,
   "logRoute": true,
