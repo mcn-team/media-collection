@@ -19,6 +19,7 @@
     "jsonwebtoken": "~5.5.4",
     "lodash": "~4.1.0",
     "mongoose": "~4.3.7",
-    "request": "~2.69.0"
+    "request": "~2.69.0",
+    "rimraf": "~2.5.2"
   }
 }
