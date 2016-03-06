@@ -9,9 +9,8 @@ const movieModule = {
             require('./routes')(server);
             logger.logLoading('Movies');
         } catch (err) {
-            logger.logLoading('Movies', true, () => {
-                throw err;
-            });
+            logger.logLoading('Movies', true);
+            throw err;
         }
         next();
     }

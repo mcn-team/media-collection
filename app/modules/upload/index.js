@@ -13,9 +13,8 @@ const uploadModule = {
             require('./routes')(server);
             logger.logLoading('Upload');
         } catch (err) {
-            logger.logLoading('Upload', true, () => {
-                throw err;
-            });
+            logger.logLoading('Upload', true);
+            throw err;
         }
         next();
     }

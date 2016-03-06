@@ -8,9 +8,8 @@ const googleBookApi = {
             require('./routes')(server);
             logger.logLoading('Google Book API');
         } catch (err) {
-            logger.logLoading('Google Book API', true, () => {
-                throw err;
-            });
+            logger.logLoading('Google Book API', true);
+            throw err;
         }
         next();
     }

@@ -9,9 +9,8 @@ const userModule = {
             require('./routes')(server);
             logger.logLoading('Users');
         } catch (err) {
-            logger.logLoading('Users', true, () => {
-                throw err;
-            });
+            logger.logLoading('Users', true);
+            throw err;
         }
         next();
     }

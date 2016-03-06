@@ -29,7 +29,7 @@ exports.logRoute = (code, method, route) => {
     console.log(log + ' ' + Chalk.bold(method) + '\t' + route);
 };
 
-exports.logLoading = (plugin, err, cb) => {
+exports.logLoading = (plugin, err) => {
     let log = plugin.toUpperCase();
 
     for (let i = log.length; i <= 30; i++) {
@@ -37,13 +37,8 @@ exports.logLoading = (plugin, err, cb) => {
     }
 
     if (err) {
-        log += error('ERROR');
+        console.error(log + error('ERROR'));
     } else {
-        log += success('OK');
-    }
-
-    console.log(log);
-    if (err) {
-        cb();
+        console.log(log + success('OK'));
     }
 };
