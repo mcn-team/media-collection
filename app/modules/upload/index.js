@@ -9,7 +9,7 @@ const config = require('../../config');
 const uploadModule = {
     register: (server, options, next) => {
         try {
-            fs.statSync(path.join(config.storagePath, config.coverDirectory)).isDirectory();
+            fs.statSync(path.join(config.projectRoot, config.coverDirectory)).isDirectory();
             require('./routes')(server);
             logger.logLoading('Upload');
         } catch (err) {

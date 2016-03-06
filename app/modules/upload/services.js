@@ -10,7 +10,7 @@ const responseHelper = require('../../utils/response-helper');
 
 exports.storeCover = (payload, params, callback) => {
     const ext = getExtensionName(payload.file.hapi.filename);
-    const filename = path.join(config.storagePath, config.coverDirectory, params.mediaId) + '.' + ext;
+    const filename = path.join(config.projectRoot, config.coverDirectory, params.mediaId) + '.' + ext;
 
     removeFile(filename, (error) => {
         if (error) {

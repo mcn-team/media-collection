@@ -31,7 +31,7 @@ const configSchema = {
     logFiles: Joi.boolean().required(),
     secretJWT: Joi.string().required(),
     clientPath: Joi.string().required(),
-    storagePath: Joi.string().required(),
+    projectRoot: Joi.string().required(),
     coverDirectory: Joi.string().required()
 };
 
