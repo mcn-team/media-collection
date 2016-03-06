@@ -7,6 +7,7 @@ var ApplicationConfiguration = (function() {
     var applicationModuleVendorDependencies = ['ngResource',  'ui.router', 'ui.bootstrap', 'ngLodash', 'ngAnimate', 'ngImgCrop'];
 
     // Custom angular modules
+    applicationModuleVendorDependencies.push('upload');
     applicationModuleVendorDependencies.push('mc.language');
 
     // Add a new vertical module
@@ -24,6 +25,9 @@ var ApplicationConfiguration = (function() {
         registerModule: registerModule
     };
 })();
+
+// Angular custom modules declarations
+angular.module('upload', []);
 
 //Start by defining the main module and adding the module dependencies
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);

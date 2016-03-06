@@ -1,21 +1,15 @@
 'use strict';
 
 const controllers = require('./controllers');
-const validator = require('./validator');
 
 module.exports = (server) => {
     server.route({
         method: 'POST',
-        path: '/cover/{mediaId}',
+        path: '/covers',
         config: {
-            validate: {
-                params: validator.uploadParams
-            },
+            auth: 'RequiresLogin',
             payload: {
-                maxBytes: 5242880,
-                output: 'stream',
-                parse: true,
-                allow: 'multipart/form-data'
+                maxBytes: 524288
             }
         },
         handler: controllers.uploadCover
