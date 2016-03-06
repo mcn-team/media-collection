@@ -12,6 +12,18 @@ angular.module('books').controller('CreateBookController', [
         $scope.isDuplicate = false;
         $scope.searchType = 'google';
 
+        $scope.uploadCover = false;
+
+        $scope.loadFile = function (files) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $scope.$apply(function ($scope) {
+                    $scope.myImage = evt.target.result;
+                });
+            };
+            reader.readAsDataURL(files[0]);
+        };
+
         $scope.hoveringOver = function(value) {
             $scope.overStar = value;
         };
@@ -51,6 +63,7 @@ angular.module('books').controller('CreateBookController', [
                 read: 'NOTREAD',
                 bought: true
             };
+            
             $scope.addField = function(itemList, item) {
                 for (var i = 0; i < $scope.mediaModel[itemList].length; i++) {
                     if ($scope.mediaModel[itemList][i] === $scope.mediaModel[item]) {
@@ -141,7 +154,6 @@ angular.module('books').controller('CreateBookController', [
             $scope.checkAddVolume = function() {
                 return !$scope.mediaModel.collectionName || $scope.mediaModel.collectionName === '';
             };
-
         };
 
         // Validation du formulaire de la page Nouveau Livre

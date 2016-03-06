@@ -6,6 +6,7 @@
 .view-field-margin { margin-left: 20px; }
 .view-field-info-margin-top { margin-top: 10px; }
 .view-field-info-margin-right { margin-right: 10px; }
+.view-field-label-margin { margin-bottom: 10px; }
 .view-collection-missing {
     font-style: oblique;
     color: #999999;
@@ -107,4 +108,10 @@
 .view-field > .list-group-item > div, .view-field > .list-group-item-margin > .list-group-item > div {
     font-style: oblique;
     cursor: default;
+}
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:200px;
+    height:200px;
 }

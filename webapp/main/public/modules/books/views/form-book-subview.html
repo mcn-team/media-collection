@@ -72,8 +72,25 @@
             </div>
             <div class="col-xs-12" >
                 <label class="control-label" for="cover" data-ng-bind="fields.COVER"></label>
-                <div class="controls">
+                <div class="btn-group col-xs-12 row view-field-label-margin">
+                    <label class="btn btn-primary" data-ng-model="uploadCover" data-uib-btn-radio="false">Lien</label>
+                    <label class="btn btn-primary" data-ng-model="uploadCover" data-uib-btn-radio="true">Fichier</label>
+                </div>
+                <div data-ng-hide="uploadCover" class="controls">
                     <input class="form-control" id="cover" type="url" data-ng-model="mediaModel.cover" placeholder="http://" >
+                </div>
+                <div data-ng-show="uploadCover" class="col-xs-12 col-md-6 row">
+                    <input type="file" id="fileInput" onchange="angular.element(this).scope().loadFile(this.files)" />
+                    <div class="cropArea">
+                        <img-crop image="mediaModel.myImage" area-type="rectangle" aspect-ratio="0.63" result-image="mediaModel.myCroppedImage"
+                                  result-image-size='{w: 280,h: 440}' result-image-format="'image/jpeg'" init-max-area="true"></img-crop>
+                    </div>
+                </div>
+                <div data-ng-show="uploadCover" class="col-xs-12 col-md-6 row pull-right">
+                    <div>Rendu</div>
+                    <div>
+                        <img style="max-height: 220px; max-width: 140px" data-ng-src="{{mediaModel.myCroppedImage}}" />
+                    </div>
                 </div>
             </div>
         </div>

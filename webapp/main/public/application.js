@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
     // Init module configuration options
     var applicationModuleName = 'mediacollection';
-    var applicationModuleVendorDependencies = ['ngResource',  'ui.router', 'ui.bootstrap', 'ngLodash', 'ngAnimate'];
+    var applicationModuleVendorDependencies = ['ngResource',  'ui.router', 'ui.bootstrap', 'ngLodash', 'ngAnimate', 'ngImgCrop'];
 
     // Custom angular modules
     applicationModuleVendorDependencies.push('mc.language');
