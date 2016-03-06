@@ -41,11 +41,15 @@ angular.module('books').controller('EditBookController', [
             book._id = $scope.mediaModel._id;
 
             var successUpdateCallback = function () {
-                var fd = new $window.FormData();
+                if ($scope.mediaModel.myCroppedImage) {
+                    var fd = new $window.FormData();
 
-                fd.append('filename', book._id);
-                fd.append('base64', $scope.mediaModel.myCroppedImage.split(',')[1]);
-                UploadServices.uploadCover(fd).then(successCallback, failureCallback);
+                    fd.append('filename', book._id);
+                    fd.append('base64', $scope.mediaModel.myCroppedImage.split(',')[1]);
+                    UploadServices.uploadCover(fd).then(successCallback, failureCallback);
+                } else {
+                    successCallback();
+                }
             };
 
             var failureCallback = function (errorResponse) {
@@ -111,6 +115,9 @@ angular.module('books').controller('EditBookController', [
             var successGetBookCallback = function (response) {
                 $scope.mediaModel = BooksDataService.fillBookModel(response.data);
                 $scope.mediaModel._id = response.data._id;
+                if ($scope.mediaModel.cover === 'covers/' + response.data._id + '.jpg') {
+                    delete $scope.mediaModel.cover;
+                }
                 getOneCallback();
             };
             var failureGetBookCallback = function (errorResponse) {
