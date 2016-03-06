@@ -21,11 +21,13 @@ exports.storeCover = (payload, callback) => {
     });
 };
 
-function removeFile(filename, callback) {
+var removeFile = (filename, callback) => {
     rimraf(filename, (err) => {
         callback(err);
     });
-}
+};
+
+exports.removeFile = removeFile;
 
 function writeFile(filename, uploadedFile, callback) {
     const imageBuffer = new Buffer(uploadedFile, 'base64');

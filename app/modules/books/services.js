@@ -2,8 +2,11 @@
 
 const Book = require('mongoose').model('Book');
 const _ = require('lodash');
+const path = require('path');
 
 const responseHelper = require('../../utils/response-helper');
+const storage = require('../upload/services');
+const config = require('../../config');
 
 exports.findBooks = (callback) => {
     Book.find().sort('-created').populate('user', 'displayName').exec((err, books) => {
@@ -96,7 +99,14 @@ exports.findOneCollection = (params, callback) => {
 
 exports.removeBook = (params, callback) => {
     Book.findOneAndRemove({ _id: params.bookId }).exec((err, response) => {
-        responseHelper.serviceCallback(err, response, 204, callback);
+        const filename = path.join(config.projectRoot, config.coverDirectory, params.bookId + '.jpg');
+        if (err) {
+            responseHelper.serviceCallback(err, response, 204, callback);
+        } else {
+            storage.removeFile(filename, (error) => {
+                responseHelper.serviceCallback(error, response, 204, callback);
+            });
+        }
     });
 };
 
