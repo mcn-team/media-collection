@@ -24,15 +24,15 @@ const connectionSchema = {
 };
 
 const configSchema = {
-    connections: Joi.array().min(1).items(Joi.object(connectionSchema).required()).required(),
+    connections: Joi.array().min(1).items(Joi.object(connectionSchema).required()),
+    projectRoot: Joi.string().required(),
+    coverDirectory: Joi.string().required(),
     dbConnectionString: Joi.string().regex(/^mongodb:\/\/[a-z]+[:][0-9]+\/.+/).required(),
     colors: Joi.boolean().required(),
     logRoute: Joi.boolean().required(),
     logFiles: Joi.boolean().required(),
     secretJWT: Joi.string().required(),
-    clientPath: Joi.string().required(),
-    projectRoot: Joi.string().required(),
-    coverDirectory: Joi.string().required()
+    clientPath: Joi.string().required()
 };
 
 exports.validate = (config, callback) => {
