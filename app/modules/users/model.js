@@ -10,6 +10,12 @@ const UserSchema = new mongoose.Schema({
     password : String,
     displayName: String,
     email: String,
+    options: {
+        language: {
+            type: String,
+            default: 'en'
+        }
+    },
     created: {
         type: Date,
         default: Date.now

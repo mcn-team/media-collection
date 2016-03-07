@@ -5,6 +5,7 @@ const logger = require('../../utils/logger');
 const langModule = {
     register: (server, options, next) => {
         try {
+            require('./lang')();
             require('./routes')(server);
             logger.logLoading('Lang');
         } catch (err) {

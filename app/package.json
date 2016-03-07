@@ -12,6 +12,7 @@
   "dependencies": {
     "allocine-api": "~0.1.9",
     "chalk": "~1.1.1",
+    "glob": "~7.0.3",
     "hapi": "~12.1.0",
     "inert": "~3.2.0",
     "joi": "~7.2.3",

@@ -2,6 +2,6 @@
 
 const Joi = require('joi');
 
-exports.langQuery = {
-    lang: Joi.string().length(2)
+exports.langParams = {
+    lang: Joi.string()
 };

@@ -1,16 +1,8 @@
 'use strict';
 
+const langs = require('./lang');
 const responseHelper = require('../../utils/response-helper');
 
-exports.loadLanguageFile = (query, callback) => {
-    let file = null;
-    let error = null;
-
-    try {
-        file = require('./language_' + query.lang + '.json');
-    } catch (err) {
-        error = err;
-    }
-
-    responseHelper.serviceCallback(error, file, 200, callback);
+exports.loadLanguageFile = (params, callback) => {
+    responseHelper.serviceCallback(null, langs.langs[params.lang], 200, callback);
 };

@@ -6,9 +6,9 @@ const validator = require('./validator');
 module.exports = (server) => {
     server.route({
         method: 'GET',
-        path: '/',
+        path: '/{lang}',
         config: {
-            validate: { query: validator.langQuery }
+            validate: { params: validator.langParams }
         },
         handler: controllers.getLanguageFile
     });
