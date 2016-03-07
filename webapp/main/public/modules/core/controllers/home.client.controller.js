@@ -14,7 +14,7 @@ angular.module('core').controller('HomeController', [
         };
 
         if (!LanguagesService.getPreloaded()) {
-            LanguagesService.getCurrentLang().getLang({ lang: 'en' }).$promise.then(function (result) {
+            LanguagesService.getCurrentLang().getLang({ lang: $scope.authentication.user.options.language }).$promise.then(function (result) {
                 $scope.translation = result;
                 console.log($scope.translation);
                 $scope.isLoaded = true;

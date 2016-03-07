@@ -6,6 +6,7 @@ angular.module('users').factory('Authentication', [
         var authServices = {};
 
         authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
+        //TODO: Call a new UserServices function to refresh user data
         authServices.user = authServices.credentials ? authServices.credentials.user : null;
         authServices.token = authServices.credentials ? authServices.credentials.token : null;
 
