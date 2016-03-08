@@ -43,3 +43,9 @@ exports.updateUser = (params, payload, callback) => {
         responseHelper.serviceCallback(err, _.merge(user, payload), 200, callback);
     });
 };
+
+exports.findUserOptions = (user, callback) => {
+    User.find({ _id: user.id }, { _id: false, options: true }).exec((err, options) => {
+        responseHelper.serviceCallback(err, options, 200, callback);
+    });
+};

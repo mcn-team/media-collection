@@ -38,4 +38,11 @@ module.exports = (server) => {
         },
         handler: users.updateUser
     });
+
+    server.route({
+        method: 'GET',
+        path: '/options',
+        config: { auth: 'RequiresLogin' },
+        handler: users.getUserOptions
+    });
 };
