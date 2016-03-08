@@ -5,8 +5,20 @@ angular.module('users').factory('Authentication', [
     function ($window, $injector) {
         var authServices = {};
 
+        var httpConfig = null;
+
         authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
+        var buildEndpoint = function (path) {
+            var creds = authServices.credentials ? authServices.credentials.token : null;
+            httpConfig = {
+                headers: {
+                    'auth-web-token': creds
+                }
+            };
+            return $injector.get('Config').apiRoute + path;
+        };
         //TODO: Call a new UserServices function to refresh user data
+        $injector.get('$http').get(buildEndpoint('/users/options'), httpConfig)
         authServices.user = authServices.credentials ? authServices.credentials.user : null;
         authServices.token = authServices.credentials ? authServices.credentials.token : null;
 

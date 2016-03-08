@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('mediacollection').factory('InterceptorsService', [
-    '$q', 'Authentication',
-    function ($q, Authentication) {
+    '$q', '$injector',
+    function ($q, $injector) {
         var interceptorService = {};
 
         interceptorService.responseError = function (response) {
             if (response.status === 401) {
-                Authentication.dropCredentials();
+                $injector.get('Authentication').dropCredentials();
             }
             return $q.reject(response);
         };
