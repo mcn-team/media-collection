@@ -7,8 +7,6 @@ angular.module('movies').controller('ListMoviesController', [
         var self = this;
         $scope.authentication = Authentication.checkAuth();
 
-        $scope.mediaType = 'Movie';
-
         $scope.goToStats = function() {
             $location.hash('stats');
             $anchorScroll();

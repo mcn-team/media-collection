@@ -1,5 +1,5 @@
 <section data-ng-controller="HomeController as HomeCtrl">
-    <div data-ng-if="!authentication.user" class="row" >
+    <div data-ng-if="!HomeCtrl.authentication.user" class="row" >
         <div class="elements-margin-top thumbnail col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" >
             <div class="caption">
                 <p>
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div data-ng-if="authentication.user" >
+    <div data-ng-if="HomeCtrl.authentication.user" >
         <div id="dashboard" class="dashbord-div col-xs-12 col-md-push-3 col-md-6" >
             <mc-dashboard-btn data-mc-icon="'/assets/img/add-book.png'" data-mc-popover="'Ajouter un livre'" data-mc-url="'/#!/books/create'" ></mc-dashboard-btn>
             <mc-dashboard-btn data-mc-icon="'/assets/img/list-book.png'" data-mc-popover="'Liste des livres'" data-mc-url="'/#!/books'" ></mc-dashboard-btn>
@@ -20,34 +20,34 @@
             <mc-dashboard-btn data-mc-icon="'/assets/img/list-movies.png'" data-mc-popover="'Liste des films'" data-mc-url="'/#!/movies'" ></mc-dashboard-btn>
             <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-movies.png'" data-mc-popover="'Liste des collections de films'" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
         </div>
-        <div data-ng-class="fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
-            <div data-ng-if="lastBookResult" class="thumbnail">
+        <div data-ng-class="HomeCtrl.fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
+            <div data-ng-if="HomeCtrl.lastBookResult" class="thumbnail">
                 <h5 class="text-center" data-ng-bind="HomeCtrl.fields.LAST_ADDED_BOOK" ></h5>
-                <a title="{{lastBookResult.title}}" data-ng-href="#!/books/{{lastBookResult._id}}" >
-                    <img class="thumbnail-image-size" data-ng-src="{{lastBookResult.cover || 'http://placehold.it/127x200'}}" alt="{{lastBookResult.title}}">
+                <a title="{{HomeCtrl.lastBookResult.title}}" data-ng-href="#!/books/{{HomeCtrl.lastBookResult._id}}" >
+                    <img class="thumbnail-image-size" data-ng-src="{{HomeCtrl.lastBookResult.cover || 'http://placehold.it/127x200'}}" alt="{{HomeCtrl.lastBookResult.title}}">
                 </a>
                 <div class="caption">
-                    <h4 title="{{lastBookResult.title}}" class="latest-title" >{{lastBookResult.title}}</h4>
-                    <p class="author-p" data-ng-bind="lastBookResult.authors"></p>
-                    <h5 class="hidden-xs" >{{lastBookResult.summary}}</h5>
+                    <h4 title="{{HomeCtrl.lastBookResult.title}}" class="latest-title" >{{HomeCtrl.lastBookResult.title}}</h4>
+                    <p class="author-p" data-ng-bind="HomeCtrl.lastBookResult.authors"></p>
+                    <h5 class="hidden-xs" >{{HomeCtrl.lastBookResult.summary}}</h5>
                 </div>
             </div>
         </div>
-        <div data-ng-class="fadeInClass.movie" class="elements-margin-top col-xs-12 col-sm-6 col-md-3">
-            <div data-ng-if="lastMovieResult" class="thumbnail">
+        <div data-ng-class="HomeCtrl.fadeInClass.movie" class="elements-margin-top col-xs-12 col-sm-6 col-md-3">
+            <div data-ng-if="HomeCtrl.lastMovieResult" class="thumbnail">
                 <h5 class="text-center" data-ng-bind="HomeCtrl.fields.LAST_ADDED_MOVIE" ></h5>
-                <a title="{{lastMovieResult.title}}" data-ng-href="#!/movies/{{lastMovieResult._id}}" >
-                    <img class="thumbnail-image-size" data-ng-src="{{lastMovieResult.cover || 'http://placehold.it/127x200'}}" alt="{{lastMovieResult.title}}">
+                <a title="{{HomeCtrl.lastMovieResult.title}}" data-ng-href="#!/movies/{{HomeCtrl.lastMovieResult._id}}" >
+                    <img class="thumbnail-image-size" data-ng-src="{{HomeCtrl.lastMovieResult.cover || 'http://placehold.it/127x200'}}" alt="{{HomeCtrl.lastMovieResult.title}}">
                 </a>
                 <div class="caption">
-                    <h4 title="{{lastMovieResult.title}}" class="latest-title">{{lastMovieResult.title}}</h4>
-                    <p class="author-p" data-ng-bind="lastMovieResult.actors"></p>
-                    <h5 class="hidden-xs">{{lastMovieResult.summary}}</h5>
+                    <h4 title="{{HomeCtrl.lastMovieResult.title}}" class="latest-title">{{HomeCtrl.lastMovieResult.title}}</h4>
+                    <p class="author-p" data-ng-bind="HomeCtrl.lastMovieResult.actors"></p>
+                    <h5 class="hidden-xs">{{HomeCtrl.lastMovieResult.summary}}</h5>
                 </div>
             </div>
         </div>
     </div>
-    <div data-ng-show="authentication.user && isLoaded">
+    <div data-ng-show="HomeCtrl.authentication.user && HomeCtrl.isLoaded">
         <div class="col-md-12" data-ng-include="'modules/light-rss-feed/views/light-rss-feed.client.view.html'"></div>
     </div>
     <div class="byline col-xs-12">

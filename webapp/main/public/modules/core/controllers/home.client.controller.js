@@ -1,21 +1,19 @@
 'use strict';
 
 angular.module('core').controller('HomeController', [
-    '$scope', 'Authentication',
-    'BookServices', 'MovieServices', 'LanguageServices',
-    function($scope, Authentication, BookServices, MovieServices, LanguageServices) {
+    'Authentication', 'BookServices', 'MovieServices', 'LanguageServices',
+    function(Authentication, BookServices, MovieServices, LanguageServices) {
         var self = this;
         // This provides Authentication context.
-        $scope.authentication = Authentication.isAuthenticated();
-        $scope.isLoaded = false;
-        $scope.fadeInClass = {
+        self.authentication = Authentication.isAuthenticated();
+        self.fadeInClass = {
             book: 'hidden-op',
             movie: 'hidden-op',
             show: 'hidden-op'
         };
 
         self.fields = LanguageServices.lang['en'];
-        $scope.isLoaded = true;
+        self.isLoaded = true;
 
         function getDisplayList(list) {
             var formatted = '';
@@ -36,14 +34,14 @@ angular.module('core').controller('HomeController', [
         function latestCallback(result, key, type, limit) {
             result[key] = getDisplayList(result[key]);
             result.summary = result.summary ? result.summary.TruncIsh(limit) : null;
-            $scope.fadeInClass[type] = 'fade-in';
+            self.fadeInClass[type] = 'fade-in';
             return result;
         }
 
-        if ($scope.authentication) {
+        if (self.authentication) {
             BookServices.getLatest().then(function(result) {
                 if (result.status !== 204) {
-                    $scope.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
+                    self.lastBookResult = latestCallback(result.data, 'authors', 'book', 240);
                 }
             }, function (errorResponse) {
                 console.error(errorResponse);
@@ -51,7 +49,7 @@ angular.module('core').controller('HomeController', [
 
             MovieServices.getLatest().then(function(result) {
                 if (result.status !== 204) {
-                    $scope.lastMovieResult = latestCallback(result.data, 'actors', 'movie', 240);
+                    self.lastMovieResult = latestCallback(result.data, 'actors', 'movie', 240);
                 }
             }, function (errorResponse) {
                 console.error(errorResponse);
