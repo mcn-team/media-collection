@@ -2,8 +2,9 @@
 
 angular.module('core').controller('HomeController', [
     '$scope', 'Authentication',
-    'BookServices', 'MovieServices', 'LanguagesService',
-    function($scope, Authentication, BookServices, MovieServices, LanguagesService) {
+    'BookServices', 'MovieServices', 'LanguageServices',
+    function($scope, Authentication, BookServices, MovieServices, LanguageServices) {
+        var self = this;
         // This provides Authentication context.
         $scope.authentication = Authentication.isAuthenticated();
         $scope.isLoaded = false;
@@ -13,17 +14,8 @@ angular.module('core').controller('HomeController', [
             show: 'hidden-op'
         };
 
-        if (!LanguagesService.getPreloaded()) {
-            LanguagesService.getCurrentLang().getLang({ lang: $scope.authentication.user.options.language }).$promise.then(function (result) {
-                $scope.translation = result;
-                console.log($scope.translation);
-                $scope.isLoaded = true;
-                LanguagesService.setPreloaded($scope.translation);
-            });
-        } else {
-            $scope.translation = LanguagesService.getPreloaded();
-            $scope.isLoaded = true;
-        }
+        self.fields = LanguageServices.lang['en'];
+        $scope.isLoaded = true;
 
         function getDisplayList(list) {
             var formatted = '';
