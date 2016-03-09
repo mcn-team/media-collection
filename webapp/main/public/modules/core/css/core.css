@@ -47,3 +47,7 @@
 }
 .no-padding-left { padding-left: 0; }
 nav a { cursor: pointer; }
+.pre-text {
+    white-space: pre-wrap;
+    text-align: center;
+}

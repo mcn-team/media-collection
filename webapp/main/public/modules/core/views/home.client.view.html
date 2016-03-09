@@ -2,9 +2,9 @@
     <div data-ng-if="!HomeCtrl.authentication.user" class="row" >
         <div class="elements-margin-top thumbnail col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" >
             <div class="caption">
-                <p>
-                    Vous n'êtes pas identifié. Identifiez-vous ou vous
-                    enregistrer si nous n'avez pas encore creer votre compte
+                <p class="pre-text" data-ng-bind="HomeCtrl.fields.NOT_LOGGED_MESSAGE">
+                    Vous n'êtes pas identifié. Identifiez-vous ou enregistrez-vous
+                    si nous n'avez pas encore créer votre compte
                 </p>
                 <a class="btn btn-primary" type="button" href="/#!/signin" >Se connecter</a>
                 <a class="pull-right btn btn-default" type="button" href="/#!/signup" >Creer un compte</a>
@@ -13,12 +13,12 @@
     </div>
     <div data-ng-if="HomeCtrl.authentication.user" >
         <div id="dashboard" class="dashbord-div col-xs-12 col-md-push-3 col-md-6" >
-            <mc-dashboard-btn data-mc-icon="'/assets/img/add-book.png'" data-mc-popover="'Ajouter un livre'" data-mc-url="'/#!/books/create'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-book.png'" data-mc-popover="'Liste des livres'" data-mc-url="'/#!/books'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-books.png'" data-mc-popover="'Liste des collections de livres'" data-mc-url="'/#!/books/collections'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/add-movie.png'" data-mc-popover="'Ajouter un film'" data-mc-url="'/#!/movies/create'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-movies.png'" data-mc-popover="'Liste des films'" data-mc-url="'/#!/movies'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-movies.png'" data-mc-popover="'Liste des collections de films'" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/add-book.png'" data-mc-popover="HomeCtrl.fields.ADD_BOOK" data-mc-url="'/#!/books/create'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-book.png'" data-mc-popover="HomeCtrl.fields.BOOK_LIST" data-mc-url="'/#!/books'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-books.png'" data-mc-popover="HomeCtrl.fields.BOOK_COLLECTION" data-mc-url="'/#!/books/collections'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/add-movie.png'" data-mc-popover="HomeCtrl.fields.ADD_MOVIE" data-mc-url="'/#!/movies/create'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-movies.png'" data-mc-popover="HomeCtrl.fields.MOVIE_LIST" data-mc-url="'/#!/movies'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-movies.png'" data-mc-popover="HomeCtrl.fields.MOVIE_COLLECTION" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
         </div>
         <div data-ng-class="HomeCtrl.fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
             <div data-ng-if="HomeCtrl.lastBookResult" class="thumbnail">

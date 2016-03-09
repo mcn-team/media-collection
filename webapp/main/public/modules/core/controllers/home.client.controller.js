@@ -12,7 +12,7 @@ angular.module('core').controller('HomeController', [
             show: 'hidden-op'
         };
 
-        self.fields = LanguageServices.lang['en'];
+        self.fields = LanguageServices.lang['en'].home;
         self.isLoaded = true;
 
         function getDisplayList(list) {

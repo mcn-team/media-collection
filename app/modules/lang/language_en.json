@@ -1,6 +1,16 @@
 {
-  "LAST_ADDED_BOOK": "Last added book",
-  "LAST_ADDED_MOVIE": "Last added movie",
-  "LAST_ADDED_SERIES": "Last added series",
-  "MY_MOVIES": "My Movies"
+  "home": {
+    "LAST_ADDED_BOOK": "Last added book",
+    "LAST_ADDED_MOVIE": "Last added movie",
+    "ADD_BOOK": "Add a book",
+    "BOOK_LIST": "Books list",
+    "BOOK_COLLECTION": "Books collections",
+    "ADD_MOVIE": "Add a movie",
+    "MOVIE_LIST": "Movies list",
+    "MOVIE_COLLECTION": "Movies collections",
+    "NOT_LOGGED_MESSAGE": "You are not logged in.\nPlease log in or create an account"
+  },
+  "listMovies": {
+    "MY_MOVIES": "My Movies"
+  }
 }
