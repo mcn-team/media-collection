@@ -20,3 +20,9 @@ exports.updateUser = (request, reply) => {
         return responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getUserOptions = (request, reply) => {
+    userServices.findUserOptions(request.auth.credentials, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};

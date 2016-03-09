@@ -1,0 +1,11 @@
+<section data-ng-controller="OptionsController as Opts">
+    <header class="page-header">
+        <h2 data-ng-bind="Opts.pageTitle"></h2>
+    </header>
+    <section data-ng-if="Opts.authentication" class="col-xs-12 row" >
+        <uib-tabset active="active">
+            <!--<uib-tab index="0" heading="Interface">-->
+            <!--</uib-tab>-->
+        </uib-tabset>
+    </section>
+</section>
