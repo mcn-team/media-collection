@@ -1,12 +1,18 @@
 'use strict';
 
 // Configuring the Articles module
-angular.module('movies').run(['Menus',
-    function(Menus) {
-        // Set top bar menu items
-        Menus.addMenuItem('topbar', 'Films', 'movies', 'dropdown', '/movies(/create)?');
-        Menus.addSubMenuItem('topbar', 'movies', 'Liste des Films', 'movies');
-        Menus.addSubMenuItem('topbar', 'movies', 'Liste Collections de Film', 'movies/collections');
-        Menus.addSubMenuItem('topbar', 'movies', 'Nouveau Film', 'movies/create');
+angular.module('movies').run([
+    'Menus', 'LanguageServices',
+    function(Menus, LanguageServices) {
+        LanguageServices.fetchLanguages(function (err) {
+            if (!err) {
+                var fields = LanguageServices.lang['en'].home;
+                // Set top bar menu items
+                Menus.addMenuItem('topbar', fields.MOVIE_HEADER, 'movies', 'dropdown', '/movies(/create)?');
+                Menus.addSubMenuItem('topbar', 'movies', fields.MOVIE_LIST, 'movies');
+                Menus.addSubMenuItem('topbar', 'movies', fields.MOVIE_COLLECTION, 'movies/collections');
+                Menus.addSubMenuItem('topbar', 'movies', fields.ADD_MOVIE, 'movies/create');
+            }
+        });
     }
 ]);

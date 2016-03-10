@@ -2,13 +2,20 @@
   "home": {
     "LAST_ADDED_BOOK": "Last added book",
     "LAST_ADDED_MOVIE": "Last added movie",
-    "ADD_BOOK": "Add a book",
+    "BOOK_HEADER": "Books",
+    "ADD_BOOK": "Add a new book",
     "BOOK_LIST": "Books list",
     "BOOK_COLLECTION": "Books collections",
-    "ADD_MOVIE": "Add a movie",
+    "MOVIE_HEADER": "Movies",
+    "ADD_MOVIE": "Add a new movie",
     "MOVIE_LIST": "Movies list",
     "MOVIE_COLLECTION": "Movies collections",
-    "NOT_LOGGED_MESSAGE": "You are not logged in.\nPlease log in or create an account"
+    "NOT_LOGGED_MESSAGE": "You are not logged in.\nPlease log in or create an account",
+    "SETTINGS": "Settings",
+    "EDIT_PROFILE": "Edit profile",
+    "SIGNOUT": "Signout",
+    "SIGNUP": "Sign up",
+    "SIGNIN": "Sign in"
   },
   "listMovies": {
     "MY_MOVIES": "My Movies"
