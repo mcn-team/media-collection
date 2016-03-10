@@ -17,11 +17,13 @@ angular.module('users').factory('Authentication', [
             };
             return $injector.get('Config').apiRoute + path;
         };
-        //TODO: Call a new UserServices function to refresh user data
-        $injector.get('$http').get(buildEndpoint('/users/options'), httpConfig).then(function (response) {
-            authServices.credentials.user.options = response.data[0].options;
-            authServices.setCredentials(authServices.credentials);
-        });
+        if (authServices.credentials) {
+            $injector.get('$http').get(buildEndpoint('/users/options'), httpConfig).then(function (response) {
+                authServices.credentials.user.options = response.data[0].options;
+                authServices.setCredentials(authServices.credentials);
+            });
+        }
+
         authServices.user = authServices.credentials ? authServices.credentials.user : null;
         authServices.token = authServices.credentials ? authServices.credentials.token : null;
 

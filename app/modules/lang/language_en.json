@@ -19,5 +19,15 @@
   },
   "listMovies": {
     "MY_MOVIES": "My Movies"
+  },
+  "authentication": {
+    "SIGNUP_HEADER": "Create a new account",
+    "SIGNIN_HEADER": "Sign in with your account",
+    "DISPLAY_NAME": "Display Name",
+    "EMAIL": "Email",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "SIGNUP": "Sign up",
+    "SIGNIN": "Sign in"
   }
 }
