@@ -1,15 +1,27 @@
 'use strict';
 
 angular.module('books').controller('EditBookController', [
-    '$scope', '$stateParams', '$location',
+    '$scope', '$stateParams', '$location', '$window',
     'Authentication', 'BooksDataService', 'BookServices', 'LanguageServices',
-    function($scope, $stateParams, $location, Authentication, BooksDataService, BookServices, LanguageServices) {
+    function($scope, $stateParams, $location, $window, Authentication, BooksDataService, BookServices, LanguageServices) {
         $scope.fields = LanguageServices.lang && LanguageServices.lang['en'];
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
         $scope.isLoaded = false;
         $scope.isEdit = $stateParams.bookId;
+        $scope.mediaModel = {};
+
+        $scope.loadFile = function (files) {
+            $scope.mediaModel.file = files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $scope.$apply(function ($scope) {
+                    $scope.mediaModel.myImage = evt.target.result;
+                });
+            };
+            reader.readAsDataURL(files[0]);
+        };
 
         $scope.hoveringOver = function(value) {
             $scope.overStar = value;
@@ -28,16 +40,28 @@ angular.module('books').controller('EditBookController', [
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book._id = $scope.mediaModel._id;
 
-            var successUpdateCallback = function (response) {
+            var successUpdateCallback = function () {
+                if ($scope.mediaModel.myCroppedImage) {
+                    var fd = new $window.FormData();
+
+                    fd.append('filename', book._id);
+                    fd.append('base64', $scope.mediaModel.myCroppedImage.split(',')[1]);
+                    UploadServices.uploadCover(fd).then(successCallback, failureCallback);
+                } else {
+                    successCallback();
+                }
+            };
+
+            var failureCallback = function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            };
+
+            var successCallback = function () {
                 $location.path('books/' + book._id);
                 $scope.mediaModel = {};
             };
 
-            var failureUpdateCallback = function (errorResponse) {
-                $scope.error = errorResponse.data.message;
-            };
-
-            BookServices.updateBook(book._id, book).then(successUpdateCallback, failureUpdateCallback);
+            BookServices.updateBook(book._id, book).then(successUpdateCallback, failureCallback);
         };
 
         BookServices.getCollectionNames().then(function (result) {
@@ -91,6 +115,9 @@ angular.module('books').controller('EditBookController', [
             var successGetBookCallback = function (response) {
                 $scope.mediaModel = BooksDataService.fillBookModel(response.data);
                 $scope.mediaModel._id = response.data._id;
+                if ($scope.mediaModel.cover === 'covers/' + response.data._id + '.jpg') {
+                    delete $scope.mediaModel.cover;
+                }
                 getOneCallback();
             };
             var failureGetBookCallback = function (errorResponse) {

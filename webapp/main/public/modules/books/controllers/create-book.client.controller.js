@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('books').controller('CreateBookController', [
-    '$scope', '$location', '$uibModal',
-    'Authentication', 'BookServices', 'BooksDataService', 'LanguageServices',
-    function($scope, $location, $uibModal, Authentication, BookServices, BooksDataService, LanguageServices) {
+    '$scope', '$location', '$uibModal', '$window', 'Authentication',
+    'BookServices', 'BooksDataService', 'UploadServices', 'LanguageServices',
+    function($scope, $location, $uibModal, $window, Authentication, BookServices, BooksDataService, UploadServices, LanguageServices) {
         $scope.fields = LanguageServices.lang && LanguageServices.lang['en'];
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
@@ -11,6 +11,19 @@ angular.module('books').controller('CreateBookController', [
         $scope.isReadonly = false;
         $scope.isDuplicate = false;
         $scope.searchType = 'google';
+
+        $scope.uploadCover = false;
+
+        $scope.loadFile = function (files) {
+            $scope.mediaModel.file = files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $scope.$apply(function ($scope) {
+                    $scope.mediaModel.myImage = evt.target.result;
+                });
+            };
+            reader.readAsDataURL(files[0]);
+        };
 
         $scope.hoveringOver = function(value) {
             $scope.overStar = value;
@@ -51,6 +64,7 @@ angular.module('books').controller('CreateBookController', [
                 read: 'NOTREAD',
                 bought: true
             };
+
             $scope.addField = function(itemList, item) {
                 for (var i = 0; i < $scope.mediaModel[itemList].length; i++) {
                     if ($scope.mediaModel[itemList][i] === $scope.mediaModel[item]) {
@@ -141,12 +155,28 @@ angular.module('books').controller('CreateBookController', [
             $scope.checkAddVolume = function() {
                 return !$scope.mediaModel.collectionName || $scope.mediaModel.collectionName === '';
             };
-
         };
 
         // Validation du formulaire de la page Nouveau Livre
 
         $scope.validateForm = function() {
+            var successCallback = function () {
+                $location.path('books/' + $scope.bookId);
+                $scope.mediaModel = {};
+            };
+
+            var failureCallback = function (errorResponse) {
+                console.error(errorResponse);
+                $scope.error = errorResponse.data.message;
+                $scope.mediaModel.authorsList = [];
+            };
+
+            var uploadCallback = function () {
+                var edit = { cover: $scope.mediaModel.cover + $scope.bookId + '.jpg' };
+
+                BookServices.updateBook($scope.bookId, edit).then(successCallback, failureCallback);
+            };
+
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book.user = $scope.authentication.user._id;
             if (book.collectionName && !book.volume) {
@@ -155,13 +185,17 @@ angular.module('books').controller('CreateBookController', [
             }
 
             BookServices.addBook(book).then(function (response) {
-                $location.path('books/' + response.data._id);
-                $scope.mediaModel = {};
-            }, function (errorResponse) {
-                console.error(errorResponse);
-                $scope.error = errorResponse.data.message;
-                $scope.mediaModel.authorsList.pop();
-            });
+                $scope.bookId = response.data._id;
+                if (response.data.cover === 'covers/') {
+                    var fd = new $window.FormData();
+
+                    fd.append('filename', $scope.bookId);
+                    fd.append('base64', $scope.mediaModel.myCroppedImage.split(',')[1]);
+                    UploadServices.uploadCover(fd).then(uploadCallback, failureCallback);
+                } else {
+                    successCallback();
+                }
+            }, failureCallback);
         };
 
         $scope.cancelPage = function() {

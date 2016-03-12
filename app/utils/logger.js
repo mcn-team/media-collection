@@ -37,10 +37,8 @@ exports.logLoading = (plugin, err) => {
     }
 
     if (err) {
-        log += error('ERROR');
+        console.error(log + error('ERROR'));
     } else {
-        log += success('OK');
+        console.log(log + success('OK'));
     }
-
-    console.log(log);
 };

@@ -11,7 +11,7 @@ const commonBookPayload = {
     isbn: Joi.string(),
     publishingDate: Joi.date().iso(),
     publisher: Joi.string(),
-    cover: Joi.string().uri(),
+    cover: Joi.string(),
     read: Joi.string(),
     bought: Joi.boolean(),
     pageCount: Joi.number().integer().positive(),

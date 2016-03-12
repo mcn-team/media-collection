@@ -98,6 +98,13 @@ angular.module('books').factory('BooksDataService', [
                 authorsTab.push(current);
             });
 
+            if (model.uploadCover) {
+                model.cover = 'covers/';
+                if (model._id) {
+                    model.cover += model._id + '.jpg';
+                }
+            }
+
             if (model.collectionName === '') {
                 model.collectionName = undefined;
             }

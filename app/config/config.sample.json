@@ -9,7 +9,7 @@
       ],
       "routes": {
         "files": {
-          "relativeTo": "C:\\path\\to\\public"
+          "relativeTo": "C:\\path\\to\\project\\root"
         },
         "cors": {
           "origin": [
@@ -22,6 +22,8 @@
       }
     }
   ],
+  "projectRoot": "C:\\path\\to\\project\\root",
+  "coverDirectory": "storage\\covers",
   "dbConnectionString": "mongodb://localhost:27017/mc",
   "colors": true,
   "logRoute": true,
