@@ -24,11 +24,11 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
             <li>
-                <a href="/#!/signup">Sign Up</a>
+                <a href="/#!/signup" data-ng-bind="fields.SIGNUP"></a>
             </li>
             <li class="divider-vertical"></li>
             <li>
-                <a href="/#!/signin">Sign In</a>
+                <a href="/#!/signin" data-ng-bind="fields.SIGNIN"></a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
@@ -38,18 +38,18 @@
                 </a>
                 <ul data-uib-dropdown-menu class="dropdown-menu">
                     <li>
-                        <a href="/#!/options">Settings</a>
+                        <a href="/#!/options" data-ng-bind="fields.SETTINGS"></a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="/#!/settings/profile">Edit Profile</a>
+                        <a href="/#!/settings/profile" data-ng-bind="fields.EDIT_PROFILE"></a>
                     </li>
                     <!--<li data-ng-show="authentication.user.provider === 'local'">-->
                         <!--<a href="/#!/settings/password">Change Password</a>-->
                     <!--</li>-->
                     <li class="divider"></li>
                     <li>
-                        <a data-ng-click="signOut()">Signout</a>
+                        <a data-ng-click="signOut()" data-ng-bind="fields.SIGNOUT"></a>
                     </li>
                 </ul>
             </li>

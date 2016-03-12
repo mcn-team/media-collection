@@ -1,10 +1,10 @@
-<section data-ng-controller="ListMoviesController" ng-show="authentication.user" data-ng-init="find()"
+<section data-ng-controller="ListMoviesController as ListMoviesCtrl" ng-show="authentication.user" data-ng-init="find()"
          xmlns="http://www.w3.org/1999/html">
     <div class="page-header">
         <h1>
             <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
             <button class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-model="multiSearchOn" ng-click="multiSearchOn = !multiSearchOn" >{{multiSearchOn ? 'Recherche rapide' : 'Recherche multi-critères'}}</button>
-            {{translation.MY_MOVIES}}
+            {{ListMoviesCtrl.fields.MY_MOVIES}}
         </h1>
     </div>
     <mc-loader></mc-loader>

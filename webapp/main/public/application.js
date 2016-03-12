@@ -6,6 +6,9 @@ var ApplicationConfiguration = (function() {
     var applicationModuleName = 'mediacollection';
     var applicationModuleVendorDependencies = ['ngResource',  'ui.router', 'ui.bootstrap', 'ngLodash', 'ngAnimate'];
 
+    // Custom angular modules
+    applicationModuleVendorDependencies.push('mc.language');
+
     // Add a new vertical module
     var registerModule = function(moduleName, dependencies) {
         // Create angular module
@@ -26,11 +29,19 @@ var ApplicationConfiguration = (function() {
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider', '$httpProvider',
+angular.module(ApplicationConfiguration.applicationModuleName).config([
+    '$locationProvider', '$httpProvider',
     function($locationProvider, $httpProvider) {
         $locationProvider.hashPrefix('!');
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.interceptors.push('InterceptorsService');
+    }
+]);
+
+angular.module(ApplicationConfiguration.applicationModuleName).run([
+    'LanguageServices',
+    function (LanguageServices) {
+        LanguageServices.fetchLanguages();
     }
 ]);
 

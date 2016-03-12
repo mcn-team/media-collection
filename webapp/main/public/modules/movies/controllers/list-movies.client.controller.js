@@ -2,11 +2,10 @@
 
 angular.module('movies').controller('ListMoviesController', [
     '$scope', '$location', '$anchorScroll', 'Authentication',
-    'StatsMovieService', 'MovieDataService', 'MovieServices', 'LanguagesService',
-    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, MovieServices, LanguagesService) {
+    'StatsMovieService', 'MovieDataService', 'MovieServices', 'LanguageServices',
+    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, MovieServices, LanguageServices) {
+        var self = this;
         $scope.authentication = Authentication.checkAuth();
-
-        $scope.mediaType = 'Movie';
 
         $scope.goToStats = function() {
             $location.hash('stats');
@@ -22,16 +21,9 @@ angular.module('movies').controller('ListMoviesController', [
                 $scope.$watch('filteredMovies', function () {
                     $scope.stats = StatsMovieService.calculate($scope.filteredMovies);
                 }, true);
-                if (!LanguagesService.getPreloaded()) {
-                    LanguagesService.getCurrentLang().getLang({ lang: 'en' }).$promise.then(function (result) {
-                        $scope.translation = result;
-                        $scope.isLoaded = true;
-                        LanguagesService.setPreloaded($scope.translation);
-                    });
-                } else {
-                    $scope.translation = LanguagesService.getPreloaded();
-                    $scope.isLoaded = true;
-                }
+
+                self.fields = LanguageServices.lang['en'];
+                $scope.isLoaded = true;
             });
 
             $scope.formatPeople = function (people) {
