@@ -1,49 +1,49 @@
 <script type="text/ng-template" id="booksAutoAddClientModal.html">
     <div class="modal-header">
-        <h3 class="modal-title">Ajouter des livres manquants</h3>
+        <h3 class="modal-title" data-ng-bind="fields.MISSING_HEADER"></h3>
     </div>
     <div data-ng-hide="isValidated" class="modal-main-container">
         <div class="micro-margin-bottom-fixed">
-            <button class="btn btn-primary" data-ng-click="checkList(true)" >Tous</button>
-            <button class="btn btn-primary" data-ng-click="checkList(false)" >Aucun</button>
-            <button class="btn btn-primary" data-ng-click="checkList()" >Inverser</button>
+            <button class="btn btn-primary" data-ng-click="checkList(true)" data-ng-bind="fields.ALL"></button>
+            <button class="btn btn-primary" data-ng-click="checkList(false)" data-ng-bind="fields.NONE"></button>
+            <button class="btn btn-primary" data-ng-click="checkList()" data-ng-bind="fields.REVERSE"></button>
         </div>
         <div class="list-group">
             <a data-ng-repeat="item in listMissing" class="list-item-grid list-group-item cursor-pointer" data-ng-click="item.isChecked = !item.isChecked" >
-                <input type="checkbox" data-ng-model="item.isChecked" >
+                <input type="checkbox" data-ng-model="item.isChecked" title="field">
                 <span>{{item.displayName}}</span>
             </a>
         </div>
     </div>
     <div class="col-xs-12 modal-main-container" data-ng-show="isValidated && !isUploading" >
         <div data-ng-repeat="field in infoMedia" class="list-item-grid list-group-item col-xs-4">
-            <input type="checkbox" data-ng-model="field.checked" >
+            <input type="checkbox" data-ng-model="field.checked" title="field">
             <span>{{field.display}}</span>
         </div>
     </div>
     <div class="col-xs-12 modal-main-container" data-ng-show="isValidated && !isUploading" >
         <div class="col-xs-6 col-sm-2">
-            <label class="control-label" >Lu</label>
+            <label class="control-label" data-ng-bind="fields.READ"></label>
             <div >
-                <button class="btn btn-success" ng-show="infoStatus.read === 'READ'" ng-click="infoStatus.read = 'ONGOING'" data-ng-model="infoStatus.read" >
-                    <img class="form-icon-btn-size" ng-src="/assets/img/view8.png">
+                <button class="btn btn-success" data-ng-show="infoStatus.read === 'READ'" data-ng-click="infoStatus.read = 'ONGOING'" data-ng-model="infoStatus.read" >
+                    <img class="form-icon-btn-size" data-ng-src="/assets/img/view8.png">
                 </button>
-                <button class="btn btn-info" ng-show="infoStatus.read === 'ONGOING'" ng-click="infoStatus.read = 'NOTREAD'" data-ng-model="infoStatus.read" >
-                    <img class="form-icon-btn-size" ng-src="/assets/img/open161.png">
+                <button class="btn btn-info" data-ng-show="infoStatus.read === 'ONGOING'" data-ng-click="infoStatus.read = 'NOTREAD'" data-ng-model="infoStatus.read" >
+                    <img class="form-icon-btn-size" data-ng-src="/assets/img/open161.png">
                 </button>
-                <button class="btn btn-danger" ng-show="infoStatus.read === 'NOTREAD'" ng-click="infoStatus.read = 'READ'" data-ng-model="infoStatus.read" >
-                    <img class="form-icon-btn-size" ng-src="/assets/img/eye48.png">
+                <button class="btn btn-danger" data-ng-show="infoStatus.read === 'NOTREAD'" data-ng-click="infoStatus.read = 'READ'" data-ng-model="infoStatus.read" >
+                    <img class="form-icon-btn-size" data-ng-src="/assets/img/eye48.png">
                 </button>
             </div>
         </div>
         <div class="col-xs-6 col-sm-2">
-            <label class="control-label" >Acheté</label>
+            <label class="control-label" data-ng-bind="fields.BOUGHT"></label>
             <div >
-                <button class="btn btn-success" ng-show="infoStatus.bought === true" ng-click="infoStatus.bought = false" data-ng-model="infoStatus.bought" >
-                    <img class="form-icon-btn-size" ng-src="/assets/img/correct2.png">
+                <button class="btn btn-success" data-ng-show="infoStatus.bought === true" data-ng-click="infoStatus.bought = false" data-ng-model="infoStatus.bought" >
+                    <img class="form-icon-btn-size" data-ng-src="/assets/img/correct2.png">
                 </button>
-                <button class="btn btn-danger" ng-show="infoStatus.bought === false" ng-click="infoStatus.bought = true" data-ng-model="infoStatus.bought" >
-                    <img class="form-icon-btn-size" ng-src="/assets/img/delete100.png">
+                <button class="btn btn-danger" data-ng-show="infoStatus.bought === false" data-ng-click="infoStatus.bought = true" data-ng-model="infoStatus.bought" >
+                    <img class="form-icon-btn-size" data-ng-src="/assets/img/delete100.png">
                 </button>
             </div>
         </div>
@@ -52,8 +52,8 @@
         <img src="/assets/img/loader-large.gif">
     </div>
     <div class="modal-footer">
-        <button data-ng-hide="isValidated" class="btn btn-primary" data-ng-click="isValidated = true">Valider</button>
-        <button data-ng-show="isValidated" class="btn btn-success" data-ng-click="validateModal()">Ok</button>
-        <button class="btn btn-danger" ng-click="cancelModal()">Cancel</button>
+        <button data-ng-hide="isValidated" class="btn btn-primary" data-ng-click="isValidated = true" data-ng-bind="fields.VALIDATE"></button>
+        <button data-ng-show="isValidated" class="btn btn-success" data-ng-click="validateModal()" data-ng-bind="fields.OK"></button>
+        <button class="btn btn-danger" data-ng-click="cancelModal()" data-ng-bind="fields.CANCEL"></button>
     </div>
 </script>

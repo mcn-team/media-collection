@@ -1,30 +1,30 @@
 <section>
     <div class="col-xs-12 row " >
         <div class="micro-margin-top-fixed micro-margin-right-fixed pull-right">
-            <button class="btn btn-primary pull-right" data-ng-click="isCustomField = !isCustomField" >Champs personnalisés</button>
+            <button class="btn btn-primary pull-right" data-ng-click="isCustomField = !isCustomField" data-ng-bind="fields.CUSTOM_FIELDS"></button>
         </div>
-        <h3 ng-show="isCustomField" >Champs personnalisés</h3>
-        <div ng-show="isCustomField" class="col-xs-12 " data-ng-repeat="field in mediaModel.customFields">
+        <h3 data-ng-show="isCustomField" data-ng-bind="fields.CUSTOM_FIELDS"></h3>
+        <div data-ng-show="isCustomField" class="col-xs-12 " data-ng-repeat="field in mediaModel.customFields">
             <label class="control-label" data-ng-bind="field.name"></label>
             <div style="padding-right: 15px;" class="controls input-group micro-margin-bottom-fixed">
-                <input class="form-control" type="text" data-ng-model="field.value" ng-blur="updateField('customFields', $index, field)" placeholder="Valeur" >
+                <input class="form-control" type="text" data-ng-model="field.value" data-ng-blur="updateField('customFields', $index, field)" placeholder="{{fields.VALUE}}" >
                 <span class="input-group-btn">
                     <button class="btn btn-danger" type="button" data-ng-click="deleteField('customFields', $index)" >
-                        <img class="form-icon-btn-size" ng-src="/assets/img/delete96.png">
+                        <img class="form-icon-btn-size" data-ng-src="/assets/img/delete96.png">
                     </button>
                 </span>
             </div>
         </div>
-        <label ng-show="isCustomField" class="col-xs-12">Nouveau champs</label>
-        <div ng-show="isCustomField" class="col-xs-12 ">
+        <label data-ng-show="isCustomField" class="col-xs-12" data-ng-bind="fields.NEW_FIELD"></label>
+        <div data-ng-show="isCustomField" class="col-xs-12 ">
             <div class="controls col-xs-12 col-md-6 micro-margin-bottom-fixed no-padding-left ">
-                <input type="text" data-ng-model="mediaModel.custom.name" class="form-control" placeholder="Nom" >
+                <input type="text" data-ng-model="mediaModel.custom.name" class="form-control" placeholder="{{fields.NAME}}" >
             </div>
             <div style="padding-right: 15px;" class="controls col-xs-12 col-md-6 input-group no-padding-left">
-                <input type="text" data-ng-model="mediaModel.custom.value" class="form-control" placeholder="Valeur" >
+                <input type="text" data-ng-model="mediaModel.custom.value" class="form-control" placeholder="{{fields.VALUE}}" >
                 <span class="input-group-btn">
                     <button class="btn btn-success" type="button" data-ng-disabled="checkField('custom', 'name')" data-ng-click="addCustomField('customFields', 'custom')" >
-                        <img class="form-icon-btn-size" ng-src="/assets/img/correct2.png">
+                        <img class="form-icon-btn-size" data-ng-src="/assets/img/correct2.png">
                     </button>
                 </span>
             </div>

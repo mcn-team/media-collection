@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('books').controller('CreateBookController', [
-    '$scope', '$location', '$uibModal', 'Authentication',
-    'BookServices', 'BooksDataService',
-    function($scope, $location, $uibModal, Authentication, BookServices, BooksDataService) {
+    '$scope', '$location', '$uibModal',
+    'Authentication', 'BookServices', 'BooksDataService', 'LanguageServices',
+    function($scope, $location, $uibModal, Authentication, BookServices, BooksDataService, LanguageServices) {
+        $scope.fields = LanguageServices.lang && LanguageServices.lang['en'];
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
