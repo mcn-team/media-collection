@@ -4,6 +4,8 @@ const options = require('./plugins-options');
 
 module.exports = (server) => {
     server.register(require('inert'), onError);
+    server.register(require('vision'), onError);
+    server.register({ register: require('lout') }, onError);
     server.register(require('../modules/static-files'), onError);
     server.register(require('../modules/lang'), options.lang, onError);
     server.register(require('../modules/auth'), onError);
