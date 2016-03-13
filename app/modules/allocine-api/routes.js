@@ -13,7 +13,7 @@ module.exports = (server) => {
             notes: [
                 'Takes media type as parameter',
                 'Takes search keywords as parameter (name)',
-                'Returns an objects from Allocine',
+                'Returns an object from Allocine',
                 '{',
                 'result: [ Object ],',
                 'filter: String',
@@ -32,8 +32,7 @@ module.exports = (server) => {
                 '}'
             ],
             description: 'Calls Allocine API and sends back all matchings media ' +
-            'filtered by "type" criteria and "name" keywords. The result key of the ' +
-            'response object contains '
+            'filtered by "type" criteria and "name" keywords.'
         },
         handler: controller.searchByName
     });
@@ -74,8 +73,8 @@ module.exports = (server) => {
                 'statistics: Object',
                 '}'
             ],
-            description: 'Calls Allocine API and sends back all information ' +
-            'about the media specified ID'
+            description: 'Calls Allocine API and sends back all informations ' +
+            'about the media specified ID.'
         },
         handler: controller.findById
     });
