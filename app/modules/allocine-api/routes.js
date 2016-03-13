@@ -28,7 +28,7 @@ module.exports = (server) => {
                 'castingShort: Object,',
                 'statistics: Object,',
                 'poster: Object,',
-                'link: [ Object ],',
+                'link: [ Object ]',
                 '}'
             ],
             description: 'Calls Allocine API and sends back all matchings media ' +
@@ -71,7 +71,7 @@ module.exports = (server) => {
                 'trailer: Object,',
                 'dvdReleaseDate: String,',
                 'media: [ Object ],',
-                'statistics: Object,',
+                'statistics: Object',
                 '}'
             ],
             description: 'Calls Allocine API and sends back all information ' +

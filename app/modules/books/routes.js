@@ -81,7 +81,18 @@ module.exports = (server) => {
         path: '/collections',
         config: {
             auth: 'RequiresLogin',
-            notes: 'Returns an array of Object',
+            notes: [
+                'Returns an array of Object',
+                '[{',
+                '_id: String,',
+                'data: [ Object ],',
+                'boughtTotal: Number,',
+                'toBoughtTotal: Number,',
+                'readTotal: Number,',
+                'notReadTotal: Number,',
+                'onGoingTotal: Number',
+                '}]'
+            ],
             description: 'Sends back an aggregate array or object with an "_id" field ' +
             'containing the collection\'s name and a "data" field containing an array of ' +
             'all Book models sharing the specified collection\'s name.'
