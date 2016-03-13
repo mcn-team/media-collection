@@ -14,7 +14,8 @@ module.exports = (server) => {
             notes: [
                 'Takes an ISBN-13 as parameter',
                 'Returns a custom object',
-                '{ authors: [ Strings ],',
+                '{',
+                'authors: [ Strings ],',
                 'title: String,',
                 'author: String,',
                 'isbn: String,',
@@ -22,7 +23,8 @@ module.exports = (server) => {
                 'publisher: String,',
                 'pageCount: Number,',
                 'summary: String,',
-                'cover: String }'
+                'cover: String',
+                '}'
             ],
             description: 'Sends back a custom object containing exploitable fields ' +
             'after parsing the Google Book API response. A object with a single key "error" ' +
