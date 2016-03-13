@@ -21,8 +21,11 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             validate: { payload: validator.bookCreatePayload },
-            notes: [ 'Returns a Book model' ],
-            description: 'Takes a book object as payload, adds it to the database ' +
+            notes: [
+                'Receives a Book object as payload',
+                'Returns a Book model'
+            ],
+            description: 'Adds the book object received to the database ' +
             'and sends back the newly added instance of Book model.'
         },
         handler: controller.createBook
@@ -140,7 +143,7 @@ module.exports = (server) => {
                 'Takes a Book ID as parameter',
                 'Returns 204 No Content'
             ],
-            description: 'Removes the book whit the specified Mongo ObjectID ' +
+            description: 'Removes the book with the specified Mongo ObjectID ' +
             'passed as parameter from the database.'
         },
         handler: controller.deleteBook
