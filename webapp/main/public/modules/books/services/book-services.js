@@ -42,7 +42,7 @@ angular.module('books').factory('BookServices', [
         };
 
         bookServices.getCollectionNames = function () {
-            return $http.get(buildEndpoint('/books/names'), httpConfig);
+            return $http.get(buildEndpoint('/books/collections/names'), httpConfig);
         };
 
         bookServices.getBookByISBN = function (isbn) {

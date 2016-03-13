@@ -12,6 +12,9 @@ module.exports = (server) => {
                 redirectToSlash: true,
                 index: true
             }
+        },
+        config: {
+            plugins: { lout: false }
         }
     });
 
@@ -24,6 +27,9 @@ module.exports = (server) => {
                 redirectToSlash: true,
                 index: true
             }
+        },
+        config: {
+            plugins: { lout: false }
         }
     });
 };

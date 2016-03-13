@@ -46,7 +46,7 @@ angular.module('movies').factory('MovieServices', [
         };
 
         movieServices.getCollectionNames = function () {
-            return $http.get(buildEndpoint('/movies/names'), httpConfig);
+            return $http.get(buildEndpoint('/movies/collections/names'), httpConfig);
         };
 
         return movieServices;

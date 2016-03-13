@@ -3,7 +3,7 @@
 const Joi = require('joi');
 
 exports.idParams = {
-    type: Joi.string(),
+    type: Joi.string().valid('book', 'serie'),
     id: Joi.any()
 };
 

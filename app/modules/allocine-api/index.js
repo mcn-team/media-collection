@@ -8,9 +8,8 @@ const allocineApiModule = {
             require('./routes')(server);
             logger.logLoading('Allocine Search API');
         } catch (err) {
-            logger.logLoading('Allocine Search API', true, () => {
-                throw err;
-            });
+            logger.logLoading('Allocine Search API', true);
+            throw err;
         }
         next();
     }
