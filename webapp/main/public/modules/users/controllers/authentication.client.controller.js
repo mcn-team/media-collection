@@ -16,8 +16,8 @@ angular.module('users').controller('AuthenticationController', [
             UserServices.signup($scope.credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');
-            }, function (response) {
-                $scope.error = response.message;
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data;
             });
         };
 
@@ -25,8 +25,8 @@ angular.module('users').controller('AuthenticationController', [
             UserServices.login($scope.credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');
-            }, function (response) {
-                $scope.error = response.message;
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data;
             });
         };
     }
