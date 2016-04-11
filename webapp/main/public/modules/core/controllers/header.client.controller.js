@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('core').controller('HeaderController', [
-    '$scope', '$state', 'Authentication', 'Menus', 'LanguageServices',
-    function($scope, $state, Authentication, Menus, LanguageServices) {
+    '$scope', '$state', 'Authentication', 'Menus',
+    function($scope, $state, Authentication, Menus) {
         $scope.authentication = Authentication;
-        $scope.fields = LanguageServices.lang['en'].home;
         $scope.isCollapsed = false;
         $scope.menu = Menus.getMenu('topbar');
 
