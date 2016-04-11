@@ -1,12 +1,12 @@
 <div class="pull-right">
-    <button class="btn btn-primary" data-ng-show="searchType === 'google'" data-ng-click="searchType = 'wiki'" data-ng-bind="fields.GOOGLE_BOOK"></button>
-    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'google'" data-ng-bind="fields.WIKIPEDIA"></button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'google'" data-ng-click="searchType = 'wiki'" data-ng-bind="'GOOGLE_BOOK' | translate"></button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'google'" data-ng-bind="'WIKIPEDIA' | translate"></button>
 </div>
-<h3 data-ng-show="searchType === 'google'" data-ng-bind="fields.GOOGLE_HEADER"></h3>
-<h3 data-ng-show="searchType === 'wiki'" data-ng-bind="fields.WIKI_HEADER"></h3>
+<h3 data-ng-show="searchType === 'google'" data-ng-bind="'GOOGLE_HEADER' | translate"></h3>
+<h3 data-ng-show="searchType === 'wiki'" data-ng-bind="'WIKI_HEADER' | translate"></h3>
 <div data-ng-show="searchType === 'google' && isLoaded && !isDuplicate">
     <div class="col-xs-12 micro-margin-top-fixed input-group">
-        <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="{{fields.ISBN_PLACEHOLDER}}" >
+        <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="{{'ISBN_PLACEHOLDER' | translate}}" >
         <span class="input-group-btn">
             <button class="btn btn-primary" id="searchByIsbn" type="button" data-ng-disabled="checkIsbn()" data-ng-click="searchByIsbn();" >
                 <img class="form-icon-btn-size" data-ng-src="/assets/img/magnifier13.png">
@@ -16,7 +16,7 @@
 </div>
 <div data-ng-show="searchType === 'wiki' && isLoaded && !isDuplicate">
     <div class="col-xs-12 micro-margin-top-fixed input-group">
-        <input type="text" data-ng-model="mediaModel.searchTitle" id="search-wiki" class="form-control" placeholder="{{fields.TITLE_PLACEHOLDER}}" >
+        <input type="text" data-ng-model="mediaModel.searchTitle" id="search-wiki" class="form-control" placeholder="{{'TITLE_PLACEHOLDER' | translate}}" >
         <span class="input-group-btn">
             <button class="btn btn-primary" id="searchByTitle" type="button" data-ng-click="searchByTitle();" >
                 <img class="form-icon-btn-size" data-ng-src="/assets/img/magnifier13.png">

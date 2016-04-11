@@ -1,12 +1,10 @@
 'use strict';
 
 angular.module('users').controller('AuthenticationController', [
-    '$scope', '$http', '$state', 'Authentication', 'UserServices', 'LanguageServices',
-    function($scope, $http, $state, Authentication, UserServices, LanguageServices) {
+    '$scope', '$http', '$state', 'Authentication', 'UserServices',
+    function($scope, $http, $state, Authentication, UserServices) {
         var self = this;
         $scope.authentication = Authentication.isAuthenticated();
-
-        self.fields = LanguageServices.lang && LanguageServices.lang['en'].authentication;
 
         if ($scope.authentication && $scope.authentication.user) {
             $state.go('home');
