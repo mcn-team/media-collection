@@ -2,9 +2,8 @@
 
 angular.module('books').controller('EditBookController', [
     '$scope', '$stateParams', '$location', '$window',
-    'Authentication', 'BooksDataService', 'BookServices', 'LanguageServices',
-    function($scope, $stateParams, $location, $window, Authentication, BooksDataService, BookServices, LanguageServices) {
-        $scope.fields = LanguageServices.lang && LanguageServices.lang['en'];
+    'Authentication', 'BooksDataService', 'BookServices',
+    function($scope, $stateParams, $location, $window, Authentication, BooksDataService, BookServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
