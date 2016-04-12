@@ -49,3 +49,15 @@ exports.findUserOptions = (user, callback) => {
         responseHelper.serviceCallback(err, options, 200, callback);
     });
 };
+
+exports.findUserByUsername = (payload, callback) => {
+    User.find({ username: payload.username }).exec((err, users) => {
+        if (err) {
+            callback({ error: err, code: 503 });
+        } else if (users && users.length > 0) {
+            callback({ error: 'Username already exists', code: 409 });
+        } else {
+            callback(null);
+        }
+    });
+};
