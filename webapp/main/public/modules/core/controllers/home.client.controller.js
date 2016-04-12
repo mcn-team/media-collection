@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core').controller('HomeController', [
-    'Authentication', 'BookServices', 'MovieServices', 'LanguageServices',
-    function(Authentication, BookServices, MovieServices, LanguageServices) {
+    'Authentication', 'BookServices', 'MovieServices',
+    function(Authentication, BookServices, MovieServices) {
         var self = this;
         // This provides Authentication context.
         self.authentication = Authentication.isAuthenticated();
@@ -12,7 +12,6 @@ angular.module('core').controller('HomeController', [
             show: 'hidden-op'
         };
 
-        self.fields = LanguageServices.lang['en'].home;
         self.isLoaded = true;
 
         function getDisplayList(list) {

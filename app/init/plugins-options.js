@@ -4,7 +4,6 @@ const _ = require('lodash');
 
 const select = { select: ['API'] };
 
-exports.lang = _.merge({ routes: { prefix: '/api/lang' } }, select);
 exports.users = _.merge({ routes: { prefix: '/api/users' } }, select);
 exports.books = _.merge({ routes: { prefix: '/api/books' } }, select);
 exports.movies = _.merge({ routes: { prefix: '/api/movies' } }, select);

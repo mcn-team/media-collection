@@ -1,27 +1,27 @@
 <section class="row" data-ng-controller="AuthenticationController as AuthCtrl">
-    <h3 class="col-md-12 text-center" data-ng-bind="AuthCtrl.fields.SIGNUP_HEADER"></h3>
+    <h3 class="col-md-12 text-center" data-ng-bind="'SIGNUP_HEADER' | translate"></h3>
     <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
         <form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
             <fieldset>
                 <div class="form-group">
-                    <label for="displayName" data-ng-bind="AuthCtrl.fields.DISPLAY_NAME"></label>
-                    <input type="text" required id="displayName" name="displayName" class="form-control" data-ng-model="credentials.displayName" placeholder="{{AuthCtrl.fields.DISPLAY_NAME}}">
+                    <label for="displayName" data-ng-bind="'DISPLAY_NAME' | translate"></label>
+                    <input type="text" required id="displayName" name="displayName" class="form-control" data-ng-model="credentials.displayName" placeholder="{{'DISPLAY_NAME' | translate}}">
                 </div>
                 <div class="form-group">
-                    <label for="email" data-ng-bind="AuthCtrl.fields.EMAIL"></label>
-                    <input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="{{AuthCtrl.fields.EMAIL}}">
+                    <label for="email" data-ng-bind="'EMAIL' | translate"></label>
+                    <input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="{{'EMAIL' | translate}}">
                 </div>
                 <div class="form-group">
-                    <label for="username" data-ng-bind="AuthCtrl.fields.USERNAME"></label>
-                    <input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="{{AuthCtrl.fields.USERNAME}}">
+                    <label for="username" data-ng-bind="'USERNAME' | translate"></label>
+                    <input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="{{'USERNAME' | translate}}">
                 </div>
                 <div class="form-group">
-                    <label for="password" data-ng-bind="AuthCtrl.fields.PASSWORD"></label>
-                    <input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="{{AuthCtrl.fields.PASSWORD}}">
+                    <label for="password" data-ng-bind="'PASSWORD' | translate"></label>
+                    <input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="{{'PASSWORD' | translate}}">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" data-ng-bind="AuthCtrl.fields.SIGNUP"></button>
-                    <a href="/#!/signin" class="show-signup" data-ng-bind="AuthCtrl.fields.SIGNIN"></a>
+                    <button type="submit" class="btn btn-primary" data-ng-bind="'SIGNUP' | translate"></button>
+                    <a href="/#!/signin" class="show-signup" data-ng-bind="'SIGNIN' | translate"></a>
                 </div>
                 <div data-ng-show="error" class="text-center text-danger">
                     <strong data-ng-bind="error"></strong>

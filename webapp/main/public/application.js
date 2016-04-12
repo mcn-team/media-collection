@@ -4,11 +4,19 @@
 var ApplicationConfiguration = (function() {
     // Init module configuration options
     var applicationModuleName = 'mediacollection';
-    var applicationModuleVendorDependencies = ['ngResource',  'ui.router', 'ui.bootstrap', 'ngLodash', 'ngAnimate', 'ngImgCrop'];
+    var applicationModuleVendorDependencies = [
+        'ngResource',
+        'ui.router',
+        'ui.bootstrap',
+        'ngLodash',
+        'ngAnimate',
+        'ngImgCrop',
+        'ngSanitize',
+        'pascalprecht.translate'
+    ];
 
     // Custom angular modules
     applicationModuleVendorDependencies.push('upload');
-    applicationModuleVendorDependencies.push('mc.language');
 
     // Add a new vertical module
     var registerModule = function(moduleName, dependencies) {
@@ -34,18 +42,19 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config([
-    '$locationProvider', '$httpProvider',
-    function($locationProvider, $httpProvider) {
+    '$locationProvider', '$httpProvider', '$translateProvider',
+    'English', 'French',
+    function($locationProvider, $httpProvider, $translateProvider, English, French) {
         $locationProvider.hashPrefix('!');
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.interceptors.push('InterceptorsService');
-    }
-]);
 
-angular.module(ApplicationConfiguration.applicationModuleName).run([
-    'LanguageServices',
-    function (LanguageServices) {
-        LanguageServices.fetchLanguages();
+        $translateProvider.useSanitizeValueStrategy(null);
+
+        $translateProvider.translations('en', English);
+        $translateProvider.translations('fr', French);
+
+        $translateProvider.preferredLanguage('en');
     }
 ]);
 

@@ -2,9 +2,8 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$uibModal', '$window', 'Authentication',
-    'BookServices', 'BooksDataService', 'UploadServices', 'LanguageServices',
-    function($scope, $location, $uibModal, $window, Authentication, BookServices, BooksDataService, UploadServices, LanguageServices) {
-        $scope.fields = LanguageServices.lang && LanguageServices.lang['en'];
+    'BookServices', 'BooksDataService', 'UploadServices',
+    function($scope, $location, $uibModal, $window, Authentication, BookServices, BooksDataService, UploadServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;

@@ -2,8 +2,8 @@
 
 angular.module('movies').controller('ListMoviesController', [
     '$scope', '$location', '$anchorScroll', 'Authentication',
-    'StatsMovieService', 'MovieDataService', 'MovieServices', 'LanguageServices',
-    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, MovieServices, LanguageServices) {
+    'StatsMovieService', 'MovieDataService', 'MovieServices',
+    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, MovieServices) {
         var self = this;
         $scope.authentication = Authentication.checkAuth();
 
@@ -22,7 +22,6 @@ angular.module('movies').controller('ListMoviesController', [
                     $scope.stats = StatsMovieService.calculate($scope.filteredMovies);
                 }, true);
 
-                self.fields = LanguageServices.lang['en'];
                 $scope.isLoaded = true;
             });
 
