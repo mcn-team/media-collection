@@ -8,6 +8,9 @@ module.exports = (server) => {
         method: 'POST',
         path: '/signup',
         config: {
+            pre: [
+                { method: users.ifUsernameExists, assign: 'userExists' }
+            ],
             validate: {
                 payload: validator.signUpPayload
             },

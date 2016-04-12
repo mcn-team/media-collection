@@ -4,9 +4,13 @@ const userServices = require('./services');
 const responseHelper = require('../../utils/response-helper');
 
 exports.signUpUser = (request, reply) => {
-    userServices.addUser(request.payload, (err, res) => {
-        return responseHelper.controllerReply(err, res, reply);
-    });
+    if (request.pre.userExists) {
+        return reply(request.pre.userExists.error).code(request.pre.userExists.code);
+    } else {
+        userServices.addUser(request.payload, (err, res) => {
+            return responseHelper.controllerReply(err, res, reply);
+        });
+    }
 };
 
 exports.logInUser = (request, reply) => {
@@ -24,5 +28,19 @@ exports.updateUser = (request, reply) => {
 exports.getUserOptions = (request, reply) => {
     userServices.findUserOptions(request.auth.credentials, (err, res) => {
         return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
+/**
+ * users Pre-handlers
+ */
+
+exports.ifUsernameExists = (request, reply) => {
+    userServices.findUserByUsername(request.payload, (err) => {
+        if (err) {
+            return reply(err);
+        } else {
+            return reply(false);
+        }
     });
 };
