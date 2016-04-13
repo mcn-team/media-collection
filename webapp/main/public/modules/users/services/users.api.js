@@ -9,11 +9,13 @@ angular.module('users').factory('UserServices', [
 
         var buildEndpoint = function (path) {
             var creds = Authentication.credentials ? Authentication.credentials.token : null;
+
             httpConfig = {
                 headers: {
                     'auth-web-token': creds
                 }
             };
+
             return Config.apiRoute + path;
         };
 
@@ -27,6 +29,10 @@ angular.module('users').factory('UserServices', [
 
         userApi.updateUser = function (userId, payload) {
             return $http.patch(buildEndpoint('/users/' + userId), payload, httpConfig);
+        };
+
+        userApi.getUsers = function () {
+            return $http.get(buildEndpoint('/users'), httpConfig);
         };
 
         return userApi;

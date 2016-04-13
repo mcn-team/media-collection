@@ -11,10 +11,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>test</td>
-                    <td>test@test.fr</td>
-                    <td>Testy</td>
+                <tr data-ng-repeat="user in usersList">
+                    <td data-ng-bind="user.username"></td>
+                    <td data-ng-bind="user.email"></td>
+                    <td data-ng-bind="user.displayName"></td>
                     <td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                     <td><a href=""><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
