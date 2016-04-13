@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('options').directive('mcUsers', [
-    'UserServices',
-    function (UserServices) {
+    '$uibModal', 'UserServices',
+    function ($uibModal, UserServices) {
         return {
             restrict: 'E',
             templateUrl: 'modules/options/components/users/view.html',
@@ -16,6 +16,25 @@ angular.module('options').directive('mcUsers', [
                 };
 
                 UserServices.getUsers().then(successCallback, failureCallback);
+
+                scope.editUser = function(user) {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'userEditModal.html',
+                        controller: 'UserModalCtrl',
+                        size: 'lg',
+                        resolve: {
+                            user: function () {
+                                return user;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (response) {
+                        console.log(response);
+                    }, function (cancelResponse) {
+                        console.error(cancelResponse);
+                    });
+                };
             }
         };
     }
