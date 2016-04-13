@@ -67,3 +67,9 @@ exports.findUserByUsername = (payload, callback) => {
         }
     });
 };
+
+exports.removeUser = (params, callback) => {
+    User.findOneAndRemove({ _id: params.userId }).exec((err, user) => {
+        responseHelper.serviceCallback(err, user, 200, callback);
+    });
+};

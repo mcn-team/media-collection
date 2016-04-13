@@ -93,4 +93,16 @@ module.exports = (server) => {
         },
         handler: users.getUserList
     });
+
+    server.route({
+        method: 'DELETE',
+        path: '/{userId}',
+        config: {
+            auth: 'RequiresLogin', //TODO replace later with RequireAdmin
+            notes: 'Returns an User Object',
+            description: 'Removes the user with the specified Mongo ObjectID ' +
+            'passed as parameters from the database.'
+        },
+        handler: users.deleteUser
+    });
 };

@@ -37,6 +37,12 @@ exports.getUserList = (request, reply) => {
     });
 };
 
+exports.deleteUser = (request, reply) => {
+    userServices.removeUser(request.params, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
 /**
  * users Pre-handlers
  */
