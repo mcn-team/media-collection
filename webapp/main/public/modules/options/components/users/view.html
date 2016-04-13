@@ -3,20 +3,33 @@
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Display Name</th>
+                    <th>{{ 'USERNAME' | translate }}</th>
+                    <th>{{ 'EMAIL' | translate }}</th>
+                    <th>{{ 'DISPLAY_NAME' | translate }}</th>
                     <th><i class="fa fa-pencil-square-o" aria-hidden="true"></i></th>
                     <th><i class="fa fa-trash" aria-hidden="true"></i></th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="user in usersList">
+                <tr>
+                    <td><input class="form-control" type="text" title="username" data-ng-model="newUser.username" placeholder="{{ 'USERNAME' | translate }}"></td>
+                    <td><input class="form-control" type="text" title="email" data-ng-model="newUser.email" placeholder="{{ 'EMAIL' | translate }}"></td>
+                    <td><input class="form-control" type="text" title="displayName" data-ng-model="newUser.displayName" placeholder="{{ 'DISPLAY_NAME' | translate }}"></td>
+                    <td colspan=2>
+                        <div class="input-group">
+                            <input class="form-control" type="text" title="password" data-ng-model="newUser.password" placeholder="{{ 'PASSWORD' | translate }}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button"><i class="fa fa-check-square-o"></i></button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="cursor-pointer" data-ng-repeat="user in usersList">
                     <td data-ng-bind="user.username"></td>
                     <td data-ng-bind="user.email"></td>
                     <td data-ng-bind="user.displayName"></td>
-                    <td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                    <td><a href=""><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    <td><a data-ng-click="editUser(user)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a data-ng-click="deleteUser(user)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
             </tbody>
         </table>
