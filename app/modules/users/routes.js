@@ -65,7 +65,7 @@ module.exports = (server) => {
             ],
             description: 'Edit the user document in the database corresponding to ' +
             'the ID parameter and sends back the corresponding User model without ' +
-            'sentitive fields. User model can be partially edited by passing an object ' +
+            'sensitive fields. User model can be partially edited by passing an object ' +
             'containing only the fields to update.'
         },
         handler: users.updateUser
