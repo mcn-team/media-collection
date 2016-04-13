@@ -81,4 +81,16 @@ module.exports = (server) => {
         },
         handler: users.getUserOptions
     });
+
+    server.route({
+        method: 'GET',
+        path: '/',
+        config: {
+            auth: 'RequiresLogin', //TODO replace later with RequireAdmin
+            notes: 'Returns an Array of Object',
+            description: 'Sends back the list of registered users without their ' +
+            'passwords or their options'
+        },
+        handler: users.getUserList
+    });
 };
