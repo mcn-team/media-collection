@@ -35,6 +35,10 @@ angular.module('options').directive('mcUsers', [
                         console.error(cancelResponse);
                     });
                 };
+
+                scope.deleteUser = function (user) {
+                    //TODO: Open modal to confirm deletion. Make a generic 'Are you sure ?' modal
+                };
             }
         };
     }
