@@ -63,5 +63,8 @@ angular.module('mediacollection').constant('English', {
     'CUSTOM_FIELDS': 'Custom fields',
     'NEW_FIELD': 'New field',
     'NAME': 'Name',
-    'VALUE': 'Value'
+    'VALUE': 'Value',
+    'EDIT_USER': 'Edit user',
+    'DELETE_MESSAGE': 'Are you sure you want to delete this ?',
+    'DELETE': 'Delete'
 });

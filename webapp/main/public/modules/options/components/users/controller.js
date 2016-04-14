@@ -29,15 +29,31 @@ angular.module('options').directive('mcUsers', [
                         }
                     });
 
-                    modalInstance.result.then(function (response) {
-                        console.log(response);
-                    }, function (cancelResponse) {
+                    modalInstance.result.then(function () {}, function (cancelResponse) {
                         console.error(cancelResponse);
                     });
                 };
 
                 scope.deleteUser = function (user) {
-                    //TODO: Open modal to confirm deletion. Make a generic 'Are you sure ?' modal
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'confirmModal.html',
+                        controller: 'ConfirmCtrl',
+                        size: 'lg',
+                        resolve: {
+                            Title: function () {
+                                return user.displayName;
+                            },
+                            Message: function () {
+                                return 'DELETE_MESSAGE';
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (response) {
+                        console.log(response);
+                    }, function (cancelResponse) {
+                        console.error(cancelResponse);
+                    });
                 };
             }
         };

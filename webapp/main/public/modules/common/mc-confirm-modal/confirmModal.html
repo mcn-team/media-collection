@@ -1,0 +1,12 @@
+<script type="text/ng-template" id="confirmModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" data-ng-bind="title"></h3>
+    </div>
+    <div class="modal-body">
+        <p data-ng-bind="message | translate"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" data-ng-click="validate()" data-ng-bind="'DELETE' | translate"></button>
+        <button class="btn btn-default" type="button" data-ng-click="dismissModal()" data-ng-bind="'CANCEL' | translate"></button>
+    </div>
+</script>
