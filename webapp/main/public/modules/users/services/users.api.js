@@ -39,6 +39,10 @@ angular.module('users').factory('UserServices', [
             return $http.delete(buildEndpoint('/users/' + userId), httpConfig);
         };
 
+        userApi.addUser = function (payload) {
+            return $http.post(buildEndpoint('/users'), payload, httpConfig);
+        };
+
         return userApi;
     }
 ]);

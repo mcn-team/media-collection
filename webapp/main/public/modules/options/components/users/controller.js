@@ -7,15 +7,21 @@ angular.module('options').directive('mcUsers', [
             restrict: 'E',
             templateUrl: 'modules/options/components/users/view.html',
             link: function (scope) {
-                var successCallback = function (response) {
-                    scope.usersList = response.data;
+                var getUsers = function () {
+                    var successCallback = function (response) {
+                        scope.usersList = response.data;
+                    };
+
+                    var failureCallback = function (errorResponse) {
+                        console.error(errorResponse);
+                    };
+
+                    UserServices.getUsers().then(successCallback, failureCallback);
                 };
 
-                var failureCallback = function (errorResponse) {
-                    console.error(errorResponse);
-                };
+                getUsers();
 
-                UserServices.getUsers().then(successCallback, failureCallback);
+                scope.newUser = {};
 
                 scope.editUser = function(user) {
                     var modalInstance = $uibModal.open({
@@ -65,6 +71,19 @@ angular.module('options').directive('mcUsers', [
                         console.error(cancelResponse);
                     });
                 };
+
+                scope.addUser = function () {
+                    var successCallback = function () {
+                        scope.newUser = {};
+                        getUsers();
+                    };
+
+                    var failureCallback = function (errorResponse) {
+                        console.error(errorResponse);
+                    };
+
+                    UserServices.signup(scope.newUser).then(successCallback, failureCallback);
+                }
             }
         };
     }

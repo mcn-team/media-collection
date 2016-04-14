@@ -43,9 +43,10 @@
                     <td><input class="form-control" type="text" title="displayName" data-ng-model="newUser.displayName" placeholder="{{ 'DISPLAY_NAME' | translate }}"></td>
                     <td colspan=2>
                         <div class="input-group">
-                            <input class="form-control" type="text" title="password" data-ng-model="newUser.password" placeholder="{{ 'PASSWORD' | translate }}">
+                            <input class="form-control" type="password" title="password" placeholder="{{ 'PASSWORD' | translate }}"
+                                   data-ng-model="newUser.password" data-ui-keypress="{'enter':'addUser()'}">
                             <span class="input-group-btn">
-                                <button class="btn btn-success" type="button"><i class="fa fa-check-square-o"></i></button>
+                                <button class="btn btn-success" type="button" data-ng-click="addUser()"><i class="fa fa-check-square-o"></i></button>
                             </span>
                         </div>
                     </td>
