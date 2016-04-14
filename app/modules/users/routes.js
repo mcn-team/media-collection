@@ -86,7 +86,7 @@ module.exports = (server) => {
         method: 'GET',
         path: '/',
         config: {
-            auth: 'RequiresLogin', //TODO replace later with RequireAdmin
+            auth: 'RequiresAdmin',
             notes: 'Returns an Array of Object',
             description: 'Sends back the list of registered users without their ' +
             'passwords or their options'
@@ -98,7 +98,7 @@ module.exports = (server) => {
         method: 'DELETE',
         path: '/{userId}',
         config: {
-            auth: 'RequiresLogin', //TODO replace later with RequireAdmin
+            auth: 'RequiresAdmin',
             notes: 'Returns an User Object',
             description: 'Removes the user with the specified Mongo ObjectID ' +
             'passed as parameters from the database.'

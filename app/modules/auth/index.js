@@ -7,6 +7,7 @@ const authModule = {
         try {
             require('./authentication')(server);
             server.auth.strategy('RequiresLogin', 'ValidationLogin');
+            server.auth.strategy('RequiresAdmin', 'ValidationLogin', false, { admin: true });
             logger.logLoading('Auth');
         } catch (err) {
             logger.logLoading('Auth', true);
