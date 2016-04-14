@@ -50,6 +50,12 @@ exports.findUserOptions = (user, callback) => {
     });
 };
 
+exports.findUsers = (callback) => {
+    User.find({}, { password: false, options: false }).exec((err, users) => {
+        responseHelper.serviceCallback(err, users, 200, callback);
+    });
+};
+
 exports.findUserByUsername = (payload, callback) => {
     User.find({ username: payload.username }).exec((err, users) => {
         if (err) {
@@ -59,5 +65,11 @@ exports.findUserByUsername = (payload, callback) => {
         } else {
             callback(null);
         }
+    });
+};
+
+exports.removeUser = (params, callback) => {
+    User.findOneAndRemove({ _id: params.userId }).exec((err, user) => {
+        responseHelper.serviceCallback(err, user, 200, callback);
     });
 };

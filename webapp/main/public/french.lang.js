@@ -63,5 +63,8 @@ angular.module('mediacollection').constant('French', {
     'CUSTOM_FIELDS': 'Champs personnalisés',
     'NEW_FIELD': 'Nouveau champs',
     'NAME': 'Name',
-    'VALUE': 'Value'
+    'VALUE': 'Value',
+    'EDIT_USER': 'Modifier un utilisateur',
+    'DELETE_MESSAGE': 'Etes-vous sur de vouloir le supprimer ?',
+    'DELETE': 'Supprimer'
 });

@@ -5,7 +5,7 @@ angular.module('options').config([
     function ($stateProvider) {
         $stateProvider.state('options', {
             url: '/options',
-            templateUrl: 'modules/options/components/view.html'
+            templateUrl: 'modules/options/components/core/view.html'
         });
     }
 ]);

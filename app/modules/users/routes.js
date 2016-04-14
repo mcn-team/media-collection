@@ -65,7 +65,7 @@ module.exports = (server) => {
             ],
             description: 'Edit the user document in the database corresponding to ' +
             'the ID parameter and sends back the corresponding User model without ' +
-            'sentitive fields. User model can be partially edited by passing an object ' +
+            'sensitive fields. User model can be partially edited by passing an object ' +
             'containing only the fields to update.'
         },
         handler: users.updateUser
@@ -80,5 +80,29 @@ module.exports = (server) => {
             description: 'Sends back the options field of the authentified user.'
         },
         handler: users.getUserOptions
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/',
+        config: {
+            auth: 'RequiresLogin', //TODO replace later with RequireAdmin
+            notes: 'Returns an Array of Object',
+            description: 'Sends back the list of registered users without their ' +
+            'passwords or their options'
+        },
+        handler: users.getUserList
+    });
+
+    server.route({
+        method: 'DELETE',
+        path: '/{userId}',
+        config: {
+            auth: 'RequiresLogin', //TODO replace later with RequireAdmin
+            notes: 'Returns an User Object',
+            description: 'Removes the user with the specified Mongo ObjectID ' +
+            'passed as parameters from the database.'
+        },
+        handler: users.deleteUser
     });
 };

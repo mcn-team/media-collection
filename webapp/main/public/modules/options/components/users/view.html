@@ -1,0 +1,64 @@
+<section>
+    <section data-ng-include="'modules/common/mc-confirm-modal/confirmModal.html'" ></section>
+    <script type="text/ng-template" id="userEditModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" >{{user.displayName + ' - ' + 'EDIT_USER' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <form novalidate class="form-inline">
+                <div class="form-group">
+                    <label for="username" data-ng-bind="'USERNAME' | translate"></label>
+                    <input type="text" class="form-control" data-ng-model="user.username" id="username" placeholder="{{ 'USERNAME' | translate }}">
+                </div>
+                <div class="form-group">
+                    <label for="email" data-ng-bind="'EMAIL' | translate"></label>
+                    <input type="email" class="form-control" data-ng-model="user.email" id="email" placeholder="{{ 'EMAIL' | translate }}">
+                </div>
+                <div class="form-group">
+                    <label for="displayName" data-ng-bind="'DISPLAY_NAME' | translate"></label>
+                    <input type="email" class="form-control" data-ng-model="user.displayName" id="displayName" placeholder="{{ 'DISPLAY_NAME' | translate }}">
+                </div>
+                <div class="micro-margin-top-fixed modal-footer">
+                    <button type="submit" class="btn btn-primary" data-ng-click="validate()" data-ng-bind="'VALIDATE' | translate"></button>
+                    <button class="btn btn-warning" type="button" data-ng-click="dismissModal()" data-ng-bind="'CANCEL' | translate"></button>
+                </div>
+            </form>
+        </div>
+    </script>
+    <div class="micro-margin-top-fixed col-md-12 row">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>{{ 'USERNAME' | translate }}</th>
+                    <th>{{ 'EMAIL' | translate }}</th>
+                    <th>{{ 'DISPLAY_NAME' | translate }}</th>
+                    <th><i class="fa fa-pencil-square-o" aria-hidden="true"></i></th>
+                    <th><i class="fa fa-trash" aria-hidden="true"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input class="form-control" type="text" title="username" data-ng-model="newUser.username" placeholder="{{ 'USERNAME' | translate }}"></td>
+                    <td><input class="form-control" type="text" title="email" data-ng-model="newUser.email" placeholder="{{ 'EMAIL' | translate }}"></td>
+                    <td><input class="form-control" type="text" title="displayName" data-ng-model="newUser.displayName" placeholder="{{ 'DISPLAY_NAME' | translate }}"></td>
+                    <td colspan=2>
+                        <div class="input-group">
+                            <input class="form-control" type="password" title="password" placeholder="{{ 'PASSWORD' | translate }}"
+                                   data-ng-model="newUser.password" data-ui-keypress="{'enter':'addUser()'}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button" data-ng-click="addUser()"><i class="fa fa-check-square-o"></i></button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="default-cursor" data-ng-repeat="user in usersList">
+                    <td data-ng-bind="user.username"></td>
+                    <td data-ng-bind="user.email"></td>
+                    <td data-ng-bind="user.displayName"></td>
+                    <td><a data-ng-click="editUser(user)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a data-ng-click="deleteUser(user)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -8,6 +8,7 @@ var ApplicationConfiguration = (function() {
         'ngResource',
         'ui.router',
         'ui.bootstrap',
+        'ui.keypress',
         'ngLodash',
         'ngAnimate',
         'ngImgCrop',
