@@ -19,7 +19,7 @@ exports = module.exports = (server, options) => {
                     return reply({ message: 'Token is not valid', error: err }).code(401);
                 }
 
-                User.findOne().where({ _id: decoded.user }).exec((err, user) => {
+                User.findOne({ _id: decoded.user }).exec((err, user) => {
                     if (err) {
                         return reply({ error: err }).code(503);
                     } else if (!user) {
