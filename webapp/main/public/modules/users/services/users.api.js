@@ -35,6 +35,10 @@ angular.module('users').factory('UserServices', [
             return $http.get(buildEndpoint('/users'), httpConfig);
         };
 
+        userApi.deleteUser = function (userId) {
+            return $http.delete(buildEndpoint('/users/' + userId), httpConfig);
+        };
+
         return userApi;
     }
 ]);
