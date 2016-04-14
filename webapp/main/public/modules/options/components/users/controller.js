@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('options').directive('mcUsers', [
-    '$uibModal', 'UserServices',
-    function ($uibModal, UserServices) {
+    '$uibModal', 'UserServices', 'lodash',
+    function ($uibModal, UserServices, _) {
         return {
             restrict: 'E',
             templateUrl: 'modules/options/components/users/view.html',
@@ -49,8 +49,18 @@ angular.module('options').directive('mcUsers', [
                         }
                     });
 
-                    modalInstance.result.then(function (response) {
-                        console.log(response);
+                    modalInstance.result.then(function () {
+                        var successCallback = function (response) {
+                            scope.usersList = _.filter(scope.usersList, function (elem) {
+                                return elem._id !== response.data._id;
+                            });
+                        };
+
+                        var failureCallback = function (errorResponse) {
+                            console.error(errorResponse);
+                        };
+
+                        UserServices.deleteUser(user._id).then(successCallback, failureCallback);
                     }, function (cancelResponse) {
                         console.error(cancelResponse);
                     });
