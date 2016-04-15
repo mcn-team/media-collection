@@ -67,5 +67,7 @@ angular.module('mediacollection').constant('French', {
     'EDIT_USER': 'Modifier un utilisateur',
     'DELETE_MESSAGE': 'Etes-vous sur de vouloir le supprimer ?',
     'DELETE': 'Supprimer',
-    'ADMIN_KEY': 'Les administrateurs sont surlignés en bleu.'
+    'ADMIN_KEY': 'Les administrateurs sont surlignés en bleu.',
+    'LANGUAGES_TAB': 'Langues',
+    'USERS_TAB': 'Utilisateurs'
 });
