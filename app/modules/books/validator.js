@@ -41,3 +41,17 @@ exports.collectionsParams = {
     collection: Joi.string().required(),
     volume: Joi.number().integer().positive().required()
 };
+
+exports.listBookResponse = Joi.array().items(exports.bookCreatePayload);
+
+exports.collectionListResponse = Joi.array().items({
+    _id: Joi.string().required(),
+    data: Joi.array().items(exports.bookCreatePayload).required(),
+    boughtTotal: Joi.number().integer().positive().required(),
+    toBoughtTotal: Joi.number().integer().positive().required(),
+    readTotal: Joi.number().integer().positive().required(),
+    notReadTotal: Joi.number().integer().positive().required(),
+    onGoingTotal: Joi.number().integer().positive().required()
+});
+
+exports.collectionNamesResponse = Joi.array().items(Joi.string()).required();

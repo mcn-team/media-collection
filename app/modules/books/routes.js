@@ -10,7 +10,11 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             notes: 'Returns an array of Books model',
-            description: 'Sends back the full book list registered in the database.'
+            description: 'Sends back the full book list registered in the database.',
+            response: {
+                failAction: "log",
+                schema: validator.listBookResponse
+            }
         },
         handler: controller.getAllBooks
     });
@@ -26,7 +30,11 @@ module.exports = (server) => {
                 'Returns a Book model'
             ],
             description: 'Adds the book object received to the database ' +
-            'and sends back the newly added instance of Book model.'
+            'and sends back the newly added instance of Book model.',
+            response: {
+                failAction: "log",
+                schema: validator.bookCreatePayload
+            }
         },
         handler: controller.createBook
     });
@@ -42,7 +50,11 @@ module.exports = (server) => {
                 'Returns a single Book model'
             ],
             description: 'Sends back the Book model corresponding to the ' +
-            'Mongo ObjectID passed as parameter.'
+            'Mongo ObjectID passed as parameter.',
+            response: {
+                failAction: "log",
+                schema: validator.bookCreatePayload
+            }
         },
         handler: controller.getBook
     });
@@ -63,7 +75,11 @@ module.exports = (server) => {
             ],
             description: 'Edit the book in the database corresponding to the ID parameter ' +
             'and sends back the corresponding Book model. Book model can be partially edited ' +
-            'by passing an object containing only the fields to update.'
+            'by passing an object containing only the fields to update.',
+            response: {
+                failAction: "log",
+                schema: validator.bookCreatePayload
+            }
         },
         handler: controller.updateBook
     });
@@ -74,7 +90,11 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             notes: 'Returns a single Book model',
-            description: 'Sends back the lastest Book model added to the database.'
+            description: 'Sends back the lastest Book model added to the database.',
+            response: {
+                failAction: "log",
+                schema: validator.bookCreatePayload
+            }
         },
         handler: controller.getLatestBook
     });
@@ -84,21 +104,14 @@ module.exports = (server) => {
         path: '/collections',
         config: {
             auth: 'RequiresLogin',
-            notes: [
-                'Returns an array of Object',
-                '[{',
-                '_id: String,',
-                'data: [ Object ],',
-                'boughtTotal: Number,',
-                'toBoughtTotal: Number,',
-                'readTotal: Number,',
-                'notReadTotal: Number,',
-                'onGoingTotal: Number',
-                '}]'
-            ],
+            notes: 'Returns an array of Object',
             description: 'Sends back an aggregate array or object with an "_id" field ' +
             'containing the collection\'s name and a "data" field containing an array of ' +
-            'all Book models sharing the specified collection\'s name.'
+            'all Book models sharing the specified collection\'s name.',
+            response: {
+                failAction: "log",
+                schema: validator.collectionListResponse
+            }
         },
         handler: controller.getCollectionsList
     });
@@ -110,7 +123,11 @@ module.exports = (server) => {
             auth: 'RequiresLogin',
             notes: 'Returns an array of Strings',
             description: 'Sends back an array containing every collection\'s name registered ' +
-            'in the database.'
+            'in the database.',
+            response: {
+                failAction: "log",
+                schema: validator.collectionNamesResponse
+            }
         },
         handler: controller.getCollectionNamesList
     });
@@ -128,7 +145,11 @@ module.exports = (server) => {
             ],
             description: 'Sends back an array containing the list of all books ' +
             'with the corresponding collection and a lower volume number ' +
-            'registered in the database.'
+            'registered in the database.',
+            response: {
+                failAction: "log",
+                schema: validator.listBookResponse
+            }
         },
         handler: controller.getCollection
     });
