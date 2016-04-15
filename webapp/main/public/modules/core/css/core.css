@@ -51,3 +51,5 @@ nav a { cursor: pointer; }
     white-space: pre-wrap;
     text-align: center;
 }
+.info-background { background-color: #d9edf7; }
+.padding-paragraph { padding: 10px; }
