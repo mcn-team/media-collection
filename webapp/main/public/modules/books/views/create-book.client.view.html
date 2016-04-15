@@ -1,9 +1,9 @@
 <section data-ng-controller="CreateBookController" data-ng-show="authentication.user" data-ng-init="initCreate()">
     <section data-ng-include="'modules/wikipedia-api/views/api-search.client.modal.html'" ></section>
     <div class="page-header">
-        <h1 data-ng-show="mediaModel.type === 'book'" >{{isDuplicate ? fields.DUPLICATE : fields.NEW + ' ' + fields.BOOK}}</h1>
-        <h1 data-ng-show="mediaModel.type === 'comics'" >{{isDuplicate ? fields.DUPLICATE : fields.NEW + ' ' + fields.COMICS}}</h1>
-        <h1 data-ng-show="mediaModel.type === 'manga'" >{{isDuplicate ? fields.DUPLICATE : fields.NEW + ' ' + fields.MANGA}}</h1>
+        <h1 data-ng-show="mediaModel.type === 'book'" >{{isDuplicate ? 'DUPLICATE_BOOK' : 'NEW_BOOK' | translate}}</h1>
+        <h1 data-ng-show="mediaModel.type === 'comics'" >{{isDuplicate ? 'DUPLICATE_COMICS' : 'NEW_COMICS' | translate}}</h1>
+        <h1 data-ng-show="mediaModel.type === 'manga'" >{{isDuplicate ? 'DUPLICATE_MANGA' : 'NEW_MANGA' | translate}}</h1>
     </div>
     <mc-loader></mc-loader>
     <div class="col-xs-12" >

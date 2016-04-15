@@ -4,7 +4,7 @@
         <h1>
             <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
             <button class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-model="multiSearchOn" ng-click="multiSearchOn = !multiSearchOn" >{{multiSearchOn ? 'Recherche rapide' : 'Recherche multi-critères'}}</button>
-            {{ListMoviesCtrl.fields.MY_MOVIES}}
+            {{'MY_MOVIES' | translate}}
         </h1>
     </div>
     <mc-loader></mc-loader>

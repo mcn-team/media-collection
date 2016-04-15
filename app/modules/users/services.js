@@ -49,3 +49,27 @@ exports.findUserOptions = (user, callback) => {
         responseHelper.serviceCallback(err, options, 200, callback);
     });
 };
+
+exports.findUsers = (callback) => {
+    User.find({}, { password: false, options: false }).exec((err, users) => {
+        responseHelper.serviceCallback(err, users, 200, callback);
+    });
+};
+
+exports.findUserByUsername = (payload, callback) => {
+    User.find({ username: payload.username }).exec((err, users) => {
+        if (err) {
+            callback({ error: err, code: 503 });
+        } else if (users && users.length > 0) {
+            callback({ error: 'Username already exists', code: 409 });
+        } else {
+            callback(null);
+        }
+    });
+};
+
+exports.removeUser = (params, callback) => {
+    User.findOneAndRemove({ _id: params.userId }).exec((err, user) => {
+        responseHelper.serviceCallback(err, user, 200, callback);
+    });
+};

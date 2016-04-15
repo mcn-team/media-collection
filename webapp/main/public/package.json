@@ -12,9 +12,13 @@
     "angular": "~1.4.0",
     "angular-animate": "~1.5.0",
     "angular-resource": "~1.5.0",
+    "angular-sanitize": "^1.5.3",
+    "angular-translate": "^2.11.0",
     "angular-ui-bootstrap": "~1.1.2",
     "angular-ui-router": "~0.2.18",
+    "angular-ui-utils": "^0.1.1",
     "bootstrap": "~3.3.6",
+    "font-awesome": "^4.5.0",
     "ng-img-crop-full-extended": "~0.5.4",
     "ng-lodash": "~0.2.3"
   }

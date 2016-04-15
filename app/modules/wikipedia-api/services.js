@@ -4,9 +4,7 @@ const responseHelper = require('../../utils/response-helper');
 const MediaWiki = require('../../../my_modules/wikiSearchAPI/lib/mediaWikiApi');
 
 exports.findByTitle = (params, callback) => {
-    const WikiApi = new MediaWiki();
-
-    WikiApi.searchByTitle(params.title, (response) => {
+    MediaWiki.searchByTitle(params.title, (response) => {
         if (response[0].error) {
             callback({ error: response[0].error, code: 503 });
         } else {
@@ -16,9 +14,7 @@ exports.findByTitle = (params, callback) => {
 };
 
 exports.findById = (params, callback) => {
-    const WikiApi = new MediaWiki();
-
-    WikiApi.searchInfoById(params.id, params.type, (response) => {
+    MediaWiki.searchInfoById(params.id, params.type, (response) => {
         responseHelper.serviceCallback(null, response, 200, callback);
     });
 };

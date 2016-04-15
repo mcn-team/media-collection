@@ -12,23 +12,23 @@
         <ul class="nav navbar-nav" data-ng-show="menu.shouldRender(authentication.user);">
             <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-show="item.shouldRender(authentication.user);" data-uib-dropdown class="{{item.menuItemClass}}" >
                 <a id="single-button" class="dropdown-toggle" data-uib-dropdown-toggle data-ng-disabled="disabled">
-                    <span data-ng-bind="item.title"></span>
+                    <span data-ng-bind="item.title | translate"></span>
                     <b class="caret"></b>
                 </a>
                 <ul data-uib-dropdown-menu role="menu" class="dropdown-menu">
                     <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-show="subitem.shouldRender(authentication.user);" data-ng-class="{active: $uiRoute}">
-                        <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
+                        <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title | translate"></a>
                     </li>
                 </ul>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
             <li>
-                <a href="/#!/signup" data-ng-bind="fields.SIGNUP"></a>
+                <a href="/#!/signup" data-ng-bind="'SIGNUP' | translate"></a>
             </li>
             <li class="divider-vertical"></li>
             <li>
-                <a href="/#!/signin" data-ng-bind="fields.SIGNIN"></a>
+                <a href="/#!/signin" data-ng-bind="'SIGNIN' | translate"></a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
@@ -38,18 +38,18 @@
                 </a>
                 <ul data-uib-dropdown-menu class="dropdown-menu">
                     <li>
-                        <a href="/#!/options" data-ng-bind="fields.SETTINGS"></a>
+                        <a href="/#!/options" data-ng-bind="'SETTINGS' | translate"></a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="/#!/settings/profile" data-ng-bind="fields.EDIT_PROFILE"></a>
+                        <a href="/#!/settings/profile" data-ng-bind="'EDIT_PROFILE' | translate"></a>
                     </li>
                     <!--<li data-ng-show="authentication.user.provider === 'local'">-->
                         <!--<a href="/#!/settings/password">Change Password</a>-->
                     <!--</li>-->
                     <li class="divider"></li>
                     <li>
-                        <a data-ng-click="signOut()" data-ng-bind="fields.SIGNOUT"></a>
+                        <a data-ng-click="signOut()" data-ng-bind="'SIGNOUT' | translate"></a>
                     </li>
                 </ul>
             </li>
