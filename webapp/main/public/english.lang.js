@@ -66,5 +66,6 @@ angular.module('mediacollection').constant('English', {
     'VALUE': 'Value',
     'EDIT_USER': 'Edit user',
     'DELETE_MESSAGE': 'Are you sure you want to delete this ?',
-    'DELETE': 'Delete'
+    'DELETE': 'Delete',
+    'ADMIN_KEY': 'Admin user are highlighted in blue.'
 });
