@@ -2,6 +2,7 @@
 
 const controller = require('./controller');
 const validator = require('./validator');
+const builder = require('../../utils/routes-builder');
 
 module.exports = (server) => {
     server.route({
@@ -15,21 +16,28 @@ module.exports = (server) => {
         handler: controller.getAllBooks
     });
 
-    server.route({
-        method: 'POST',
-        path: '/',
-        config: {
-            auth: 'RequiresLogin',
-            validate: { payload: validator.bookCreatePayload },
-            notes: [
-                'Receives a Book object as payload',
-                'Returns a Book model'
-            ],
-            description: 'Adds the book object received to the database ' +
-            'and sends back the newly added instance of Book model.'
-        },
-        handler: controller.createBook
-    });
+    server.route(builder().method('POST').path('/').handler(controller.createBook)
+        .auth('RequiresLogin').validatePayload(validator.bookCreatePayload)
+        .notes('Receives a Book object as payload')
+        .notes('Returns a Book model')
+        .description('Adds the book object received to the database and sends back the newly added instance of Book model')
+        .build());
+
+    //server.route({
+    //    method: 'POST',
+    //    path: '/',
+    //    config: {
+    //        auth: 'RequiresLogin',
+    //        validate: { payload: validator.bookCreatePayload },
+    //        notes: [
+    //            'Receives a Book object as payload',
+    //            'Returns a Book model'
+    //        ],
+    //        description: 'Adds the book object received to the database ' +
+    //        'and sends back the newly added instance of Book model.'
+    //    },
+    //    handler: controller.createBook
+    //});
 
     server.route({
         method: 'GET',
