@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('options').directive('mcLanguages', [
-    '$translate',
-    function ($translate) {
+    '$translate', 'Authentication', 'lodash',
+    function ($translate, Authentication, _) {
         return {
             restrict: 'E',
             templateUrl: 'modules/options/components/languages/view.html',
             link: function (scope) {
+                var options = Authentication.user.options;
                 scope.languages = [];
                 scope.langs = $translate.getAvailableLanguageKeys();
                 scope.langs.forEach(function (element) {
@@ -14,8 +15,11 @@ angular.module('options').directive('mcLanguages', [
                     scope.languages.push({ label: lang[0], key: lang[1] })
                 });
 
+                scope.selectedLanguage = _.find(scope.languages, { key: options.language });
+                console.log(scope.selectedLanguage);
+
                 scope.changeLanguage = function () {
-                    console.log(scope.selectedLanguage);
+                    $translate.use(scope.selectedLanguage.label + '_' + scope.selectedLanguage.key)
                 }
             }
         };
