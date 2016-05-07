@@ -69,5 +69,6 @@ angular.module('mediacollection').constant('French', {
     'DELETE': 'Supprimer',
     'ADMIN_KEY': 'Les administrateurs sont surlignés en bleu.',
     'LANGUAGES_TAB': 'Langues',
-    'USERS_TAB': 'Utilisateurs'
+    'USERS_TAB': 'Utilisateurs',
+    'SELECT_LANG': 'Choisir une langue'
 });

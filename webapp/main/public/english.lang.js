@@ -69,5 +69,6 @@ angular.module('mediacollection').constant('English', {
     'DELETE': 'Delete',
     'ADMIN_KEY': 'Admin user are highlighted in blue.',
     'LANGUAGES_TAB': 'Languages',
-    'USERS_TAB': 'Users'
+    'USERS_TAB': 'Users',
+    'SELECT_LANG': 'Select language'
 });
