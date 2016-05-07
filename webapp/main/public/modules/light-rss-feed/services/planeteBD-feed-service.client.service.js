@@ -36,7 +36,6 @@ angular.module('light-rss-feed').factory('planeteBDFeedService', [
 
             function regexExtract(str, delimiter) {
                 var regX = new RegExp(delimiter + '(.*?)' + delimiter);
-
                 return str.match(regX)[1];
             }
 
@@ -50,7 +49,7 @@ angular.module('light-rss-feed').factory('planeteBDFeedService', [
                 fragment.forEach(function (elem, index, array) {
                     if (elem.indexOf('Auteurs') !== -1) {
                         item.author = elem;
-                    } else if (elem.indexOf('<img src="http') !== -1) {
+                    } else if (elem.indexOf('\.jpg') !== -1) {
                         item.img = regexExtract(elem, '"');
                     } else if (!/\//.test(elem) && elem.length > 50) {
                         item.summary = elem;
