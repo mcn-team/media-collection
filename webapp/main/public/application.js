@@ -52,10 +52,15 @@ angular.module(ApplicationConfiguration.applicationModuleName).config([
 
         $translateProvider.useSanitizeValueStrategy(null);
 
-        $translateProvider.translations('en', English);
-        $translateProvider.translations('fr', French);
+        $translateProvider.translations('English_en', English);
+        $translateProvider.translations('Francais_fr', French);
+        var langs = [
+            'English_en',
+            'Francais_fr'
+        ];
+        $translateProvider.registerAvailableLanguageKeys(langs);
 
-        $translateProvider.preferredLanguage('en');
+        $translateProvider.preferredLanguage('English_en');
     }
 ]);
 
