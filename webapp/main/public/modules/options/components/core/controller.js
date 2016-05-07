@@ -8,11 +8,5 @@ angular.module('options').controller('OptionsController', [
         self.authentication = Authentication.checkAuth();
 
         self.pageTitle = 'Options';
-
-        self.list = [
-            { title: 'Menu 1' },
-            { title: 'YOLO' },
-            { title: 'Euh...' }
-        ];
     }
 ]);
