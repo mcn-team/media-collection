@@ -42,6 +42,17 @@ angular.module('upload', []);
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
+angular.module(ApplicationConfiguration.applicationModuleName).run([
+    '$translate', 'Authentication', 'lodash',
+    function ($translate, Authentication, _) {
+        var language = Authentication.user.options.language;
+        $translate.getAvailableLanguageKeys().forEach(function (element) {
+            if (element.indexOf(language) > 0) {
+                $translate.use(element);
+            }
+        });
+    }
+]);
 angular.module(ApplicationConfiguration.applicationModuleName).config([
     '$locationProvider', '$httpProvider', '$translateProvider',
     'English', 'French',

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('options').directive('mcLanguages', [
-    '$translate', 'Authentication', 'lodash',
-    function ($translate, Authentication, _) {
+    '$translate', 'Authentication', 'lodash', 'UserServices',
+    function ($translate, Authentication, _, UserServices) {
         return {
             restrict: 'E',
             templateUrl: 'modules/options/components/languages/view.html',
@@ -20,7 +20,8 @@ angular.module('options').directive('mcLanguages', [
                 scope.changeLanguage = function () {
                     $translate.use(scope.selectedLanguage.label + '_' + scope.selectedLanguage.key);
                     Authentication.user.options.language = scope.selectedLanguage.key;
-                    //Authentication.setCredentials(Authentication.credentials);
+                    UserServices.saveOptions(Authentication.user._id, Authentication.user.options);
+                    Authentication.setCredentials(Authentication.credentials);
                 }
             }
         };
