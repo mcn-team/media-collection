@@ -68,5 +68,6 @@ angular.module('mediacollection').constant('English', {
     'DELETE_MESSAGE': 'Are you sure you want to delete this ?',
     'DELETE': 'Delete',
     'LANGUAGES_TAB': 'Languages',
-    'USERS_TAB': 'Users'
+    'USERS_TAB': 'Users',
+    'SELECT_LANG': 'Select language'
 });

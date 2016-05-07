@@ -68,5 +68,6 @@ angular.module('mediacollection').constant('French', {
     'DELETE_MESSAGE': 'Etes-vous sur de vouloir le supprimer ?',
     'DELETE': 'Supprimer',
     'LANGUAGES_TAB': 'Langues',
-    'USERS_TAB': 'Utilisateurs'
+    'USERS_TAB': 'Utilisateurs',
+    'SELECT_LANG': 'Choisir une langue'
 });
