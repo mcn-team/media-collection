@@ -16,10 +16,11 @@ angular.module('options').directive('mcLanguages', [
                 });
 
                 scope.selectedLanguage = _.find(scope.languages, { key: options.language });
-                console.log(scope.selectedLanguage);
 
                 scope.changeLanguage = function () {
-                    $translate.use(scope.selectedLanguage.label + '_' + scope.selectedLanguage.key)
+                    $translate.use(scope.selectedLanguage.label + '_' + scope.selectedLanguage.key);
+                    Authentication.user.options.language = scope.selectedLanguage.key;
+                    //Authentication.setCredentials(Authentication.credentials);
                 }
             }
         };

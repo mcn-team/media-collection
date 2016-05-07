@@ -43,6 +43,10 @@ angular.module('users').factory('UserServices', [
             return $http.post(buildEndpoint('/users'), payload, httpConfig);
         };
 
+        userApi.saveOptions = function (userId, payload) {
+            return $http.patch(buildEndpoint('/users/' + userId + '/options'), payload, httpConfig);
+        };
+
         return userApi;
     }
 ]);
