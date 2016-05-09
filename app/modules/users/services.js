@@ -56,6 +56,21 @@ exports.findUsers = (callback) => {
     });
 };
 
+exports.findIfUser = (callback) => {
+    User.count({}, (err, count) => {
+        if (err) {
+            console.log("FAIIIIL");
+        }
+
+        if (count == 0) {
+            count = {exists: false};
+        } else
+            count = {exists: true};
+
+        return responseHelper.serviceCallback(err, count, 200, callback)
+    });
+};
+
 exports.findUserByUsername = (payload, callback) => {
     User.find({ username: payload.username }).exec((err, users) => {
         if (err) {

@@ -43,6 +43,10 @@ angular.module('users').factory('UserServices', [
             return $http.post(buildEndpoint('/users'), payload, httpConfig);
         };
 
+        userApi.isUser = function () {
+            return $http.get(buildEndpoint('/users/count'))
+        };
+
         return userApi;
     }
 ]);

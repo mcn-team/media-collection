@@ -7,7 +7,7 @@
                     si nous n'avez pas encore créer votre compte
                 </p>
                 <a class="btn btn-primary" type="button" href="/#!/signin" data-ng-bind="'SIGNIN' | translate"></a>
-                <a class="pull-right btn btn-default" type="button" href="/#!/signup" data-ng-bind="'SIGNUP'  | translate"></a>
+                <a class="pull-right btn btn-default" type="button" href="/#!/signup" data-ng-if="HomeCtrl.isSigned" data-ng-bind="'SIGNUP'  | translate"></a>
             </div>
         </div>
     </div>
