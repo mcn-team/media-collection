@@ -49,6 +49,12 @@ exports.deleteUser = (request, reply) => {
     });
 };
 
+exports.saveUserOptions = (request, reply) => {
+    userServices.updateUserOptions(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
 /**
  * users Pre-handlers
  */

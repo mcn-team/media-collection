@@ -88,3 +88,9 @@ exports.removeUser = (params, callback) => {
         responseHelper.serviceCallback(err, user, 200, callback);
     });
 };
+
+exports.updateUserOptions = (params, payload, callback) => {
+    User.findOneAndUpdate({ _id: params.userId }, { $set: { 'options': payload } }).exec((err, response) => {
+        return responseHelper.serviceCallback(err, response, 204, callback);
+    });
+};

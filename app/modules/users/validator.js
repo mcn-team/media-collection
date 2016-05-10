@@ -23,3 +23,11 @@ exports.updatePayload = {
     displayName: Joi.string().alphanum().trim(),
     email: Joi.string().email().trim()
 };
+
+exports.optionsPayloadSchema = {
+    language: Joi.string().alphanum().trim().optional()
+};
+
+exports.optionsParamsSchema = {
+    userId: Joi.string().hex().length(24)
+};
