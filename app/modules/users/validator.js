@@ -2,6 +2,19 @@
 
 const Joi = require('joi');
 
+const optionsObject = {
+    language: Joi.string().length(2)
+};
+
+const userObject = {
+    _id: Joi.string().hex().length(24),
+    created: Joi.string().isoDate(),
+    displayName: Joi.string(),
+    email: Joi.string().email(),
+    options: Joi.object(optionsObject),
+    username: Joi.string().alphanum()
+};
+
 exports.signUpPayload = {
     username: Joi.string().alphanum().trim().required(),
     password: Joi.string().required(),
@@ -30,4 +43,9 @@ exports.optionsPayloadSchema = {
 
 exports.optionsParamsSchema = {
     userId: Joi.string().hex().length(24)
+};
+
+exports.userResponse = {
+    token: Joi.string(),
+    user: Joi.object(userObject)
 };

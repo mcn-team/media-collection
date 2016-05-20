@@ -16,15 +16,15 @@ module.exports = (server) => {
             },
             notes: [
                 'Takes a User object as payload',
-                'Returns an Object',
-                '{',
-                'token: String',
-                'user: Object',
-                '}'
+                'Returns an Object'
             ],
             description: 'Adds a new user in the database and sends back ' +
             'an Object containing the web token for this user authentication ' +
-            'and the User Model newly added without sentitive fields.'
+            'and the User Model newly added without sentitive fields.',
+            response: {
+                failAction: "log",
+                schema: validator.userResponse
+            }
         },
         handler: users.signUpUser
     });
@@ -38,14 +38,14 @@ module.exports = (server) => {
             },
             notes: [
                 'Takes a User object as payload',
-                'Returns an Object',
-                '{',
-                'token: String',
-                'user: Object',
-                '}'
+                'Returns an Object'
             ],
             description: 'Sends back an Object containing the web token for this ' +
-            'user authentication and the User Model newly added without sentitive fields.'
+            'user authentication and the User Model newly added without sentitive fields.',
+            response: {
+                failAction: "log",
+                schema: validator.userResponse
+            }
         },
         handler: users.logInUser
     });
@@ -110,7 +110,7 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/{userId}/options',
         config: {
-            //auth: 'RequiresLogin',
+            auth: 'RequiresLogin',
             validate: {
                 params: validator.optionsParamsSchema,
                 payload: validator.optionsPayloadSchema

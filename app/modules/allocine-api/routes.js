@@ -13,26 +13,14 @@ module.exports = (server) => {
             notes: [
                 'Takes media type as parameter',
                 'Takes search keywords as parameter (name)',
-                'Returns an object from Allocine',
-                '{',
-                'result: [ Object ],',
-                'filter: String',
-                '}',
-                '------------',
-                'result Objects are : ',
-                '{',
-                'code: Number,',
-                'originalTitle: String,',
-                'productionYear: Number,',
-                'release: Object,',
-                'castingShort: Object,',
-                'statistics: Object,',
-                'poster: Object,',
-                'link: [ Object ]',
-                '}'
+                'Returns an object from Allocine'
             ],
             description: 'Calls Allocine API and sends back all matchings media ' +
-            'filtered by "type" criteria and "name" keywords.'
+            'filtered by "type" criteria and "name" keywords.',
+            response: {
+                failAction: "log",
+                schema: validator.searchResponse
+            }
         },
         handler: controller.searchByName
     });
@@ -46,35 +34,14 @@ module.exports = (server) => {
             notes: [
                 'Takes media type as parameter',
                 'Takes Allocine media ID as parameter',
-                'Returns an object from Allocine',
-                '{',
-                'result: Object,',
-                'filter: String',
-                '}',
-                '------------',
-                'result Object is : ',
-                '{',
-                'code: Number,',
-                'movieType: Object,',
-                'originalTitle: String,',
-                'title: String,',
-                'productionYear: Number,',
-                'genre: [ Object ],',
-                'release: Object,',
-                'runtime: Number,',
-                'synopsis: String,',
-                'synopsisShort: String,',
-                'castingShort: Object,',
-                'castMember: [ Object ],',
-                'poster: Object,',
-                'trailer: Object,',
-                'dvdReleaseDate: String,',
-                'media: [ Object ],',
-                'statistics: Object',
-                '}'
+                'Returns an object from Allocine'
             ],
             description: 'Calls Allocine API and sends back all informations ' +
-            'about the media specified ID.'
+            'about the media specified ID.',
+            response: {
+                failAction: "log",
+                schema: validator.searchByIdResponse
+            }
         },
         handler: controller.findById
     });

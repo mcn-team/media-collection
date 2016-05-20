@@ -37,3 +37,22 @@ exports.editMoviePayload = _.merge({
     title: Joi.string().trim(),
     type: Joi.string()
 }, commonMoviePayload);
+
+exports.listMovieResponse = Joi.array().items(exports.editMoviePayload);
+
+exports.movieModelResponse = _.merge({
+    title: Joi.string(),
+    type: Joi.string()
+}, commonMoviePayload);
+
+exports.collectionListResponse = Joi.array().items({
+    _id: Joi.string().required(),
+    data: Joi.array().items(exports.movieModelResponse).required(),
+    boughtTotal: Joi.number().integer().positive().required(),
+    toBoughtTotal: Joi.number().integer().positive().required(),
+    readTotal: Joi.number().integer().positive().required(),
+    notReadTotal: Joi.number().integer().positive().required(),
+    onGoingTotal: Joi.number().integer().positive().required()
+});
+
+exports.collectionNamesResponse = Joi.array().items(Joi.string()).required();
