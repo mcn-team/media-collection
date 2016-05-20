@@ -37,6 +37,14 @@ exports.updatePayload = {
     email: Joi.string().email().trim()
 };
 
+exports.optionsPayloadSchema = {
+    language: Joi.string().alphanum().trim().optional()
+};
+
+exports.optionsParamsSchema = {
+    userId: Joi.string().hex().length(24)
+};
+
 exports.userResponse = {
     token: Joi.string(),
     user: Joi.object(userObject)

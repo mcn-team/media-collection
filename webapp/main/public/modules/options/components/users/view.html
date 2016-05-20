@@ -51,7 +51,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="default-cursor" data-ng-repeat="user in usersList">
+                <tr data-ng-class="{info: user.admin}" class="default-cursor" data-ng-repeat="user in usersList">
                     <td data-ng-bind="user.username"></td>
                     <td data-ng-bind="user.email"></td>
                     <td data-ng-bind="user.displayName"></td>
@@ -60,5 +60,6 @@
                 </tr>
             </tbody>
         </table>
+        <h5 class="padding-paragraph info-background" data-ng-bind="'ADMIN_KEY' | translate"></h5>
     </div>
 </section>

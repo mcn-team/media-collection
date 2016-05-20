@@ -1,7 +1,7 @@
 'use strict';
 
 const responseHelper = require('../../utils/response-helper');
-const MediaWiki = require('../../../my_modules/wikiSearchAPI/lib/mediaWikiApi');
+const MediaWiki = require('./mediaWikiApi');
 
 exports.findByTitle = (params, callback) => {
     MediaWiki.searchByTitle(params.title, (response) => {

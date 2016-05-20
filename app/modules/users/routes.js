@@ -105,4 +105,23 @@ module.exports = (server) => {
         },
         handler: users.deleteUser
     });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/options',
+        config: {
+            auth: 'RequiresLogin',
+            validate: {
+                params: validator.optionsParamsSchema,
+                payload: validator.optionsPayloadSchema
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes an Object as payload',
+                'Returns HTTP 204 No Content on success'
+            ],
+            description: 'Update the options key value of the specified users'
+        },
+        handler: users.saveUserOptions
+    });
 };
