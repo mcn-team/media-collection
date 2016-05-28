@@ -31,6 +31,12 @@ exports.getUserOptions = (request, reply) => {
     });
 };
 
+exports.checkIfUser = (request, reply) => {
+    userServices.findIfUser((err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
 exports.getUserList = (request, reply) => {
     userServices.findUsers((err, res) => {
         return responseHelper.controllerReply(err, res, reply);

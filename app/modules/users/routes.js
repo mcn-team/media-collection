@@ -124,4 +124,14 @@ module.exports = (server) => {
         },
         handler: users.saveUserOptions
     });
+
+    server.route({
+        method: 'GET',
+        path: '/count',
+        config: {
+            notes: 'Returns an Array of Object',
+            description: 'Sends back the options field of the authentified user.'
+        },
+        handler: users.checkIfUser
+    });
 };

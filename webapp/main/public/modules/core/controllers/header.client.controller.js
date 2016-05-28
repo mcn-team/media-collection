@@ -1,10 +1,17 @@
 'use strict';
 
 angular.module('core').controller('HeaderController', [
-    '$scope', '$state', 'Authentication', 'Menus',
-    function($scope, $state, Authentication, Menus) {
+    '$scope', '$state', 'Authentication', 'Menus', 'UserServices',
+    function($scope, $state, Authentication, Menus, UserServices) {
         $scope.authentication = Authentication;
         $scope.isCollapsed = false;
+
+        function successCallback(response) {
+            $scope.isSigned = !response.data.exists;
+        }
+
+        UserServices.isUser().then(successCallback);
+
         $scope.menu = Menus.getMenu('topbar');
 
         $scope.toggleCollapsibleMenu = function() {
