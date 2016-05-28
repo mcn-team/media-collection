@@ -45,7 +45,7 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 angular.module(ApplicationConfiguration.applicationModuleName).run([
     '$translate', 'Authentication', 'lodash',
     function ($translate, Authentication, _) {
-        var language = Authentication.user.options.language;
+        var language = Authentication.user ? Authentication.user.options.language : 'en';
         $translate.getAvailableLanguageKeys().forEach(function (element) {
             if (element.indexOf(language) > 0) {
                 $translate.use(element);
