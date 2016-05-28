@@ -6,7 +6,6 @@ angular.module('options').controller('OptionsController', [
     function ($scope, $window, Authentication) {
         var self = this;
         self.authentication = Authentication.checkAuth();
-        console.log(self.authentication);
         if (!self.authentication.user.admin) {
             $window.history.back();
         }
