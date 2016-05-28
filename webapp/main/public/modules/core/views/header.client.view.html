@@ -37,10 +37,10 @@
                     <span data-ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
                 </a>
                 <ul data-uib-dropdown-menu class="dropdown-menu">
-                    <li>
+                    <li data-ng-if="authentication.user && authentication.user.admin">
                         <a href="/#!/options" data-ng-bind="'SETTINGS' | translate"></a>
                     </li>
-                    <li class="divider"></li>
+                    <li data-ng-if="authentication.user && authentication.user.admin" class="divider"></li>
                     <li>
                         <a href="/#!/settings/profile" data-ng-bind="'EDIT_PROFILE' | translate"></a>
                     </li>
