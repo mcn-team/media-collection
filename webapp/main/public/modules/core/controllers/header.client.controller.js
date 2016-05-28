@@ -8,7 +8,6 @@ angular.module('core').controller('HeaderController', [
 
         function successCallback(response) {
             $scope.isSigned = !response.data.exists;
-            console.log(self.isSigned);
         }
 
         UserServices.isUser().then(successCallback);

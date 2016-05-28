@@ -14,7 +14,6 @@ angular.module('core').controller('HomeController', [
 
         function successCallback(response) {
             self.isSigned = !response.data.exists;
-            console.log(self.isSigned);
         }
 
         UserServices.isUser().then(successCallback);
