@@ -2,8 +2,9 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$uibModal', '$window', 'Authentication',
-    'BookServices', 'BooksDataService', 'UploadServices',
-    function($scope, $location, $uibModal, $window, Authentication, BookServices, BooksDataService, UploadServices) {
+    'BookServices', 'BooksDataService', 'UploadServices', 'IsbnConverter',
+    function($scope, $location, $uibModal, $window, Authentication,
+             BookServices, BooksDataService, UploadServices, IsbnConverter) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -96,11 +97,22 @@ angular.module('books').controller('CreateBookController', [
 
             //ISBN FIELD
             $scope.checkIsbn = function() {
-                return !$scope.mediaModel.searchIsbn || ($scope.mediaModel.searchIsbn.length !== 10 && $scope.mediaModel.searchIsbn.length !== 13);
+                return !$scope.mediaModel.searchIsbn ||
+                    ($scope.mediaModel.searchIsbn.length !== 10 && $scope.mediaModel.searchIsbn.length !== 13) ||
+                    ($scope.mediaModel.searchIsbn.length === 10 && !IsbnConverter.validISBN10($scope.mediaModel.searchIsbn)) ||
+                    ($scope.mediaModel.searchIsbn.length === 13 && !IsbnConverter.validISBN13($scope.mediaModel.searchIsbn));
             };
 
             $scope.searchByIsbn = function() {
-                BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
+                var convertedIsbn = null;
+
+                if ($scope.mediaModel.searchIsbn.length === 13) {
+                    convertedIsbn = IsbnConverter.convertISBN($scope.mediaModel.searchIsbn);
+                } else {
+                    convertedIsbn = $scope.mediaModel.searchIsbn.length;
+                }
+
+                BookServices.getBookByISBN(convertedIsbn).then(function (response) {
                     $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
                     $scope.mediaModel = BooksDataService.fillBookModel(response.data);
                 }, function (errorResponse) {
