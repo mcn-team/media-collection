@@ -75,5 +75,10 @@ angular.module('mediacollection').constant('French', {
     'STATS': 'Statistiques',
     'MULTI_SEARCH': 'Recherche multi-critères',
     'QUICK_SEARCH': 'Recherche rapide',
+    'THE': 'Le',
+    'SINCE': 'Depuis',
+    'BETWEEN': 'Entre',
+    'BEFORE': 'Avant',
+    'AND_T': 'Et le...',
     'FIELD': 'Champs'
 });
