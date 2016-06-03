@@ -70,5 +70,9 @@ angular.module('mediacollection').constant('French', {
     'ADMIN_KEY': 'Les administrateurs sont surlignés en bleu.',
     'LANGUAGES_TAB': 'Langues',
     'USERS_TAB': 'Utilisateurs',
-    'SELECT_LANG': 'Choisir une langue'
+    'SELECT_LANG': 'Choisir une langue',
+    'MY_BOOKS': 'Mes Livres',
+    'STATS': 'Statistiques',
+    'MULTI_SEARCH': 'Recherche multi-critères',
+    'QUICK_SEARCH': 'Recherche rapide'
 });

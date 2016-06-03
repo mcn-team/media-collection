@@ -70,5 +70,9 @@ angular.module('mediacollection').constant('English', {
     'ADMIN_KEY': 'Admin user are highlighted in blue.',
     'LANGUAGES_TAB': 'Languages',
     'USERS_TAB': 'Users',
-    'SELECT_LANG': 'Select language'
+    'SELECT_LANG': 'Select language',
+    'MY_BOOKS': 'My Books',
+    'STATS': 'Statistics',
+    'MULTI_SEARCH': 'Multi criteria search',
+    'QUICK_SEARCH': 'Quick search'
 });
