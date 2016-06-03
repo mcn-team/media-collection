@@ -1,6 +1,6 @@
 <section>
     <div class="col-xs-offset-2 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 {{$parent.$parent.multiSearch.dates.type === 'between' ? 'col-md-4 col-lg-6' : 'col-md-7 col-lg-8' }} col-xs-6 col-sm-2 multi-search-margin-bottom" >
-        <label class="control-label" >Lu</label>
+        <label class="control-label" data-ng-bind="'READ' | translate"></label>
         <div >
             <button class="btn btn-success" ng-show="$parent.$parent.multiSearch.readSearch === 'READ'" ng-click="$parent.$parent.multiSearch.readSearch = 'ONGOING'" data-ng-model="$parent.$parent.multiSearch.readSearch" >
                 <img class="form-icon-btn-size" ng-src="/assets/img/view8.png">
