@@ -74,5 +74,10 @@ angular.module('mediacollection').constant('English', {
     'MY_BOOKS': 'My Books',
     'STATS': 'Statistics',
     'MULTI_SEARCH': 'Multi criteria search',
-    'QUICK_SEARCH': 'Quick search'
+    'QUICK_SEARCH': 'Quick search',
+    'THE': 'The',
+    'SINCE': 'Since',
+    'BETWEEN': 'Between',
+    'BEFORE': 'Before',
+    'AND_T': 'And the...'
 });
