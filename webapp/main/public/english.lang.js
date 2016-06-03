@@ -71,5 +71,9 @@ angular.module('mediacollection').constant('English', {
     'LANGUAGES_TAB': 'Languages',
     'USERS_TAB': 'Users',
     'SELECT_LANG': 'Select language',
+    'MY_BOOKS': 'My Books',
+    'STATS': 'Statistics',
+    'MULTI_SEARCH': 'Multi criteria search',
+    'QUICK_SEARCH': 'Quick search',
     'FIELD': 'Field'
 });
