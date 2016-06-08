@@ -29,3 +29,6 @@ node_modules
 .idea/
 .editorconfig
 storage/
+
+# Production files
+webapp/main/dist/
