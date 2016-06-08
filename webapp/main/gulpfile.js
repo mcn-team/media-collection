@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 
 // CSS packages
 var minifycss = require('gulp-minify-css');
@@ -49,7 +50,7 @@ gulp.task('prod:scripts', [], function () {
     return gulp.src(JS_PATH)
         .pipe(concat('app.js'))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(uglify())
+        .pipe(uglify().on('error', gutil.log))
         .pipe(gulp.dest('dist/js'));
 });
 
@@ -65,12 +66,17 @@ gulp.task('prod:files', ['prod:style', 'prod:scripts', 'prod:html']);
  *
  * relative parameter removed part of the path
  */
-gulp.task('inject', [], function () {
+
+var injectCallbcack = function () {
     return gulp.src('public/layout.server.view.html')
         .pipe(inject(gulp.src(INJECT_PATH, {read: false}), {relative: true}))
         .pipe(rename('index.html'))
         .pipe(gulp.dest(INDEX_PATH));
-});
+};
+
+gulp.task('inject', [], injectCallbcack);
+
+gulp.task('prod:inject', ['prod:files'], injectCallbcack);
 
 gulp.task('watch', ['inject'], function () {
     gulp.watch(CSS_PATH, ['inject']);
@@ -80,4 +86,4 @@ gulp.task('watch', ['inject'], function () {
 
 gulp.task('default', ['dev:path', 'watch']);
 
-gulp.task('build', ['prod:path', 'prod:files', 'inject']);
+gulp.task('build', ['prod:path', 'prod:inject']);
