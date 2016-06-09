@@ -1,7 +1,10 @@
 'use strict';
 
 var gulp = require('gulp');
+
+// UTILS
 var gutil = require('gulp-util');
+var notifier = require('node-notifier');
 
 // CSS packages
 var minifycss = require('gulp-minify-css');
@@ -21,7 +24,7 @@ var INJECT_PATH;
 var TMP_PATH;
 var INDEX_PATH;
 
-gulp.task('clean', ['all:path'], function () {
+gulp.task('clean', ['prod:path'], function () {
     del.sync(TMP_PATH);
 });
 
@@ -84,6 +87,10 @@ gulp.task('watch', ['inject'], function () {
     gulp.watch(HTML_PATH, ['inject']);
 });
 
-gulp.task('default', ['dev:path', 'watch']);
+gulp.task('default', ['dev:path', 'watch'], function () {
+    notifier.notify('Gulp watch is completed');
+});
 
-gulp.task('build', ['prod:path', 'prod:inject']);
+gulp.task('build', ['clean', 'prod:inject'], function () {
+    notifier.notify('Gulp build is completed');
+});
