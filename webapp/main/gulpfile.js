@@ -17,6 +17,19 @@ var del = require('del');
 var inject = require('gulp-inject');
 var _ = require('lodash');
 
+var NPM_FILES = [
+    './public/node_modules/angular/angular.js',
+    './public/node_modules/angular-sanitize/angular-sanitize.js',
+    './public/node_modules/angular-resource/angular-resource.js',
+    './public/node_modules/angular-ui-router/release/angular-ui-router.js',
+    './public/node_modules/angular-animate/angular-animate.js',
+    './public/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+    './public/node_modules/ng-lodash/build/ng-lodash.js',
+    './public/node_modules/ng-img-crop-full-extended/compile/unminified/ng-img-crop.js',
+    './public/node_modules/angular-translate/dist/angular-translate.js',
+    './public/node_modules/angular-ui-utils/modules/keypress/keypress.js'
+];
+
 var JS_PATH = ['./public/**/*.js', '!./public/lib/**/*.js', '!./public/node_modules/**/*.js'];
 var CSS_PATH = ['./public/**/*.css'];
 var HTML_PATH = ['./public/**/*.html', '!./public/index.html'];
@@ -39,6 +52,7 @@ gulp.task('prod:path', function () {
     INJECT_PATH = ['./dist/css/*.css', './dist/js/*.js'];
     TMP_PATH = ['./dist'];
     INDEX_PATH = 'dist';
+    JS_PATH.unshift('./dist/npm.js');
 });
 
 gulp.task('prod:style', [], function () {
@@ -49,7 +63,13 @@ gulp.task('prod:style', [], function () {
         .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('prod:scripts', [], function () {
+gulp.task('prod:npm', function () {
+    return gulp.src(NPM_FILES)
+        .pipe(concat('npm.js'))
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('prod:scripts', ['prod:npm'], function () {
     return gulp.src(JS_PATH)
         .pipe(concat('app.js'))
         .pipe(rename({ suffix: '.min' }))
@@ -70,16 +90,20 @@ gulp.task('prod:files', ['prod:style', 'prod:scripts', 'prod:html']);
  * relative parameter removed part of the path
  */
 
-var injectCallbcack = function () {
+gulp.task('inject', function () {
+    return gulp.src('public/layout.server.view.html')
+        .pipe(inject(gulp.src(NPM_FILES, {read: false}), {relative: true, name: 'node-modules'}))
+        .pipe(inject(gulp.src(INJECT_PATH, {read: false}), {relative: true}))
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest(INDEX_PATH));
+});
+
+gulp.task('prod:inject', ['prod:files'], function () {
     return gulp.src('public/layout.server.view.html')
         .pipe(inject(gulp.src(INJECT_PATH, {read: false}), {relative: true}))
         .pipe(rename('index.html'))
         .pipe(gulp.dest(INDEX_PATH));
-};
-
-gulp.task('inject', [], injectCallbcack);
-
-gulp.task('prod:inject', ['prod:files'], injectCallbcack);
+});
 
 gulp.task('watch', ['inject'], function () {
     gulp.watch(CSS_PATH, ['inject']);
@@ -92,5 +116,6 @@ gulp.task('default', ['dev:path', 'watch'], function () {
 });
 
 gulp.task('build', ['clean', 'prod:inject'], function () {
+    del.sync('./dist/npm.js');
     notifier.notify('Gulp build is completed');
 });
