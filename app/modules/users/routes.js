@@ -111,7 +111,7 @@ module.exports = (server) => {
         method: 'PATCH',
         path: '/{userId}/options',
         config: {
-            //auth: 'RequiresLogin',
+            auth: 'RequiresLogin',
             validate: {
                 params: validator.optionsParamsSchema,
                 payload: validator.optionsPayloadSchema

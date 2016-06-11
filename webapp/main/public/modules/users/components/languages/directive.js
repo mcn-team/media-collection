@@ -23,7 +23,7 @@ angular.module('users').directive('mcLanguages', [
                     UserServices.saveOptions(Authentication.user._id, Authentication.user.options).then(function() {
                         
                     }, function (errorResponse) {
-                        console.log(errorResponse);
+                        console.error(errorResponse);
                     });
                     Authentication.setCredentials(Authentication.credentials);
                 }
