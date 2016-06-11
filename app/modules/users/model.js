@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema({
     password : String,
     displayName: String,
     email: String,
+    admin: {
+        type: Boolean,
+        default: false
+    },
     options: {
         language: {
             type: String,
