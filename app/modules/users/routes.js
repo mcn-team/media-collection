@@ -9,6 +9,7 @@ module.exports = (server) => {
         path: '/signup',
         config: {
             pre: [
+                { method: users.ifUsernameExists, assign: 'userExists' },
                 { method: users.ifUsernameExists, assign: 'userExists' }
             ],
             validate: {
@@ -24,7 +25,7 @@ module.exports = (server) => {
             ],
             description: 'Adds a new user in the database and sends back ' +
             'an Object containing the web token for this user authentication ' +
-            'and the User Model newly added without sentitive fields.'
+            'and the User Model newly added without sensitive fields.'
         },
         handler: users.signUpUser
     });
@@ -45,7 +46,7 @@ module.exports = (server) => {
                 '}'
             ],
             description: 'Sends back an Object containing the web token for this ' +
-            'user authentication and the User Model newly added without sentitive fields.'
+            'user authentication and the User Model newly added without sensitive fields.'
         },
         handler: users.logInUser
     });
@@ -77,7 +78,7 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             notes: 'Returns an Array of Object',
-            description: 'Sends back the options field of the authentified user.'
+            description: 'Sends back the options field of the authenticated user.'
         },
         handler: users.getUserOptions
     });
@@ -100,7 +101,7 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresAdmin',
             notes: 'Returns an User Object',
-            description: 'Removes the user with the specified Mongo ObjectID ' +
+            description: 'Removes the user with the specified MongoDB ObjectID ' +
             'passed as parameters from the database.'
         },
         handler: users.deleteUser
@@ -130,7 +131,7 @@ module.exports = (server) => {
         path: '/count',
         config: {
             notes: 'Returns an Array of Object',
-            description: 'Sends back the options field of the authentified user.'
+            description: 'Sends back the options field of the authenticated user.'
         },
         handler: users.checkIfUser
     });
