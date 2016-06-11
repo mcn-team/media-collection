@@ -133,3 +133,7 @@ gulp.task('build', ['clean', 'prod:inject'], function () {
     del.sync(['./dist/npm.js', './dist/layout.server.view.html']);
     notifier.notify('Gulp build is completed');
 });
+
+gulp.task('build:dev', ['dev:path', 'inject'], function () {
+    notifier.notify('Gulp build is completed');
+});
