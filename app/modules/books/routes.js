@@ -162,4 +162,19 @@ module.exports = (server) => {
         },
         handler: controller.createMultiple
     });
+
+    server.route({
+        method: 'GET',
+        path: '/customfields',
+        config: {
+            auth: 'RequiresLogin',
+            notes: [
+                'Requires a user\'s token',
+                'Returns an Array with 200 Ok'
+            ],
+            description: 'Sends back an Array object containing all keys used ' +
+            'in customs fields for any document in the books collection of the database.'
+        },
+        handler: controller.getCustomFieldsKeys
+    });
 };

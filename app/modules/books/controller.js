@@ -60,5 +60,11 @@ exports.deleteBook = (request, reply) => {
 exports.createMultiple = (request, reply) => {
     services.insertMany(request.payload, (err, res) => {
         responseHelper.controllerReply(err, res, reply);
-    })
+    });
+};
+
+exports.getCustomFieldsKeys = (request, reply) => {
+    services.findCustomFieldsKeys((err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
 };
