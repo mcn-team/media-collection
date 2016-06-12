@@ -9,6 +9,7 @@ const responseHelper = require('../../utils/response-helper');
 
 exports.addUser = (payload, callback) => {
     let newUser = new User(payload);
+    
     newUser.save((err, user) => {
         if (err) {
             callback({ error: err, code: 503 });
@@ -58,14 +59,13 @@ exports.findUsers = (callback) => {
 
 exports.findIfUser = (callback) => {
     User.count({}, (err, count) => {
-        if (err) {
-            console.log("FAIIIIL");
+        if (!err) {
+            if (count == 0) {
+                count = {exists: false};
+            } else {
+                count = {exists: true};
+            }
         }
-
-        if (count == 0) {
-            count = {exists: false};
-        } else
-            count = {exists: true};
 
         return responseHelper.serviceCallback(err, count, 200, callback)
     });
@@ -93,4 +93,32 @@ exports.updateUserOptions = (params, payload, callback) => {
     User.findOneAndUpdate({ _id: params.userId }, { $set: { 'options': payload } }).exec((err, response) => {
         return responseHelper.serviceCallback(err, response, 204, callback);
     });
+};
+
+exports.checkAdminStatus = (headers, callback) => {
+    const token = headers['auth-web-token'];
+    let error = null;
+
+    if (!token) {
+        return callback({ error: 'Please log in', code: 401 });
+    }
+
+    jwt.verify(token, config.secretJWT, (err, decoded) => {
+        if (err) {
+            return callback({ error: 'Token is not valid', code: 401 });
+        }
+
+        User.findOne({ _id: decoded.user }).exec((err, user) => {
+            if (err) {
+                error = { error: err, code: 503 };
+            } else if (!user) {
+                error = { error: 'User does not exists', code: 401 };
+            } else if (user && !user._doc.admin) {
+                error = { error: 'You are not administrator', code: 403 };
+            }
+
+            return callback(error, null);
+        });
+    });
+
 };
