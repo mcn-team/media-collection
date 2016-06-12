@@ -2,8 +2,8 @@
 
 angular.module('books').controller('EditBookController', [
     '$scope', '$stateParams', '$location', '$window',
-    'Authentication', 'BooksDataService', 'BookServices',
-    function($scope, $stateParams, $location, $window, Authentication, BooksDataService, BookServices) {
+    'Authentication', 'BooksDataService', 'BookServices', 'UploadServices',
+    function($scope, $stateParams, $location, $window, Authentication, BooksDataService, BookServices, UploadServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;

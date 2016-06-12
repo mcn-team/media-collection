@@ -16,7 +16,7 @@ const commonBookPayload = {
     bought: Joi.boolean(),
     pageCount: Joi.number().integer().positive(),
     bookRate: Joi.number(),
-    summary: Joi.string(),
+    summary: Joi.string().allow(''),
     price: Joi.number().precision(2).positive(),
     customFields: Joi.array(),
     created: Joi.date().iso(),
