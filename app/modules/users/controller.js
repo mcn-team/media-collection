@@ -6,7 +6,13 @@ const responseHelper = require('../../utils/response-helper');
 exports.signUpUser = (request, reply) => {
     if (request.pre.userExists) {
         return reply(request.pre.userExists.error).code(request.pre.userExists.code);
+    } else if (request.pre.hasUsers && request.pre.isNotAdmin) {
+        return reply(request.pre.isNotAdmin.error).code(request.pre.isNotAdmin.code);
     } else {
+        if (!request.pre.hasUsers) {
+            request.payload.admin = true;
+        }
+
         userServices.addUser(request.payload, (err, res) => {
             return responseHelper.controllerReply(err, res, reply);
         });
@@ -66,5 +72,33 @@ exports.ifUsernameExists = (request, reply) => {
         } else {
             return reply(false);
         }
+    });
+};
+
+exports.ifUsers = (request, reply) => {
+    userServices.findIfUser((err, res) => {
+        if (err) {
+            return reply(err);
+        } else {
+            return reply(res.data.exists)
+        }
+    });
+};
+
+exports.ifAdmin = (request, reply) => {
+    if (!request.pre.hasUsers) {
+        return reply(null);
+    }
+
+    userServices.checkAdminStatus(request.headers, (err, res) => {
+        let response = null;
+
+        if (err) {
+            response = err;
+        } else {
+            response = res;
+        }
+
+        return reply(response);
     });
 };

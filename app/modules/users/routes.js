@@ -9,7 +9,8 @@ module.exports = (server) => {
         path: '/signup',
         config: {
             pre: [
-                { method: users.ifUsernameExists, assign: 'userExists' },
+                { method: users.ifUsers, assign: 'hasUsers' },
+                { method: users.ifAdmin, assign: 'isNotAdmin' },
                 { method: users.ifUsernameExists, assign: 'userExists' }
             ],
             validate: {
