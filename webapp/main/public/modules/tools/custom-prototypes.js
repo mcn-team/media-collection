@@ -29,7 +29,7 @@ String.prototype.NumberFormat = String.prototype.NumberFormat || function (separ
 Array.prototype.IsEmptyOrUndefined = Array.prototype.IsEmptyOrUndefined || function () {
     var isEmpty = true;
     angular.forEach(this, function (current) {
-        if (current && current !== undefined) {
+        if (current !== undefined && current !== null || current !== '') {
             isEmpty = false;
         }
     });
