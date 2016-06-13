@@ -12,7 +12,10 @@ angular.module('books').filter('MultiSearchFilter', ['MultiSearchValidatorServic
             angular.forEach(ngRepeatArray, function (current) {
                 var isChecked = true;
                 angular.forEach(validators, function (item, idx) {
-                    if (!current[item.key] || !item.checker(filters[idx], current[item.key], item.sub)) {
+                    if (filters[idx] === undefined) {
+                        return;
+                    }
+                    if (!item.checker(filters[idx], current[item.key], item.sub)) {
                         isChecked = false;
                     }
                 });
