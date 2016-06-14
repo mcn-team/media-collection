@@ -3,7 +3,8 @@
 angular.module('books').controller('ListBooksController', [
     '$scope', '$location', '$anchorScroll',
     'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices',
-    function($scope, $location, $anchorScroll, Authentication, StatisticsService, BooksDataService, BookServices) {
+    function($scope, $location, $anchorScroll,
+             Authentication, StatisticsService, BooksDataService, BookServices) {
 
         $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Book';
@@ -13,8 +14,15 @@ angular.module('books').controller('ListBooksController', [
             $anchorScroll();
         };
 
+        $scope.updateQueries = function () {
+            var value = $scope.searchParam ? null : 'multi';
+            $location.search('search', value);
+            $scope.searchParam = $location.search().search;
+        };
+
         $scope.find = function () {
-            $scope.multiSearchOn = false;
+            $scope.searchParam = $location.search().search;
+            console.log($location.search());
 
             BookServices.getAllBooks().then(function (result) {
                 $scope.books = result.data;

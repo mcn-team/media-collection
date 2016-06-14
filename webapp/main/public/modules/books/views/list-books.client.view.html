@@ -2,7 +2,8 @@
     <div class="page-header">
         <h1>
             <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
-            <button class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-model="multiSearchOn" ng-click="multiSearchOn = !multiSearchOn" >{{multiSearchOn ? 'Recherche rapide' : 'Recherche multi-critères'}}</button>
+            <button data-ng-show="searchParam === 'multi'" data-ng-click="updateQueries()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right">Recherche rapide</button>
+            <buttom data-ng-show="!searchParam" data-ng-click="updateQueries()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" >Recherche multi-critères</buttom>
             Mes Livres
         </h1>
     </div>
@@ -10,7 +11,7 @@
 
     <!-- Panneau de recherche rapide -->
 
-    <div  class="col-md-12 listBookFilter" ng-show="!multiSearchOn && isLoaded">
+    <div  class="col-md-12 listBookFilter" ng-show="!searchParam && isLoaded">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" >Recherche rapide</h3>
