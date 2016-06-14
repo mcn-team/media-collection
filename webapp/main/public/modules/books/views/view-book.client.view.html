@@ -79,16 +79,16 @@
                 </div>
             </div>
         </div>
-        <hr class="col-xs-12">
         <div class="col-xs-12 view-field" data-ng-show="mediaModel.summary ? true : false" >
+            <hr class="col-xs-12">
             <div class="col-xs-12 list-group-item">
                 <div>Résumé</div>
                 <h5 id="summary" data-ng-bind="mediaModel.summary" ></h5>
             </div>
         </div>
-        <hr class="col-xs-12">
-        <div class="view-field col-xs-12">
-            <div class="col-xs-12 col-sm-6 col-md-4 custom-field list-group-item" data-ng-show="mediaModel.customFields ? true : false" data-ng-repeat="field in mediaModel.customFields" >
+        <div class="view-field col-xs-12"  data-ng-show="mediaModel.customFields.length > 0">
+            <hr class="col-xs-12">
+            <div class="col-xs-12 col-sm-6 col-md-4 custom-field list-group-item" data-ng-repeat="field in mediaModel.customFields" >
                 <div>{{field.name}}</div>
                 <h4 title="{{field.value}}" data-ng-bind="field.value" ></h4>
             </div>
