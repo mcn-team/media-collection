@@ -1,8 +1,8 @@
-<section data-ng-controller="ListMoviesController as ListMoviesCtrl" ng-show="authentication.user" data-ng-init="find()"
+<section data-ng-controller="ListMoviesController as ListMoviesCtrl" data-ng-show="authentication.user" data-ng-init="find()"
          xmlns="http://www.w3.org/1999/html">
     <div class="page-header">
         <h1>
-            <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats()" >Statistiques</button>
             <button data-ng-show="searchParam === 'multi'" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right">Recherche rapide</button>
             <button data-ng-show="!searchParam" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right">Recherche multi-critères</button>
             {{'MY_MOVIES' | translate}}
@@ -12,20 +12,20 @@
 
     <!-- Panneau de recherche rapide -->
 
-    <div  class="col-md-12 listMovieFilter" ng-show="!searchParam && isLoaded">
+    <div  class="col-md-12 listMovieFilter" data-ng-show="!searchParam && isLoaded">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" >Recherche rapide</h3>
             </div>
             <div class="panel-body">
                 <div class="quicksearch-input col-xs-12 col-sm-5 col-md-4 col-lg-3 ">
-                    <input class="form-control" id="searchMovieInput" name="searchMovieInput" ng-model="search" placeholder="Search...">
+                    <input class="form-control" id="searchMovieInput" name="searchMovieInput" data-ng-model="search" placeholder="Search...">
                 </div>
-                <div ng-show="search" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                <div data-ng-show="search" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
                 <span class="list-group-item" >
                     {{filteredMovies.length}}
-                    <span ng-show="filteredMovies.length > 1"> correspondances</span>
-                    <span ng-show="filteredMovies.length < 2"> correspondance</span>
+                    <span data-ng-show="filteredMovies.length > 1"> correspondances</span>
+                    <span data-ng-show="filteredMovies.length < 2"> correspondance</span>
                 </span>
                 </div>
             </div>
@@ -38,18 +38,18 @@
 
     <!-- Liste des Films -->
 
-    <div ng-show="isLoaded" class="col-md-12 view-field-info-margin-top list-group">
+    <div data-ng-show="isLoaded" class="col-md-12 view-field-info-margin-top list-group">
         <a data-ng-repeat="movie in filteredMovies = (multiSearch ? (movies | MultiSearchMovieFilter:multiSearch) : (movies | listMovieFilter:search))"
            data-ng-href="#!/movies/{{movie._id}}" class="list-group-item">
             <div class="media">
                 <div class="hidden-xs media-left media-middle">
-                    <img class="list-cover-size" ng-src="{{movie.cover}}">
+                    <img class="list-cover-size" data-ng-src="{{movie.cover}}">
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading list-title" data-ng-bind="movie.collectionName ? movie.collectionName + ' Ep. ' + movie.episode + ' : ' + movie.title : movie.title" ></h4>
-                    <p ng-show="movie.actors" class="list-group-item-text"><span class="list-people">Acteurs :</span> {{formatPeople(movie.actors)}}</p>
-                    <p ng-show="movie.directors" class="list-group-item-text"><span class="list-people">R&eacute;alisateurs :</span> {{formatPeople(movie.directors)}}</p>
-                    <h6 ng-show="movie.summary" class="list-group-item-text" data-ng-bind="movie.summary.TruncIsh(450)" ></h6>
+                    <p data-ng-show="movie.actors" class="list-group-item-text"><span class="list-people">Acteurs :</span> {{formatPeople(movie.actors)}}</p>
+                    <p data-ng-show="movie.directors" class="list-group-item-text"><span class="list-people">R&eacute;alisateurs :</span> {{formatPeople(movie.directors)}}</p>
+                    <h6 data-ng-show="movie.summary" class="list-group-item-text" data-ng-bind="movie.summary.TruncIsh(450)" ></h6>
                 </div>
             </div>
         </a>
