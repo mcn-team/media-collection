@@ -80,5 +80,6 @@ angular.module('mediacollection').constant('French', {
     'BETWEEN': 'Entre',
     'BEFORE': 'Avant',
     'AND_T': 'Et le...',
-    'FIELD': 'Champs'
+    'FIELD': 'Champs',
+    'NO_MISSING_MSG': 'Il n\'y a aucun livre manquant avant ce livre ci.'
 });

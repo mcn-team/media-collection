@@ -80,5 +80,6 @@ angular.module('mediacollection').constant('English', {
     'BETWEEN': 'Between',
     'BEFORE': 'Before',
     'AND_T': 'And the...',
-    'FIELD': 'Field'
+    'FIELD': 'Field',
+    'NO_MISSING_MSG': 'There is no missing book before this one.'
 });
