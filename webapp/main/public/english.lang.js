@@ -71,5 +71,6 @@ angular.module('mediacollection').constant('English', {
     'LANGUAGES_TAB': 'Languages',
     'USERS_TAB': 'Users',
     'SELECT_LANG': 'Select language',
-    'FIELD': 'Field'
+    'FIELD': 'Field',
+    'NO_MISSING_MSG': 'There is no missing book before this one.'
 });

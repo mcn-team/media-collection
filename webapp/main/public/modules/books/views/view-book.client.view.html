@@ -1,5 +1,6 @@
 <section data-ng-controller="ViewBookController" data-ng-show="authentication.user" data-ng-init="findOneView()">
     <section data-ng-include="'modules/books/views/books-auto-add.client.modal.html'"></section>
+    <div data-ng-show="showAlert" class="alert alert-info" role="alert" data-ng-bind="'NO_MISSING_MSG' | translate"></div>
     <mc-loader></mc-loader>
     <div data-ng-show="isLoaded" class="page-header">
         <div class="col-xs-pull-12 pull-right" data-ng-show="(authentication.user && book)">

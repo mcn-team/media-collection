@@ -71,5 +71,6 @@ angular.module('mediacollection').constant('French', {
     'LANGUAGES_TAB': 'Langues',
     'USERS_TAB': 'Utilisateurs',
     'SELECT_LANG': 'Choisir une langue',
-    'FIELD': 'Champs'
+    'FIELD': 'Champs',
+    'NO_MISSING_MSG': 'Il n\'y a aucun livre manquant avant ce livre ci.'
 });
