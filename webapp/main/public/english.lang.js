@@ -144,6 +144,7 @@ angular.module('mediacollection').constant('English', {
     'MATCH': 'match',
     'MATCHES': 'matches',
     'MY_BOOKS_COLLECTIONS': 'My books collections',
+    'OUTPUT': 'Output',
     'MY_MOVIES_COLLECTIONS': 'My movies collections',
-    'OUTPUT': 'Output'
+    'NO_MATCHING_FOR': 'No matching for : '
 });

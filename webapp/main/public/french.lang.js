@@ -144,6 +144,7 @@ angular.module('mediacollection').constant('French', {
     'MATCH': 'correspondance',
     'MATCHES': 'correspondances',
     'MY_BOOKS_COLLECTIONS': 'Mes collections de livres',
+    'OUTPUT': 'Rendu',
     'MY_MOVIES_COLLECTIONS': 'Mes collections de films',
-    'OUTPUT': 'Rendu'
+    'NO_MATCHING_FOR': 'Aucune correspondance trouvée pour : '
 });
