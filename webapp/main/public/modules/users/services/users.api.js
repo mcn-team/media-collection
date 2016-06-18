@@ -23,8 +23,12 @@ angular.module('users').factory('UserServices', [
             return $http.post(Config.apiRoute + '/users/login', payload);
         };
 
-        userApi.signup = function (payload) {
-            return $http.post(Config.apiRoute + '/users/signup', payload);
+        userApi.signup = function (payload, isAdmin) {
+            if (isAdmin) {
+                return $http.post(buildEndpoint('/users/signup'), payload, httpConfig);
+            } else {
+                return $http.post(Config.apiRoute + '/users/signup', payload);
+            }
         };
 
         userApi.updateUser = function (userId, payload) {
