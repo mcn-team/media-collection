@@ -7,13 +7,13 @@
             <div class="panel-body" >
                 <div class="{{$parent.multiSearch.collectionSearch ? 'col-sm-5 col-md-5' : 'col-sm-6 col-md-6'}} col-xs-12 col-lg-3 multi-search-margin-bottom">
                     <label class="control-label" for="collectionSearch" data-ng-bind="'COLLECTION' | translate">Collection</label>
-                    <input class="form-control" id="collectionSearch" data-ng-model="$parent.multiSearch.collectionSearch" placeholder="'COLLECTION' | translate" formnovalidate="formnovalidate">
+                    <input class="form-control" id="collectionSearch" data-ng-model="$parent.multiSearch.collectionSearch" placeholder="{{'COLLECTION' | translate}}" formnovalidate="formnovalidate">
                 </div>
                 <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/volume.client.view.html'" ></section>
                 <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/episode.client.view.html'" ></section>
                 <div class="col-xs-12 {{$parent.multiSearch.collectionSearch ? 'col-sm-5 col-md-5 col-lg-3' : 'col-sm-6 col-md-6 col-lg-4'}} multi-search-margin-bottom">
                     <label class="control-label" for="titleSearch" data-ng-bind="'TITLE' | translate">Titre</label>
-                    <input class="form-control" id="titleSearch" data-ng-model="$parent.$parent.multiSearch.titleSearch" placeholder="'TITLE' | translate">
+                    <input class="form-control" id="titleSearch" data-ng-model="$parent.$parent.multiSearch.titleSearch" placeholder="{{'TITLE' | translate}}">
                 </div>
                 <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/authors.client.view.html'" ></section>
                 <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/publisher.client.view.html'" ></section>
@@ -29,6 +29,7 @@
                     </button>
                 </div>
                 <div class="col-xs-8 {{$parent.multiSearch.dates.type === 'between' ? 'col-sm-3' : 'col-sm-6' }} col-md-3 col-lg-2 multi-search-margin-bottom">
+                    <!-- TODO: convert ternaire to multiple conditionel label -->
                     <label class="control-label" for="dateStart" >{{$parent.multiSearch.dates.type === 'between' ? 'Entre le...' : 'Date'}}</label>
                     <input ng-disabled="$parent.multiSearch.dates.type === undefined" class="form-control" type="date" id="dateStart" data-ng-model="$parent.multiSearch.dates.start" >
                 </div>
@@ -37,7 +38,7 @@
                     <input class="form-control" type="date" id="dateEnd" data-ng-model="$parent.multiSearch.dates.end" >
                 </div>
                 <div class="col-xs-4 col-sm-2 col-md-1 col-lg-1 multi-search-margin-bottom">
-                    <label class="control-label" >Achet&eacute;</label>
+                    <label class="control-label" data-ng-bind="'BOUGHT' | translate"></label>
                     <div >
                         <button class="btn btn-success" ng-show="$parent.multiSearch.boughtSearch === true" ng-click="$parent.multiSearch.boughtSearch = false" data-ng-model="$parent.multiSearch.boughtSearch" >
                             <img class="form-icon-btn-size" ng-src="/assets/img/correct2.png">
@@ -64,14 +65,15 @@
                     </button>
                 </div>
                 <div class="col-xs-8 {{$parent.multiSearch.prices.type === 'between' ? 'col-sm-2' : 'col-sm-4' }} col-md-2 col-lg-2 multi-search-margin-bottom">
-                    <label class="control-label" for="priceStart" >Prix</label>
-                    <input ng-disabled="$parent.multiSearch.prices.type === undefined" class="form-control" type="number" id="priceStart" data-ng-model="$parent.multiSearch.prices.start" placeholder="{{$parent.multiSearch.prices.type === 'between' ? 'Entre...' : 'Prix'}}" >
+                    <label class="control-label" for="priceStart" data-ng-bind="'PRICE' | translate"></label>
+                    <!-- TODO: convert placholder ternaire to multiple conditionnal blocks-->
+                    <input ng-disabled="$parent.multiSearch.prices.type === undefined" class="form-control" type="number" id="priceStart" data-ng-model="$parent.multiSearch.prices.start" placeholder="{{$parent.multiSearch.prices.type === 'between' ? 'Entre' : 'Prix'}}" >
                 </div>
                 <div ng-show="$parent.multiSearch.prices.type === 'between'" class="col-xs-offset-4 col-xs-8 col-sm-offset-0 col-sm-2 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2 multi-search-margin-bottom multi-search-button-center">
-                    <input class="form-control" type="number" id="priceEnd" data-ng-model="$parent.multiSearch.prices.end" placeholder="Et..." >
+                    <input class="form-control" type="number" id="priceEnd" data-ng-model="$parent.multiSearch.prices.end" placeholder="{{'AND' | translate}}" >
                 </div>
                 <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 view-field-info-margin-top ">
-                    <button data-ng-disabled="loading || !$parent.multiSearch" class="btn btn-primary pull-right" ng-click="restoreList()" >Clear</button>
+                    <button data-ng-disabled="loading || !$parent.multiSearch" class="btn btn-primary pull-right" ng-click="restoreList()" data-ng-bind="'CLEAR' | translate">Clear</button>
                 </div>
             </div>
         </div>

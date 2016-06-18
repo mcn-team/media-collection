@@ -1,9 +1,9 @@
 <section data-ng-controller="ListBooksController as ListBookCtrl" data-ng-show="authentication.user" data-ng-init="find()">
     <div class="page-header">
         <h1>
-            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats()" >Statistiques</button>
-            <button data-ng-show="searchParam === 'multi'" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right">Recherche rapide</button>
-            <buttom data-ng-show="!searchParam" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" >Recherche multi-critères</buttom>
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats()" data-ng-bind="'STATS' | translate"></button>
+            <button data-ng-show="searchParam === 'multi'" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-bind="'QUICK_SEARCH' | translate"></button>
+            <button data-ng-show="!searchParam" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-bind="'MULTI_SEARCH' | translate"></button>
             {{ 'MY_BOOKS' | translate}}
         </h1>
     </div>
@@ -18,7 +18,7 @@
             </div>
             <div class="panel-body">
                 <div class="quicksearch-input col-xs-12 col-sm-5 col-md-4 col-lg-3 ">
-                    <input class="form-control" id="searchBookInput" name="searchBookInput" data-ng-model="search" placeholder="Search...">
+                    <input class="form-control" id="searchBookInput" name="searchBookInput" data-ng-model="search" placeholder="{{'SEARCH' | translate}}">
                 </div>
                 <div data-ng-show="search" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
                 <span class="list-group-item" >

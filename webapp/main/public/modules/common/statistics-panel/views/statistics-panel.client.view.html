@@ -2,33 +2,33 @@
     <div ng-show="stats && isLoaded" id="stats" class="col-md-12">
         <div class="panel panel-primary" >
             <div class="panel-heading">
-                <h3 class="panel-title" >Statistiques</h3>
+                <h3 class="panel-title" data-ng-bind="'STATS' | translate"></h3>
             </div>
             <div class="panel-body" >
                 <ul class="list-group" >
                     <li class="list-group-item" >
-                        <h4 class="view-field-status-margin" >Statistiques générales</h4>
+                        <h4 class="view-field-status-margin" data-ng-bind="'GLOBAL_STATS' | translate"></h4>
                         <div class="default-cursor row" >
                             <div class="list-group-item col-md-3">
                                 <span class="badge">{{$parent.stats.collections.value}}</span>
-                                {{$parent.stats.collections.field}}
+                                {{$parent.stats.collections.field | translate}}
                             </div>
                             <div class="list-group-item col-md-3">
                                 <span class="badge">{{$parent.stats.media.value + ' (' + $parent.stats.bought.value + ' achetés)'}}</span>
-                                {{$parent.stats.media.field}}
+                                {{$parent.stats.media.field | translate}}
                             </div>
                             <div class="list-group-item col-md-3">
                                 <span class="badge">{{$parent.stats.mediaValue.value}}</span>
-                                {{$parent.stats.mediaValue.field}}
+                                {{$parent.stats.mediaValue.field | translate}}
                             </div>
                             <div class="list-group-item col-md-3">
                                 <span class="badge">{{$parent.stats.missingValue.value}}</span>
-                                {{$parent.stats.missingValue.field}}
+                                {{$parent.stats.missingValue.field | translate}}
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item" >
-                        <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field" ></h4>
+                        <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field | translate" ></h4>
                         <div class="progress default-cursor">
                             <div popover="{{$parent.stats.done.popover + $parent.stats.done.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.done.percent + '%;'}}">
                                 {{$parent.stats.done.percent + ' %' }}
@@ -43,16 +43,16 @@
                         <div class="text-center" >
                             <div class="stats-legend-horizontal-center" >
                                 <div class="stats-legend-icons success-bg-color" ></div>
-                                <span class="stats-legend-margin-right" >{{' - ' + $parent.stats.done.field}}</span>
+                                <span class="stats-legend-margin-right" > - {{$parent.stats.done.field | translate}}</span>
                                 <div data-ng-if="$parent.stats.onGoing" class="stats-legend-icons info-bg-color" ></div>
-                                <span data-ng-if="$parent.stats.onGoing" class="stats-legend-margin-right" >{{' - ' + $parent.stats.onGoing.field}}</span>
+                                <span data-ng-if="$parent.stats.onGoing" class="stats-legend-margin-right" > - {{$parent.stats.onGoing.field | translate}}</span>
                                 <div class="stats-legend-icons danger-bg-color" ></div>
-                                <span >{{' - ' + $parent.stats.notDone.field}}</span>
+                                <span > - {{$parent.stats.notDone.field | translate}}</span>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item" >
-                        <h4 class="view-field-status-margin" >Statistiques d'achat</h4>
+                        <h4 class="view-field-status-margin" data-ng-bind="'BUY_STATS' | translate"></h4>
                         <div class="progress default-cursor">
                             <div popover="{{$parent.stats.bought.popover + $parent.stats.bought.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.bought.percent + '%;'}}">
                                 {{$parent.stats.bought.percent + ' %' }}
@@ -67,16 +67,16 @@
                         <div class="text-center" >
                             <div class="stats-legend-horizontal-center" >
                                 <div class="stats-legend-icons success-bg-color" ></div>
-                                <span class="stats-legend-margin-right" >{{' - ' + $parent.stats.bought.field}}</span>
+                                <span class="stats-legend-margin-right" > - {{$parent.stats.bought.field | translate}}</span>
                                 <div class="stats-legend-icons warning-bg-color" ></div>
-                                <span class="{{$parent.stats.mediaMissing ? 'stats-legend-margin-right' : ''}} stats-legend-margin-right">{{' - ' + $parent.stats.toBought.field}}</span>
+                                <span class="{{$parent.stats.mediaMissing ? 'stats-legend-margin-right' : ''}} stats-legend-margin-right"> - {{$parent.stats.toBought.field | translate}}</span>
                                 <div data-ng-if="$parent.stats.mediaMissing"  class="stats-legend-icons danger-bg-color" ></div>
-                                <span data-ng-if="$parent.stats.mediaMissing"  >{{' - ' + $parent.stats.mediaMissing.field}}</span>
+                                <span data-ng-if="$parent.stats.mediaMissing"  > - {{$parent.stats.mediaMissing.field | translate}}</span>
                             </div>
                         </div>
                     </li>
                     <li data-ng-if="$parent.stats.totalSeenDuration" class="list-group-item" >
-                        <h4 class="view-field-status-margin" >Statistiques de temps</h4>
+                        <h4 class="view-field-status-margin" data-ng-bind="'TIME_STATS' | translate"></h4>
                         <div class="progress default-cursor">
                             <div popover="{{$parent.stats.totalSeenDuration.popover + $parent.stats.totalSeenDuration.value.toString().NumberFormat(' ') + ' min'}}" popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.totalSeenDuration.percent + '%;'}}">
                                 {{$parent.stats.totalSeenDuration.percent + ' %' }}
@@ -88,9 +88,9 @@
                         <div class="text-center" >
                             <div class="stats-legend-horizontal-center" >
                                 <div class="stats-legend-icons success-bg-color" ></div>
-                                <span class="stats-legend-margin-right" >{{' - ' + $parent.stats.totalSeenDuration.field}}</span>
+                                <span class="stats-legend-margin-right" > - {{$parent.stats.totalSeenDuration.field | translate}}</span>
                                 <div class="stats-legend-icons warning-bg-color" ></div>
-                                <span>{{' - ' + $parent.stats.toWatchDuration.field}}</span>
+                                <span> - {{$parent.stats.toWatchDuration.field | translate}}</span>
                             </div>
                         </div>
                     </li>
