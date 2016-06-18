@@ -101,5 +101,8 @@ angular.module('mediacollection').constant('French', {
     'RELEASE_DATE': 'Date de sortie',
     'DATE_PLACEHOLDER': 'jj/mm/aaaa',
     'SEEN': 'Vu',
-    'EDIT_MOVIE': 'Modifier un film'
+    'EDIT_MOVIE': 'Modifier un film',
+    'DUPLICATE_THIS_MOVIE': 'Dupliquer ce film',
+    'EDIT_THIS_MOVIE': 'Éditer ce film',
+    'DELETE_THIS_MOVIE': 'Supprimer ce film'
 });
