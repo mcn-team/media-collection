@@ -82,7 +82,7 @@ angular.module('options').directive('mcUsers', [
                         console.error(errorResponse);
                     };
 
-                    UserServices.signup(scope.newUser).then(successCallback, failureCallback);
+                    UserServices.signup(scope.newUser, true).then(successCallback, failureCallback);
                 }
             }
         };
