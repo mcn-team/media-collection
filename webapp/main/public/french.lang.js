@@ -139,7 +139,6 @@ angular.module('mediacollection').constant('French', {
     'EDIT_THIS_BOOK': 'Éditer ce livre',
     'DELETE_THIS_BOOK': 'Supprimer ce livre',
     'AUTHORS': 'Auteurs',
-    'EDITOR': 'Éditeur',
     'PUBLICATION_DATE': 'Date de publication',
     'ADD_MISSING_BOOKS': 'Ajouter les livres manquant'
 });
