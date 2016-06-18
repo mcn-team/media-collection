@@ -1,7 +1,7 @@
 <section data-ng-controller="CreateMoviesController" data-ng-init="initCreate()">
     <div data-ng-include="'modules/movies/views/search-movie-modal.client.view.html'"></div>
     <div class="page-header">
-        <h1>Nouveau Film</h1>
+        <h1 data-ng-bind="'NEW_MOVIE' | translate"></h1>
     </div>
     <mc-loader></mc-loader>
     <div class="col-xs-12" data-ng-show="isLoaded && !isDuplicate">
