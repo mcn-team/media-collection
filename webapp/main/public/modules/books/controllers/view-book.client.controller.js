@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('books').controller('ViewBookController', [
-    '$scope', '$location', '$stateParams', '$uibModal', '$log',
+    '$scope', '$location', '$stateParams', '$uibModal', '$log', '$timeout',
     'lodash', 'BookServices', 'Authentication', 'BooksDataService',
-    function ($scope, $location, $stateParams, $uibModal, $log, _, BookServices, Authentication, BooksDataService) {
+    function ($scope, $location, $stateParams, $uibModal, $log, $timeout,
+              _, BookServices, Authentication, BooksDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
@@ -54,8 +55,10 @@ angular.module('books').controller('ViewBookController', [
                 if (result.length > 0) {
                     openAutoAddModal(size, result);
                 } else {
-                    console.log('No missing volumes previous to this one');
-                    //TODO if no missing volumes previous to this one
+                    $scope.showAlert = true;
+                    $timeout(function () {
+                        $scope.showAlert = false;
+                    }, 5000);
                 }
             });
         };

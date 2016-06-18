@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('movies').controller('ListMoviesController', [
-    '$scope', '$location', '$anchorScroll', 'Authentication',
+    '$scope', '$location', '$anchorScroll', '$window', 'Authentication',
     'StatsMovieService', 'MovieDataService', 'MovieServices',
-    function($scope, $location, $anchorScroll, Authentication, StatsMovieService, MovieDataService, MovieServices) {
+    function($scope, $location, $anchorScroll, $window, Authentication,
+             StatsMovieService, MovieDataService, MovieServices) {
         var self = this;
         $scope.authentication = Authentication.checkAuth();
 
@@ -12,9 +13,18 @@ angular.module('movies').controller('ListMoviesController', [
             $anchorScroll();
         };
 
+        $scope.updateMode = function () {
+            if ($scope.searchParam === 'multi') {
+                $window.sessionStorage.removeItem('movieSearchMode');
+            } else {
+                $window.sessionStorage.setItem('movieSearchMode', 'multi');
+            }
+            $scope.searchParam = $window.sessionStorage.getItem('movieSearchMode');
+        };
+
         // Find a list of Movies
         $scope.find = function() {
-            $scope.multiSearchOn = false;
+            $scope.searchParam = $window.sessionStorage.getItem('movieSearchMode');
 
             MovieServices.getAllMovies().then(function (response) {
                 $scope.movies = response.data;

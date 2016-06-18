@@ -115,3 +115,9 @@ exports.insertMany = (payload, callback) => {
         responseHelper.serviceCallback(err, response, 204, callback);
     });
 };
+
+exports.findCustomFieldsKeys = (callback) => {
+    Book.distinct('customFields.name').exec((err, response) => {
+        responseHelper.serviceCallback(err, response, 200, callback);
+    });
+};

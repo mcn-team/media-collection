@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('books').controller('ListBooksController', [
-    '$scope', '$location', '$anchorScroll',
+    '$scope', '$location', '$anchorScroll', '$window',
     'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices',
-    function($scope, $location, $anchorScroll, Authentication, StatisticsService, BooksDataService, BookServices) {
+    function($scope, $location, $anchorScroll, $window,
+             Authentication, StatisticsService, BooksDataService, BookServices) {
 
         $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Book';
@@ -13,8 +14,17 @@ angular.module('books').controller('ListBooksController', [
             $anchorScroll();
         };
 
+        $scope.updateMode = function () {
+            if ($scope.searchParam === 'multi') {
+                $window.sessionStorage.removeItem('bookSearchMode');
+            } else {
+                $window.sessionStorage.setItem('bookSearchMode', 'multi');
+            }
+            $scope.searchParam = $window.sessionStorage.getItem('bookSearchMode');
+        };
+
         $scope.find = function () {
-            $scope.multiSearchOn = false;
+            $scope.searchParam = $window.sessionStorage.getItem('bookSearchMode');
 
             BookServices.getAllBooks().then(function (result) {
                 $scope.books = result.data;

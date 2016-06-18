@@ -25,6 +25,9 @@ angular.module('books').factory('MultiSearchValidatorService', [
 
         validatorService.getValidators = function () {
             var fieldContains = function (search, key) {
+                if (!key) {
+                    return false;
+                }
                 if (!search) {
                     return !search;
                 }
@@ -32,6 +35,9 @@ angular.module('books').factory('MultiSearchValidatorService', [
             };
 
             var arrayContains = function (search, key) {
+                if (!key) {
+                    return false;
+                }
                 if (!search) {
                     return !search;
                 }
@@ -52,6 +58,9 @@ angular.module('books').factory('MultiSearchValidatorService', [
             };
 
             var numericIsEquals = function (search, key) {
+                if (!key) {
+                    return false;
+                }
                 if (search === undefined || search === '' || search === null) {
                     return true;
                 }
@@ -59,6 +68,9 @@ angular.module('books').factory('MultiSearchValidatorService', [
             };
 
             var numericCheck = function (search, key) {
+                if (!key) {
+                    return search == key;
+                }
                 if ((!search || !search.start) || (search.type === 'between' && ((!search.start || !search.end) || (search.start > search.end)))) {
                     return true;
                 }
@@ -74,6 +86,9 @@ angular.module('books').factory('MultiSearchValidatorService', [
             };
 
             var datesCheck = function (search, key) {
+                if (!key) {
+                    return false;
+                }
                 if ((!search || !search.start) || (search.type === 'between' && ((!search.start || !search.end)))) {
                     return true;
                 }

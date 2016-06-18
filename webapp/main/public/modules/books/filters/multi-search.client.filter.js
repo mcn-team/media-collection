@@ -12,7 +12,10 @@ angular.module('books').filter('MultiSearchFilter', ['MultiSearchValidatorServic
             angular.forEach(ngRepeatArray, function (current) {
                 var isChecked = true;
                 angular.forEach(validators, function (item, idx) {
-                    if (!item.checker(filters[idx], current[item.key])) {
+                    if (filters[idx] === undefined) {
+                        return;
+                    }
+                    if (!item.checker(filters[idx], current[item.key], item.sub)) {
                         isChecked = false;
                     }
                 });
@@ -20,7 +23,7 @@ angular.module('books').filter('MultiSearchFilter', ['MultiSearchValidatorServic
                     newBookList.PushUnique(current);
                 }
             });
-            if (filters.IsEmptyOrUndefined() && newBookList.length <= 0) {
+            if (filters.IsEmptyOrUndefined()) {
                 newBookList = ngRepeatArray;
             }
 
