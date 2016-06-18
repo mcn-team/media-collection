@@ -128,5 +128,7 @@ angular.module('mediacollection').constant('French', {
     'TIME_STATS': 'Statistiques de temps',
     'LINK': 'Lien',
     'FILE': 'Fichier',
-    'SEARCH_RESULTS': 'Résultats de la recherche'
+    'SEARCH_RESULTS': 'Résultats de la recherche',
+    'COLLECTION_BOUGHT': 'acheté(s)',
+    'COLLECTION_MISSING': 'manquant(s)'
 });

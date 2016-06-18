@@ -14,8 +14,7 @@
             <uib-accordion close-others="oneAtTime" >
                 <uib-accordion-group class="collection-header-field" ng-repeat="item in collectionsList" >
                     <uib-accordion-heading >
-                        <!-- TODO: Convert static word with translate keywords-->
-                        <span class="hidden-xs badge view-collection-missing pull-right">{{item.boughtTotal + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
+                        <span class="hidden-xs badge view-collection-missing pull-right">{{item.boughtTotal + ' '}}{{'COLLECTION_BOUGHT' | translate}}{{' / ' + item.missing + ' '}}{{'COLLECTION_MISSING' | translate}}</span>
                         <div style="font-weight: bold;" >{{item._id}}</div>
                     </uib-accordion-heading>
                     <ul class="list-group" >

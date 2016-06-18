@@ -128,5 +128,7 @@ angular.module('mediacollection').constant('English', {
     'RELEASE_DATE': 'Release date',
     'DATE_PLACEHOLDER': 'mm/dd/yyyy',
     'SEEN': 'Seen',
-    'EDIT_MOVIE': 'Edit movie'
+    'EDIT_MOVIE': 'Edit movie',
+    'COLLECTION_BOUGHT': 'bought',
+    'COLLECTION_MISSING': 'missing'
 });
