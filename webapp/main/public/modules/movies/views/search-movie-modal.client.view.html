@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="searchMovieModalContent.html">
     <div class="modal-header">
-        <h3 class="modal-title">Liste de correspondance</h3>
+        <h3 class="modal-title" data-ng-bind="'SEARCH_RESULTS' | translate"></h3>
     </div>
     <div ng-show="!nothingFound" class="modal-body">
         <ul>
@@ -10,7 +10,10 @@
         </ul>
     </div>
     <div ng-show="nothingFound" class="modal-body">
-        <p>Aucune correspondance trouv&eacute;e pour : {{stringSearched}}</p>
+        <p>
+            {{'NO_MATCHING_FOR' | translate}}
+            {{stringSearched}}
+        </p>
     </div>
     <div data-uib-collapse="isCollapsed">
         <div class="media well">
@@ -24,7 +27,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button ng-show="!nothingFound" class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button ng-show="!nothingFound" class="btn btn-primary" ng-click="ok()" data-ng-bind="'OK' | translate"></button>
+        <button class="btn btn-warning" ng-click="cancel()" data-ng-bind="'CANCEL' | translate"></button>
     </div>
 </script>
