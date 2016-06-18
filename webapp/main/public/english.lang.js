@@ -107,7 +107,7 @@ angular.module('mediacollection').constant('English', {
     'TIME_STATS': 'Time statistics',
     'LINK': 'Link',
     'FILE': 'File',
-    'SEARCH_RESULTS': 'Search results'
+    'SEARCH_RESULTS': 'Search results',
     'NO_MISSING_MSG': 'There is no missing book before this one.',
     'SAVE_PROFILE': 'Save profile',
     'PROFIL_SAVE_SUCCESS': 'Profile Saved Successfully',

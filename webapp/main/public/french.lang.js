@@ -100,7 +100,7 @@ angular.module('mediacollection').constant('French', {
     'RELEASE_DATE': 'Date de sortie',
     'DATE_PLACEHOLDER': 'jj/mm/aaaa',
     'SEEN': 'Vu',
-    'EDIT_MOVIE': 'Modifier un film'
+    'EDIT_MOVIE': 'Modifier un film',
     'NO_MISSING_MSG': 'Il n\'y a aucun livre manquant avant ce livre ci.',
     'CLEAR': 'Réinitialisation',
     'SEARCH': 'Recherche...',
