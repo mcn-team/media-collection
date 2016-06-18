@@ -1,7 +1,7 @@
 <section data-ng-controller="ListCollectionController" ng-show="authentication.user" data-ng-init="findCollection()">
     <div class="page-header">
         <h1 >
-            <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" >Statistiques</button>
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats()" data-ng-bind="'STATS' | translate"></button>
             Mes Collections
         </h1>
     </div>
@@ -14,6 +14,7 @@
             <uib-accordion close-others="oneAtTime" >
                 <uib-accordion-group class="collection-header-field" ng-repeat="item in collectionsList" >
                     <uib-accordion-heading >
+                        <!-- TODO: Convert static word with translate keywords-->
                         <span class="hidden-xs badge view-collection-missing pull-right">{{item.boughtTotal + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
                         <div style="font-weight: bold;" >{{item._id}}</div>
                     </uib-accordion-heading>

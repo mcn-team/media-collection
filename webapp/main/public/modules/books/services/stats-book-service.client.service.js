@@ -13,17 +13,17 @@ angular.module('books').factory('StatsBookService', [
 
         var initStatistics = function () {
             statistics = {
-                collections: { field: 'Nombre de collection', value: 0 },
-                media: { field: 'Nombre de livres', value: 0 },
-                mediaValue: { field: 'Valeur totale', value: 0 },
-                missingValue: { field: 'Valeur non renseignées', value: 0 },
-                headerDone: { field: 'Statistiques de lecture' },
-                done: { field: 'Livres terminés', value: 0, popover: 'Nombre de livres lus : ' },
-                onGoing: { field: 'Lecture en cours', value: 0, popover: 'Livres en cours de lecture : ' },
-                notDone: { field: 'Livres non lu', value: 0, popover: 'Nombre de livres non lu : ' },
-                bought: { field: 'Livres achetés', value: 0, popover: 'Nombre de livres achetés : ' },
-                toBought: { field: 'Livres à acheter', value: 0, popover: 'Nombre de livres à acheter : ' },
-                mediaMissing: { field: 'Livres manquant', value: 0, popover: 'Nombre de livres manquants : ' }
+                collections: { field: 'COLLECTION_NUMBER', value: 0 },
+                media: { field: 'BOOKS_NUMBER', value: 0 },
+                mediaValue: { field: 'TOTAL_VALUE', value: 0 },
+                missingValue: { field: 'MISSING_VALUE', value: 0 },
+                headerDone: { field: 'READING_STATS' },
+                done: { field: 'ENDED_BOOKS', value: 0, popover: 'READ_BOKS_COUNT'},
+                onGoing: { field: 'ONGOING_READING', value: 0, popover: 'ONGOING_BOOKS' },
+                notDone: { field: 'UNREAD_BOOKS', value: 0, popover: 'UNREAD_BOOKS_NUM' },
+                bought: { field: 'BOUGHT_BOOKS', value: 0, popover: 'BOUGHT_BOOKS_NUM' },
+                toBought: { field: 'BOOKS_TO_BUY', value: 0, popover: 'BOOKS_TO_BUY_NUM' },
+                mediaMissing: { field: 'MISSING_BOOKS', value: 0, popover: 'MISSING_BOOKS_NUM' }
             };
         };
 

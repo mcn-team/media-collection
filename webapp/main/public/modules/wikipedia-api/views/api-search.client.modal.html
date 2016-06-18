@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="apiSearchClientModal.html">
     <div class="modal-header">
-        <h3 class="modal-title">Liste des sites de recherche</h3>
+        <h3 class="modal-title" data-ng-bind="'SEARCH_RESULTS' | translate"></h3>
     </div>
 
     <div data-ng-hide="isSelected" class="col-xs-12" >
@@ -23,7 +23,7 @@
     </div>
 
     <div class="modal-footer">
-        <button ng-show="!nothingFound" class="btn btn-primary" ng-click="validateModal()">OK</button>
-        <button class="btn btn-warning" ng-click="cancelModal()">Cancel</button>
+        <button ng-show="!nothingFound" class="btn btn-primary" ng-click="validateModal()" data-ng-bind="'OK' | translate">OK</button>
+        <button class="btn btn-warning" ng-click="cancelModal()" data-ng-bind="'CANCEL' | translate"></button>
     </div>
 </script>
