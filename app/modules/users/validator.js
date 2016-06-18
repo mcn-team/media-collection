@@ -20,7 +20,7 @@ exports.userIdParams = {
 
 exports.updatePayload = {
     username: Joi.string().alphanum().trim(),
-    displayName: Joi.string().alphanum().trim(),
+    displayName: Joi.string().trim(),
     email: Joi.string().email().trim()
 };
 

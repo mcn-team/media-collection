@@ -81,5 +81,7 @@ angular.module('mediacollection').constant('English', {
     'BEFORE': 'Before',
     'AND_T': 'And the...',
     'FIELD': 'Field',
-    'NO_MISSING_MSG': 'There is no missing book before this one.'
+    'NO_MISSING_MSG': 'There is no missing book before this one.',
+    'SAVE_PROFILE': 'Save profile',
+    'PROFIL_SAVE_SUCCESS': 'Profile Saved Successfully'
 });

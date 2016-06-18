@@ -81,5 +81,7 @@ angular.module('mediacollection').constant('French', {
     'BEFORE': 'Avant',
     'AND_T': 'Et le...',
     'FIELD': 'Champs',
-    'NO_MISSING_MSG': 'Il n\'y a aucun livre manquant avant ce livre ci.'
+    'NO_MISSING_MSG': 'Il n\'y a aucun livre manquant avant ce livre ci.',
+    'SAVE_PROFILE': 'Enregistrer',
+    'PROFIL_SAVE_SUCCESS': 'Profil sauvegardé'
 });
