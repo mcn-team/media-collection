@@ -133,5 +133,9 @@ angular.module('mediacollection').constant('French', {
     'COLLECTION_MISSING': 'manquant(s)',
     'DUPLICATE_THIS_MOVIE': 'Dupliquer ce film',
     'EDIT_THIS_MOVIE': 'Éditer ce film',
-    'DELETE_THIS_MOVIE': 'Supprimer ce film'
+    'DELETE_THIS_MOVIE': 'Supprimer ce film',
+    'MATCH': 'correspondance',
+    'MATCHES': 'correspondances',
+    'MY_BOOKS_COLLECTIONS': 'Mes collections de livres',
+    'MY_MOVIES_COLLECTIONS': 'Mes collections de films'
 });

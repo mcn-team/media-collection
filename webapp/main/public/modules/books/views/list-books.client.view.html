@@ -23,8 +23,8 @@
                 <div data-ng-show="search" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
                 <span class="list-group-item" >
                     {{filteredBooks.length}}
-                    <span data-ng-show="filteredBooks.length > 1"> correspondances</span>
-                    <span data-ng-show="filteredBooks.length < 2"> correspondance</span>
+                    <span data-ng-show="filteredBooks.length > 1" data-ng-bind="'MATCHES' | translate"></span>
+                    <span data-ng-show="filteredBooks.length < 2" data-ng-bind="'NATCH' | translate"></span>
                 </span>
                 </div>
             </div>
@@ -46,8 +46,20 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading list-title" data-ng-bind="book.collectionName ? book.collectionName + ' T. ' + book.volume + (book.title ? ' : ' + book.title : '') : book.title" ></h4>
-                    <p data-ng-show="book.authors" class="list-group-item-text"><span class="list-people">Auteur(s) :</span> {{formatAuthors(book.authors)}}</p>
-                    <p data-ng-show="book.publisher" class="list-group-item-text"><span class="list-people">&Eacute;diteur :</span> {{book.publisher}}</p>
+                    <p data-ng-show="book.authors" class="list-group-item-text">
+                        <span class="list-people">
+                            {{'AUTHORS' | translate}}
+                            :
+                        </span>
+                        {{formatAuthors(book.authors)}}
+                    </p>
+                    <p data-ng-show="book.publisher" class="list-group-item-text">
+                        <span class="list-people">
+                            {{'PUBLISHER' | translate}}
+                            :
+                        </span>
+                        {{book.publisher}}
+                    </p>
                     <h6 data-ng-show="book.summary" class="list-group-item-text" data-ng-bind="book.summary.TruncIsh(450)" ></h6>
                 </div>
             </div>

@@ -134,5 +134,9 @@ angular.module('mediacollection').constant('English', {
     'DUPLICATE_THIS_MOVIE': 'Duplicate this movie',
     'EDIT_THIS_MOVIE': 'Edit this movie',
     'DELETE_THIS_MOVIE': 'Delete this movie',
-    'EPISODE_SHORT': 'ep.'
+    'EPISODE_SHORT': 'ep.',
+    'MATCH': 'match',
+    'MATCHES': 'matches',
+    'MY_BOOKS_COLLECTIONS': 'My books collections',
+    'MY_MOVIES_COLLECTIONS': 'My movies collections'
 });
