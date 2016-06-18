@@ -133,5 +133,13 @@ angular.module('mediacollection').constant('French', {
     'COLLECTION_MISSING': 'manquant(s)',
     'DUPLICATE_THIS_MOVIE': 'Dupliquer ce film',
     'EDIT_THIS_MOVIE': 'Éditer ce film',
-    'DELETE_THIS_MOVIE': 'Supprimer ce film'
+    'DELETE_THIS_MOVIE': 'Supprimer ce film',
+    'EPISODE_SHORT': 'ép.',
+    'DUPLICATE_THIS_BOOK': 'Dupliquer ce livre',
+    'EDIT_THIS_BOOK': 'Éditer ce livre',
+    'DELETE_THIS_BOOK': 'Supprimer ce livre',
+    'AUTHORS': 'Auteurs',
+    'EDITOR': 'Éditeur',
+    'PUBLICATION_DATE': 'Date de publication',
+    'ADD_MISSING_BOOKS': 'Ajouter les livres manquant'
 });

@@ -134,5 +134,12 @@ angular.module('mediacollection').constant('English', {
     'DUPLICATE_THIS_MOVIE': 'Duplicate this movie',
     'EDIT_THIS_MOVIE': 'Edit this movie',
     'DELETE_THIS_MOVIE': 'Delete this movie',
-    'EPISODE_SHORT': 'ep.'
+    'EPISODE_SHORT': 'ep.',
+    'DUPLICATE_THIS_BOOK': 'Duplicate this book',
+    'EDIT_THIS_BOOK': 'Edit this book',
+    'DELETE_THIS_BOOK': 'Delete this book',
+    'AUTHORS': 'Authors',
+    'EDITOR': 'Editor',
+    'PUBLICATION_DATE': 'Publication date',
+    'ADD_MISSING_BOOKS': 'Add missing books'
 });
