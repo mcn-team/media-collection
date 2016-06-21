@@ -79,7 +79,7 @@ angular.module('mediacollection').constant('French', {
     'SINCE': 'Depuis',
     'BETWEEN': 'Entre',
     'BEFORE': 'Avant',
-    'AND_T': 'Et le...',
+    'AND_T': 'et le...',
     'FIELD': 'Champs',
     'SAVE_PROFILE': 'Enregistrer',
     'PROFIL_SAVE_SUCCESS': 'Profil sauvegardé',
@@ -105,7 +105,7 @@ angular.module('mediacollection').constant('French', {
     'CLEAR': 'Réinitialisation',
     'SEARCH': 'Recherche...',
     'BETWEEN_T': 'Entre le...',
-    'AND': 'Et',
+    'AND': 'et',
     'GLOBAL_STATS': 'Statistiques générales',
     'COLLECTION_NUMBER': 'Nombre de collection',
     'TOTAL_VALUE': 'Valeur totale',
@@ -146,5 +146,10 @@ angular.module('mediacollection').constant('French', {
     'MY_BOOKS_COLLECTIONS': 'Mes collections de livres',
     'OUTPUT': 'Rendu',
     'MY_MOVIES_COLLECTIONS': 'Mes collections de films',
-    'NO_MATCHING_FOR': 'Aucune correspondance trouvée pour : '
+    'NO_MATCHING_FOR': 'Aucune correspondance trouvée pour : ',
+    'MORE': 'Plus',
+    'LESS': 'Moins',
+    'BETWEEN...': 'Entre...',
+    'AND...': 'et...',
+    'DATE': 'Date'
 });

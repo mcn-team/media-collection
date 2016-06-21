@@ -79,12 +79,12 @@ angular.module('mediacollection').constant('English', {
     'SINCE': 'Since',
     'BETWEEN': 'Between',
     'BEFORE': 'Before',
-    'AND_T': 'And the...',
+    'AND_T': 'and the...',
     'FIELD': 'Field',
     'CLEAR':'Reset',
     'SEARCH': 'Search...',
     'BETWEEN_T': 'Between the...',
-    'AND': 'And',
+    'AND': 'and',
     'GLOBAL_STATS': 'Global statistics',
     'COLLECTION_NUMBER': 'Collection count',
     'TOTAL_VALUE': 'Total value',
@@ -146,5 +146,10 @@ angular.module('mediacollection').constant('English', {
     'MY_BOOKS_COLLECTIONS': 'My books collections',
     'OUTPUT': 'Output',
     'MY_MOVIES_COLLECTIONS': 'My movies collections',
-    'NO_MATCHING_FOR': 'No matching for : '
+    'NO_MATCHING_FOR': 'No matching for : ',
+    'MORE': 'More',
+    'LESS': 'Less',
+    'BETWEEN...': 'Between...',
+    'AND...': 'and...',
+    'DATE': 'Date'
 });
