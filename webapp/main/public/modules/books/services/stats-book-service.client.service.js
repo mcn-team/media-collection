@@ -18,7 +18,7 @@ angular.module('books').factory('StatsBookService', [
                 mediaValue: { field: 'TOTAL_VALUE', value: 0 },
                 missingValue: { field: 'MISSING_VALUE', value: 0 },
                 headerDone: { field: 'READING_STATS' },
-                done: { field: 'ENDED_BOOKS', value: 0, popover: 'READ_BOKS_COUNT'},
+                done: { field: 'ENDED_BOOKS', value: 0, popover: 'READ_BOOKS_COUNT'},
                 onGoing: { field: 'ONGOING_READING', value: 0, popover: 'ONGOING_BOOKS' },
                 notDone: { field: 'UNREAD_BOOKS', value: 0, popover: 'UNREAD_BOOKS_NUM' },
                 bought: { field: 'BOUGHT_BOOKS', value: 0, popover: 'BOUGHT_BOOKS_NUM' },

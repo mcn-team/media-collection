@@ -82,7 +82,7 @@ angular.module('mediacollection').constant('French', {
     'AND_T': 'et le...',
     'FIELD': 'Champs',
     'SAVE_PROFILE': 'Enregistrer',
-    'PROFIL_SAVE_SUCCESS': 'Profil sauvegardé',
+    'PROFILE_SAVE_SUCCESS': 'Profil sauvegardé',
     'NEW_MOVIE': 'Nouveau film',
     'SEARCH_MOVIE': 'Rechercher un film :',
     'ENTER_TITLE': 'Entrez un titre',
@@ -151,5 +151,16 @@ angular.module('mediacollection').constant('French', {
     'LESS': 'Moins',
     'BETWEEN...': 'Entre...',
     'AND...': 'et...',
-    'DATE': 'Date'
+    'DATE': 'Date',
+    'MOVIE_NUMBER': 'Nombre de films',
+    'VIEWING_STATISTICS': 'Statistiques de visionnage',
+    'SEEN_MOVIES': 'Films vus',
+    'UNSEEN_MOVIE': 'Films non vus',
+    'MOVIES_BOUGHT': 'Films achetés',
+    'MOVIES_TO_BUY': 'Films à acheter',
+    'MISSING_MOVIES': 'Films manquants',
+    'TOTAL_DURATION': 'Durée totale',
+    'TOTAL_SEEN_DURATION': 'Durée totale regardée',
+    'LEFT_TO_SEE_DURATION': 'Reste à voir',
+    'EDIT_PROFILE_TITLE': 'Modifiez votre profil'
 });

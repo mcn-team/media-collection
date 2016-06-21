@@ -14,8 +14,10 @@
                                 {{$parent.stats.collections.field | translate}}
                             </div>
                             <div class="list-group-item col-md-3">
-                                <!--TODO: translate missing-->
-                                <span class="badge">{{$parent.stats.media.value + ' (' + $parent.stats.bought.value + ' achetés)'}}</span>
+                                <span class="badge">
+                                    {{$parent.stats.media.value + ' (' + $parent.stats.bought.value}}
+                                    {{('BOUGHT' | translate).toLowerCase() + ')'}}
+                                </span>
                                 {{$parent.stats.media.field | translate}}
                             </div>
                             <div class="list-group-item col-md-3">
