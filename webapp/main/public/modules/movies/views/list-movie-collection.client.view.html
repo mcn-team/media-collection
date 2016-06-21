@@ -1,8 +1,8 @@
 <section data-ng-controller="ListMovieCollectionController" data-ng-init="findCollection();">
     <div class="page-header">
         <h1 >
-            <button class="badge pull-right btn btn-primary view-field-info-margin-top" ng-click="goToStats();" >Statistiques</button>
-            Mes Collections
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats();" data-ng-bind="'STATS' | translate"></button>
+            {{'MY_MOVIES_COLLECTIONS' | translate}}
         </h1>
     </div>
     <mc-loader></mc-loader>
@@ -14,7 +14,12 @@
             <uib-accordion close-others="oneAtTime" >
                 <uib-accordion-group class="collection-header-field" ng-repeat="item in collectionTab" >
                     <uib-accordion-heading >
-                        <span class="hidden-xs badge view-collection-missing pull-right">{{item.boughtTotal + ' acheté(s) / ' + item.missing + ' manquant(s)'}}</span>
+                        <span class="hidden-xs badge view-collection-missing pull-right">
+                            {{item.boughtTotal}}
+                            {{'COLLECTION_BOUGHT' | translate}}
+                            {{'/ ' + item.missing}}
+                            {{'COLLECTION_MISSING' | translate}}
+                        </span>
                         <div style="font-weight: bold;" >{{item._id}}</div>
                     </uib-accordion-heading>
                     <ul class="list-group" >

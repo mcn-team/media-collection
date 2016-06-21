@@ -1,32 +1,32 @@
 <fieldset>
     <div class="form-group">
         <div class="col-xs-12 col-md-6 row">
-            <h3>Information générales</h3>
+            <h3 data-ng-bind="'GENERAL_INFO' | translate"></h3>
             <div class="col-xs-12">
-                Note :
+                {{'RATING' | translate}} :
                 <rating data-ng-model="mediaModel.movieRate" max="ratingMax" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                 <span class="label" data-ng-class="{'label-danger': overStar<3, 'label-info': overStar>=3 && overStar<7, 'label-success': overStar>=7}" data-ng-show="overStar && !isReadonly">{{overStar}}/{{ratingMax}}</span>
             </div>
             <div class="col-xs-12">
-                <label class="control-label" for="title">Titre</label>
+                <label class="control-label" for="title" data-ng-bind="'TITLE' | translate"></label>
                 <div class="controls">
-                    <input type="text" data-ng-model="mediaModel.title" id="title" class="form-control" placeholder="Titre" required>
+                    <input type="text" data-ng-model="mediaModel.title" id="title" class="form-control" placeholder="{{'TITLE' | translate}}" required>
                 </div>
             </div>
             <div class="{{mediaModel.collectionName ? 'col-xs-8 col-sm-9' : 'col-xs-12'}}">
-                <label class="control-label" for="collectionName">Collection</label>
+                <label class="control-label" for="collectionName" data-ng-bind="'COLLECTION' | translate"></label>
                 <div class="controls">
-                    <input type="text" data-ng-model="mediaModel.collectionName" typeahead="collection for collection in listExisting | filter:$viewValue | limitTo:8" id="collectionName" class="form-control" placeholder="Collection" >
+                    <input type="text" data-ng-model="mediaModel.collectionName" typeahead="collection for collection in listExisting | filter:$viewValue | limitTo:8" id="collectionName" class="form-control" placeholder="{{'COLLECTION' | translate}}" >
                 </div>
             </div>
             <div data-ng-show="mediaModel.collectionName ? true : false" class="col-xs-4 col-sm-3">
-                <label class="control-label" for="episode">Episode</label>
+                <label class="control-label" for="episode" data-ng-bind="'EPISODE' | translate"></label>
                 <div class="controls">
-                    <input data-ng-model="mediaModel.episode" data-ng-disabled="mediaModel.collectionName ? false : true" type="number" id="episode" class="form-control">
+                    <input data-ng-model="mediaModel.episode" data-ng-disabled="mediaModel.collectionName ? false : true" type="number" id="episode" class="form-control" placeholder="#">
                 </div>
             </div>
             <div class="col-xs-12">
-                <label class="control-label" for="actor">Acteur</label>
+                <label class="control-label" for="actor" data-ng-bind="'ACTORS' | translate"></label>
             </div>
             <div class="col-xs-12" data-ng-repeat="item in mediaModel.actorsList"  >
                 <div class="input-group">
@@ -41,7 +41,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="input-group">
-                    <input type="text" data-ng-model="mediaModel.actor" id="actor" class="form-control" placeholder="Acteur">
+                    <input type="text" data-ng-model="mediaModel.actor" id="actor" class="form-control" placeholder="{{'ACTOR' | translate}}">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-success" id="addActorBtn" type="button" data-ng-disabled="checkField('actor')" data-ng-click="addField('actorsList', 'actor')" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/plus24.png">
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <label class="control-label" for="producer">Producteur</label>
+                <label class="control-label" for="producer" data-ng-bind="'PRODUCERS' | translate"></label>
             </div>
             <div class="col-xs-12" data-ng-repeat="item in mediaModel.producersList"  >
                 <div class="input-group">
@@ -65,7 +65,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="input-group">
-                    <input type="text" data-ng-model="mediaModel.producer" id="producer" class="form-control" placeholder="Acteur">
+                    <input type="text" data-ng-model="mediaModel.producer" id="producer" class="form-control" placeholder="{{'PRODUCER' | translate}}">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-success" id="addProducerBtn" type="button" data-ng-disabled="checkField('producer')" data-ng-click="addField('producersList', 'producer')" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/plus24.png">
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <label class="control-label" for="director">R&eacute;alisateur</label>
+                <label class="control-label" for="director" data-ng-bind="'DIRECTORS' | translate"></label>
             </div>
             <div class="col-xs-12" data-ng-repeat="item in mediaModel.directorsList"  >
                 <div class="input-group">
@@ -89,7 +89,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="input-group">
-                    <input type="text" data-ng-model="mediaModel.director" id="director" class="form-control" placeholder="Acteur">
+                    <input type="text" data-ng-model="mediaModel.director" id="director" class="form-control" placeholder="{{'DIRECTOR' | translate}}">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-success" id="addDirectorBtn" type="button" data-ng-disabled="checkField('director')" data-ng-click="addField('directorsList', 'director')" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/plus24.png">
@@ -98,7 +98,7 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <label class="control-label" for="scenarist">Sc&eacute;nariste</label>
+                <label class="control-label" for="scenarist" data-ng-bind="'SCENARISTS' | translate"></label>
             </div>
             <div class="col-xs-12" data-ng-repeat="item in mediaModel.scenaristsList"  >
                 <div class="input-group">
@@ -113,7 +113,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="input-group">
-                    <input type="text" data-ng-model="mediaModel.scenarist" id="scenarist" class="form-control" placeholder="Acteur">
+                    <input type="text" data-ng-model="mediaModel.scenarist" id="scenarist" class="form-control" placeholder="{{'SCENARIST' | translate}}">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-success" id="addScenaristBtn" type="button" data-ng-disabled="checkField('scenarist')" data-ng-click="addField('scenaristsList', 'scenarist')" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/plus24.png">
@@ -123,31 +123,31 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-6 row" >
-            <h3>Information supplémentaires</h3>
+            <h3 data-ng-bind="'ADD_INFO' | translate"></h3>
             <div class="col-xs-12 col-sm-4" >
-                <label class=" control-label" for="Price">Prix</label>
+                <label class=" control-label" for="Price" data-ng-bind="'PRICE' | translate"></label>
                 <div class="controls">
-                    <input class="form-control" type="number" step="0.01" min="0" data-ng-model="mediaModel.price" id="Price" placeholder="Prix" >
+                    <input class="form-control" type="number" step="0.01" min="0" data-ng-model="mediaModel.price" id="Price" placeholder="{{'PRICE' | translate}}" >
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3">
-                <label class="control-label" for="duration">Dur&eacute;e</label>
-                <input class="form-control" id="duration" type="number" data-ng-model="mediaModel.duration" >
+                <label class="control-label" for="duration" data-ng-bind="'DURATION' | translate"></label>
+                <input class="form-control" id="duration" type="number" data-ng-model="mediaModel.duration" placeholder="{{'MINUTES_SHORT' | translate}}">
             </div>
             <div class="controls col-xs-12 col-sm-5">
-                <label class="control-label" for="type">Type</label>
+                <label class="control-label" for="type" data-ng-bind="'TYPE' | translate"></label>
                 <div class="controls " >
                     <select class="form-control" id="type" data-ng-model="mediaModel.selectedType" data-ng-options="type.displayName for type in mediaModel.typeList" required></select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-5" >
-                <label class="control-label" for="ReleasedDate">Date de sortie</label>
+                <label class="control-label" for="ReleasedDate" data-ng-bind="'RELEASE_DATE' | translate"></label>
                 <div class="controls">
-                    <input class="form-control" type="date" data-ng-model="mediaModel.releasedDate" id="ReleasedDate" placeholder="jj/mm/aaaa">
+                    <input class="form-control" type="date" data-ng-model="mediaModel.releasedDate" id="ReleasedDate" placeholder="{{'DATE_PLACEHOLDER' | translate}}">
                 </div>
             </div>
             <div class="col-xs-6 col-sm-2">
-                <label class="control-label" >Vu</label>
+                <label class="control-label" data-ng-bind="'SEEN' | translate"></label>
                 <div>
                     <button class="btn btn-success" data-ng-show="mediaModel.seen === true" data-ng-click="mediaModel.seen = false" data-ng-model="mediaModel.seen" >
                         <img class="form-icon-btn-size" data-ng-src="/assets/img/view8.png">
@@ -158,7 +158,7 @@
                 </div>
             </div>
             <div class="col-xs-6 col-sm-2" >
-                <label class="control-label" >Achet&eacute;</label>
+                <label class="control-label" data-ng-bind="'BOUGHT' | translate"></label>
                 <div>
                     <button class="btn btn-success" data-ng-show="mediaModel.bought === true" data-ng-click="mediaModel.bought = false" data-ng-model="mediaModel.bought" >
                         <img class="form-icon-btn-size" data-ng-src="/assets/img/correct2.png">
@@ -169,15 +169,15 @@
                 </div>
             </div>
             <div class="col-xs-12" >
-                <label class="control-label" for="cover">Couverture</label>
+                <label class="control-label" for="cover" data-ng-bind="'COVER' | translate"></label>
                 <div class="controls">
                     <input class="form-control" id="cover" type="url" data-ng-model="mediaModel.cover" placeholder="http://" >
                 </div>
             </div>
             <div class="col-xs-12">
-                <label class="control-label" for="summary">R&eacute;sum&eacute;</label>
+                <label class="control-label" for="summary" data-ng-bind="'SUMMARY' | translate"></label>
                 <div class="controls">
-                    <textarea class="summary-textarea form-control text" id="summary" data-ng-model="mediaModel.summary" placeholder="Résumé" ></textarea>
+                    <textarea class="summary-textarea form-control text" id="summary" data-ng-model="mediaModel.summary" placeholder="{{'SUMMARY' | translate}}" ></textarea>
                 </div>
             </div>
         </div>
@@ -186,8 +186,8 @@
         </div>
     </div>
     <div class="col-xs-12 form-group micro-margin-top-fixed row">
-        <input data-ng-click="validateForm();" value="Valider" class="cancel-button btn btn-success pull-right micro-margin-right-fixed">
-        <input data-ng-click="cancelPage();" class="cancel-button btn btn-danger pull-right micro-margin-right-fixed" value="Annuler">
+        <input data-ng-click="validateForm();" value="{{'VALIDATE' | translate}}" class="cancel-button btn btn-success pull-right micro-margin-right-fixed">
+        <input data-ng-click="cancelPage();" class="cancel-button btn btn-danger pull-right micro-margin-right-fixed" value="{{'CANCEL' | translate}}">
     </div>
     <div style="line-height: 34px" data-ng-show="error" class="text-danger pull-right micro-margin-right-fixed">
         <strong data-ng-bind="error"></strong>

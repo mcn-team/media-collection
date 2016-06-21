@@ -1,10 +1,10 @@
 <section data-ng-controller="ListBooksController as ListBookCtrl" data-ng-show="authentication.user" data-ng-init="find()">
     <div class="page-header">
         <h1>
-            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats()" >Statistiques</button>
-            <button data-ng-show="searchParam === 'multi'" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right">Recherche rapide</button>
-            <buttom data-ng-show="!searchParam" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" >Recherche multi-critères</buttom>
-            Mes Livres
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats()" data-ng-bind="'STATS' | translate"></button>
+            <button data-ng-show="searchParam === 'multi'" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-bind="'QUICK_SEARCH' | translate"></button>
+            <button data-ng-show="!searchParam" data-ng-click="updateMode()" class="badge pull-right btn btn-primary view-field-info-margin-top view-field-info-margin-right" data-ng-bind="'MULTI_SEARCH' | translate"></button>
+            {{ 'MY_BOOKS' | translate}}
         </h1>
     </div>
     <mc-loader></mc-loader>
@@ -14,17 +14,17 @@
     <div  class="col-md-12 listBookFilter" data-ng-show="!searchParam && isLoaded">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title" >Recherche rapide</h3>
+                <h3 class="panel-title" data-ng-bind="'QUICK_SEARCH' | translate"></h3>
             </div>
             <div class="panel-body">
                 <div class="quicksearch-input col-xs-12 col-sm-5 col-md-4 col-lg-3 ">
-                    <input class="form-control" id="searchBookInput" name="searchBookInput" data-ng-model="search" placeholder="Search...">
+                    <input class="form-control" id="searchBookInput" name="searchBookInput" data-ng-model="search" placeholder="{{'SEARCH' | translate}}">
                 </div>
                 <div data-ng-show="search" class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
                 <span class="list-group-item" >
                     {{filteredBooks.length}}
-                    <span data-ng-show="filteredBooks.length > 1"> correspondances</span>
-                    <span data-ng-show="filteredBooks.length < 2"> correspondance</span>
+                    <span data-ng-show="filteredBooks.length > 1" data-ng-bind="'MATCHES' | translate"></span>
+                    <span data-ng-show="filteredBooks.length < 2" data-ng-bind="'NATCH' | translate"></span>
                 </span>
                 </div>
             </div>
@@ -46,8 +46,20 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading list-title" data-ng-bind="book.collectionName ? book.collectionName + ' T. ' + book.volume + (book.title ? ' : ' + book.title : '') : book.title" ></h4>
-                    <p data-ng-show="book.authors" class="list-group-item-text"><span class="list-people">Auteur(s) :</span> {{formatAuthors(book.authors)}}</p>
-                    <p data-ng-show="book.publisher" class="list-group-item-text"><span class="list-people">&Eacute;diteur :</span> {{book.publisher}}</p>
+                    <p data-ng-show="book.authors" class="list-group-item-text">
+                        <span class="list-people">
+                            {{'AUTHORS' | translate}}
+                            :
+                        </span>
+                        {{formatAuthors(book.authors)}}
+                    </p>
+                    <p data-ng-show="book.publisher" class="list-group-item-text">
+                        <span class="list-people">
+                            {{'PUBLISHER' | translate}}
+                            :
+                        </span>
+                        {{book.publisher}}
+                    </p>
                     <h6 data-ng-show="book.summary" class="list-group-item-text" data-ng-bind="book.summary.TruncIsh(450)" ></h6>
                 </div>
             </div>

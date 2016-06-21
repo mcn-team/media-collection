@@ -1,6 +1,6 @@
 <section>
     <div ng-show="$parent.$parent.multiSearch.collectionSearch ? true : false" class="col-xs-12 col-sm-2 col-md-2 col-lg-1 multi-search-margin-bottom">
-        <label class="control-label" for="volumeSearch" >Volume</label>
+        <label class="control-label" for="volumeSearch" data-ng-bind="'VOLUME' | translate"></label>
         <input class="form-control" type="number" id="volumeSearch" data-ng-model="$parent.$parent.multiSearch.volumeSearch" placeholder="#">
     </div>
 </section>

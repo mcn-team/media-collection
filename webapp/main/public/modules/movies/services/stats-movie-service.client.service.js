@@ -10,19 +10,19 @@ angular.module('movies').factory('StatsMovieService', [
 
         var initStatistics = function () {
             statistics = {
-                collections: { field: 'Nombre de collection', value: 0 },
-                media: { field: 'Nombre de Films', value: 0 },
-                mediaValue: { field: 'Valeur totale', value: 0 },
-                missingValue: { field: 'Valeur non renseignées', value: 0 },
-                headerDone: { field: 'Statistiques de visionnage' },
-                done: { field: 'Films terminés', value: 0, popover: 'Nombre de films vus : ' },
-                notDone: { field: 'Films non Vu', value: 0, popover: 'Nombre de films non vu : ' },
-                bought: { field: 'Films achetés', value: 0, popover: 'Nombre de films achetés : ' },
-                toBought: { field: 'Films à acheter', value: 0, popover: 'Nombre de films à acheter : ' },
-                mediaMissing: { field: 'Films manquant', value: 0 },
-                totalDuration: { field: 'Durée totale', value: 0},
-                totalSeenDuration: { field: 'Durée totale vu', value: 0, popover: 'Durée totale regardée : ' },
-                toWatchDuration: { field: 'Reste à voir', value: 0, popover: 'Durée restante à voir : '  }
+                collections: { field: 'COLLECTION_NUMBER', value: 0 },
+                media: { field: 'MOVIE_NUMBER', value: 0 },
+                mediaValue: { field: 'TOTAL_VALUE', value: 0 },
+                missingValue: { field: 'MISSING_VALUE', value: 0 },
+                headerDone: { field: 'VIEWING_STATISTICS' },
+                done: { field: 'SEEN_MOVIES', value: 0, popover: 'SEEN_MOVIES' },
+                notDone: { field: 'UNSEEN_MOVIE', value: 0, popover: 'UNSEEN_MOVIE' },
+                bought: { field: 'MOVIES_BOUGHT', value: 0, popover: 'MOVIES_BOUGHT' },
+                toBought: { field: 'MOVIES_TO_BUY', value: 0, popover: 'MOVIES_TO_BUY' },
+                mediaMissing: { field: 'MISSING_MOVIES', value: 0 },
+                totalDuration: { field: 'TOTAL_DURATION', value: 0},
+                totalSeenDuration: { field: 'TOTAL_SEEN_DURATION', value: 0, popover: 'TOTAL_SEEN_DURATION' },
+                toWatchDuration: { field: 'LEFT_TO_SEE_DURATION', value: 0, popover: 'LEFT_TO_SEE'  }
             };
         };
 

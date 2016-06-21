@@ -10,9 +10,9 @@
     </div>
     <div class="col-xs-8 {{$parent.$parent.multiSearch.durationSearch.type === 'between' ? 'col-sm-2' : 'col-sm-4' }} col-md-2 col-lg-2 multi-search-margin-bottom">
         <label class="control-label" for="durationSearchStart" >Dur&eacute;e</label>
-        <input ng-disabled="$parent.$parent.multiSearch.durationSearch.type === undefined" class="form-control" type="number" id="durationSearchStart" data-ng-model="$parent.$parent.multiSearch.durationSearch.start" placeholder="{{$parent.$parent.multiSearch.durationSearch.type === 'between' ? 'Entre...' : 'Durée'}}" >
+        <input ng-disabled="$parent.$parent.multiSearch.durationSearch.type === undefined" class="form-control" type="number" id="durationSearchStart" data-ng-model="$parent.$parent.multiSearch.durationSearch.start" placeholder="{{($parent.$parent.multiSearch.durationSearch.type === 'between' ? 'BETWEEN...' : 'DURATION') | translate}}" >
     </div>
     <div ng-show="$parent.$parent.multiSearch.durationSearch.type === 'between'" class="col-xs-offset-4 col-xs-8 col-sm-offset-0 col-sm-2 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2 multi-search-margin-bottom multi-search-button-center">
-        <input class="form-control" type="number" min="{{$parent.$parent.multiSearch.durationSearch.start}}" id="durationSearchEnd" data-ng-model="$parent.$parent.multiSearch.durationSearch.end" placeholder="Et..." >
+        <input class="form-control" type="number" min="{{$parent.$parent.multiSearch.durationSearch.start}}" id="durationSearchEnd" data-ng-model="$parent.$parent.multiSearch.durationSearch.end" placeholder="{{'AND...' | translate}}" >
     </div>
 </section>

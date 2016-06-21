@@ -1,18 +1,18 @@
 <section>
     <div class="col-xs-4 col-sm-2 col-md-1 col-lg-1 multi-search-margin-bottom multi-search-button-center" >
         <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'exact'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = 'more'" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" >#</button>
-        <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'between'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = undefined" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" >Entre</button>
-        <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'more'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = 'less'" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" >Plus</button>
-        <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'less'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = 'between'" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" >Moins</button>
+        <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'between'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = undefined" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" data-ng-bind="'BETWEEN' | translate"></button>
+        <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'more'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = 'less'" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" data-ng-bind="'MORE' | translate"></button>
+        <button class="btn btn-primary" ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'less'" ng-click="$parent.$parent.multiSearch.pagesSearch.type = 'between'" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" data-ng-bind="'LESS' | translate"></button>
         <button class="btn btn-default" ng-show="$parent.$parent.multiSearch.pagesSearch.type === undefined" ng-click="$parent.$parent.multiSearch.pagesSearch.type = 'exact'" data-ng-model="$parent.$parent.multiSearch.pagesSearch.type" >
             <img class="form-icon-btn-size" ng-src="/assets/img/forbidden4-black.png">
         </button>
     </div>
     <div class="col-xs-8 {{$parent.$parent.multiSearch.pagesSearch.type === 'between' ? 'col-sm-2' : 'col-sm-4' }} col-md-2 col-lg-2 multi-search-margin-bottom">
-        <label class="control-label" for="pageSearchStart" >Pages</label>
-        <input ng-disabled="$parent.$parent.multiSearch.pagesSearch.type === undefined" class="form-control" type="number" id="pageSearchStart" data-ng-model="$parent.$parent.multiSearch.pagesSearch.start" placeholder="{{$parent.$parent.multiSearch.pagesSearch.type === 'between' ? 'Entre...' : 'Pages'}}" >
+        <label class="control-label" for="pageSearchStart" data-ng-bind="'PAGES' | translate"></label>
+        <input ng-disabled="$parent.$parent.multiSearch.pagesSearch.type === undefined" class="form-control" type="number" id="pageSearchStart" data-ng-model="$parent.$parent.multiSearch.pagesSearch.start" placeholder="{{($parent.$parent.multiSearch.pagesSearch.type === 'between' ? 'BETWEEN...' : 'PAGES') | translate}}" >
     </div>
     <div ng-show="$parent.$parent.multiSearch.pagesSearch.type === 'between'" class="col-xs-offset-4 col-xs-8 col-sm-offset-0 col-sm-2 col-md-offset-0 col-md-2 col-lg-offset-0 col-lg-2 multi-search-margin-bottom multi-search-button-center">
-        <input class="form-control" type="number" min="{{$parent.$parent.multiSearch.pagesSearch.start}}" id="pageSearchEnd" data-ng-model="$parent.$parent.multiSearch.pagesSearch.end" placeholder="Et..." >
+        <input class="form-control" type="number" min="{{$parent.$parent.multiSearch.pagesSearch.start}}" id="pageSearchEnd" data-ng-model="$parent.$parent.multiSearch.pagesSearch.end" placeholder="{{'AND...' | translate}}" >
     </div>
 </section>
