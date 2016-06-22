@@ -1,4 +1,4 @@
-<section class="row" data-ng-controller="AuthenticationController as AuthCtrl">
+<section data-ng-show="AuthCtrl.isSigned" class="row" data-ng-controller="AuthenticationController as AuthCtrl">
     <h3 class="col-md-12 text-center" data-ng-bind="'SIGNUP_HEADER' | translate"></h3>
     <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
         <form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">

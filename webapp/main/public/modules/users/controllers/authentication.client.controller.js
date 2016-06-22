@@ -10,6 +10,15 @@ angular.module('users').controller('AuthenticationController', [
             $state.go('home');
         }
 
+        function successCallback(response) {
+            self.isSigned = !response.data.exists;
+            if (response.data.exists && $state.current.name === 'signup') {
+                $state.go('signin');
+            }
+        }
+
+        UserServices.isUser().then(successCallback);
+
         $scope.signup = function() {
             UserServices.signup($scope.credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
