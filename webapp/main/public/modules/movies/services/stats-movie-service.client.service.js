@@ -32,24 +32,25 @@ angular.module('movies').factory('StatsMovieService', [
             if (movie.collectionName && !collectionsRef.Contains(movie.collectionName)) {
                 collectionsRef.push(movie.collectionName);
             }
+
             if (movie.title) {
                 statistics.media.value += 1;
             }
+
+            statistics.totalDuration.value += movie.duration || 0;
+            if (movie.seen) {
+                statistics.done.value += 1;
+                statistics.totalSeenDuration.value += movie.duration || 0;
+            } else {
+                statistics.notDone.value += 1;
+                statistics.toWatchDuration.value += movie.duration || 0;
+            }
+
             if (movie.bought && movie.title) {
                 if (movie.price) {
-                    statistics.mediaValue.value += parseFloat(movie.price);
+                    statistics.mediaValue.value += parseFloat(movie.price) || 0;
                 } else {
                     statistics.missingValue.value += 1;
-                }
-                if (movie.seen) {
-                    statistics.done.value += 1;
-                    statistics.totalSeenDuration.value += movie.duration;
-                } else {
-                    statistics.notDone.value += 1;
-                    statistics.toWatchDuration.value += movie.duration;
-                }
-                if (movie.duration) {
-                    statistics.totalDuration.value += movie.duration;
                 }
 
                 statistics.bought.value += 1;
@@ -103,8 +104,8 @@ angular.module('movies').factory('StatsMovieService', [
 
             statistics.collections.value = collectionsRef.length;
             statistics.mediaValue.value = statistics.mediaValue.value.toFixed(2);
-            statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.bought.value);
-            statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.bought.value);
+            statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
+            statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
             statistics.totalSeenDuration.percent = Math.floor(statistics.totalSeenDuration.value * 100 / statistics.totalDuration.value);
             statistics.toWatchDuration.percent = Math.floor(statistics.toWatchDuration.value * 100 / statistics.totalDuration.value);
 

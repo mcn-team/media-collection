@@ -33,22 +33,26 @@ angular.module('books').factory('StatsBookService', [
             if (book.collectionName && !collectionsRef.Contains(book.collectionName)) {
                 collectionsRef.push(book.collectionName);
             }
+
             if (book.title) {
                 statistics.media.value += 1;
             }
+
+            if (book.read === 'READ') {
+                statistics.done.value += 1;
+            } else if (book.read === 'ONGOING') {
+                statistics.onGoing.value += 1;
+            } else {
+                statistics.notDone.value += 1;
+            }
+
             if (book.bought && book.title) {
                 if (book.price) {
-                    statistics.mediaValue.value += parseFloat(book.price);
+                    statistics.mediaValue.value += parseFloat(book.price) || 0;
                 } else {
                     statistics.missingValue.value += 1;
                 }
-                if (book.read === 'READ') {
-                    statistics.done.value += 1;
-                } else if (book.read === 'ONGOING') {
-                    statistics.onGoing.value += 1;
-                } else {
-                    statistics.notDone.value += 1;
-                }
+                
                 statistics.bought.value += 1;
             } else if (book.bought === false && book.title) {
                 statistics.toBought.value += 1;
@@ -98,9 +102,9 @@ angular.module('books').factory('StatsBookService', [
             });
             statistics.collections.value = collectionsRef.length;
             statistics.mediaValue.value = statistics.mediaValue.value.toFixed(2);
-            statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.bought.value);
-            statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.bought.value);
-            statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.bought.value);
+            statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
+            statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.media.value);
+            statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
             if (array && array[0] && array[0].title) {
                 statistics.bought.percent = Math.floor(statistics.bought.value * 100 / statistics.media.value);
                 statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / statistics.media.value);
