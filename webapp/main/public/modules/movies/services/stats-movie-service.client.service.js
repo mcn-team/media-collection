@@ -35,16 +35,17 @@ angular.module('movies').factory('StatsMovieService', [
 
             if (movie.title) {
                 statistics.media.value += 1;
+                
+                if (movie.seen) {
+                    statistics.done.value += 1;
+                    statistics.totalSeenDuration.value += movie.duration || 0;
+                } else {
+                    statistics.notDone.value += 1;
+                    statistics.toWatchDuration.value += movie.duration || 0;
+                }
             }
 
             statistics.totalDuration.value += movie.duration || 0;
-            if (movie.seen) {
-                statistics.done.value += 1;
-                statistics.totalSeenDuration.value += movie.duration || 0;
-            } else {
-                statistics.notDone.value += 1;
-                statistics.toWatchDuration.value += movie.duration || 0;
-            }
 
             if (movie.bought && movie.title) {
                 if (movie.price) {

@@ -42,7 +42,7 @@ angular.module('books').factory('StatsBookService', [
                 statistics.done.value += 1;
             } else if (book.read === 'ONGOING') {
                 statistics.onGoing.value += 1;
-            } else {
+            } else if (book.read === 'NOTREAD') {
                 statistics.notDone.value += 1;
             }
 
