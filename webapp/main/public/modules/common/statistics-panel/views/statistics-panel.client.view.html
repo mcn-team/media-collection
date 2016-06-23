@@ -1,5 +1,5 @@
 <section>
-    <div ng-show="stats && isLoaded" id="stats" class="col-md-12">
+    <div data-ng-show="stats && isLoaded" id="stats" class="col-md-12">
         <div class="panel panel-primary" >
             <div class="panel-heading">
                 <h3 class="panel-title" data-ng-bind="'STATS' | translate"></h3>
@@ -33,13 +33,13 @@
                     <li class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field | translate" ></h4>
                         <div class="progress default-cursor">
-                            <div popover="{{$parent.stats.done.popover + $parent.stats.done.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.done.percent + '%;'}}">
+                            <div data-uib-popover="{{($parent.stats.done.popover | translate) + ' : ' + $parent.stats.done.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.done.percent + '%;'}}">
                                 {{$parent.stats.done.percent + ' %' }}
                             </div>
-                            <div data-ng-if="$parent.stats.onGoing" popover="{{$parent.stats.onGoing.popover + $parent.stats.onGoing.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-info" style="{{'width: ' + $parent.stats.onGoing.percent + '%;'}}">
+                            <div data-ng-if="$parent.stats.onGoing" data-uib-popover="{{($parent.stats.onGoing.popover | translate) + ' : ' + $parent.stats.onGoing.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-info" style="{{'width: ' + $parent.stats.onGoing.percent + '%;'}}">
                                 {{$parent.stats.onGoing.percent + ' %'}}
                             </div>
-                            <div popover="{{$parent.stats.notDone.popover + $parent.stats.notDone.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.notDone.percent + '%;'}}">
+                            <div data-uib-popover="{{($parent.stats.notDone.popover | translate) + ' : ' + $parent.stats.notDone.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.notDone.percent + '%;'}}">
                                 {{$parent.stats.notDone.percent + ' %'}}
                             </div>
                         </div>
@@ -57,13 +57,13 @@
                     <li class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="'BUY_STATS' | translate"></h4>
                         <div class="progress default-cursor">
-                            <div popover="{{$parent.stats.bought.popover + $parent.stats.bought.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.bought.percent + '%;'}}">
+                            <div data-uib-popover="{{($parent.stats.bought.popover | translate) + ' : ' + $parent.stats.bought.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.bought.percent + '%;'}}">
                                 {{$parent.stats.bought.percent + ' %' }}
                             </div>
-                            <div popover="{{$parent.stats.toBought.popover + $parent.stats.toBought.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toBought.percent + '%;'}}">
+                            <div data-uib-popover="{{($parent.stats.toBought.popover | translate) + ' : ' + $parent.stats.toBought.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toBought.percent + '%;'}}">
                                 {{$parent.stats.toBought.percent + ' %'}}
                             </div>
-                            <div data-ng-if="$parent.stats.mediaMissing" popover="{{$parent.stats.mediaMissing.popover + $parent.stats.mediaMissing.value}}" popover-trigger="mouseenter" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.mediaMissing.percent + '%;'}}">
+                            <div data-ng-if="$parent.stats.mediaMissing" data-uib-popover="{{($parent.stats.mediaMissing.popover | translate) + ' : ' + $parent.stats.mediaMissing.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.mediaMissing.percent + '%;'}}">
                                 {{$parent.stats.mediaMissing.percent + ' %'}}
                             </div>
                         </div>
@@ -81,10 +81,10 @@
                     <li data-ng-if="$parent.stats.totalSeenDuration" class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="'TIME_STATS' | translate"></h4>
                         <div class="progress default-cursor">
-                            <div popover="{{$parent.stats.totalSeenDuration.popover + $parent.stats.totalSeenDuration.value.toString().NumberFormat(' ') + ' min'}}" popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.totalSeenDuration.percent + '%;'}}">
+                            <div data-uib-popover="{{($parent.stats.totalSeenDuration.popover | translate) + ' : ' + $parent.stats.totalSeenDuration.value.toString().NumberFormat(' ') + ' min'}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.totalSeenDuration.percent + '%;'}}">
                                 {{$parent.stats.totalSeenDuration.percent + ' %' }}
                             </div>
-                            <div popover="{{$parent.stats.toWatchDuration.popover + $parent.stats.toWatchDuration.value.toString().NumberFormat(' ') + ' min'}}" popover-trigger="mouseenter" class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toWatchDuration.percent + '%;'}}">
+                            <div data-uib-popover="{{($parent.stats.toWatchDuration.popover | translate) + ' : ' + $parent.stats.toWatchDuration.value.toString().NumberFormat(' ') + ' min'}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toWatchDuration.percent + '%;'}}">
                                 {{$parent.stats.toWatchDuration.percent + ' %'}}
                             </div>
                         </div>
