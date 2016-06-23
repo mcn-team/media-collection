@@ -7,6 +7,10 @@ angular.module('allocine-api').factory('AllocineDataService', [
         allocineData.formatSearchResult = function (data) {
             var cleanedACResponse = [];
 
+            if (!data || !data.result) {
+                return null;
+            }
+
             data.result.forEach(function (current, index) {
 
                 cleanedACResponse[index] = {
@@ -25,7 +29,7 @@ angular.module('allocine-api').factory('AllocineDataService', [
                     shortSummary: ''
                 };
 
-                if (data.filter === 'tvseries') {
+                if (data.filter === 'tvseries') {d
                     cleanedACResponse[index].scenarists = current.castingShort && current.castingShort.creators ? current.castingShort.creators.trim().split(',') : [];
                     cleanedACResponse[index].releaseDate = current.yearStart ? current.yearStart : '1970';
                 }

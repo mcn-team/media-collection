@@ -162,5 +162,6 @@ angular.module('mediacollection').constant('English', {
     'TOTAL_DURATION': 'Total duration',
     'TOTAL_SEEN_DURATION': 'Total seen duration',
     'LEFT_TO_SEE_DURATION': 'Left to see',
-    'EDIT_PROFILE_TITLE': 'Edit your profile'
+    'EDIT_PROFILE_TITLE': 'Edit your profile',
+    'MOVIE_NO_RESULT': 'Sorry. Your search came back with no result.'
 });

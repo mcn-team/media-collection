@@ -162,5 +162,6 @@ angular.module('mediacollection').constant('French', {
     'TOTAL_DURATION': 'Durée totale',
     'TOTAL_SEEN_DURATION': 'Durée totale regardée',
     'LEFT_TO_SEE_DURATION': 'Reste à voir',
-    'EDIT_PROFILE_TITLE': 'Modifiez votre profil'
+    'EDIT_PROFILE_TITLE': 'Modifiez votre profil',
+    'MOVIE_NO_RESULT': 'Désolé. Aucun résultat trouvé pour votre recherche.'
 });
