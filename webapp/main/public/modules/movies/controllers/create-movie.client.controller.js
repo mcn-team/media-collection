@@ -139,8 +139,16 @@ angular.module('movies').controller('CreateMoviesController', [
         $scope.searchFilmByTitle = function () {
             AlloCineExposed.searchByName('movie', $scope.mediaModel.searchMovie).then(function (response) {
                 $scope.movieList = AllocineDataService.formatSearchResult(response.data);
-                $scope.open();
+                if ($scope.movieList) {
+                    $scope.open();
+                } else {
+                    $scope.noResultAlert = true;
+                }
             });
+        };
+
+        $scope.closeAlert = function () {
+            $scope.noResultAlert = false;
         };
 
         function fillMovieField(item) {

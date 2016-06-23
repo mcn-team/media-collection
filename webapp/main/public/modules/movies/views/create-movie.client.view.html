@@ -5,6 +5,7 @@
     </div>
     <mc-loader></mc-loader>
     <div class="col-xs-12" data-ng-show="isLoaded && !isDuplicate">
+        <uib-alert data-ng-if="noResultAlert" dismiss-on-timeout="5000" close="closeAlert()" type="info">{{'MOVIE_NO_RESULT' | translate}}</uib-alert>
         <section data-ng-include="'modules/movies/views/movie-online-search-subview.html'"></section>
     </div>
     <div data-ng-show="isLoaded" class="col-xs-12">
