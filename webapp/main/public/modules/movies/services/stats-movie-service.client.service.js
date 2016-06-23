@@ -19,10 +19,10 @@ angular.module('movies').factory('StatsMovieService', [
                 notDone: { field: 'UNSEEN_MOVIE', value: 0, popover: 'UNSEEN_MOVIE' },
                 bought: { field: 'MOVIES_BOUGHT', value: 0, popover: 'MOVIES_BOUGHT' },
                 toBought: { field: 'MOVIES_TO_BUY', value: 0, popover: 'MOVIES_TO_BUY' },
-                mediaMissing: { field: 'MISSING_MOVIES', value: 0 },
+                mediaMissing: { field: 'MISSING_MOVIES', value: 0, popover: 'MISSING_MOVIES' },
                 totalDuration: { field: 'TOTAL_DURATION', value: 0},
                 totalSeenDuration: { field: 'TOTAL_SEEN_DURATION', value: 0, popover: 'TOTAL_SEEN_DURATION' },
-                toWatchDuration: { field: 'LEFT_TO_SEE_DURATION', value: 0, popover: 'LEFT_TO_SEE'  }
+                toWatchDuration: { field: 'LEFT_TO_SEE_DURATION', value: 0, popover: 'LEFT_TO_SEE_DURATION'  }
             };
         };
 
