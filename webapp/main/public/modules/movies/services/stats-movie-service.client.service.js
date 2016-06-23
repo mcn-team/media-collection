@@ -2,8 +2,6 @@
 
 angular.module('movies').factory('StatsMovieService', [
     function() {
-        var movieResult = {};
-
         var statService = {};
 
         var statistics = {};
