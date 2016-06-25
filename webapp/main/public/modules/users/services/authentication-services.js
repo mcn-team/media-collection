@@ -7,6 +7,8 @@ angular.module('users').factory('Authentication', [
 
         var httpConfig = null;
 
+        var publicKey = null;
+
         authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
         var buildEndpoint = function (path) {
             var creds = authServices.credentials ? authServices.credentials.token : null;
@@ -17,6 +19,11 @@ angular.module('users').factory('Authentication', [
             };
             return $injector.get('Config').apiRoute + path;
         };
+
+        $injector.get('$http').get(buildEndpoint('/auth/key')).then(function (response) {
+            publicKey = response.data.pub;
+        });
+
         if (authServices.credentials) {
             $injector.get('$http').get(buildEndpoint('/users/options'), httpConfig).then(function (response) {
                 authServices.credentials.user.options = response.data[0].options;
@@ -56,10 +63,7 @@ angular.module('users').factory('Authentication', [
         };
 
         authServices.getPublicKey = function () {
-            return $injector.get('$http').get(buildEndpoint('/auth/key')).then(function (response) {
-                authServices.publicKey = response.data.pub;
-                return authServices.publicKey;
-            });
+            return publicKey;
         };
 
         return authServices;

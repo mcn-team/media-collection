@@ -11,10 +11,7 @@ angular.module('users').controller('AuthenticationController', [
         }
 
         var encrypt = new JSEncrypt();
-
-        Authentication.getPublicKey().then(function (publicKey) {
-            encrypt.setPublicKey(publicKey);
-        });
+        encrypt.setPublicKey(Authentication.getPublicKey());
 
         function successCallback(response) {
             self.isSigned = !response.data.exists;
