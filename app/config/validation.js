@@ -32,7 +32,8 @@ const configSchema = {
     logRoute: Joi.boolean().required(),
     logFiles: Joi.boolean().required(),
     secretJWT: Joi.string().required(),
-    clientPath: Joi.string().required()
+    clientPath: Joi.string().required(),
+    rsaSize: Joi.number().allow(64, 128, 256, 512, 1024, 2048)
 };
 
 exports.validate = (config, callback) => {

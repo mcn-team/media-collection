@@ -6,6 +6,7 @@ const authModule = {
     register: (server, options, next) => {
         try {
             require('./authentication')(server);
+            require('./auth.routes')(server);
             server.auth.strategy('RequiresLogin', 'ValidationLogin');
             server.auth.strategy('RequiresAdmin', 'ValidationLogin', false, { admin: true });
             logger.logLoading('Auth');
