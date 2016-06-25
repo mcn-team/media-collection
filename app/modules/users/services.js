@@ -9,8 +9,9 @@ const responseHelper = require('../../utils/response-helper');
 const cypher = require('../auth/auth.services');
 
 exports.addUser = (payload, callback) => {
+    payload.password = cypher.decrypt(payload.password);
     let newUser = new User(payload);
-    
+
     newUser.save((err, user) => {
         if (err) {
             callback({ error: err, code: 503 });

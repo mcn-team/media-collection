@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('users').factory('Authentication', [
-    '$window', '$injector',
-    function ($window, $injector) {
+    '$window', '$injector', 'lodash', 'md5',
+    function ($window, $injector, _, md5) {
         var authServices = {};
 
         var httpConfig = null;
-
         var publicKey = null;
+        var encrypt = new JSEncrypt();
+
 
         authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
         var buildEndpoint = function (path) {
@@ -22,6 +23,7 @@ angular.module('users').factory('Authentication', [
 
         $injector.get('$http').get(buildEndpoint('/auth/key')).then(function (response) {
             publicKey = response.data.pub;
+            encrypt.setPublicKey(publicKey);
         });
 
         if (authServices.credentials) {
@@ -62,8 +64,11 @@ angular.module('users').factory('Authentication', [
             $injector.get('$state').go('home');
         };
 
-        authServices.getPublicKey = function () {
-            return publicKey;
+        authServices.encryptCredentials = function (data) {
+            var credentials = _.assign({}, data);
+            credentials.password = md5.createHash(credentials.password);
+            credentials.password = encrypt.encrypt(credentials.password);
+            return credentials;
         };
 
         return authServices;

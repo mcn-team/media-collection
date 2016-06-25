@@ -13,7 +13,8 @@ var ApplicationConfiguration = (function() {
         'ngAnimate',
         'ngImgCrop',
         'ngSanitize',
-        'pascalprecht.translate'
+        'pascalprecht.translate',
+        'angular-md5'
     ];
 
     // Custom angular modules
