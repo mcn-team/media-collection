@@ -29,5 +29,6 @@
   "logRoute": true,
   "logFiles": false,
   "secretJWT": "123456",
-  "clientPath": "webapp"
+  "clientPath": "webapp",
+  "rsaSize": 512
 }

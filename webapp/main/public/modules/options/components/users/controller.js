@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('options').directive('mcUsers', [
-    '$uibModal', 'UserServices', 'lodash',
-    function ($uibModal, UserServices, _) {
+    '$uibModal', 'UserServices', 'lodash', 'Authentication',
+    function ($uibModal, UserServices, _, Authentication) {
         return {
             restrict: 'E',
             templateUrl: 'modules/options/components/users/view.html',
@@ -82,7 +82,9 @@ angular.module('options').directive('mcUsers', [
                         console.error(errorResponse);
                     };
 
-                    UserServices.signup(scope.newUser, true).then(successCallback, failureCallback);
+                    var credentials = Authentication.encryptCredentials(scope.newUser);
+
+                    UserServices.signup(credentials, true).then(successCallback, failureCallback);
                 }
             }
         };

@@ -20,7 +20,8 @@ angular.module('users').controller('AuthenticationController', [
         UserServices.isUser().then(successCallback);
 
         $scope.signup = function() {
-            UserServices.signup($scope.credentials).then(function (response) {
+            var credentials = Authentication.encryptCredentials($scope.credentials);
+            UserServices.signup(credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');
             }, function (errorResponse) {
@@ -29,10 +30,12 @@ angular.module('users').controller('AuthenticationController', [
         };
 
         $scope.signin = function() {
-            UserServices.login($scope.credentials).then(function (response) {
+            var credentials = Authentication.encryptCredentials($scope.credentials);
+            UserServices.login(credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');
             }, function (errorResponse) {
+                console.error(errorResponse.data);
                 $scope.error = errorResponse.data;
             });
         };

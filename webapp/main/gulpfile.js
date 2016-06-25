@@ -27,7 +27,9 @@ var NPM_FILES = [
     './public/node_modules/ng-lodash/build/ng-lodash.js',
     './public/node_modules/ng-img-crop-full-extended/compile/unminified/ng-img-crop.js',
     './public/node_modules/angular-translate/dist/angular-translate.js',
-    './public/node_modules/angular-ui-utils/modules/keypress/keypress.js'
+    './public/node_modules/angular-ui-utils/modules/keypress/keypress.js',
+    './public/node_modules/angular-md5/angular-md5.min.js',
+    './public/node_modules/jsencrypt/bin/jsencrypt.min.js'
 ];
 
 var CSS_FILES = [

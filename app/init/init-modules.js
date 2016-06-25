@@ -7,7 +7,7 @@ module.exports = (server) => {
     server.register(require('vision'), onError);
     server.register({ register: require('lout') }, onError);
     server.register(require('../modules/static-files'), onError);
-    server.register(require('../modules/auth'), onError);
+    server.register(require('../modules/auth'), options.auth, onError);
     server.register(require('../modules/users'), options.users, onError);
     server.register(require('../modules/books'), options.books, onError);
     server.register(require('../modules/movies'), options.movies, onError);

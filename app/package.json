@@ -20,6 +20,7 @@
     "lodash": "4.1.0",
     "lout": "9.0.0",
     "mongoose": "4.3.7",
+    "node-rsa": "0.3.3",
     "request": "2.69.0",
     "rimraf": "2.5.2",
     "vision": "4.0.1"
