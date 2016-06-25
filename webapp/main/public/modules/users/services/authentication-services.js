@@ -55,6 +55,13 @@ angular.module('users').factory('Authentication', [
             $injector.get('$state').go('home');
         };
 
+        authServices.getPublicKey = function () {
+            return $injector.get('$http').get(buildEndpoint('/auth/key')).then(function (response) {
+                authServices.publicKey = response.data.pub;
+                return authServices.publicKey;
+            });
+        };
+
         return authServices;
     }
 ]);

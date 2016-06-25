@@ -1,14 +1,20 @@
 'use strict';
 
 angular.module('users').controller('AuthenticationController', [
-    '$scope', '$http', '$state', 'Authentication', 'UserServices',
-    function($scope, $http, $state, Authentication, UserServices) {
+    '$scope', '$http', '$state', 'Authentication', 'lodash', 'UserServices',
+    function($scope, $http, $state, Authentication, _, UserServices) {
         var self = this;
         $scope.authentication = Authentication.isAuthenticated();
 
         if ($scope.authentication && $scope.authentication.user) {
             $state.go('home');
         }
+
+        var encrypt = new JSEncrypt();
+
+        Authentication.getPublicKey().then(function (publicKey) {
+            encrypt.setPublicKey(publicKey);
+        });
 
         function successCallback(response) {
             self.isSigned = !response.data.exists;
@@ -29,7 +35,9 @@ angular.module('users').controller('AuthenticationController', [
         };
 
         $scope.signin = function() {
-            UserServices.login($scope.credentials).then(function (response) {
+            var credentials = _.assign({}, $scope.credentials);
+            credentials.password = encrypt.encrypt(credentials.password);
+            UserServices.login(credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');
             }, function (errorResponse) {

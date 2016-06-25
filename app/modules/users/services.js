@@ -6,6 +6,7 @@ const User = require('mongoose').model('User');
 
 const config = require('../../config');
 const responseHelper = require('../../utils/response-helper');
+const cypher = require('../auth/auth.services');
 
 exports.addUser = (payload, callback) => {
     let newUser = new User(payload);
@@ -28,7 +29,7 @@ exports.authenticateUser = (payload, callback) => {
         } else if (!user) {
             callback({ error: 'Wrong username', code: 401 });
         } else {
-            if (user.password !== payload.password) {
+            if (user.password !== cypher.decrypt(payload.password)) {
                 callback({ error: 'Wrong password', code: 401 });
             } else {
                 const token = jwt.sign({ user: user._id }, config.secretJWT);
