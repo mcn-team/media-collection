@@ -122,5 +122,21 @@ exports.checkAdminStatus = (headers, callback) => {
             return callback(error, null);
         });
     });
+};
 
+exports.findOneUser = (userId, callback) => {
+    let error = null;
+    let response = null;
+    
+    User.findOne({ _id: userId }).exec((err, user) => {
+        if (err) {
+            error = { error: err, code: 503 };
+        } else if (!user) {
+            error = { error: 'User does not exists', code: 401 };
+        } else {
+            response = { data: user, code: 200 };
+        }
+        
+        return callback(error, response);
+    });
 };
