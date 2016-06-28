@@ -136,15 +136,4 @@ module.exports = (server) => {
         },
         handler: users.checkIfUser
     });
-
-    server.route({
-        method: 'GET',
-        path: '/test/{userId}',
-        config: {
-            auth: 'RequiresLoginStrict'
-        },
-        handler: (request, reply) => {
-            return reply('Yolo').code(200);
-        }
-    });
 };
