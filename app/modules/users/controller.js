@@ -102,3 +102,9 @@ exports.ifAdmin = (request, reply) => {
         return reply(response);
     });
 };
+
+exports.getRecoveryFields = (request, reply) => {
+    userServices.findRecoveryFromUser(request.params, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};

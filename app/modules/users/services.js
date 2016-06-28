@@ -142,3 +142,33 @@ exports.findOneUser = (userId, callback) => {
         return callback(error, response);
     });
 };
+
+exports.findRecoveryFromUser = (params, callback) => {
+    User.findOne({ _id: params.userId }, {
+        username: false,
+        password: false,
+        displayName: false,
+        email: false,
+        admin: false,
+        options: false,
+        created: false,
+        _id: false,
+        'recovery.questions.0.answer': false, //DOES NOT WORK
+        'recovery.medias.0.mediaId': false //DOES NOT WORK
+        // IF NOT WORKING, REPLACE ALL BY recovery: true, _id: false
+    }).lean().exec((err, users) => {
+        if (users.recovery.questions) {
+            for (let i = 0; i < users.recovery.questions.length; i++) {
+                delete users.recovery.questions[i].answer;
+            }
+        }
+
+        if (users.recovery.medias) {
+            for (let i = 0; i < users.recovery.medias.length; i++) {
+                delete users.recovery.medias[i].mediaId;
+            }
+        }
+
+        return responseHelper.serviceCallback(err, users, 200, callback);
+    });
+};

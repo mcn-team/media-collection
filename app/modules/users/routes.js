@@ -136,4 +136,19 @@ module.exports = (server) => {
         },
         handler: users.checkIfUser
     });
+
+    server.route({
+        method: 'GET',
+        path: '/{userId}/forgot',
+        config: {
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Returns HTTP 200 Ok and an object on success'
+            ],
+            description: 'Sends back an object containing the password recovery ' +
+            'method of the specified user and an array containing the questions (or fields) ' +
+            'required to authenticate himself depending on the method.'
+        },
+        handler: users.getRecoveryFields
+    });
 };
