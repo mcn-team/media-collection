@@ -18,6 +18,7 @@ exports.addUser = (payload, callback) => {
         } else {
             const token = jwt.sign({ user: user._id }, config.secretJWT);
             user.password = undefined;
+            user.recovery = undefined;
             callback(null, { data: { token: token, user: user }, code: 201 });
         }
     });
@@ -35,6 +36,7 @@ exports.authenticateUser = (payload, callback) => {
             } else {
                 const token = jwt.sign({ user: user._id }, config.secretJWT);
                 user.password = undefined;
+                user.recovery = undefined;
                 callback(null, { data: { token: token, user: user }, code: 200 });
             }
         }
@@ -54,7 +56,7 @@ exports.findUserOptions = (user, callback) => {
 };
 
 exports.findUsers = (callback) => {
-    User.find({}, { password: false, options: false }).exec((err, users) => {
+    User.find({}, { password: false, options: false, recovery: false }).exec((err, users) => {
         responseHelper.serviceCallback(err, users, 200, callback);
     });
 };

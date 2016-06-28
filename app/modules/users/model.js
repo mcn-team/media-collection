@@ -20,6 +20,20 @@ const UserSchema = new mongoose.Schema({
             default: 'en'
         }
     },
+    recovery: {
+        questions: [{
+            question: String,
+            answer: String
+        }],
+        medias: [{
+            mediaId: mongoose.Schema.ObjectId,
+            field: String
+        }],
+        method: {
+            type: String,
+            enum: [ 'questions', 'medias' ]
+        }
+    },
     created: {
         type: Date,
         default: Date.now
