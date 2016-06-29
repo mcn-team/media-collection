@@ -153,20 +153,13 @@ exports.findRecoveryFromUser = (params, callback) => {
         options: false,
         created: false,
         _id: false,
-        'recovery.questions.0.answer': false, //DOES NOT WORK
-        'recovery.medias.0.mediaId': false //DOES NOT WORK
-        // IF NOT WORKING, REPLACE ALL BY recovery: true, _id: false
+        'recovery.questions.answer': false,
+        'recovery.medias.mediaId': false
     }).lean().exec((err, users) => {
-        if (users.recovery.questions) {
-            for (let i = 0; i < users.recovery.questions.length; i++) {
-                delete users.recovery.questions[i].answer;
-            }
-        }
-
-        if (users.recovery.medias) {
-            for (let i = 0; i < users.recovery.medias.length; i++) {
-                delete users.recovery.medias[i].mediaId;
-            }
+        if (users.recovery.method === "questions") {
+            delete users.recovery.medias;
+        } else {
+            delete users.recovery.questions;
         }
 
         return responseHelper.serviceCallback(err, users, 200, callback);
