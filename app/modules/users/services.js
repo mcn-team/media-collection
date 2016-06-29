@@ -153,8 +153,7 @@ exports.findRecoveryFromUser = (params, callback) => {
         options: false,
         created: false,
         _id: false,
-        'recovery.questions.answer': false,
-        'recovery.medias.mediaId': false
+        'recovery.questions.answer': false
     }).lean().exec((err, users) => {
         if (users.recovery.method === "questions") {
             delete users.recovery.medias;
@@ -171,29 +170,49 @@ const generateTimeLimitedToken = (id) => {
 };
 
 exports.validateRecoveryAnswer = (params, payload, callback) => {
-    User.findOne({ _id: params.userId }).lean().exec((err, user) => {
-        let error = null;
-        let response = null;
+    const Book = require('../books/services');
 
+    User.findOne({ _id: params.userId }).lean().exec((err, user) => {
         if (err) {
-            error = { error: err, code: 503 };
+            return callback({ error: err, code: 503 }, null);
         } else if (!user) {
-            error = { error: 'User does not exists', code: 401 };
+            return callback({ error: 'User does not exists', code: 401 }, null);
         } else {
-            const selectedQuestion = _.filter(user.recovery[user.recovery.method], { question: payload.question });
+            let selectedQuestion = null;
 
             if (user.recovery.method === 'questions') {
+                selectedQuestion = _.filter(user.recovery[user.recovery.method], { question: payload.question });
+
                 if (selectedQuestion.length > 0 && selectedQuestion[0].answer === payload.answer) {
-                    response = { data: { token: generateTimeLimitedToken(user._id) }, code: 200 };
+                    return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
                 } else {
-                    error = { error: 'The answer is incorrect', code: 403 };
+                    return callback({ error: 'The answer is incorrect', code: 403 }, null);
                 }
             } else {
-                //TODO: Not implemented yet
-                error = { error: 'The answer is incorrect', code: 403 };
+                for (let i = 0; i < user.recovery.medias.length; i++) {
+                    if (user.recovery.medias[i].mediaId.toString() === payload.mediaId) {
+                        selectedQuestion = user.recovery.medias[i];
+                    }
+                }
+
+                if (selectedQuestion && selectedQuestion.mediaId) {
+                    Book.findOneBook({ bookId: selectedQuestion.mediaId }, (err, book) => {
+                        if (err) {
+                            return callback({ error: err, code: 503 }, null);
+                        } else if (!book) {
+                            return callback({ error: 'The media does not exist', code: 404 }, null);
+                        } else {
+                            if (book.data[payload.fields].toLowerCase() === payload.answer.toLowerCase()) {
+                                return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
+                            } else {
+                                return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                            }
+                        }
+                    });
+                } else {
+                    return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                }
             }
         }
-
-        return callback(error, response);
     });
 };
