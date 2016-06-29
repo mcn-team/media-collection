@@ -108,3 +108,9 @@ exports.getRecoveryFields = (request, reply) => {
         return responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.checkRecoveryAnswer = (request, reply) => {
+    userServices.validateRecoveryAnswer(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};

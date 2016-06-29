@@ -165,3 +165,35 @@ exports.findRecoveryFromUser = (params, callback) => {
         return responseHelper.serviceCallback(err, users, 200, callback);
     });
 };
+
+const generateTimeLimitedToken = (id) => {
+    return jwt.sign({ user: id }, config.secretJWT, { expiresIn: '30m', jwtid: 'recovery' });
+};
+
+exports.validateRecoveryAnswer = (params, payload, callback) => {
+    User.findOne({ _id: params.userId }).lean().exec((err, user) => {
+        let error = null;
+        let response = null;
+
+        if (err) {
+            error = { error: err, code: 503 };
+        } else if (!user) {
+            error = { error: 'User does not exists', code: 401 };
+        } else {
+            const selectedQuestion = _.filter(user.recovery[user.recovery.method], { question: payload.question });
+
+            if (user.recovery.method === 'questions') {
+                if (selectedQuestion.length > 0 && selectedQuestion[0].answer === payload.answer) {
+                    response = { data: { token: generateTimeLimitedToken(user._id) }, code: 200 };
+                } else {
+                    error = { error: 'The answer is incorrect', code: 403 };
+                }
+            } else {
+                //TODO: Not implemented yet
+                error = { error: 'The answer is incorrect', code: 403 };
+            }
+        }
+
+        return callback(error, response);
+    });
+};

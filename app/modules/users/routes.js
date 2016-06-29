@@ -151,4 +151,21 @@ module.exports = (server) => {
         },
         handler: users.getRecoveryFields
     });
+
+    server.route({
+        method: 'POST',
+        path: '/{userId}/forgot',
+        config: {
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes the selected question and the answer as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes the selected question and answer, checks it by getting ' +
+            'correct answer from the database and sends back an time limited token if the ' +
+            'the answer is correct or 401 Unauthorized if not.'
+        },
+        handler: users.checkRecoveryAnswer
+    });
 };
