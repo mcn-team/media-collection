@@ -8,6 +8,15 @@ const config = require('../../config');
 const responseHelper = require('../../utils/response-helper');
 const cypher = require('../auth/auth.services');
 
+const authenticateResponse = (code, user, callback) => {
+    const token = jwt.sign({ user: user._id }, config.secretJWT);
+    delete user.password;
+    user.recovery = !!(user.recovery &&
+        ((user.recovery.medias && user.recovery.medias.length > 0) ||
+        (user.recovery.questions && user.recovery.questions.length > 0)));
+    callback(null, { data: { token: token, user: user }, code: code });
+};
+
 exports.addUser = (payload, callback) => {
     payload.password = cypher.decrypt(payload.password);
     let newUser = new User(payload);
@@ -16,16 +25,13 @@ exports.addUser = (payload, callback) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else {
-            const token = jwt.sign({ user: user._id }, config.secretJWT);
-            user.password = undefined;
-            user.recovery = undefined;
-            callback(null, { data: { token: token, user: user }, code: 201 });
+            authenticateResponse(201, user, callback);
         }
     });
 };
 
 exports.authenticateUser = (payload, callback) => {
-    User.findOne({ username: payload.username }).exec((err, user) => {
+    User.findOne({ username: payload.username }).lean().exec((err, user) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else if (!user) {
@@ -34,10 +40,7 @@ exports.authenticateUser = (payload, callback) => {
             if (user.password !== cypher.decrypt(payload.password)) {
                 callback({ error: 'Wrong password', code: 401 });
             } else {
-                const token = jwt.sign({ user: user._id }, config.secretJWT);
-                user.password = undefined;
-                user.recovery = undefined;
-                callback(null, { data: { token: token, user: user }, code: 200 });
+                authenticateResponse(200, user, callback);
             }
         }
     });
