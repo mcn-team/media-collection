@@ -27,7 +27,7 @@ const configSchema = {
     connections: Joi.array().min(1).items(Joi.object(connectionSchema).required()),
     projectRoot: Joi.string().required(),
     coverDirectory: Joi.string().required(),
-    dbConnectionString: Joi.string().regex(/^mongodb:\/\/[a-z0-9.]+[:][0-9]+\/.+/).required(),
+    dbConnectionString: Joi.string().regex(/^mongodb:\/\/.+[:][0-9]+\/.+/).required(),
     colors: Joi.boolean().required(),
     logRoute: Joi.boolean().required(),
     logFiles: Joi.boolean().required(),
