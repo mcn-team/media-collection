@@ -216,3 +216,13 @@ exports.validateRecoveryAnswer = (params, payload, callback) => {
         }
     });
 };
+
+exports.saveUserPassword = (params, payload, callback) => {
+    User.findOneAndUpdate({ _id: params.userId }, { $set: { password: payload.password } }).exec((err, response) => {
+        return responseHelper.serviceCallback(err, response, 204, callback);
+    });
+};
+
+exports.decipherPassword = (payload, callback) => {
+    return callback(null, cypher.decrypt(payload.password));
+};

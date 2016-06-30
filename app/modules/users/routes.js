@@ -168,4 +168,25 @@ module.exports = (server) => {
         },
         handler: users.checkRecoveryAnswer
     });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/forgot',
+        config: {
+            auth: 'RequiresRecovery',
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes the new password as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes the new password hashed and ciphered as payload and ' +
+            'update the user model by replacing the current password with the new one.'
+            //TODO: encryption features deactivated for testing purposes
+            // pre: [
+            //     { method: users.decryptPassword, assign: 'decrypted' }
+            // ]
+        },
+        handler: users.updateUserPassword
+    });
 };
