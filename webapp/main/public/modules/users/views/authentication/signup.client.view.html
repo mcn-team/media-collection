@@ -1,26 +1,41 @@
 <section data-ng-show="AuthCtrl.isSigned" class="row" data-ng-controller="AuthenticationController as AuthCtrl">
     <h3 class="col-md-12 text-center" data-ng-bind="'SIGNUP_HEADER' | translate"></h3>
     <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-        <form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
+        <form name="userForm" data-ng-submit="userForm.$valid && signup()" class="signin form-horizontal" novalidate>
             <fieldset>
                 <div class="form-group">
                     <label for="displayName" data-ng-bind="'DISPLAY_NAME' | translate"></label>
-                    <input type="text" required id="displayName" name="displayName" class="form-control" data-ng-model="credentials.displayName" placeholder="{{'DISPLAY_NAME' | translate}}">
+                    <input type="text" id="displayName" name="displayName" class="form-control" data-ng-model="credentials.displayName" placeholder="{{'DISPLAY_NAME' | translate}}"
+                           data-ng-class="{ 'has-error' : userForm.displayName.$invalid && (!userForm.displayName.$pristine || userForm.$submitted) }" required>
                 </div>
                 <div class="form-group">
                     <label for="email" data-ng-bind="'EMAIL' | translate"></label>
-                    <input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="{{'EMAIL' | translate}}">
+                    <input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="{{'EMAIL' | translate}}"
+                           data-ng-class="{ 'has-error' : userForm.email.$invalid && (!userForm.email.$pristine || userForm.$submitted) }" required>
+
                 </div>
                 <div class="form-group">
                     <label for="username" data-ng-bind="'USERNAME' | translate"></label>
-                    <input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="{{'USERNAME' | translate}}">
+                    <input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="{{'USERNAME' | translate}}"
+                           data-ng-class="{ 'has-error' : userForm.username.$invalid && (!userForm.username.$pristine || userForm.$submitted) }" required>
                 </div>
                 <div class="form-group">
                     <label for="password" data-ng-bind="'PASSWORD' | translate"></label>
-                    <input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="{{'PASSWORD' | translate}}">
+                    <input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="{{'PASSWORD' | translate}}"
+                           data-ng-class="{ 'has-error' : userForm.password.$invalid && (!userForm.password.$pristine || userForm.$submitted) }" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" data-ng-bind="'SIGNUP' | translate"></button>
+                    <label for="password" data-ng-bind="'SECRET_QUESTION' | translate"></label>
+                    <input type="text" id="question" name="question" class="form-control" data-ng-model="secret.question" placeholder="{{'SECRET_QUESTION' | translate}}"
+                           data-ng-class="{ 'has-error' : userForm.question.$invalid && (!userForm.question.$pristine || userForm.$submitted) }" required>
+                </div>
+                <div class="form-group">
+                    <label for="answer" data-ng-bind="'SECRET_ANSWER' | translate"></label>
+                    <input type="text" id="answer" name="answer" class="form-control" data-ng-model="secret.answer" placeholder="{{'SECRET_ANSWER' | translate}}"
+                           data-ng-class="{ 'has-error' : userForm.answer.$invalid && (!userForm.answer.$pristine || userForm.$submitted) }" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="{{'SIGNUP' | translate}}"/>
                     <a href="/#!/signin" class="show-signup" data-ng-bind="'SIGNIN' | translate"></a>
                 </div>
                 <div data-ng-show="error" class="text-center text-danger">

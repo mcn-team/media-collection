@@ -163,5 +163,7 @@ angular.module('mediacollection').constant('French', {
     'TOTAL_SEEN_DURATION': 'Durée totale regardée',
     'LEFT_TO_SEE_DURATION': 'Reste à voir',
     'EDIT_PROFILE_TITLE': 'Modifiez votre profil',
-    'MOVIE_NO_RESULT': 'Désolé. Aucun résultat trouvé pour votre recherche.'
+    'MOVIE_NO_RESULT': 'Désolé. Aucun résultat trouvé pour votre recherche.',
+    'SECRET_QUESTION': 'Question secrète',
+    'SECRET_ANSWER': 'Réponse secrète'
 });

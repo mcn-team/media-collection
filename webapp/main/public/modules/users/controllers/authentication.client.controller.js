@@ -21,6 +21,12 @@ angular.module('users').controller('AuthenticationController', [
 
         $scope.signup = function() {
             var credentials = Authentication.encryptCredentials($scope.credentials);
+            credentials.recovery = {
+                questions: [
+                    { question: $scope.secret.question, answer: $scope.secret.answer }
+                ]
+            };
+
             UserServices.signup(credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');

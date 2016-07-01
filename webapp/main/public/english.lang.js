@@ -163,5 +163,7 @@ angular.module('mediacollection').constant('English', {
     'TOTAL_SEEN_DURATION': 'Total seen duration',
     'LEFT_TO_SEE_DURATION': 'Left to see',
     'EDIT_PROFILE_TITLE': 'Edit your profile',
-    'MOVIE_NO_RESULT': 'Sorry. Your search came back with no result.'
+    'MOVIE_NO_RESULT': 'Sorry. Your search came back with no result.',
+    'SECRET_QUESTION': 'Secret question',
+    'SECRET_ANSWER': 'Secret answer'
 });

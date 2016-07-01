@@ -2,11 +2,22 @@
 
 const Joi = require('joi');
 
+const questionItem = {
+    question: Joi.string().required(),
+    answer: Joi.string().required()
+};
+
+const recoveryObject = {
+    questions: Joi.array().items(questionItem).max(1).required()
+};
+
+
 exports.signUpPayload = {
     username: Joi.string().alphanum().trim().required(),
     password: Joi.string().required(),
     displayName: Joi.string().trim().required(),
-    email: Joi.string().email().trim().required()
+    email: Joi.string().email().trim().required(),
+    recovery: recoveryObject
 };
 
 exports.logInPayload = {
