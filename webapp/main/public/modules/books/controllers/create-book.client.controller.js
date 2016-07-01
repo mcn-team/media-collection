@@ -129,7 +129,10 @@ angular.module('books').controller('CreateBookController', [
                         size: 'lg',
                         resolve: {
                             WikipediaChoices: function () {
-                                return response.data;
+                                return {
+                                    text: $scope.mediaModel.searchTitle,
+                                    result: response.data
+                                }
                             }
                         }
                     });

@@ -8,7 +8,8 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
     '$scope', '$uibModalInstance',
     'BookServices', 'WikipediaChoices',
     function ($scope, $uibModalInstance, BookServices, WikipediaChoices) {
-        $scope.choices = WikipediaChoices;
+        $scope.choices = WikipediaChoices.result;
+        $scope.badChoices = [];
 
         $scope.selectedModel = {};
 
@@ -26,6 +27,26 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
             date: { list: [], isChecked: true, name: 'Date' }
         };
 
+        getBestResults();
+
+        function getBestResults() {
+            var resWord = WikipediaChoices.text.split(' ');
+
+            for (var choice in WikipediaChoices.result) {
+                console.log('Search result : ' + choice);
+                for (var i = 0; i < resWord.length; i++) {
+                    console.log('Search pattern : ' + resWord[i]);
+                    if (choice.search(resWord[i]) == -1) {
+                        $scope.badChoices.push(choice);
+                        $scope.choices.splice($scope.choices.indexOf(choice), 1);
+                        break;
+                    }
+                }
+            }
+
+            console.log('Good : ' + $scope.choices);
+            console.log('Bad : ' + $scope.badChoices);
+        }
 
         function makeList(result) {
             angular.forEach(Object.keys($scope.choiceList), function (current) {
@@ -53,6 +74,7 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
             BookServices.wikiSearchById(item.pageId).then(function (response) {
                 makeList(response.data);
                 $scope.isLoaded = true;
+                $scope.hideResult = true;
             });
         };
 
@@ -68,6 +90,11 @@ angular.module('wikipedia-api').controller('ApiSearchModalController', [
             $uibModalInstance.close($scope.selectedModel);
         };
 
+        $scope.hideNShow = function () {
+            $scope.hideResult = !$scope.hideResult;
+            
+        };
+        
         $scope.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
         };

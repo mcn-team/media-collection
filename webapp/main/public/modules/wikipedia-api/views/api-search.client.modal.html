@@ -23,6 +23,7 @@
     </div>
 
     <div class="modal-footer">
+        <button data-ng-hide="hideResult" ng-click="hideNShow()" data-ng-bind="'RESET' | translate"></button>
         <button ng-show="!nothingFound" class="btn btn-primary" ng-click="validateModal()" data-ng-bind="'OK' | translate">OK</button>
         <button class="btn btn-warning" ng-click="cancelModal()" data-ng-bind="'CANCEL' | translate"></button>
     </div>
