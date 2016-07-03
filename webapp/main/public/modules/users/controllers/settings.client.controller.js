@@ -5,6 +5,7 @@ angular.module('users').controller('SettingsController', [
     function($scope, $http, $location, Authentication, UserServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.user = $scope.authentication.user;
+        $scope.tabMenu = 'account';
 
         // Check if there are additional accounts
         $scope.hasConnectedAdditionalSocialAccounts = function(provider) {
@@ -35,26 +36,6 @@ angular.module('users').controller('SettingsController', [
             }).error(function(response) {
                 $scope.error = response.message;
             });
-        };
-
-        // Update a user profile
-        $scope.updateUserProfile = function(isValid) {
-            if (isValid) {
-                $scope.success = $scope.error = null;
-                var user = {
-                    displayName: $scope.user.displayName,
-                    username: $scope.user.username,
-                    email: $scope.user.email
-                };
-                UserServices.updateUser($scope.user._id, user).then(function(response) {
-                    $scope.success = true;
-                    Authentication.credentials.user = response;
-                }, function(response) {
-                    $scope.error = response.data.message;
-                });
-            } else {
-                $scope.submitted = true;
-            }
         };
 
         // Change user password

@@ -68,7 +68,6 @@ angular.module('mediacollection').constant('French', {
     'DELETE_MESSAGE': 'Etes-vous sur de vouloir le supprimer ?',
     'DELETE': 'Supprimer',
     'ADMIN_KEY': 'Les administrateurs sont surlignés en bleu.',
-    'LANGUAGES_TAB': 'Langues',
     'USERS_TAB': 'Utilisateurs',
     'SELECT_LANG': 'Choisir une langue',
     'MY_BOOKS': 'Mes Livres',
@@ -165,5 +164,8 @@ angular.module('mediacollection').constant('French', {
     'EDIT_PROFILE_TITLE': 'Modifiez votre profil',
     'MOVIE_NO_RESULT': 'Désolé. Aucun résultat trouvé pour votre recherche.',
     'SECRET_QUESTION': 'Question secrète',
-    'SECRET_ANSWER': 'Réponse secrète'
+    'SECRET_ANSWER': 'Réponse secrète',
+    'ACCOUNT_SETTINGS': 'Paramètres du compte',
+    'LANG_SETTINGS': 'Paramètres des langues',
+    'RECOVERY_SETTINGS': 'Récupération de mot de passe'
 });
