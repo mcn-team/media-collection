@@ -167,5 +167,6 @@ angular.module('mediacollection').constant('French', {
     'SECRET_ANSWER': 'Réponse secrète',
     'ACCOUNT_SETTINGS': 'Paramètres du compte',
     'LANG_SETTINGS': 'Paramètres des langues',
-    'RECOVERY_SETTINGS': 'Récupération de mot de passe'
+    'RECOVERY_SETTINGS': 'Récupération de mot de passe',
+    'MEDIAS': 'Médias'
 });

@@ -6,18 +6,17 @@
             <label class="btn btn-default" data-ng-model="tabMenu" uib-btn-radio="'lang'">{{'LANG_SETTINGS' | translate}}</label>
             <label class="btn btn-default" data-ng-model="tabMenu" uib-btn-radio="'recovery'">{{'RECOVERY_SETTINGS' | translate}}</label>
         </div>
-    </div>
-    <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
         <hr>
-        <form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
-            <fieldset>
-                <section data-ng-if="tabMenu === 'account'">
-                    <mc-edit-profile></mc-edit-profile>
-                </section>
-                <section data-ng-if="tabMenu === 'lang'">
-                    <mc-languages></mc-languages>
-                </section>
-            </fieldset>
-        </form>
+    </div>
+    <div class="col-xs-12">
+        <section data-ng-if="tabMenu === 'account'">
+            <mc-edit-profile></mc-edit-profile>
+        </section>
+        <section data-ng-if="tabMenu === 'lang'">
+            <mc-languages></mc-languages>
+        </section>
+        <section data-ng-if="tabMenu === 'recovery'">
+            <mc-recovery></mc-recovery>
+        </section>
     </div>
 </section>

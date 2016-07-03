@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('users').controller('SettingsController', [
-    '$scope', '$http', '$location', 'Authentication', 'UserServices',
-    function($scope, $http, $location, Authentication, UserServices) {
+    '$scope', '$http', '$location', 'Authentication',
+    function($scope, $http, $location, Authentication) {
         $scope.authentication = Authentication.checkAuth();
         $scope.user = $scope.authentication.user;
         $scope.tabMenu = 'account';

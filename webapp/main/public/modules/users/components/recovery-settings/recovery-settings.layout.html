@@ -1,0 +1,17 @@
+<section>
+    <div>
+        <div class="col-xs-12 text-center">
+            <div class="btn-group">
+                <label class="btn btn-default" data-ng-model="subMenu" uib-btn-radio="'questions'">{{'SECRET_QUESTION' | translate}}</label>
+                <label class="btn btn-default" data-ng-model="subMenu" uib-btn-radio="'medias'">{{'MEDIAS' | translate}}</label>
+            </div>
+            <hr>
+        </div>
+        <section data-ng-if="subMenu === 'questions'">
+            <mc-secret-questions-list questions="questions"></mc-secret-questions-list>
+        </section>
+        <section data-ng-if="subMenu === 'medias'">
+            <!--TODO: medias list directive -->
+        </section>
+    </div>
+</section>

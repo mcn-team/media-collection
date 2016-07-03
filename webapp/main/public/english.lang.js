@@ -167,5 +167,6 @@ angular.module('mediacollection').constant('English', {
     'SECRET_ANSWER': 'Secret answer',
     'ACCOUNT_SETTINGS': 'Account settings',
     'LANG_SETTINGS': 'Languages settings',
-    'RECOVERY_SETTINGS': 'Password recovery'
+    'RECOVERY_SETTINGS': 'Password recovery',
+    'MEDIAS': 'Medias'
 });
