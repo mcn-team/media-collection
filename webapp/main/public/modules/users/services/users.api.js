@@ -55,6 +55,10 @@ angular.module('users').factory('UserServices', [
             return $http.get(buildEndpoint('/users/count'))
         };
 
+        userApi.getRecoveryList = function (userId) {
+            return $http.get(buildEndpoint('/users/' + userId + '/recovery'), httpConfig);
+        };
+
         return userApi;
     }
 ]);
