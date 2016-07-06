@@ -208,7 +208,7 @@ exports.decipherPassword = (payload, callback) => {
     return callback(null, cypher.decrypt(payload.password));
 };
 
-exports.findRecoveryList = (params, callback, stripMethod) => {
+const findRecoveryList = (params, callback, stripMethod) => {
     User.findOne({ _id: params.userId }, {
         username: false,
         password: false,
@@ -230,4 +230,53 @@ exports.findRecoveryList = (params, callback, stripMethod) => {
 
         return responseHelper.serviceCallback(err, user, 200, callback);
     });
+};
+
+exports.findRecoveryList = findRecoveryList;
+
+const buildUpdateObject = (payload, update, checking, field) => {
+    if (payload[checking]) {
+        update.$push = {};
+        update.$push[field] = payload;
+    } else {
+        update.$pull = {};
+        update.$pull[field] = payload;
+    }
+
+    return update;
+};
+
+exports.updateRecoveryList = (params, payload, callback) => {
+    const options = {
+        new: true,
+        fields: {
+            username: false,
+            password: false,
+            displayName: false,
+            email: false,
+            admin: false,
+            options: false,
+            created: false,
+            _id: false,
+            'recovery.questions.answer': false
+        }
+    };
+
+    findRecoveryList(params, (err, res) => {
+        let update = {};
+        let field = 'recovery.';
+
+        if (payload.question) {
+            field += 'questions';
+            buildUpdateObject(payload, update, 'answer', field);
+        } else if (payload.mediaId) {
+            field +='medias';
+            buildUpdateObject(payload, update, 'field', field);
+        }
+
+        User.findOneAndUpdate({ _id: params.userId }, update, options).exec((err, response) => {
+            return responseHelper.serviceCallback(err, response, 200, callback);
+        });
+    });
+
 };

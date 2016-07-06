@@ -39,6 +39,9 @@ exports.optionsPayloadSchema = {
     language: Joi.string().alphanum().trim().optional()
 };
 
-exports.optionsParamsSchema = {
-    userId: Joi.string().hex().length(24)
+exports.recoveryPayload = {
+    question: Joi.string().optional(),
+    answer: Joi.string().optional(),
+    media: Joi.string().hex().length(24).optional(),
+    field: Joi.string().optional()
 };

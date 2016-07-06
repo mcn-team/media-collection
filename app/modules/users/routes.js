@@ -114,7 +114,7 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             validate: {
-                params: validator.optionsParamsSchema,
+                params: validator.userIdParams,
                 payload: validator.optionsPayloadSchema
             },
             notes: [
@@ -141,6 +141,9 @@ module.exports = (server) => {
         method: 'GET',
         path: '/{userId}/forgot',
         config: {
+            validate: {
+                params: validator.userIdParams
+            },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
                 'Returns HTTP 200 Ok and an object on success'
@@ -156,6 +159,9 @@ module.exports = (server) => {
         method: 'POST',
         path: '/{userId}/forgot',
         config: {
+            validate: {
+                params: validator.userIdParams
+            },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
                 'Takes the selected question and the answer as payload',
@@ -174,6 +180,9 @@ module.exports = (server) => {
         path: '/{userId}/forgot',
         config: {
             auth: 'RequiresRecovery',
+            validate: {
+                params: validator.userIdParams
+            },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
                 'Takes the new password as payload',
@@ -195,6 +204,9 @@ module.exports = (server) => {
         path: '/{userId}/recovery',
         config: {
             auth: 'RequiresLoginStrict',
+            validate: {
+                params: validator.userIdParams
+            },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
                 'Returns HTTP 200 Ok and an object on success',
@@ -205,4 +217,31 @@ module.exports = (server) => {
         },
         handler: users.getRecoveryList
     });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/recovery',
+        config: {
+            auth: 'RequiresLoginStrict',
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.recoveryPayload
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes an Object as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes an object containing a question or media fields, depending ' +
+            'on the recovery field to add/update/delete and an optional field value if the desired ' +
+            'action is a add or update. This last field contains the answer if this this a question or ' +
+            'the required field asked if it is a media. ' +
+            'Sends back the updated recovery object described in the GET recovery route.'
+            //TODO: prehandler to check if question or media already exists (if exists return 400)
+        },
+        handler: users.patchRecoveryList
+    });
+
+    //TODO: PATCH .../edit to update an existing media or question
 };

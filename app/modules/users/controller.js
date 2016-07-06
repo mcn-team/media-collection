@@ -141,3 +141,9 @@ exports.getRecoveryList = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.patchRecoveryList = (request, reply) => {
+    userServices.updateRecoveryList(request.params, request.payload, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
