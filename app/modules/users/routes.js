@@ -189,4 +189,20 @@ module.exports = (server) => {
         },
         handler: users.updateUserPassword
     });
+
+    server.route({
+        method: 'GET',
+        path: '/{userId}/recovery',
+        config: {
+            auth: 'RequiresLoginStrict',
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Sends back an Array containing the list of secret questions ' +
+            'or medias depending on the type parameter.'
+        },
+        handler: users.getRecoveryList
+    });
 };

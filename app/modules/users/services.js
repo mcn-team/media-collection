@@ -146,28 +146,6 @@ exports.findOneUser = (userId, callback) => {
     });
 };
 
-exports.findRecoveryFromUser = (params, callback) => {
-    User.findOne({ _id: params.userId }, {
-        username: false,
-        password: false,
-        displayName: false,
-        email: false,
-        admin: false,
-        options: false,
-        created: false,
-        _id: false,
-        'recovery.questions.answer': false
-    }).lean().exec((err, users) => {
-        if (users.recovery.method === "questions") {
-            delete users.recovery.medias;
-        } else {
-            delete users.recovery.questions;
-        }
-
-        return responseHelper.serviceCallback(err, users, 200, callback);
-    });
-};
-
 const generateTimeLimitedToken = (id) => {
     return jwt.sign({ user: id }, config.secretJWT, { expiresIn: '30m', jwtid: 'recovery' });
 };
@@ -228,4 +206,28 @@ exports.saveUserPassword = (params, payload, callback) => {
 
 exports.decipherPassword = (payload, callback) => {
     return callback(null, cypher.decrypt(payload.password));
+};
+
+exports.findRecoveryList = (params, callback, stripMethod) => {
+    User.findOne({ _id: params.userId }, {
+        username: false,
+        password: false,
+        displayName: false,
+        email: false,
+        admin: false,
+        options: false,
+        created: false,
+        _id: false,
+        'recovery.questions.answer': false
+    }).lean().exec((err, user) => {
+        if (stripMethod) {
+            if (user.recovery.method === "questions") {
+                delete user.recovery.medias;
+            } else {
+                delete user.recovery.questions;
+            }
+        }
+
+        return responseHelper.serviceCallback(err, user, 200, callback);
+    });
 };

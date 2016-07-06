@@ -104,9 +104,9 @@ exports.ifAdmin = (request, reply) => {
 };
 
 exports.getRecoveryFields = (request, reply) => {
-    userServices.findRecoveryFromUser(request.params, (err, res) => {
+    userServices.findRecoveryList(request.params, (err, res) => {
         return responseHelper.controllerReply(err, res, reply);
-    });
+    }, true);
 };
 
 exports.checkRecoveryAnswer = (request, reply) => {
@@ -133,5 +133,11 @@ exports.decryptPassword = (request, reply) => {
         } else {
             return reply(res.data);
         }
+    });
+};
+
+exports.getRecoveryList = (request, reply) => {
+    userServices.findRecoveryList(request.params, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
     });
 };
