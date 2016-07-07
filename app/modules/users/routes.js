@@ -237,8 +237,10 @@ module.exports = (server) => {
             'on the recovery field to add/update/delete and an optional field value if the desired ' +
             'action is a add or update. This last field contains the answer if this this a question or ' +
             'the required field asked if it is a media. ' +
-            'Sends back the updated recovery object described in the GET recovery route.'
-            //TODO: prehandler to check if question or media already exists (if exists return 400)
+            'Sends back the updated recovery object described in the GET recovery route.',
+            pre: [
+                { method: users.checkIfRecoveryExists, assign: 'ifExists' }
+            ]
         },
         handler: users.patchRecoveryList
     });

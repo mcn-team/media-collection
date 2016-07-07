@@ -138,12 +138,28 @@ exports.decryptPassword = (request, reply) => {
 
 exports.getRecoveryList = (request, reply) => {
     userServices.findRecoveryList(request.params, (err, res) => {
-        responseHelper.controllerReply(err, res, reply);
+        return responseHelper.controllerReply(err, res, reply);
     });
 };
 
 exports.patchRecoveryList = (request, reply) => {
+    if (request.pre.ifExists) {
+       return reply(request.pre.ifExists.error).code(request.pre.ifExists.code);
+    }
+
     userServices.updateRecoveryList(request.params, request.payload, (err, res) => {
-        responseHelper.controllerReply(err, res, reply);
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
+exports.checkIfRecoveryExists = (request, reply) => {
+    userServices.findOneRecovery(request.params, request.payload, (err, res) => {
+        if (err) {
+            return reply({ error: { message: 'db-error', error: err }, code: 500 });
+        } else if (res && res.length > 0) {
+            return reply({ error: { message: 'recovery method already exists' }, code: 400 });
+        } else {
+            reply(false);
+        }
     });
 };

@@ -278,5 +278,33 @@ exports.updateRecoveryList = (params, payload, callback) => {
             return responseHelper.serviceCallback(err, response, 200, callback);
         });
     });
+};
 
+exports.findOneRecovery = (params, payload, callback) => {
+    if (!payload.answer && !payload.field) {
+        return callback()
+    }
+
+    let options = {};
+
+    if (payload.question) {
+        options.field = 'question';
+        options.search = 'recovery.questions';
+        options.content = payload.question;
+    } else {
+        options.field = 'mediaId';
+        options.search = 'recovery.medias';
+        options.content = payload.mediaId;
+    }
+
+    let query = {
+        _id: params.userId
+    };
+
+    query[options.search] = { $elemMatch: {} };
+    query[options.search].$elemMatch[options.field] = options.content;
+
+    User.find(query).lean().exec((err, res) => {
+        return callback(err, res);
+    });
 };
