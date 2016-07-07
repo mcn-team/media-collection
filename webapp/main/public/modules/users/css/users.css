@@ -11,3 +11,5 @@
     position: absolute;
 }
 input.has-error { border: 1px solid red; }
+table { cursor: default; }
+tbody a { cursor: pointer; }
