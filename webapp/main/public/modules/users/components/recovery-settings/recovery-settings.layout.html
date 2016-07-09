@@ -3,12 +3,13 @@
         <div class="col-xs-12 text-center">
             <div class="btn-group">
                 <label class="btn btn-default" data-ng-model="subMenu" uib-btn-radio="'questions'">{{'SECRET_QUESTION' | translate}}</label>
-                <label class="btn btn-default" data-ng-model="subMenu" uib-btn-radio="'medias'">{{'MEDIAS' | translate}}</label>
+                <!--Style is a workaround for broken disabled and ngDisabled on radio button ui-bootstrap-->
+                <label style="pointer-events: none;" class="btn btn-default" data-ng-model="subMenu" uib-btn-radio="'medias'" disabled>{{'MEDIAS' | translate}}</label>
             </div>
             <hr>
         </div>
         <section data-ng-if="subMenu === 'questions'">
-            <mc-secret-questions-list questions="questions"></mc-secret-questions-list>
+            <mc-secret-questions-list></mc-secret-questions-list>
         </section>
         <section data-ng-if="subMenu === 'medias'">
             <!--TODO: medias list directive -->

@@ -6,10 +6,7 @@ angular.module('users').directive('mcSecretQuestionsList', [
         return {
             restrict: 'E',
             templateUrl: 'modules/users/components/mc-secret-questions-list/mc-secret-questions-list.layout.html',
-            scope: {
-                questions: '='
-            },
-            link: function (scope, element, attrs) {
+            link: function (scope) {
                 scope.newQuestion = {};
                 var successCallback = function (response) {
                     scope.recoveryList = response.data.recovery;
@@ -35,7 +32,22 @@ angular.module('users').directive('mcSecretQuestionsList', [
                     }
                     //TODO: else display an error in an span error in layout
                 };
-                //TODO: Update service missing
+
+                scope.editAnswer = function (question) {
+                    question.key = question.question;
+                    question.isEdit = question.isEdit ? false : true;
+                };
+                
+                scope.updateQuestion = function (question) {
+                    var updateQuestion = {
+                        question: question.question,
+                        answer: question.answer,
+                        key: question.key
+                    };
+
+                    UserServices.editQuestionRecovery(Authentication.credentials.user._id, updateQuestion)
+                        .then(successCallback, failureCallback);
+                };
             }
         };
     }

@@ -62,6 +62,10 @@ angular.module('users').factory('UserServices', [
         userApi.patchRecovery = function (userId, payload) {
             return $http.patch(buildEndpoint('/users/' + userId + '/recovery'), payload, httpConfig);
         };
+        
+        userApi.editQuestionRecovery = function (userId, payload) {
+            return $http.patch(buildEndpoint('/users/' + userId + '/recovery/questions/edit'), payload, httpConfig);
+        };
 
         return userApi;
     }

@@ -1,0 +1,15 @@
+{
+  "curly": true,
+  "esversion": 5,
+  "forin": true,
+  "latedef": true,
+  "quotmark": "single",
+  "strict": "global",
+  "unused": true,
+  "globals": {
+    "angular": false,
+    "document": false,
+    "console": false,
+    "window": false
+  }
+}
