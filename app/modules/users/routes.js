@@ -245,5 +245,28 @@ module.exports = (server) => {
         handler: users.patchRecoveryList
     });
 
-    //TODO: PATCH .../edit to update an existing media or question
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/recovery/questions/edit',
+        config: {
+            auth: 'RequiresLoginStrict',
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.questionsEditPayload
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes an Object as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes an object containing a question on the recovery field to update ' +
+            'and a answer field. This last field contains the answer. ' +
+            'Sends back the updated recovery object described in the GET recovery route.',
+            pre: [
+                { method: users.checkIfRecoveryExists, assign: 'ifExists' }
+            ]
+        },
+        handler: users.patchSpecificQuestionRecovery
+    });
 };

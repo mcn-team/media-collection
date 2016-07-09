@@ -8,6 +8,21 @@ const config = require('../../config');
 const responseHelper = require('../../utils/response-helper');
 const cypher = require('../auth/auth.services');
 
+const recoveryResponseOptions = {
+    new: true,
+    fields: {
+        username: false,
+        password: false,
+        displayName: false,
+        email: false,
+        admin: false,
+        options: false,
+        created: false,
+        _id: false,
+        'recovery.questions.answer': false
+    }
+};
+
 const authenticateResponse = (code, user, callback) => {
     const token = jwt.sign({ user: user._id }, config.secretJWT);
     delete user.password;
@@ -247,21 +262,6 @@ const buildUpdateObject = (payload, update, checking, field) => {
 };
 
 exports.updateRecoveryList = (params, payload, callback) => {
-    const options = {
-        new: true,
-        fields: {
-            username: false,
-            password: false,
-            displayName: false,
-            email: false,
-            admin: false,
-            options: false,
-            created: false,
-            _id: false,
-            'recovery.questions.answer': false
-        }
-    };
-
     findRecoveryList(params, (err, res) => {
         let update = {};
         let field = 'recovery.';
@@ -274,7 +274,7 @@ exports.updateRecoveryList = (params, payload, callback) => {
             buildUpdateObject(payload, update, 'field', field);
         }
 
-        User.findOneAndUpdate({ _id: params.userId }, update, options).exec((err, response) => {
+        User.findOneAndUpdate({ _id: params.userId }, update, recoveryResponseOptions).exec((err, response) => {
             return responseHelper.serviceCallback(err, response, 200, callback);
         });
     });
@@ -306,5 +306,17 @@ exports.findOneRecovery = (params, payload, callback) => {
 
     User.find(query).lean().exec((err, res) => {
         return callback(err, res);
+    });
+};
+
+exports.updateOneRecovery = (params, payload, callback) => {
+    const key = payload.key;
+    delete payload.key;
+
+    const query = { _id: params.userId, 'recovery.questions.question': key };
+    const updater = { $set: { 'recovery.questions.$': payload } };
+
+    User.findOneAndUpdate(query, updater, recoveryResponseOptions).lean().exec((err, response) => {
+        return responseHelper.serviceCallback(err, response, 200, callback);
     });
 };

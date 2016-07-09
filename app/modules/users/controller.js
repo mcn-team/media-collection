@@ -163,3 +163,9 @@ exports.checkIfRecoveryExists = (request, reply) => {
         }
     });
 };
+
+exports.patchSpecificQuestionRecovery = (request, reply) => {
+    userServices.updateOneRecovery(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
