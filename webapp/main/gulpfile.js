@@ -126,7 +126,7 @@ gulp.task('prod:inject', ['prod:files'], function () {
 
 gulp.task('watch', ['inject'], function () {
     gulp.watch(CSS_PATH, ['inject']);
-    gulp.watch(JS_PATH, ['inject']);
+    gulp.watch(JS_PATH, ['lint', 'inject']);
     gulp.watch(HTML_PATH, ['inject']);
 });
 

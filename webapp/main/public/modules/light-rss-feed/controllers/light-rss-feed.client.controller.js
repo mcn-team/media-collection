@@ -9,6 +9,8 @@ angular.module('light-rss-feed').controller('rssFeedController', [
         $scope.authentication = Authentication.isAuthenticated();
         $scope.feeds = {};
         $scope.feedsProperties = {};
+        var feeds = FeedList.get();
+        var idxFeed = feeds.length - 1;
 
         function changeFeedCallback(feedProperties, isReversed) {
             feedProperties.ngClass = 'feed-fade-out';
@@ -54,12 +56,7 @@ angular.module('light-rss-feed').controller('rssFeedController', [
             changeFeedCallback($scope.feedsProperties[idx]);
         };
 
-        var feeds = FeedList.get();
-        var idxFeed = feeds.length - 1;
-
-        //createFeedProp(idxFeed);
-
-        feeds.forEach(function (elem, index) {
+        feeds.forEach(function (elem) {
             $scope.feedsProperties[elem.title] = {
                 ngClass: '',
                 handler: null,

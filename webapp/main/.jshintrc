@@ -1,7 +1,6 @@
 {
   "curly": true,
   "esversion": 5,
-  "forin": true,
   "latedef": true,
   "quotmark": "single",
   "strict": "global",
@@ -10,6 +9,9 @@
     "angular": false,
     "document": false,
     "console": false,
-    "window": false
+    "window": false,
+    "JSEncrypt": false,
+    "FileReader": false,
+    "ApplicationConfiguration": false
   }
 }

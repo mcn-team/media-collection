@@ -10,6 +10,6 @@ angular.module('core').directive('mcDashboardBtn', [
                 mcPopover: '=',
                 mcUrl: '='
             }
-        }
+        };
     }
 ]);

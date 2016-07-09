@@ -29,8 +29,9 @@ angular.module('light-rss-feed').factory('planeteBDFeedService', [
                         tmp = '';
                     }
 
-                    if (htmlContent[i] !== '>')
+                    if (htmlContent[i] !== '>') {
                         tmp += htmlContent[i];
+                    }
                 }
             }
 
@@ -39,14 +40,10 @@ angular.module('light-rss-feed').factory('planeteBDFeedService', [
                 return str.match(regX)[1];
             }
 
-            function getImgScr(htmlImgStr) {
-                return regexExtract(htmlImgStr, '"');
-            }
-
             function fillFeedObjectFields() {
                 var item = {};
 
-                fragment.forEach(function (elem, index, array) {
+                fragment.forEach(function (elem) {
                     if (elem.indexOf('Auteurs') !== -1) {
                         item.author = elem;
                     } else if (elem.indexOf('\.jpg') !== -1) {
@@ -65,8 +62,9 @@ angular.module('light-rss-feed').factory('planeteBDFeedService', [
         planeteBDFeedService.formatFeedTitle = function (rssTitle) {
             var tmp = [];
 
-            if (rssTitle)
+            if (rssTitle) {
                 tmp = rssTitle.split(' - ');
+            }
 
             if (tmp.length === 2) {
                 if (tmp[1].length <= 2) {

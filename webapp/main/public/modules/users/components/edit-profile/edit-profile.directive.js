@@ -6,7 +6,7 @@ angular.module('users').directive('mcEditProfile', [
         return {
             restrict: 'E',
             templateUrl: 'modules/users/components/edit-profile/edit-profile.layout.html',
-            link: function (scope, element, attrs) {
+            link: function (scope) {
                 scope.user = {};
 
                 scope.updateUserProfile = function (isValid) {

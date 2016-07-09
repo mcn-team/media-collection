@@ -5,7 +5,7 @@ angular.module('users').directive('mcRecovery', [
         return {
             restrict: 'E',
             templateUrl: 'modules/users/components/recovery-settings/recovery-settings.layout.html',
-            link: function (scope, element, attrs) {
+            link: function (scope) {
                 scope.subMenu = 'questions';
             }
         };

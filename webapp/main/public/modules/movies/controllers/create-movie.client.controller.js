@@ -86,8 +86,7 @@ angular.module('movies').controller('CreateMoviesController', [
             };
 
             $scope.checkField = function (key, val) {
-                return val
-                    ? ($scope.mediaModel[key] && $scope.mediaModel[key][val] ? false : true)
+                return val ? ($scope.mediaModel[key] && $scope.mediaModel[key][val] ? false : true)
                     : ($scope.mediaModel[key] ? false : true);
             };
 

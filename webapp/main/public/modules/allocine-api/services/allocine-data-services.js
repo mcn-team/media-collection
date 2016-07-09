@@ -29,7 +29,7 @@ angular.module('allocine-api').factory('AllocineDataService', [
                     shortSummary: ''
                 };
 
-                if (data.filter === 'tvseries') {d
+                if (data.filter === 'tvseries') {
                     cleanedACResponse[index].scenarists = current.castingShort && current.castingShort.creators ? current.castingShort.creators.trim().split(',') : [];
                     cleanedACResponse[index].releaseDate = current.yearStart ? current.yearStart : '1970';
                 }
@@ -54,7 +54,7 @@ angular.module('allocine-api').factory('AllocineDataService', [
             } else if (data.filter === 'movie') {
                 var scenarists = [];
 
-                data.result.castMember.forEach(function (current, index) {
+                data.result.castMember.forEach(function (current) {
                     if (current.activity.$.match(/^product(eur|rice)$/i)) {
                         producers.push(current.person.name);
                     } else if (current.activity.$.match(/scénariste/i)) {

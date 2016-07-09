@@ -26,8 +26,9 @@ angular.module('books').filter('listBookFilter', [
                 }
             });
 
-            if (!searchText && newBookList.length <= 0)
+            if (!searchText && newBookList.length <= 0) {
                 newBookList = ngRepeatItems;
+            }
 
             return newBookList;
         };

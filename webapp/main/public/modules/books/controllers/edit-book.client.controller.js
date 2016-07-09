@@ -39,6 +39,15 @@ angular.module('books').controller('EditBookController', [
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book._id = $scope.mediaModel._id;
 
+            var failureCallback = function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            };
+
+            var successCallback = function () {
+                $location.path('books/' + book._id);
+                $scope.mediaModel = {};
+            };
+
             var successUpdateCallback = function () {
                 if ($scope.mediaModel.myCroppedImage) {
                     var fd = new $window.FormData();
@@ -49,15 +58,6 @@ angular.module('books').controller('EditBookController', [
                 } else {
                     successCallback();
                 }
-            };
-
-            var failureCallback = function (errorResponse) {
-                $scope.error = errorResponse.data.message;
-            };
-
-            var successCallback = function () {
-                $location.path('books/' + book._id);
-                $scope.mediaModel = {};
             };
 
             BookServices.updateBook(book._id, book).then(successUpdateCallback, failureCallback);

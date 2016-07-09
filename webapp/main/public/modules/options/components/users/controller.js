@@ -85,7 +85,7 @@ angular.module('options').directive('mcUsers', [
                     var credentials = Authentication.encryptCredentials(scope.newUser);
 
                     UserServices.signup(credentials, true).then(successCallback, failureCallback);
-                }
+                };
             }
         };
     }

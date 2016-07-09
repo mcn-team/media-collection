@@ -22,13 +22,13 @@ angular.module('movies').filter('listMovieFilter', [
                 if (checkInfosItem(item.title, searchText) || checkInfosItem(item.collectionName, searchText) ||
                     chkSearchText(item.actors, searchText) || chkSearchText(item.producers, searchText) ||
                     chkSearchText(item.directors, searchText) || chkSearchText(item.scenarists, searchText)) {
-
                     newMovieList.push(item);
                 }
             });
 
-            if (!searchText && newMovieList.length <= 0)
+            if (!searchText && newMovieList.length <= 0) {
                 newMovieList = ngRepeatItems;
+            }
 
             return newMovieList;
         };

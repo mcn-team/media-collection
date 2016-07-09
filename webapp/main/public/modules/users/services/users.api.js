@@ -52,7 +52,7 @@ angular.module('users').factory('UserServices', [
         };
 
         userApi.isUser = function () {
-            return $http.get(buildEndpoint('/users/count'))
+            return $http.get(buildEndpoint('/users/count'));
         };
 
         userApi.getRecoveryList = function (userId) {

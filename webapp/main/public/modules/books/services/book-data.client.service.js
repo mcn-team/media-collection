@@ -27,8 +27,9 @@ angular.module('books').factory('BooksDataService', [
             var displayAuthors = '';
 
             angular.forEach(array, function (item) {
-                if (displayAuthors !== '' && item)
+                if (displayAuthors !== '' && item) {
                     displayAuthors += ', ';
+                }
                 displayAuthors += item;
             });
 
