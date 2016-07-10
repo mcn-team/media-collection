@@ -19,14 +19,23 @@ angular.module('users').factory('UserServices', [
         };
 
         userApi.login = function (payload) {
-            return $http.post(Config.apiRoute + '/users/login', payload);
+            return Authentication.getKey().then(function () {
+                payload = Authentication.encryptCredentials(payload);
+                return $http.post(Config.apiRoute + '/users/login', payload);
+            });
         };
 
         userApi.signup = function (payload, isAdmin) {
             if (isAdmin) {
-                return $http.post(buildEndpoint('/users/signup'), payload, httpConfig);
+                return Authentication.getKey().then(function () {
+                    payload = Authentication.encryptCredentials(payload);
+                    return $http.post(buildEndpoint('/users/signup'), payload, httpConfig);
+                });
             } else {
-                return $http.post(Config.apiRoute + '/users/signup', payload);
+                return Authentication.getKey().then(function () {
+                    payload = Authentication.encryptCredentials(payload);
+                    return $http.post(Config.apiRoute + '/users/signup', payload);
+                });
             }
         };
 
