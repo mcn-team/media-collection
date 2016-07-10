@@ -12,6 +12,7 @@ angular.module('users').controller('AuthenticationController', [
 
         function successCallback(response) {
             self.isSigned = !response.data.exists;
+            UserServices.setIsSigned(self.isSigned);
             self.center = 'text-center';
             if (response.data.exists && $state.current.name === 'signup') {
                 $state.go('signin');

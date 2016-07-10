@@ -1,16 +1,10 @@
 'use strict';
 
 angular.module('core').controller('HeaderController', [
-    '$scope', '$state', 'Authentication', 'Menus', 'UserServices',
-    function($scope, $state, Authentication, Menus, UserServices) {
+    '$rootScope', '$scope', '$state', 'Authentication', 'Menus', 'UserServices',
+    function($rootScope, $scope, $state, Authentication, Menus, UserServices) {
         $scope.authentication = Authentication;
         $scope.isCollapsed = false;
-
-        function successCallback(response) {
-            $scope.isSigned = !response.data.exists;
-        }
-
-        UserServices.isUser().then(successCallback);
 
         $scope.menu = Menus.getMenu('topbar');
 
@@ -26,6 +20,10 @@ angular.module('core').controller('HeaderController', [
         // Collapsing the menu after navigation
         $scope.$on('$stateChangeSuccess', function() {
             $scope.isCollapsed = false;
+        });
+        
+        $rootScope.$on('isSigned:changed', function () {
+            $scope.isSigned = UserServices.getIsSigned();
         });
     }
 ]);
