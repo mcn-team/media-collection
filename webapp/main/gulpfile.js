@@ -70,7 +70,7 @@ gulp.task('prod:path', function () {
 });
 
 gulp.task('prod:style', [], function () {
-    return gulp.src(CSS_PATH)
+    return gulp.src(_.union(CSS_PATH, CSS_FILES))
         .pipe(concat('style.css'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(minifycss())
