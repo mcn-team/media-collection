@@ -12,7 +12,7 @@ angular.module('users').directive('mcLanguages', [
                 scope.langs = $translate.getAvailableLanguageKeys();
                 scope.langs.forEach(function (element) {
                     var lang = element.split('_');
-                    scope.languages.push({ label: lang[0], key: lang[1] })
+                    scope.languages.push({ label: lang[0], key: lang[1] });
                 });
 
                 scope.selectedLanguage = _.find(scope.languages, { key: options.language });
@@ -20,13 +20,11 @@ angular.module('users').directive('mcLanguages', [
                 scope.changeLanguage = function () {
                     $translate.use(scope.selectedLanguage.label + '_' + scope.selectedLanguage.key);
                     Authentication.user.options.language = scope.selectedLanguage.key;
-                    UserServices.saveOptions(Authentication.user._id, Authentication.user.options).then(function() {
-                        
-                    }, function (errorResponse) {
+                    UserServices.saveOptions(Authentication.user._id, Authentication.user.options).then(function() {}, function (errorResponse) {
                         console.error(errorResponse);
                     });
                     Authentication.setCredentials(Authentication.credentials);
-                }
+                };
             }
         };
     }

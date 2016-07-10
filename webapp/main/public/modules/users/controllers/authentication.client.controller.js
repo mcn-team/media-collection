@@ -12,6 +12,7 @@ angular.module('users').controller('AuthenticationController', [
 
         function successCallback(response) {
             self.isSigned = !response.data.exists;
+            self.center = 'text-center';
             if (response.data.exists && $state.current.name === 'signup') {
                 $state.go('signin');
             }
@@ -21,6 +22,12 @@ angular.module('users').controller('AuthenticationController', [
 
         $scope.signup = function() {
             var credentials = Authentication.encryptCredentials($scope.credentials);
+            credentials.recovery = {
+                questions: [
+                    { question: $scope.secret.question, answer: $scope.secret.answer }
+                ]
+            };
+
             UserServices.signup(credentials).then(function (response) {
                 Authentication.setCredentials(response.data);
                 $state.go('home');

@@ -52,8 +52,9 @@ angular.module('movies').factory('MovieDataService', [
             var displayList = '';
 
             angular.forEach(array, function (item) {
-                if (displayList !== '' && item)
+                if (displayList !== '' && item) {
                     displayList += ', ';
+                }
                 displayList += item;
             });
 
@@ -102,7 +103,7 @@ angular.module('movies').factory('MovieDataService', [
             }
 
             if (model.cover === '') {
-                delete model.cover
+                delete model.cover;
             }
 
             if (model.releasedDate) {

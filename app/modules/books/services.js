@@ -15,7 +15,7 @@ exports.findBooks = (callback) => {
 };
 
 exports.findOneBook = (params, callback) => {
-    Book.findOne({ _id: params.bookId }).populate('user', 'displayName').exec((err, book) => {
+    Book.findOne({ _id: params.bookId }).populate('user', 'displayName').lean().exec((err, book) => {
         responseHelper.serviceCallback(err, book, 200, callback);
     });
 };

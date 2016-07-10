@@ -28,7 +28,7 @@ angular.module('light-rss-feed').factory('fnacFeedService', [
             function fillFeedObjectFields() {
                 var item = {};
 
-                fragment.forEach(function (elem, index) {
+                fragment.forEach(function (elem) {
                     if (elem.indexOf('><img') !== -1) {
                         item.img = regexExtract(elem.split('>')[1], '"');
                         item.link = regexExtract(elem, '"');

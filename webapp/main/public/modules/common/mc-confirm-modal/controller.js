@@ -13,6 +13,6 @@ angular.module('mediacollection').controller('ConfirmCtrl', [
 
         $scope.dismissModal = function () {
             $uibModalInstance.dismiss();
-        }
+        };
     }
 ]);

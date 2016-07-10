@@ -5,8 +5,6 @@ angular.module('books').factory('StatsBookService', [
         // Stats book service service logic
         // ...
 
-        var bookResult = {};
-
         var statService = {};
 
         var statistics = {};

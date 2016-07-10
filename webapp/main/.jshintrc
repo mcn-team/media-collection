@@ -1,0 +1,17 @@
+{
+  "curly": true,
+  "esversion": 5,
+  "latedef": true,
+  "quotmark": "single",
+  "strict": "global",
+  "unused": true,
+  "globals": {
+    "angular": false,
+    "document": false,
+    "console": false,
+    "window": false,
+    "JSEncrypt": false,
+    "FileReader": false,
+    "ApplicationConfiguration": false
+  }
+}

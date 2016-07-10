@@ -68,7 +68,6 @@ angular.module('mediacollection').constant('English', {
     'DELETE_MESSAGE': 'Are you sure you want to delete this ?',
     'DELETE': 'Delete',
     'ADMIN_KEY': 'Admin user are highlighted in blue.',
-    'LANGUAGES_TAB': 'Languages',
     'USERS_TAB': 'Users',
     'SELECT_LANG': 'Select language',
     'MY_BOOKS': 'My Books',
@@ -163,5 +162,15 @@ angular.module('mediacollection').constant('English', {
     'TOTAL_SEEN_DURATION': 'Total seen duration',
     'LEFT_TO_SEE_DURATION': 'Left to see',
     'EDIT_PROFILE_TITLE': 'Edit your profile',
-    'MOVIE_NO_RESULT': 'Sorry. Your search came back with no result.'
+    'MOVIE_NO_RESULT': 'Sorry. Your search came back with no result.',
+    'SECRET_QUESTION': 'Secret question',
+    'SECRET_ANSWER': 'Secret answer',
+    'ACCOUNT_SETTINGS': 'Account settings',
+    'LANG_SETTINGS': 'Languages settings',
+    'RECOVERY_SETTINGS': 'Password recovery',
+    'MEDIAS': 'Medias',
+    'RESET_PASSWORD': 'Reset password',
+    'OF': 'of',
+    'RECOVERY_HEADER': 'Reset the password',
+    'NEW_PASSWORD': 'New password'
 });

@@ -1,5 +1,6 @@
 'use strict';
-
+//Ignore the definition of ApplicationConfiguration
+/* jshint -W079 */
 // Init the application configuration module for AngularJS application
 var ApplicationConfiguration = (function() {
     // Init module configuration options
@@ -45,7 +46,7 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).run([
     '$translate', 'Authentication', 'lodash',
-    function ($translate, Authentication, _) {
+    function ($translate, Authentication) {
         var language = Authentication.user ? Authentication.user.options.language : 'en';
         $translate.getAvailableLanguageKeys().forEach(function (element) {
             if (element.indexOf(language) > 0) {
@@ -79,7 +80,9 @@ angular.module(ApplicationConfiguration.applicationModuleName).config([
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
     //Fixing facebook bug with redirect
-    if (window.location.hash === '#_=_') window.location.hash = '#!';
+    if (window.location.hash === '#_=_') {
+        window.location.hash = '#!';
+    }
 
     //Then init the app
     angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);

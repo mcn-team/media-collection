@@ -8,6 +8,30 @@ const config = require('../../config');
 const responseHelper = require('../../utils/response-helper');
 const cypher = require('../auth/auth.services');
 
+const recoveryResponseOptions = {
+    new: true,
+    fields: {
+        username: false,
+        password: false,
+        displayName: false,
+        email: false,
+        admin: false,
+        options: false,
+        created: false,
+        _id: false,
+        'recovery.questions.answer': false
+    }
+};
+
+const authenticateResponse = (code, user, callback) => {
+    const token = jwt.sign({ user: user._id }, config.secretJWT);
+    delete user.password;
+    user.recovery = !!(user.recovery &&
+        ((user.recovery.medias && user.recovery.medias.length > 0) ||
+        (user.recovery.questions && user.recovery.questions.length > 0)));
+    callback(null, { data: { token: token, user: user }, code: code });
+};
+
 exports.addUser = (payload, callback) => {
     payload.password = cypher.decrypt(payload.password);
     let newUser = new User(payload);
@@ -16,15 +40,13 @@ exports.addUser = (payload, callback) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else {
-            const token = jwt.sign({ user: user._id }, config.secretJWT);
-            user.password = undefined;
-            callback(null, { data: { token: token, user: user }, code: 201 });
+            authenticateResponse(201, user, callback);
         }
     });
 };
 
 exports.authenticateUser = (payload, callback) => {
-    User.findOne({ username: payload.username }).exec((err, user) => {
+    User.findOne({ username: payload.username }).lean().exec((err, user) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else if (!user) {
@@ -33,9 +55,7 @@ exports.authenticateUser = (payload, callback) => {
             if (user.password !== cypher.decrypt(payload.password)) {
                 callback({ error: 'Wrong password', code: 401 });
             } else {
-                const token = jwt.sign({ user: user._id }, config.secretJWT);
-                user.password = undefined;
-                callback(null, { data: { token: token, user: user }, code: 200 });
+                authenticateResponse(200, user, callback);
             }
         }
     });
@@ -54,7 +74,7 @@ exports.findUserOptions = (user, callback) => {
 };
 
 exports.findUsers = (callback) => {
-    User.find({}, { password: false, options: false }).exec((err, users) => {
+    User.find({}, { password: false, options: false, recovery: false }).exec((err, users) => {
         responseHelper.serviceCallback(err, users, 200, callback);
     });
 };
@@ -122,5 +142,193 @@ exports.checkAdminStatus = (headers, callback) => {
             return callback(error, null);
         });
     });
+};
 
+exports.findOneUser = (userId, callback) => {
+    let error = null;
+    let response = null;
+    
+    User.findOne({ _id: userId }).exec((err, user) => {
+        if (err) {
+            error = { error: err, code: 503 };
+        } else if (!user) {
+            error = { error: 'User does not exists', code: 401 };
+        } else {
+            response = { data: user, code: 200 };
+        }
+        
+        return callback(error, response);
+    });
+};
+
+const generateTimeLimitedToken = (id) => {
+    return jwt.sign({ user: id }, config.secretJWT, { expiresIn: '30m', jwtid: 'recovery' });
+};
+
+exports.validateRecoveryAnswer = (params, payload, callback) => {
+    const Book = require('../books/services');
+
+    User.findOne({ _id: params.userId }).lean().exec((err, user) => {
+        if (err) {
+            return callback({ error: err, code: 503 }, null);
+        } else if (!user) {
+            return callback({ error: 'User does not exists', code: 401 }, null);
+        } else {
+            let selectedQuestion = null;
+
+            if (user.recovery.method === 'questions') {
+                selectedQuestion = _.filter(user.recovery[user.recovery.method], { question: payload.question });
+
+                if (selectedQuestion.length > 0 && selectedQuestion[0].answer === payload.answer) {
+                    return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
+                } else {
+                    return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                }
+            } else {
+                for (let i = 0; i < user.recovery.medias.length; i++) {
+                    if (user.recovery.medias[i].mediaId.toString() === payload.mediaId) {
+                        selectedQuestion = user.recovery.medias[i];
+                    }
+                }
+
+                if (selectedQuestion && selectedQuestion.mediaId) {
+                    Book.findOneBook({ bookId: selectedQuestion.mediaId }, (err, book) => {
+                        if (err) {
+                            return callback({ error: err, code: 503 }, null);
+                        } else if (!book) {
+                            return callback({ error: 'The media does not exist', code: 404 }, null);
+                        } else {
+                            if (book.data[payload.fields].toLowerCase() === payload.answer.toLowerCase()) {
+                                return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
+                            } else {
+                                return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                            }
+                        }
+                    });
+                } else {
+                    return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                }
+            }
+        }
+    });
+};
+
+exports.saveUserPassword = (params, payload, callback) => {
+    User.findOneAndUpdate({ _id: params.userId }, { $set: { password: payload.password } }, { new: true }).lean().exec((err, response) => {
+        return authenticateResponse(200, response, callback);
+    });
+};
+
+exports.decipherPassword = (payload, callback) => {
+    return callback(null, cypher.decrypt(payload.password));
+};
+
+const findRecoveryList = (params, callback, stripMethod) => {
+    const query = {};
+    if (params.userId) {
+        query._id = params.userId;
+    } else if (params.username) {
+        query.username = params.username;
+    }
+
+    User.findOne(query, {
+        username: false,
+        password: false,
+        displayName: false,
+        email: false,
+        admin: false,
+        options: false,
+        created: false,
+        'recovery.questions.answer': false
+    }).lean().exec((err, user) => {
+        if (err) {
+            return callback({ error: err, code: 503 });
+        } else if (!user) {
+            return callback({ error: 'This username does not exist', code: 400 });
+        } else {
+            if (stripMethod) {
+                if (user.recovery.method === "questions") {
+                    delete user.recovery.medias;
+                } else {
+                    delete user.recovery.questions;
+                }
+            }
+
+            return callback(null, { data: user, code: 200 });
+        }
+    });
+};
+
+exports.findRecoveryList = findRecoveryList;
+
+const buildUpdateObject = (payload, update, checking, field) => {
+    if (payload[checking]) {
+        update.$push = {};
+        update.$push[field] = payload;
+    } else {
+        update.$pull = {};
+        update.$pull[field] = payload;
+    }
+
+    return update;
+};
+
+exports.updateRecoveryList = (params, payload, callback) => {
+    findRecoveryList(params, (err, res) => {
+        let update = {};
+        let field = 'recovery.';
+
+        if (payload.question) {
+            field += 'questions';
+            buildUpdateObject(payload, update, 'answer', field);
+        } else if (payload.mediaId) {
+            field +='medias';
+            buildUpdateObject(payload, update, 'field', field);
+        }
+
+        User.findOneAndUpdate({ _id: params.userId }, update, recoveryResponseOptions).exec((err, response) => {
+            return responseHelper.serviceCallback(err, response, 200, callback);
+        });
+    });
+};
+
+exports.findOneRecovery = (params, payload, callback) => {
+    if (!payload.answer && !payload.field) {
+        return callback()
+    }
+
+    let options = {};
+
+    if (payload.question) {
+        options.field = 'question';
+        options.search = 'recovery.questions';
+        options.content = payload.question;
+    } else {
+        options.field = 'mediaId';
+        options.search = 'recovery.medias';
+        options.content = payload.mediaId;
+    }
+
+    let query = {
+        _id: params.userId
+    };
+
+    query[options.search] = { $elemMatch: {} };
+    query[options.search].$elemMatch[options.field] = options.content;
+
+    User.find(query).lean().exec((err, res) => {
+        return callback(err, res);
+    });
+};
+
+exports.updateOneRecovery = (params, payload, callback) => {
+    const key = payload.key;
+    delete payload.key;
+
+    const query = { _id: params.userId, 'recovery.questions.question': key };
+    const updater = { $set: { 'recovery.questions.$': payload } };
+
+    User.findOneAndUpdate(query, updater, recoveryResponseOptions).lean().exec((err, response) => {
+        return responseHelper.serviceCallback(err, response, 200, callback);
+    });
 };

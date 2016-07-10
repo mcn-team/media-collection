@@ -114,7 +114,7 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             validate: {
-                params: validator.optionsParamsSchema,
+                params: validator.userIdParams,
                 payload: validator.optionsPayloadSchema
             },
             notes: [
@@ -135,5 +135,139 @@ module.exports = (server) => {
             description: 'Sends back the options field of the authenticated user.'
         },
         handler: users.checkIfUser
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{username}/forgot',
+        config: {
+            validate: {
+                params: validator.usernameParams
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Returns HTTP 200 Ok and an object on success'
+            ],
+            description: 'Sends back an object containing the password recovery ' +
+            'method of the specified user and an array containing the questions (or fields) ' +
+            'required to authenticate himself depending on the method.'
+        },
+        handler: users.getRecoveryFields
+    });
+
+    server.route({
+        method: 'POST',
+        path: '/{userId}/forgot',
+        config: {
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.recoveryPayload
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes the selected question and the answer as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes the selected question and answer, checks it by getting ' +
+            'correct answer from the database and sends back an time limited token if the ' +
+            'the answer is correct or 401 Unauthorized if not.'
+        },
+        handler: users.checkRecoveryAnswer
+    });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/forgot',
+        config: {
+            auth: 'RequiresRecovery',
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.resetPayload
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes the new password as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes the new password hashed and ciphered as payload and ' +
+            'update the user model by replacing the current password with the new one.',
+            pre: [
+                { method: users.decryptPassword, assign: 'decrypted' }
+            ]
+        },
+        handler: users.updateUserPassword
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/{userId}/recovery',
+        config: {
+            auth: 'RequiresLoginStrict',
+            validate: {
+                params: validator.userIdParams
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Sends back an Array containing the list of secret questions ' +
+            'or medias depending on the type parameter.'
+        },
+        handler: users.getRecoveryList
+    });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/recovery',
+        config: {
+            auth: 'RequiresLoginStrict',
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.recoveryPayload
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes an Object as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes an object containing a question or media fields, depending ' +
+            'on the recovery field to add/update/delete and an optional field value if the desired ' +
+            'action is a add or update. This last field contains the answer if this this a question or ' +
+            'the required field asked if it is a media. ' +
+            'Sends back the updated recovery object described in the GET recovery route.',
+            pre: [
+                { method: users.checkIfRecoveryExists, assign: 'ifExists' }
+            ]
+        },
+        handler: users.patchRecoveryList
+    });
+
+    server.route({
+        method: 'PATCH',
+        path: '/{userId}/recovery/questions/edit',
+        config: {
+            auth: 'RequiresLoginStrict',
+            validate: {
+                params: validator.userIdParams,
+                payload: validator.questionsEditPayload
+            },
+            notes: [
+                'Takes an user\'s Mongo ID as parameters',
+                'Takes an Object as payload',
+                'Returns HTTP 200 Ok and an object on success',
+                'Returns HTTP 401 Unauthorized and an object on error'
+            ],
+            description: 'Takes an object containing a question on the recovery field to update ' +
+            'and a answer field. This last field contains the answer. ' +
+            'Sends back the updated recovery object described in the GET recovery route.',
+            pre: [
+                { method: users.checkIfRecoveryExists, assign: 'ifExists' }
+            ]
+        },
+        handler: users.patchSpecificQuestionRecovery
     });
 };

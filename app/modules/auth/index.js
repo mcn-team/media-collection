@@ -9,6 +9,8 @@ const authModule = {
             require('./auth.routes')(server);
             server.auth.strategy('RequiresLogin', 'ValidationLogin');
             server.auth.strategy('RequiresAdmin', 'ValidationLogin', false, { admin: true });
+            server.auth.strategy('RequiresLoginStrict', 'LoginStrict');
+            server.auth.strategy('RequiresRecovery', 'ValidationRecovery');
             logger.logLoading('Auth');
         } catch (err) {
             logger.logLoading('Auth', true);

@@ -5,7 +5,6 @@ angular.module('movies').controller('ListMoviesController', [
     'StatsMovieService', 'MovieDataService', 'MovieServices',
     function($scope, $location, $anchorScroll, $window, Authentication,
              StatsMovieService, MovieDataService, MovieServices) {
-        var self = this;
         $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Movie';
 

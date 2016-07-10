@@ -16,6 +16,8 @@ var rename = require('gulp-rename');
 var del = require('del');
 var inject = require('gulp-inject');
 var _ = require('lodash');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 var NPM_FILES = [
     './public/node_modules/angular/angular.js',
@@ -37,12 +39,13 @@ var CSS_FILES = [
     './public/node_modules/bootstrap/dist/css/bootstrap.css',
     './public/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
     './public/node_modules/ng-img-crop-full-extended/compile/unminified/ng-img-crop.css',
-    './public/node_modules/font-awesome/css/font-awesome.css'
+    './public/node_modules/font-awesome/css/font-awesome.css',
+    './public/node_modules/animate.css/animate.min.css'
 ];
 
 var ASSETS_PATH = ['./public/assets/**/*'];
 var JS_PATH = ['./public/**/*.js', '!./public/lib/**/*.js', '!./public/node_modules/**/*.js'];
-var CSS_PATH = ['./public/**/*.css'];
+var CSS_PATH = ['./public/modules/**/*.css'];
 var HTML_PATH = ['./public/**/*.html', '!./public/index.html'];
 var INJECT_PATH;
 var TMP_PATH;
@@ -55,7 +58,7 @@ gulp.task('clean', ['prod:path'], function () {
 gulp.task('all:path', ['dev:path', 'prod:path']);
 
 gulp.task('dev:path', function () {
-    INJECT_PATH = _.union(JS_PATH, CSS_PATH);
+    INJECT_PATH = _.union(JS_PATH, CSS_PATH, CSS_FILES);
     INDEX_PATH = 'public';
 });
 
@@ -123,11 +126,17 @@ gulp.task('prod:inject', ['prod:files'], function () {
 
 gulp.task('watch', ['inject'], function () {
     gulp.watch(CSS_PATH, ['inject']);
-    gulp.watch(JS_PATH, ['inject']);
+    gulp.watch(JS_PATH, ['lint', 'inject']);
     gulp.watch(HTML_PATH, ['inject']);
 });
 
-gulp.task('default', ['dev:path', 'watch'], function () {
+gulp.task('lint', function () {
+    return gulp.src(JS_PATH)
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'))
+});
+
+gulp.task('default', ['lint', 'dev:path', 'watch'], function () {
     notifier.notify('Gulp watch is completed');
 });
 

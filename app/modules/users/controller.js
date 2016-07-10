@@ -102,3 +102,69 @@ exports.ifAdmin = (request, reply) => {
         return reply(response);
     });
 };
+
+exports.getRecoveryFields = (request, reply) => {
+    userServices.findRecoveryList(request.params, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    }, true);
+};
+
+exports.checkRecoveryAnswer = (request, reply) => {
+    userServices.validateRecoveryAnswer(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
+exports.updateUserPassword = (request, reply) => {
+    if (!request.pre.decrypted) {
+        return reply({ error: 'password-decryption-error' }).code(503);
+    }
+
+    userServices.saveUserPassword(request.params, { password: request.pre.decrypted }, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
+exports.decryptPassword = (request, reply) => {
+    userServices.decipherPassword(request.payload, (err, res) => {
+        if (err) {
+            return reply(err).code(500);
+        } else {
+            return reply(res);
+        }
+    });
+};
+
+exports.getRecoveryList = (request, reply) => {
+    userServices.findRecoveryList(request.params, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
+exports.patchRecoveryList = (request, reply) => {
+    if (request.pre.ifExists) {
+       return reply(request.pre.ifExists.error).code(request.pre.ifExists.code);
+    }
+
+    userServices.updateRecoveryList(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};
+
+exports.checkIfRecoveryExists = (request, reply) => {
+    userServices.findOneRecovery(request.params, request.payload, (err, res) => {
+        if (err) {
+            return reply({ error: { message: 'db-error', error: err }, code: 500 });
+        } else if (res && res.length > 0) {
+            return reply({ error: { message: 'recovery method already exists' }, code: 400 });
+        } else {
+            reply(false);
+        }
+    });
+};
+
+exports.patchSpecificQuestionRecovery = (request, reply) => {
+    userServices.updateOneRecovery(request.params, request.payload, (err, res) => {
+        return responseHelper.controllerReply(err, res, reply);
+    });
+};

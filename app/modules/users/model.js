@@ -2,6 +2,19 @@
 
 const mongoose = require('mongoose');
 
+const QuestionSchema = new mongoose.Schema({
+    question: {
+        type: String,
+        unique: true
+    },
+    answer: String
+}, { _id: false });
+
+const MediaSchema = new mongoose.Schema({
+    mediaId: mongoose.Schema.ObjectId,
+    field: String
+}, { _id: false });
+
 const UserSchema = new mongoose.Schema({
     username : {
         type: String,
@@ -18,6 +31,14 @@ const UserSchema = new mongoose.Schema({
         language: {
             type: String,
             default: 'en'
+        }
+    },
+    recovery: {
+        questions: [QuestionSchema],
+        medias: [MediaSchema],
+        method: {
+            type: String,
+            enum: [ 'questions', 'medias' ]
         }
     },
     created: {

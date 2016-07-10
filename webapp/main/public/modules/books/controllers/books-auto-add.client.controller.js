@@ -65,7 +65,7 @@ angular.module('books').controller('BookAutoAddController', [
                 payload.push(book);
             });
 
-            BookServices.multipleAdd(payload).then(function (response) {}, function (errorResponse) {
+            BookServices.multipleAdd(payload).then(function () {}, function (errorResponse) {
                 $uibModalInstance.dismiss(errorResponse);
             });
 
