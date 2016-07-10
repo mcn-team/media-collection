@@ -168,5 +168,9 @@ angular.module('mediacollection').constant('English', {
     'ACCOUNT_SETTINGS': 'Account settings',
     'LANG_SETTINGS': 'Languages settings',
     'RECOVERY_SETTINGS': 'Password recovery',
-    'MEDIAS': 'Medias'
+    'MEDIAS': 'Medias',
+    'RESET_PASSWORD': 'Reset password',
+    'OF': 'of',
+    'RECOVERY_HEADER': 'Reset the password',
+    'NEW_PASSWORD': 'New password'
 });

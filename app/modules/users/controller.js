@@ -116,12 +116,11 @@ exports.checkRecoveryAnswer = (request, reply) => {
 };
 
 exports.updateUserPassword = (request, reply) => {
-    //TODO: encryption features deactivated for testing purposes
-    // if (!request.pre.decrypted) {
-    //     return reply({ error: 'password-decryption-error' }).code(503);
-    // }
+    if (!request.pre.decrypted) {
+        return reply({ error: 'password-decryption-error' }).code(503);
+    }
 
-    userServices.saveUserPassword(request.params, request.payload, (err, res) => {
+    userServices.saveUserPassword(request.params, { password: request.pre.decrypted }, (err, res) => {
         return responseHelper.controllerReply(err, res, reply);
     });
 };
@@ -131,7 +130,7 @@ exports.decryptPassword = (request, reply) => {
         if (err) {
             return reply(err).code(500);
         } else {
-            return reply(res.data);
+            return reply(res);
         }
     });
 };

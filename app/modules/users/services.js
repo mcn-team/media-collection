@@ -214,8 +214,8 @@ exports.validateRecoveryAnswer = (params, payload, callback) => {
 };
 
 exports.saveUserPassword = (params, payload, callback) => {
-    User.findOneAndUpdate({ _id: params.userId }, { $set: { password: payload.password } }).exec((err, response) => {
-        return responseHelper.serviceCallback(err, response, 204, callback);
+    User.findOneAndUpdate({ _id: params.userId }, { $set: { password: payload.password } }, { new: true }).lean().exec((err, response) => {
+        return authenticateResponse(200, response, callback);
     });
 };
 
@@ -224,7 +224,14 @@ exports.decipherPassword = (payload, callback) => {
 };
 
 const findRecoveryList = (params, callback, stripMethod) => {
-    User.findOne({ _id: params.userId }, {
+    const query = {};
+    if (params.userId) {
+        query._id = params.userId;
+    } else if (params.username) {
+        query.username = params.username;
+    }
+
+    User.findOne(query, {
         username: false,
         password: false,
         displayName: false,
@@ -232,18 +239,23 @@ const findRecoveryList = (params, callback, stripMethod) => {
         admin: false,
         options: false,
         created: false,
-        _id: false,
         'recovery.questions.answer': false
     }).lean().exec((err, user) => {
-        if (stripMethod) {
-            if (user.recovery.method === "questions") {
-                delete user.recovery.medias;
-            } else {
-                delete user.recovery.questions;
+        if (err) {
+            return callback({ error: err, code: 503 });
+        } else if (!user) {
+            return callback({ error: 'This username does not exist', code: 400 });
+        } else {
+            if (stripMethod) {
+                if (user.recovery.method === "questions") {
+                    delete user.recovery.medias;
+                } else {
+                    delete user.recovery.questions;
+                }
             }
-        }
 
-        return responseHelper.serviceCallback(err, user, 200, callback);
+            return callback(null, { data: user, code: 200 });
+        }
     });
 };
 

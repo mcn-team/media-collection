@@ -59,3 +59,7 @@ exports.recoveryPayload = {
 exports.questionsEditPayload = _.merge({}, oldValue, questionItem);
 
 exports.mediasEditPayload = _.merge({}, oldValue, mediaItem);
+
+exports.usernameParams = { username: Joi.string().alphanum().trim().required() };
+
+exports.resetPayload = { password: Joi.string().required() };

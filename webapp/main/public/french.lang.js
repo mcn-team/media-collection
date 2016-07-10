@@ -168,5 +168,9 @@ angular.module('mediacollection').constant('French', {
     'ACCOUNT_SETTINGS': 'Paramètres du compte',
     'LANG_SETTINGS': 'Paramètres des langues',
     'RECOVERY_SETTINGS': 'Récupération de mot de passe',
-    'MEDIAS': 'Médias'
+    'MEDIAS': 'Médias',
+    'RESET_PASSWORD': 'Réinitialiser le mot de passe',
+    'OF': 'de',
+    'RECOVERY_HEADER': 'Réinitialisation du mot de passe',
+    'NEW_PASSWORD': 'Nouveau mot de passe'
 });

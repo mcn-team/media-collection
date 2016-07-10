@@ -7,12 +7,12 @@ angular.module('users').factory('UserServices', [
 
         var httpConfig = null;
 
-        var buildEndpoint = function (path) {
+        var buildEndpoint = function (path, token) {
             var creds = Authentication.credentials ? Authentication.credentials.token : null;
 
             httpConfig = {
                 headers: {
-                    'auth-web-token': creds
+                    'auth-web-token': token || creds
                 }
             };
 
@@ -65,6 +65,21 @@ angular.module('users').factory('UserServices', [
         
         userApi.editQuestionRecovery = function (userId, payload) {
             return $http.patch(buildEndpoint('/users/' + userId + '/recovery/questions/edit'), payload, httpConfig);
+        };
+
+        userApi.getUserRecovery = function (username) {
+            return $http.get(buildEndpoint('/users/' + username + '/forgot'));
+        };
+
+        userApi.getRecoveryToken = function (userId, payload) {
+            return $http.post(buildEndpoint('/users/' + userId + '/forgot'), payload);
+        };
+
+        userApi.updateUserPassword = function (userId, payload, token) {
+            return Authentication.getKey().then(function () {
+                payload = Authentication.encryptCredentials(payload);
+                return $http.patch(buildEndpoint('/users/' + userId + '/forgot', token), payload, httpConfig);
+            });
         };
 
         return userApi;

@@ -139,10 +139,10 @@ module.exports = (server) => {
 
     server.route({
         method: 'GET',
-        path: '/{userId}/forgot',
+        path: '/{username}/forgot',
         config: {
             validate: {
-                params: validator.userIdParams
+                params: validator.usernameParams
             },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
@@ -160,7 +160,8 @@ module.exports = (server) => {
         path: '/{userId}/forgot',
         config: {
             validate: {
-                params: validator.userIdParams
+                params: validator.userIdParams,
+                payload: validator.recoveryPayload
             },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
@@ -181,7 +182,8 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresRecovery',
             validate: {
-                params: validator.userIdParams
+                params: validator.userIdParams,
+                payload: validator.resetPayload
             },
             notes: [
                 'Takes an user\'s Mongo ID as parameters',
@@ -190,11 +192,10 @@ module.exports = (server) => {
                 'Returns HTTP 401 Unauthorized and an object on error'
             ],
             description: 'Takes the new password hashed and ciphered as payload and ' +
-            'update the user model by replacing the current password with the new one.'
-            //TODO: encryption features deactivated for testing purposes
-            // pre: [
-            //     { method: users.decryptPassword, assign: 'decrypted' }
-            // ]
+            'update the user model by replacing the current password with the new one.',
+            pre: [
+                { method: users.decryptPassword, assign: 'decrypted' }
+            ]
         },
         handler: users.updateUserPassword
     });

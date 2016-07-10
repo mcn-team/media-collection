@@ -21,10 +21,15 @@ angular.module('users').factory('Authentication', [
             return $injector.get('Config').apiRoute + path;
         };
 
-        $injector.get('$http').get(buildEndpoint('/auth/key')).then(function (response) {
-            publicKey = response.data.pub;
-            encrypt.setPublicKey(publicKey);
-        });
+        authServices.getKey = function () {
+            return $injector.get('$http').get(buildEndpoint('/auth/key')).then(function (response) {
+                publicKey = response.data.pub;
+                encrypt.setPublicKey(publicKey);
+                return true;
+            });
+        };
+
+        authServices.getKey();
 
         if (authServices.credentials) {
             $injector.get('$http').get(buildEndpoint('/users/options'), httpConfig).then(function (response) {
