@@ -29,6 +29,9 @@ exports.saveBook = (payload, callback) => {
 };
 
 exports.updateBook = (params, payload, callback) => {
+    if (!payload.title) {
+        payload.title = '';
+    }
     Book.findOneAndUpdate({ _id: params.bookId }, payload).exec(function (err, book) {
         responseHelper.serviceCallback(err, _.merge(book, payload), 201, callback);
     });

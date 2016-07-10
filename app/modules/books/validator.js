@@ -14,17 +14,17 @@ const commonBookPayload = {
     cover: Joi.string(),
     read: Joi.string(),
     bought: Joi.boolean(),
-    pageCount: Joi.number().integer().positive(),
+    pageCount: Joi.number().integer(),
     bookRate: Joi.number(),
     summary: Joi.string().allow(''),
-    price: Joi.number().precision(2).positive(),
+    price: Joi.number().precision(2).positive().allow(null),
     customFields: Joi.array(),
     created: Joi.date().iso(),
     user: Joi.string().hex().length(24)
 };
 
 exports.bookCreatePayload = _.merge({
-    title: Joi.string().trim().required(),
+    title: Joi.string().trim().optional(),
     type: Joi.string().required()
 }, commonBookPayload);
 
