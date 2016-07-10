@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('users').factory('UserServices', [
-    '$http', 'Config', 'Authentication',
-    function ($http, Config, Authentication) {
+    '$rootScope', '$http', 'Config', 'Authentication',
+    function ($rootScope, $http, Config, Authentication) {
         var userApi = {};
-
+        var isSigned = false;
         var httpConfig = null;
-
         var buildEndpoint = function (path, token) {
             var creds = Authentication.credentials ? Authentication.credentials.token : null;
 
@@ -80,6 +79,15 @@ angular.module('users').factory('UserServices', [
                 payload = Authentication.encryptCredentials(payload);
                 return $http.patch(buildEndpoint('/users/' + userId + '/forgot', token), payload, httpConfig);
             });
+        };
+
+        userApi.setIsSigned = function (value) {
+            isSigned = value;
+            $rootScope.$emit('isSigned:changed');
+        };
+
+        userApi.getIsSigned = function () {
+            return isSigned;
         };
 
         return userApi;
