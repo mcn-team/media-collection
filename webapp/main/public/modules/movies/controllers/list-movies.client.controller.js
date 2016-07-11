@@ -2,9 +2,9 @@
 
 angular.module('movies').controller('ListMoviesController', [
     '$scope', '$location', '$anchorScroll', '$window', 'Authentication',
-    'StatsMovieService', 'MovieDataService', 'MovieServices',
+    'StatsMovieService', 'MovieDataService', 'MovieServices', 'lodash',
     function($scope, $location, $anchorScroll, $window, Authentication,
-             StatsMovieService, MovieDataService, MovieServices) {
+             StatsMovieService, MovieDataService, MovieServices, _) {
         $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Movie';
 
@@ -28,6 +28,11 @@ angular.module('movies').controller('ListMoviesController', [
 
             MovieServices.getAllMovies().then(function (response) {
                 $scope.movies = response.data;
+                _.forEach($scope.movies, function (element) {
+                    if (element.summary) {
+                        element.truncatedSummary = element.summary.TruncIsh(450);
+                    }
+                });
                 $scope.$watch('filteredMovies', function () {
                     $scope.stats = StatsMovieService.calculate($scope.filteredMovies);
                 }, true);

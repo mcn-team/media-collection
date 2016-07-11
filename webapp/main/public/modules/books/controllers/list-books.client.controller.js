@@ -2,9 +2,9 @@
 
 angular.module('books').controller('ListBooksController', [
     '$scope', '$location', '$anchorScroll', '$window',
-    'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices',
+    'Authentication', 'StatsBookService', 'BooksDataService', 'BookServices', 'lodash',
     function($scope, $location, $anchorScroll, $window,
-             Authentication, StatisticsService, BooksDataService, BookServices) {
+             Authentication, StatisticsService, BooksDataService, BookServices, _) {
 
         $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Book';
@@ -28,6 +28,11 @@ angular.module('books').controller('ListBooksController', [
 
             BookServices.getAllBooks().then(function (result) {
                 $scope.books = result.data;
+                _.forEach($scope.books, function (element) {
+                    if (element.summary) {
+                        element.truncatedSummary = element.summary.TruncIsh(450);
+                    }
+                });
                 $scope.isLoaded = true;
                 $scope.$watch('filteredBooks', function () {
                     $scope.stats = StatisticsService.calculate($scope.filteredBooks);
