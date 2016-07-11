@@ -26,7 +26,6 @@ angular.module('books').controller('BookAutoAddController', [
         };
 
         $scope.media = BookData;
-        console.log($scope.media);
 
         _.forEach(MissingVolumes, function (element) {
             $scope.listMissing.push({
@@ -35,6 +34,11 @@ angular.module('books').controller('BookAutoAddController', [
                 isChecked: true
             });
         });
+
+        $scope.changeStatus = function (index) {
+            $scope.listMissing[index].isChecked = !$scope.listMissing[index].isChecked;
+            console.log($scope.listMissing);
+        };
 
         $scope.checkList = function (status) {
             angular.forEach($scope.listMissing, function (current) {
