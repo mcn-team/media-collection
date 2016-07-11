@@ -24,7 +24,12 @@
                     <img class="thumbnail-image-size" data-ng-src="{{HomeCtrl.lastBookResult.cover || 'http://placehold.it/127x200'}}" alt="{{HomeCtrl.lastBookResult.title}}">
                 </a>
                 <div class="caption">
-                    <h4 title="{{HomeCtrl.lastBookResult.title}}" class="latest-title" >{{HomeCtrl.lastBookResult.title}}</h4>
+                    <h4 data-ng-if="HomeCtrl.lastBookResult.title" title="{{HomeCtrl.lastBookResult.title}}" class="latest-title" >{{HomeCtrl.lastBookResult.title}}</h4>
+                    <h4 data-ng-if="!HomeCtrl.lastBookResult.title"  title="{{HomeCtrl.lastBookResult.title}}" class="latest-title" >
+                        {{HomeCtrl.lastBookResult.collectionName}}
+                        {{'VOLUME_SHORT' | translate}}
+                        {{HomeCtrl.lastBookResult.volume}}
+                    </h4>
                     <p class="author-p" data-ng-bind="HomeCtrl.lastBookResult.authors"></p>
                     <h5 class="hidden-xs" >{{HomeCtrl.lastBookResult.summary}}</h5>
                 </div>

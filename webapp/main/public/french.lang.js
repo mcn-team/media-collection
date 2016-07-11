@@ -172,5 +172,6 @@ angular.module('mediacollection').constant('French', {
     'RESET_PASSWORD': 'Réinitialiser le mot de passe',
     'OF': 'de',
     'RECOVERY_HEADER': 'Réinitialisation du mot de passe',
-    'NEW_PASSWORD': 'Nouveau mot de passe'
+    'NEW_PASSWORD': 'Nouveau mot de passe',
+    'VOLUME_SHORT': 'T.'
 });
