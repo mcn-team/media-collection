@@ -171,7 +171,8 @@ angular.module('books').factory('BooksDataService', [
                         element.data.push({
                             collectionName: element._id,
                             volume: i,
-                            bought: false
+                            bought: false,
+                            missing: true
                         });
                     }
                 }

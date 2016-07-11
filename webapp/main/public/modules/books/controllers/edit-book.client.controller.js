@@ -112,9 +112,7 @@ angular.module('books').controller('EditBookController', [
             }
 
             var successGetBookCallback = function (response) {
-                console.log(response.data);
                 $scope.mediaModel = BooksDataService.fillBookModel(response.data);
-                console.log($scope.mediaModel);
                 $scope.mediaModel._id = response.data._id;
                 if ($scope.mediaModel.cover === 'covers/' + response.data._id + '.jpg') {
                     delete $scope.mediaModel.cover;

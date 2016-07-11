@@ -11,7 +11,7 @@
         <div class="list-group">
             <div class="list-item-grid list-group-item cursor-pointer" data-ng-repeat="item in listMissing">
                 <input type="checkbox" data-ng-model="item.isChecked" id="{{'check' + $index}}">
-                <label data-ng-class="{ 'is-disabled': !item.isChecked }" for="{{'check' + $index}}">{{item.displayName}}</label>
+                <label class="checkbox-description micro-margin-left-fixed" data-ng-class="{ 'is-disabled': !item.isChecked }" for="{{'check' + $index}}">{{item.displayName}}</label>
             </div>
         </div>
     </div>

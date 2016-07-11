@@ -28,16 +28,17 @@ angular.module('books').controller('BookAutoAddController', [
         $scope.media = BookData;
 
         _.forEach(MissingVolumes, function (element) {
-            $scope.listMissing.push({
-                displayName: element.collectionName + ' T. ' + element.volume,
-                volumeId: element.volume,
-                isChecked: true
-            });
+            if (element.missing) {
+                $scope.listMissing.push({
+                    displayName: element.collectionName + ' T. ' + element.volume,
+                    volumeId: element.volume,
+                    isChecked: true
+                });
+            }
         });
 
         $scope.changeStatus = function (index) {
             $scope.listMissing[index].isChecked = !$scope.listMissing[index].isChecked;
-            console.log($scope.listMissing);
         };
 
         $scope.checkList = function (status) {
@@ -49,7 +50,7 @@ angular.module('books').controller('BookAutoAddController', [
         $scope.validateModal = function () {
             $scope.isUploading = true;
             var payload = [];
-            angular.forEach($scope.listMissing, function (missing) {
+            angular.forEach(_.filter($scope.listMissing, { isChecked: true }), function (missing) {
                 var book = {
                     collectionName: $scope.media.collectionName,
                     volume: missing.volumeId,
