@@ -9,10 +9,10 @@
             <button class="btn btn-primary" data-ng-click="checkList()" data-ng-bind="'REVERSE' | translate"></button>
         </div>
         <div class="list-group">
-            <a data-ng-repeat="item in listMissing" class="list-item-grid list-group-item cursor-pointer" data-ng-click="item.isChecked = !item.isChecked" >
-                <input type="checkbox" data-ng-model="item.isChecked" title="field">
-                <span>{{item.displayName}}</span>
-            </a>
+            <div class="list-item-grid list-group-item cursor-pointer" data-ng-repeat="item in listMissing">
+                <input type="checkbox" data-ng-model="item.isChecked" id="{{'check' + $index}}">
+                <label class="checkbox-description micro-margin-left-fixed" data-ng-class="{ 'is-disabled': !item.isChecked }" for="{{'check' + $index}}">{{item.displayName}}</label>
+            </div>
         </div>
     </div>
     <div class="col-xs-12 modal-main-container" data-ng-show="isValidated && !isUploading" >

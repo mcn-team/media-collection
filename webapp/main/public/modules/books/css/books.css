@@ -115,3 +115,5 @@
     width:200px;
     height:200px;
 }
+.is-disabled { color: #ccc; }
+label.checkbox-description { font-weight: normal; }

@@ -114,7 +114,7 @@ exports.removeBook = (params, callback) => {
 };
 
 exports.insertMany = (payload, callback) => {
-    Book.insertMany(payload, (err, response) => {
+    Book.create(payload, (err, response) => {
         responseHelper.serviceCallback(err, response, 204, callback);
     });
 };
