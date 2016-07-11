@@ -172,5 +172,6 @@ angular.module('mediacollection').constant('English', {
     'RESET_PASSWORD': 'Reset password',
     'OF': 'of',
     'RECOVERY_HEADER': 'Reset the password',
-    'NEW_PASSWORD': 'New password'
+    'NEW_PASSWORD': 'New password',
+    'VOLUME_SHORT': 'Vol.'
 });
