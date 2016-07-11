@@ -17,15 +17,15 @@ const commonMoviePayload = {
     releasedDate: Joi.date().iso(),
     seen: Joi.boolean(),
     bought: Joi.boolean(),
-    cover: Joi.string().uri(),
-    summary: Joi.string(),
+    cover: Joi.string().uri().allow(''),
+    summary: Joi.string().allow(''),
     customFields: Joi.array(),
     created: Joi.date().iso(),
     user: Joi.string().hex().length(24)
 };
 
 exports.moviePayload = _.merge({
-    title: Joi.string().trim().required(),
+    title: Joi.string().trim().allow('').required(),
     type: Joi.string().required()
 }, commonMoviePayload);
 
@@ -34,6 +34,6 @@ exports.movieParams = {
 };
 
 exports.editMoviePayload = _.merge({
-    title: Joi.string().trim(),
+    title: Joi.string().trim().allow(''),
     type: Joi.string()
 }, commonMoviePayload);

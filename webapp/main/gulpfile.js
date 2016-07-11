@@ -44,6 +44,7 @@ var CSS_FILES = [
 ];
 
 var ASSETS_PATH = ['./public/assets/**/*'];
+var FONTS_PATH = ['./public/node_modules/bootstrap/dist/fonts/**/*.*'];
 var JS_PATH = ['./public/**/*.js', '!./public/lib/**/*.js', '!./public/node_modules/**/*.js'];
 var CSS_PATH = ['./public/modules/**/*.css'];
 var HTML_PATH = ['./public/**/*.html', '!./public/index.html'];
@@ -82,6 +83,11 @@ gulp.task('prod:assets', function () {
         .pipe(gulp.dest('dist/assets/'));
 });
 
+gulp.task('prod:fonts', function () {
+    return gulp.src(FONTS_PATH)
+        .pipe(gulp.dest('dist/fonts/'));
+});
+
 gulp.task('prod:npm', function () {
     return gulp.src(NPM_FILES)
         .pipe(concat('npm.js'))
@@ -101,7 +107,7 @@ gulp.task('prod:html', [], function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('prod:files', ['prod:style', 'prod:scripts', 'prod:html', 'prod:assets']);
+gulp.task('prod:files', ['prod:style', 'prod:scripts', 'prod:html', 'prod:assets', 'prod:fonts']);
 
 /**
  * Injects all JS and CSS files in 'INJECT_PATH' into index.html
