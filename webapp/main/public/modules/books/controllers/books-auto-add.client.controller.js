@@ -26,6 +26,7 @@ angular.module('books').controller('BookAutoAddController', [
         };
 
         $scope.media = BookData;
+        console.log($scope.media);
 
         _.forEach(MissingVolumes, function (element) {
             $scope.listMissing.push({
@@ -44,10 +45,10 @@ angular.module('books').controller('BookAutoAddController', [
         $scope.validateModal = function () {
             $scope.isUploading = true;
             var payload = [];
-            angular.forEach($scope.listMissing, function (cuurent) {
+            angular.forEach($scope.listMissing, function (missing) {
                 var book = {
                     collectionName: $scope.media.collectionName,
-                    volume: cuurent.volumeId,
+                    volume: missing.volumeId,
                     title: '',
                     cover: '',
                     summary: '',

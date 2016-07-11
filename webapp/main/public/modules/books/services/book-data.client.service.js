@@ -83,7 +83,7 @@ angular.module('books').factory('BooksDataService', [
                 isbn: book.isbn,
                 publisher: book.publisher,
                 pageCount: book.pageCount && parseInt(book.pageCount),
-                price: book.pages && parseFloat(book.price),
+                price: book.price && parseFloat(book.price),
                 read: book.read  || 'NOTREAD',
                 bought: book.bought === undefined ? true : book.bought,
                 cover: book.cover,

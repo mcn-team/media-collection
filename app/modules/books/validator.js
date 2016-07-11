@@ -24,12 +24,12 @@ const commonBookPayload = {
 };
 
 exports.bookCreatePayload = _.merge({
-    title: Joi.string().trim().optional(),
+    title: Joi.string().trim().allow('').optional(),
     type: Joi.string().required()
 }, commonBookPayload);
 
 exports.bookEditPayload = _.merge({
-    title: Joi.string().trim(),
+    title: Joi.string().trim().allow('').optional(),
     type: Joi.string()
 }, commonBookPayload);
 
