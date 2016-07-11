@@ -10,8 +10,8 @@
         </div>
         <div class="list-group">
             <div class="list-item-grid list-group-item cursor-pointer" data-ng-repeat="item in listMissing">
-                <input type="checkbox" data-ng-model="item.isChecked" id="{{'check' + $index}}">
-                <label class="checkbox-description micro-margin-left-fixed" data-ng-class="{ 'is-disabled': !item.isChecked }" for="{{'check' + $index}}">{{item.displayName}}</label>
+                <input type="checkbox" data-ng-model="item.isChecked" id="{{'check' + $index}}" class="cursor-pointer">
+                <label class="checkbox-description micro-margin-left-fixed cursor-pointer" data-ng-class="{ 'is-disabled': !item.isChecked }" for="{{'check' + $index}}">{{item.displayName}}</label>
             </div>
         </div>
     </div>
