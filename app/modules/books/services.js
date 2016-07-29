@@ -124,3 +124,9 @@ exports.findCustomFieldsKeys = (callback) => {
         responseHelper.serviceCallback(err, response, 200, callback);
     });
 };
+
+exports.findBooksFromCollection = (params, callback) => {
+    Book.find({ collectionName: params.collectionName }).exec((err, books) => {
+        responseHelper.serviceCallback(err, books, 200, callback);
+    });
+};

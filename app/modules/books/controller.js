@@ -68,3 +68,9 @@ exports.getCustomFieldsKeys = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getBooksFromCollection = (request, reply) => {
+    services.findBooksFromCollection(request.params, (err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
