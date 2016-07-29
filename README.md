@@ -11,9 +11,6 @@ L’application pourra enregistrer des œuvres de manière indépendantes (comme
 un livre qui ne fait pas partie d’une série) ou une série de media comme par exemple les 
 saisons d’une série TV ou un ensemble de livres faisant partie de la même série (comme des bandes-dessinées).
 
-###Information supplémentaires
-Media Collection utilise le générateur [MeanJS](http://meanjs.org/) avec [Yeoman](http://yeoman.io/)
-
 ##Mise en place de Media Collection
 
 ###Installation
@@ -23,7 +20,7 @@ Installer Media collection nécessite :
 - [MongoDB](http://www.mongodb.org/downloads)
 - [Node.js](http://nodejs.org/download/)
 
-puis dans les dossiers `app` et `public`, tapez :
+puis dans les dossiers `app`, `webapp/main` et `webapp/main/public`, tapez :
 ```
 npm install 
 ```
@@ -36,7 +33,7 @@ gulp
 
 et lancer le serveur avec la commande node ou tout autre utilitaire de votre choix (pm2, nodemon, etc) depuis la racine: 
 ```
-node server/server.js
+node app/server.js
 ```
 
 L'application est disponible sur : 

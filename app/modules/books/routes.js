@@ -177,4 +177,19 @@ module.exports = (server) => {
         },
         handler: controller.getCustomFieldsKeys
     });
+
+    server.route({
+        method: 'GET',
+        path: '/collections/{collectionName}/list',
+        config: {
+            auth: 'RequiresLogin',
+            notes: [
+                'Requires a user\'s token',
+                'Returns an Array with 200 Ok'
+            ],
+            description: 'Sends back an Array object containing all the books model Object ' +
+            'registered with the specified collection\'s name present in the database.'
+        },
+        handler: controller.getBooksFromCollection
+    });
 };
