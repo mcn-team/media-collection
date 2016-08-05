@@ -41,12 +41,14 @@ angular.module('books').factory('BooksDataService', [
         };
 
         function fillBaseBookModel(book) {
+            var volume = parseInt(book.volume);
+
             return {
                 type: book.type ? book.type : 'book',
                 custom: {},
                 title: book.title,
                 collectionName: book.collectionName ? book.collectionName : undefined,
-                volumeId: parseInt(book.volume) ? parseInt(book.volume) : undefined,
+                volumeId: isNaN(volume) ? undefined : volume,
                 publishingDate: book.publishingDate ? new Date(book.publishingDate) : undefined,
                 isbn: book.isbn,
                 publisher: book.publisher,
@@ -70,12 +72,14 @@ angular.module('books').factory('BooksDataService', [
         };
 
         bookServices.fillBookModel = function (book) {
+            var volume = parseInt(book.volume);
+
             return {
                 type: book.type || 'book',
                 title: book.title,
                 custom: {},
                 collectionName: book.collectionName ? book.collectionName : undefined,
-                volumeId: parseInt(book.volume) || undefined,
+                volumeId: isNaN(volume) ? undefined : volume,
                 displayAuthors: bookServices.getDisplayAuthorsList(book.authors),
                 authorsList: bookServices.getLimitedAuthorsList(book.authors),
                 author: bookServices.getListLastOne(book.authors),
