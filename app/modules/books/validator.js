@@ -39,5 +39,5 @@ exports.bookParams = {
 
 exports.collectionsParams = {
     collection: Joi.string().required(),
-    volume: Joi.number().integer().positive().required()
+    volume: Joi.number().integer().required()
 };

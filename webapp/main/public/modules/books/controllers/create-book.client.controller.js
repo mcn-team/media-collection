@@ -190,7 +190,7 @@ angular.module('books').controller('CreateBookController', [
 
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book.user = $scope.authentication.user._id;
-            if (book.collectionName && !book.volume) {
+            if (book.collectionName && book.volume < 0) {
                 $scope.error = 'Volume is missing';
                 return;
             }
