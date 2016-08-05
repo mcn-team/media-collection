@@ -103,7 +103,7 @@ angular.module('books').factory('StatsBookService', [
             statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
             statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.media.value);
             statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
-            if (array && array[0] && array[0].title) {
+            if (array && array[0] && !array[0].data) {
                 statistics.bought.percent = Math.floor(statistics.bought.value * 100 / statistics.media.value);
                 statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / statistics.media.value);
                 statistics.mediaMissing = undefined;
