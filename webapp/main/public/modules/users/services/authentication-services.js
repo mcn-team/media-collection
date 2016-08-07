@@ -18,7 +18,6 @@ angular.module('users').factory('Authentication', [
         };
 
         getCredentialsFromStorage();
-        console.log(authServices.credentials);
         var buildEndpoint = function (path) {
             var creds = authServices.credentials ? authServices.credentials.token : null;
             httpConfig = {

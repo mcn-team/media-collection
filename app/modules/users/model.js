@@ -32,7 +32,10 @@ const UserSchema = new mongoose.Schema({
             type: String,
             default: 'en'
         },
-        feedInterval: Number
+        feedInterval: {
+            type: Number,
+            default: 10
+        }
     },
     recovery: {
         questions: [QuestionSchema],
