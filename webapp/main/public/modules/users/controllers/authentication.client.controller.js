@@ -32,7 +32,7 @@ angular.module('users').controller('AuthenticationController', [
                 Authentication.setCredentials(response.data);
                 $state.go('home');
             }, function (errorResponse) {
-                $scope.error = errorResponse.data;
+                $scope.error = errorResponse.data.message;
             });
         };
 
@@ -42,7 +42,7 @@ angular.module('users').controller('AuthenticationController', [
                 $state.go('home');
             }, function (errorResponse) {
                 console.error(errorResponse.data);
-                $scope.error = errorResponse.data;
+                $scope.error = errorResponse.data.message;
             });
         };
     }

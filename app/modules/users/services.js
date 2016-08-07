@@ -32,6 +32,10 @@ const authenticateResponse = (code, user, callback) => {
     callback(null, { data: { token: token, user: user }, code: code });
 };
 
+const errorObject = (message) => {
+    return { message: message }
+};
+
 exports.addUser = (payload, callback) => {
     payload.password = cypher.decrypt(payload.password);
     let newUser = new User(payload);
@@ -50,10 +54,10 @@ exports.authenticateUser = (payload, callback) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else if (!user) {
-            callback({ error: 'Wrong username', code: 401 });
+            callback({ error: errorObject('Wrong username'), code: 401 });
         } else {
             if (user.password !== cypher.decrypt(payload.password)) {
-                callback({ error: 'Wrong password', code: 401 });
+                callback({ error: errorObject('Wrong password'), code: 401 });
             } else {
                 authenticateResponse(200, user, callback);
             }
@@ -98,7 +102,7 @@ exports.findUserByUsername = (payload, callback) => {
         if (err) {
             callback({ error: err, code: 503 });
         } else if (users && users.length > 0) {
-            callback({ error: 'Username already exists', code: 409 });
+            callback({ error: errorObject('Username already exists'), code: 409 });
         } else {
             callback(null);
         }
@@ -122,21 +126,21 @@ exports.checkAdminStatus = (headers, callback) => {
     let error = null;
 
     if (!token) {
-        return callback({ error: 'Please log in', code: 401 });
+        return callback({ error: errorObject('Please log in'), code: 401 });
     }
 
     jwt.verify(token, config.secretJWT, (err, decoded) => {
         if (err) {
-            return callback({ error: 'Token is not valid', code: 401 });
+            return callback({ error: errorObject('Token is not valid'), code: 401 });
         }
 
         User.findOne({ _id: decoded.user }).exec((err, user) => {
             if (err) {
                 error = { error: err, code: 503 };
             } else if (!user) {
-                error = { error: 'User does not exists', code: 401 };
+                error = { error: errorObject('User does not exists'), code: 401 };
             } else if (user && !user._doc.admin) {
-                error = { error: 'You are not administrator', code: 403 };
+                error = { error: errorObject('You are not administrator'), code: 403 };
             }
 
             return callback(error, null);
@@ -172,7 +176,7 @@ exports.validateRecoveryAnswer = (params, payload, callback) => {
         if (err) {
             return callback({ error: err, code: 503 }, null);
         } else if (!user) {
-            return callback({ error: 'User does not exists', code: 401 }, null);
+            return callback({ error: errorObject('User does not exists'), code: 401 }, null);
         } else {
             let selectedQuestion = null;
 
@@ -182,7 +186,7 @@ exports.validateRecoveryAnswer = (params, payload, callback) => {
                 if (selectedQuestion.length > 0 && selectedQuestion[0].answer === payload.answer) {
                     return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
                 } else {
-                    return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                    return callback({ error: errorObject('The answer is incorrect'), code: 403 }, null);
                 }
             } else {
                 for (let i = 0; i < user.recovery.medias.length; i++) {
@@ -196,17 +200,17 @@ exports.validateRecoveryAnswer = (params, payload, callback) => {
                         if (err) {
                             return callback({ error: err, code: 503 }, null);
                         } else if (!book) {
-                            return callback({ error: 'The media does not exist', code: 404 }, null);
+                            return callback({ error: errorObject('The media does not exist'), code: 404 }, null);
                         } else {
                             if (book.data[payload.fields].toLowerCase() === payload.answer.toLowerCase()) {
                                 return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
                             } else {
-                                return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                                return callback({ error: errorObject('The answer is incorrect'), code: 403 }, null);
                             }
                         }
                     });
                 } else {
-                    return callback({ error: 'The answer is incorrect', code: 403 }, null);
+                    return callback({ error: errorObject('The answer is incorrect'), code: 403 }, null);
                 }
             }
         }
@@ -244,7 +248,7 @@ const findRecoveryList = (params, callback, stripMethod) => {
         if (err) {
             return callback({ error: err, code: 503 });
         } else if (!user) {
-            return callback({ error: 'This username does not exist', code: 400 });
+            return callback({ error: errorObject('This username does not exist'), code: 400 });
         } else {
             if (stripMethod) {
                 if (user.recovery.method === "questions") {
