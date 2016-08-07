@@ -183,7 +183,7 @@ exports.validateRecoveryAnswer = (params, payload, callback) => {
             if (user.recovery.method === 'questions') {
                 selectedQuestion = _.filter(user.recovery[user.recovery.method], { question: payload.question });
 
-                if (selectedQuestion.length > 0 && selectedQuestion[0].answer === payload.answer) {
+                if (selectedQuestion.length > 0 && selectedQuestion[0].answer === cypher.decrypt(payload.answer)) {
                     return callback(null, { data: { token: generateTimeLimitedToken(user._id) }, code: 200 });
                 } else {
                     return callback({ error: errorObject('The answer is incorrect'), code: 403 }, null);
@@ -251,10 +251,10 @@ const findRecoveryList = (params, callback, stripMethod) => {
             return callback({ error: errorObject('This username does not exist'), code: 400 });
         } else {
             if (stripMethod) {
-                if (user.recovery.method === "questions") {
-                    delete user.recovery.medias;
-                } else {
+                if (user.recovery.method === "media") {
                     delete user.recovery.questions;
+                } else {
+                    delete user.recovery.medias;
                 }
             }
 
@@ -284,6 +284,7 @@ exports.updateRecoveryList = (params, payload, callback) => {
 
         if (payload.question) {
             field += 'questions';
+            payload.answer = cypher.decrypt(payload.answer);
             buildUpdateObject(payload, update, 'answer', field);
         } else if (payload.mediaId) {
             field +='medias';

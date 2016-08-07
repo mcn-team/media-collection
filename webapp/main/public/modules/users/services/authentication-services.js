@@ -97,6 +97,10 @@ angular.module('users').factory('Authentication', [
             return credentials;
         };
 
+        authServices.encrypt = function (data) {
+            return encrypt.encrypt(md5.createHash(data));
+        };
+
         return authServices;
     }
 ]);
