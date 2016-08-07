@@ -13,3 +13,4 @@
 input.has-error { border: 1px solid red; }
 table { cursor: default; }
 tbody a { cursor: pointer; }
+div.is-error { display: none; }
