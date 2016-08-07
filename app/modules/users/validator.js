@@ -46,7 +46,8 @@ exports.updatePayload = {
 };
 
 exports.optionsPayloadSchema = {
-    language: Joi.string().alphanum().trim().optional()
+    language: Joi.string().alphanum().trim().optional(),
+    feedInterval: Joi.number().integer().positive().optional()
 };
 
 exports.recoveryPayload = {

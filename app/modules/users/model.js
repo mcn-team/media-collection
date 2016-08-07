@@ -31,7 +31,8 @@ const UserSchema = new mongoose.Schema({
         language: {
             type: String,
             default: 'en'
-        }
+        },
+        feedInterval: Number
     },
     recovery: {
         questions: [QuestionSchema],
