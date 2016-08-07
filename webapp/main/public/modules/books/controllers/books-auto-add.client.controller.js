@@ -50,7 +50,7 @@ angular.module('books').controller('BookAutoAddController', [
         $scope.validateModal = function () {
             $scope.isUploading = true;
             var payload = [];
-            angular.forEach(_.filter($scope.listMissing, { isChecked: true }), function (missing) {
+            angular.forEach(_.filter($scope.listMissing, { isChecked: true }), function (missing, index) {
                 var book = {
                     collectionName: $scope.media.collectionName,
                     volume: missing.volumeId,
@@ -59,7 +59,8 @@ angular.module('books').controller('BookAutoAddController', [
                     summary: '',
                     isbn: '',
                     bought: $scope.infoStatus.bought,
-                    read: $scope.infoStatus.read
+                    read: $scope.infoStatus.read,
+                    created: new Date($scope.media.created.getTime() + (index - $scope.listMissing.length) * 1000)
                 };
 
                 angular.forEach($scope.infoMedia, function (current) {

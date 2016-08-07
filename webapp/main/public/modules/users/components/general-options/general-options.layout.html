@@ -1,0 +1,12 @@
+<div class="form-group col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8">
+    <form name="generalOptionsForm" data-ng-submit="generalOptionsForm.$valid && saveOptions()" novalidate>
+        <label data-ng-bind="'FEED_INTERVAL' | translate"></label>
+        <input type="number" min="10" name="feedInterval" data-ng-model="feedInterval">
+        <div class="micro-margin-top-fixed form-group text-center">
+            <button type="submit" class="btn btn-primary" data-ng-bind="'SAVE' | translate"></button>
+        </div>
+        <div data-ng-class="{ 'is-error': !generalOptionsForm.feedInterval.$error.min }" class="text-center text-danger is-error">
+            <strong data-ng-bind="'FEED_INTERVAL_ERROR' | translate"></strong>
+        </div>
+    </form>
+</div>

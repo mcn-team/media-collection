@@ -86,9 +86,9 @@ angular.module('mediacollection').constant('English', {
     'AND': 'and',
     'GLOBAL_STATS': 'Global statistics',
     'COLLECTION_NUMBER': 'Collection count',
-    'TOTAL_VALUE': 'Total value',
+    'TOTAL_VALUE': 'Total price',
     'BOOKS_NUMBER': 'Book count',
-    'MISSING_VALUE': 'Missing values',
+    'MISSING_VALUE': 'Missing prices',
     'READING_STATS': 'Readings stats',
     'ENDED_BOOKS': 'Ended books',
     'READ_BOOKS_COUNT': 'Read books count',
@@ -173,5 +173,10 @@ angular.module('mediacollection').constant('English', {
     'OF': 'of',
     'RECOVERY_HEADER': 'Reset the password',
     'NEW_PASSWORD': 'New password',
-    'VOLUME_SHORT': 'Vol.'
+    'VOLUME_SHORT': 'Vol.',
+    'GENERAL_OPTIONS': 'General options',
+    'FEED_INTERVAL': 'RSS feed interval (seconds)',
+    'SAVE': 'Save',
+    'RESET': 'Reset',
+    'FEED_INTERVAL_ERROR': 'Must be superior or equal to 10'
 });

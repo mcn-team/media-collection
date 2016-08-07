@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
         language: {
             type: String,
             default: 'en'
+        },
+        feedInterval: {
+            type: Number,
+            default: 10
         }
     },
     recovery: {
@@ -38,7 +42,8 @@ const UserSchema = new mongoose.Schema({
         medias: [MediaSchema],
         method: {
             type: String,
-            enum: [ 'questions', 'medias' ]
+            enum: [ 'questions', 'medias' ],
+            default: 'questions'
         }
     },
     created: {

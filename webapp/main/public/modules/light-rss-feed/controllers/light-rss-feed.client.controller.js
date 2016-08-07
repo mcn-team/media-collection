@@ -7,10 +7,14 @@ angular.module('light-rss-feed').controller('rssFeedController', [
     function($scope, Authentication, $interval, $timeout, FeedList, planeteBDService, fnacFeedService) {
         // This provides Authentication context.
         $scope.authentication = Authentication.isAuthenticated();
+        if (!$scope.authentication) {
+            return;
+        }
         $scope.feeds = {};
         $scope.feedsProperties = {};
         var feeds = FeedList.get();
         var idxFeed = feeds.length - 1;
+        var feedInterval = Authentication.user.options.feedInterval || 10;
 
         function changeFeedCallback(feedProperties, isReversed) {
             feedProperties.ngClass = 'feed-fade-out';
@@ -36,7 +40,7 @@ angular.module('light-rss-feed').controller('rssFeedController', [
             if (feedProperties.isPaused) {
                 feedProperties.handler = $interval(function () {
                     changeFeedCallback(feedProperties);
-                }, 12000);
+                }, (feedInterval + 2) * 1000);
             } else {
                 $interval.cancel(feedProperties.handler);
             }
@@ -67,7 +71,7 @@ angular.module('light-rss-feed').controller('rssFeedController', [
             elem.feed.$promise.then(function (result) {
                 $scope.feedsProperties[elem.title].handler = $interval(function () {
                     changeFeedCallback($scope.feedsProperties[elem.title]);
-                }, 12000);
+                }, (feedInterval + 2) * 1000);
 
                 $scope.feeds[elem.title] = result.responseData;
             });

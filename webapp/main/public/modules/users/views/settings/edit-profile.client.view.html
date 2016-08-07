@@ -5,6 +5,7 @@
             <label data-ng-click="changeMenu()" class="btn btn-default" data-ng-model="tabMenu" uib-btn-radio="'account'">{{'ACCOUNT_SETTINGS' | translate}}</label>
             <label data-ng-click="changeMenu()" class="btn btn-default" data-ng-model="tabMenu" uib-btn-radio="'lang'">{{'LANG_SETTINGS' | translate}}</label>
             <label data-ng-click="changeMenu()" class="btn btn-default" data-ng-model="tabMenu" uib-btn-radio="'recovery'">{{'RECOVERY_SETTINGS' | translate}}</label>
+            <label data-ng-click="changeMenu()" class="btn btn-default" data-ng-model="tabMenu" uib-btn-radio="'general'">{{'GENERAL_OPTIONS' | translate}}</label>
         </div>
         <hr>
     </div>
@@ -17,6 +18,9 @@
         </section>
         <section data-ng-if="tabMenu === 'recovery'">
             <mc-recovery></mc-recovery>
+        </section>
+        <section data-ng-if="tabMenu === 'general'">
+            <mc-general-options></mc-general-options>
         </section>
     </div>
 </section>

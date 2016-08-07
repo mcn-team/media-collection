@@ -80,6 +80,7 @@ angular.module('options').directive('mcUsers', [
 
                     var failureCallback = function (errorResponse) {
                         console.error(errorResponse);
+                        scope.error = errorResponse.data.message;
                     };
 
                     UserServices.signup(scope.newUser, true).then(successCallback, failureCallback);

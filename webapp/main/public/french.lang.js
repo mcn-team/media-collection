@@ -107,9 +107,9 @@ angular.module('mediacollection').constant('French', {
     'AND': 'et',
     'GLOBAL_STATS': 'Statistiques générales',
     'COLLECTION_NUMBER': 'Nombre de collection',
-    'TOTAL_VALUE': 'Valeur totale',
+    'TOTAL_VALUE': 'Prix totale',
     'BOOKS_NUMBER': 'Nombre de livres',
-    'MISSING_VALUE': 'Valeur non renseignées',
+    'MISSING_VALUE': 'Prix manquant',
     'READING_STATS': 'Statistiques de lecture',
     'ENDED_BOOKS': 'Livres terminés',
     'READ_BOKS_COUNT': 'Nombre de livres lus',
@@ -173,5 +173,10 @@ angular.module('mediacollection').constant('French', {
     'OF': 'de',
     'RECOVERY_HEADER': 'Réinitialisation du mot de passe',
     'NEW_PASSWORD': 'Nouveau mot de passe',
-    'VOLUME_SHORT': 'T.'
+    'VOLUME_SHORT': 'T.',
+    'GENERAL_OPTIONS': 'Options générales',
+    'FEED_INTERVAL': 'Interval des flux RSS (secondes)',
+    'SAVE': 'Enregistrer',
+    'RESET': 'Réinitialiser',
+    'FEED_INTERVAL_ERROR': 'Doit être supérieur à 10'
 });

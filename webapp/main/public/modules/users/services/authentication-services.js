@@ -10,7 +10,18 @@ angular.module('users').factory('Authentication', [
         var encrypt = new JSEncrypt();
 
 
-        authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
+        var getCredentialsFromStorage = function () {
+            authServices.credentials = {
+                user: JSON.parse($window.localStorage.getItem('mc.user')),
+                token: JSON.parse($window.localStorage.getItem('mc.token'))
+            };
+
+            if (!authServices.credentials.user || !authServices.credentials.token) {
+                authServices.credentials = null;
+            }
+        };
+
+        getCredentialsFromStorage();
         var buildEndpoint = function (path) {
             var creds = authServices.credentials ? authServices.credentials.token : null;
             httpConfig = {
@@ -52,17 +63,27 @@ angular.module('users').factory('Authentication', [
             return authServices.credentials;
         };
 
+        var setCredentialsToStorage = function (credentials) {
+            $window.localStorage.setItem('mc.user', JSON.stringify(credentials.user));
+            $window.localStorage.setItem('mc.token', JSON.stringify(credentials.token));
+        };
+
         authServices.setCredentials = function (credentials) {
             if (credentials) {
-                $window.localStorage.setItem('credentials', JSON.stringify(credentials));
-                authServices.credentials = JSON.parse($window.localStorage.getItem('credentials'));
+                setCredentialsToStorage(credentials);
+                getCredentialsFromStorage();
                 authServices.user = authServices.credentials.user;
                 authServices.token = authServices.credentials.token;
             }
         };
 
+        var removeCredentialsToStorage = function () {
+            $window.localStorage.removeItem('mc.user');
+            $window.localStorage.removeItem('mc.token');
+        };
+
         authServices.dropCredentials = function () {
-            $window.localStorage.removeItem('credentials');
+            removeCredentialsToStorage();
             authServices.credentials = null;
             authServices.user = null;
             authServices.token = null;
@@ -74,6 +95,10 @@ angular.module('users').factory('Authentication', [
             credentials.password = md5.createHash(credentials.password);
             credentials.password = encrypt.encrypt(credentials.password);
             return credentials;
+        };
+
+        authServices.encrypt = function (data) {
+            return encrypt.encrypt(md5.createHash(data));
         };
 
         return authServices;
