@@ -93,7 +93,8 @@ angular.module('books').factory('BooksDataService', [
                 cover: book.cover,
                 bookRate: book.bookRate,
                 summary: book.summary,
-                customFields: book.customFields ? book.customFields : []
+                customFields: book.customFields ? book.customFields : [],
+                created: book.created && new Date(book.created)
             };
         };
 
@@ -138,7 +139,8 @@ angular.module('books').factory('BooksDataService', [
                 cover: model.cover,
                 bookRate: model.bookRate,
                 summary: model.summary,
-                customFields: model.customFields
+                customFields: model.customFields,
+                created: model.created
             });
         };
 
