@@ -284,7 +284,9 @@ exports.updateRecoveryList = (params, payload, callback) => {
 
         if (payload.question) {
             field += 'questions';
-            payload.answer = cypher.decrypt(payload.answer);
+            if (payload.answer) {
+                payload.answer = cypher.decrypt(payload.answer);
+            }
             buildUpdateObject(payload, update, 'answer', field);
         } else if (payload.mediaId) {
             field +='medias';
