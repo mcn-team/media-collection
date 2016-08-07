@@ -44,7 +44,15 @@ var CSS_FILES = [
 ];
 
 var ASSETS_PATH = ['./public/assets/**/*'];
-var FONTS_PATH = ['./public/node_modules/bootstrap/dist/fonts/**/*.*'];
+var FONTS_PATH = [
+    './public/node_modules/bootstrap/dist/fonts/**/*.*',
+    './public/node_modules/font-awesome/fonts/FontAwesome.otf',
+    './public/node_modules/font-awesome/fonts/fontawesome-webfont.eot',
+    './public/node_modules/font-awesome/fonts/fontawesome-webfont.svg',
+    './public/node_modules/font-awesome/fonts/fontawesome-webfont.ttf',
+    './public/node_modules/font-awesome/fonts/fontawesome-webfont.woff',
+    './public/node_modules/font-awesome/fonts/fontawesome-webfont.woff2'
+];
 var JS_PATH = ['./public/**/*.js', '!./public/lib/**/*.js', '!./public/node_modules/**/*.js'];
 var CSS_PATH = ['./public/modules/**/*.css'];
 var HTML_PATH = ['./public/**/*.html', '!./public/index.html'];
