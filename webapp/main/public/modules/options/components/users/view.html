@@ -60,6 +60,9 @@
                 </tr>
             </tbody>
         </table>
+        <div data-ng-class="{ 'hidden': !error }" class="text-center text-danger hidden">
+            <strong data-ng-bind="error"></strong>
+        </div>
         <h5 class="padding-paragraph info-background" data-ng-bind="'ADMIN_KEY' | translate"></h5>
     </div>
 </section>
