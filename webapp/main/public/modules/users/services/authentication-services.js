@@ -15,6 +15,10 @@ angular.module('users').factory('Authentication', [
                 user: JSON.parse($window.localStorage.getItem('mc.user')),
                 token: JSON.parse($window.localStorage.getItem('mc.token'))
             };
+
+            if (!authServices.credentials.user || !authServices.credentials.token) {
+                authServices.credentials = null;
+            }
         };
 
         getCredentialsFromStorage();

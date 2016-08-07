@@ -7,6 +7,9 @@ angular.module('light-rss-feed').controller('rssFeedController', [
     function($scope, Authentication, $interval, $timeout, FeedList, planeteBDService, fnacFeedService) {
         // This provides Authentication context.
         $scope.authentication = Authentication.isAuthenticated();
+        if (!$scope.authentication) {
+            return;
+        }
         $scope.feeds = {};
         $scope.feedsProperties = {};
         var feeds = FeedList.get();
