@@ -173,5 +173,10 @@ angular.module('mediacollection').constant('French', {
     'OF': 'de',
     'RECOVERY_HEADER': 'Réinitialisation du mot de passe',
     'NEW_PASSWORD': 'Nouveau mot de passe',
-    'VOLUME_SHORT': 'T.'
+    'VOLUME_SHORT': 'T.',
+    'GENERAL_OPTIONS': 'Options générales',
+    'FEED_INTERVAL': 'Interval des flux RSS (secondes)',
+    'SAVE': 'Enregistrer',
+    'RESET': 'Réinitialiser',
+    'FEED_INTERVAL_ERROR': 'Doit être supérieur à 10'
 });

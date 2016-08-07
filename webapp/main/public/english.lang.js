@@ -173,5 +173,10 @@ angular.module('mediacollection').constant('English', {
     'OF': 'of',
     'RECOVERY_HEADER': 'Reset the password',
     'NEW_PASSWORD': 'New password',
-    'VOLUME_SHORT': 'Vol.'
+    'VOLUME_SHORT': 'Vol.',
+    'GENERAL_OPTIONS': 'General options',
+    'FEED_INTERVAL': 'RSS feed interval (seconds)',
+    'SAVE': 'Save',
+    'RESET': 'Reset',
+    'FEED_INTERVAL_ERROR': 'Must be superior or equal to 10'
 });

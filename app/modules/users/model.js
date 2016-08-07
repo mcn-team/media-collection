@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
         language: {
             type: String,
             default: 'en'
+        },
+        feedInterval: {
+            type: Number,
+            default: 10
         }
     },
     recovery: {
