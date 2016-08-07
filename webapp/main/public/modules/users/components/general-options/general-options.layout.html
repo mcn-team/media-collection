@@ -5,7 +5,7 @@
         <div class="micro-margin-top-fixed form-group text-center">
             <button type="submit" class="btn btn-primary" data-ng-bind="'SAVE' | translate"></button>
         </div>
-        <div data-ng-class="{ 'is-error': !generalOptionsForm.feedInterval.$error.min }" class="text-center text-danger">
+        <div data-ng-class="{ 'is-error': !generalOptionsForm.feedInterval.$error.min }" class="text-center text-danger is-error">
             <strong data-ng-bind="'FEED_INTERVAL_ERROR' | translate"></strong>
         </div>
     </form>
