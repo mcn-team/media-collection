@@ -13,7 +13,9 @@ angular.module('users').directive('mcGeneralOptions', [
                 scope.saveOptions = function () {
                     Authentication.user.options.feedInterval = scope.feedInterval;
                     UserServices.saveOptions(Authentication.user._id, Authentication.user.options)
-                        .then(function() {}, function (errorResponse) {
+                        .then(function() {
+                            scope.saved = true;
+                        }, function (errorResponse) {
                             console.error(errorResponse);
                         });
                 };

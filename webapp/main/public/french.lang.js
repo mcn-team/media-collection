@@ -178,5 +178,7 @@ angular.module('mediacollection').constant('French', {
     'FEED_INTERVAL': 'Interval des flux RSS (secondes)',
     'SAVE': 'Enregistrer',
     'RESET': 'Réinitialiser',
-    'FEED_INTERVAL_ERROR': 'Doit être supérieur à 10'
+    'FEED_INTERVAL_ERROR': 'Doit être supérieur à 10',
+    'SUCCESSFUL_SAVE': 'Sauvegardé'
+
 });

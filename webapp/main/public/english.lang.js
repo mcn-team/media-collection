@@ -178,5 +178,6 @@ angular.module('mediacollection').constant('English', {
     'FEED_INTERVAL': 'RSS feed interval (seconds)',
     'SAVE': 'Save',
     'RESET': 'Reset',
-    'FEED_INTERVAL_ERROR': 'Must be superior or equal to 10'
+    'FEED_INTERVAL_ERROR': 'Must be superior or equal to 10',
+    'SUCCESSFUL_SAVE': 'Successfully saved'
 });

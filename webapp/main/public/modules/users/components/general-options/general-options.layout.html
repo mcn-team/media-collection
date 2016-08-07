@@ -8,5 +8,8 @@
         <div data-ng-class="{ 'is-error': !generalOptionsForm.feedInterval.$error.min }" class="text-center text-danger is-error">
             <strong data-ng-bind="'FEED_INTERVAL_ERROR' | translate"></strong>
         </div>
+        <div data-ng-class="{ 'hidden': !saved }" class="text-center text-success hidden">
+            <strong data-ng-bind="'SUCCESSFUL_SAVE' | translate"></strong>
+        </div>
     </form>
 </div>
