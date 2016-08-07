@@ -27,8 +27,11 @@ angular.module('users').directive('mcSecretQuestionsList', [
                 
                 scope.addQuestion = function () {
                     if (scope.newQuestion && scope.newQuestion.question && scope.newQuestion.answer) {
-                        UserServices.patchRecovery(Authentication.credentials.user._id, scope.newQuestion)
-                            .then(successCallback, failureCallback);
+                        Authentication.getKey().then(function () {
+                            scope.newQuestion.answer = Authentication.encrypt(scope.newQuestion.answer);
+                            UserServices.patchRecovery(Authentication.credentials.user._id, scope.newQuestion)
+                                .then(successCallback, failureCallback);
+                        });
                     }
                     //TODO: else display an error in an span error in layout
                 };

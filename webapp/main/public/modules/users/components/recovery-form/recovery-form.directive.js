@@ -24,22 +24,24 @@ angular.module('users').directive('mcRecoveryForm', [
                 };
 
                 scope.recoveryPassword = function () {
-                    var payload = {
-                        question: scope.selectedRecovery.question,
-                        answer: scope.AuthCtrl.recoveryAnswer
-                    };
+                    Authentication.getKey().then(function () {
+                        var payload = {
+                            question: scope.selectedRecovery.question,
+                            answer: Authentication.encrypt(scope.AuthCtrl.recoveryAnswer)
+                        };
 
-                    var successCallback = function (response) {
-                        scope.isReset = true;
-                        scope.isRecovery = false;
-                        scope.resetData = response.data;
-                    };
+                        var successCallback = function (response) {
+                            scope.isReset = true;
+                            scope.isRecovery = false;
+                            scope.resetData = response.data;
+                        };
 
-                    var failureCallback = function (errorResponse) {
-                        console.error(errorResponse);
-                    };
+                        var failureCallback = function (errorResponse) {
+                            console.error(errorResponse);
+                        };
 
-                    UserServices.getRecoveryToken(scope.data._id, payload).then(successCallback, failureCallback);
+                        UserServices.getRecoveryToken(scope.data._id, payload).then(successCallback, failureCallback);
+                    });
                 };
                 
                 scope.resetPassword = function () {
