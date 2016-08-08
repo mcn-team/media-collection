@@ -179,5 +179,7 @@ angular.module('mediacollection').constant('English', {
     'SAVE': 'Save',
     'RESET': 'Reset',
     'FEED_INTERVAL_ERROR': 'Must be superior or equal to 10',
-    'SUCCESSFUL_SAVE': 'Successfully saved'
+    'SUCCESSFUL_SAVE': 'Successfully saved',
+    'LAST_VOLUME': 'Last volume',
+    'LAST_VOLUME_ALERT': 'Check this if this volume is the last one of the collection and there will be no others. This field is used for identifying complete collection. You can edit a media to change it.'
 });
