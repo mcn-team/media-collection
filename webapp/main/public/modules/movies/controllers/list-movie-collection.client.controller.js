@@ -5,6 +5,7 @@ angular.module('movies').controller('ListMovieCollectionController', [
     'StatsMovieService', 'MovieServices', 'MovieDataService',
     function($scope, $location, Authentication, $anchorScroll, StatsMovieService, MovieServices, MovieDataService) {
         $scope.authentication = Authentication.checkAuth();
+        $scope.showCompleted = false;
 
         $scope.goToStats = function() {
             $location.hash('stats');
@@ -23,6 +24,7 @@ angular.module('movies').controller('ListMovieCollectionController', [
 
             MovieServices.getCollections().then(function(result) {
                 $scope.collectionTab = MovieDataService.computeMissing(result.data);
+                $scope.collectionTab = MovieDataService.setCompletedCollection($scope.collectionTab);
                 $scope.stats = StatsMovieService.calculate($scope.collectionTab);
                 $scope.isLoaded = true;
             });

@@ -20,6 +20,7 @@ const commonMoviePayload = {
     cover: Joi.string().uri().allow(''),
     summary: Joi.string().allow(''),
     customFields: Joi.array(),
+    lastElement: Joi.boolean(),
     created: Joi.date().iso(),
     user: Joi.string().hex().length(24)
 };
