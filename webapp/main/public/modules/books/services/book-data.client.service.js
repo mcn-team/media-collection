@@ -59,6 +59,7 @@ angular.module('books').factory('BooksDataService', [
                 cover: book.cover,
                 bookRate: book.bookRate,
                 summary: book.summary,
+                lastItem: book.lastElement,
                 customFields: book.customFields ? book.customFields : []
             };
         }
@@ -94,6 +95,7 @@ angular.module('books').factory('BooksDataService', [
                 bookRate: book.bookRate,
                 summary: book.summary,
                 customFields: book.customFields ? book.customFields : [],
+                lastItem: book.lastElement,
                 created: book.created && new Date(book.created)
             };
         };
@@ -140,6 +142,7 @@ angular.module('books').factory('BooksDataService', [
                 bookRate: model.bookRate,
                 summary: model.summary,
                 customFields: model.customFields,
+                lastElement: model.lastItem,
                 created: model.created
             });
         };
