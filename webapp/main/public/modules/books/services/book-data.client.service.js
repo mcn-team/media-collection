@@ -193,6 +193,23 @@ angular.module('books').factory('BooksDataService', [
             return collections;
         };
 
+        bookServices.setCompletedCollection = function (collectionList) {
+            var newCollectionList = [].concat(collectionList);
+            _.forEach(newCollectionList, function (element) {
+                var filteredCompleted = _.filter(element.data, { lastElement: true });
+                if (filteredCompleted.length > 0) {
+                    element.isCompleted = true;
+                }
+
+                var filteredMissing = _.filter(element.data, { missing: true });
+                if (filteredMissing.length > 0) {
+                    element.isMissing = true;
+                }
+            });
+
+            return newCollectionList;
+        };
+
         return bookServices;
     }
 ]);

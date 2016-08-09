@@ -181,5 +181,7 @@ angular.module('mediacollection').constant('French', {
     'FEED_INTERVAL_ERROR': 'Doit être supérieur à 10',
     'SUCCESSFUL_SAVE': 'Sauvegardé',
     'LAST_VOLUME': 'Dernier volume',
-    'LAST_VOLUME_ALERT': 'Cochez cette case si ce volume est le dernier de sa collection de manière definitive. Cette case sert à identifier les collections qui sont terminée. Vous pouvez la modifier en éditant un média.'
+    'LAST_VOLUME_ALERT': 'Cochez cette case si ce volume est le dernier de sa collection de manière definitive. Cette case sert à identifier les collections qui sont terminée. Vous pouvez la modifier en éditant un média.',
+    'SHOW_COMPLETED_COLLECTION': 'Afficher les collections terminées',
+    'HIDE_COMPLETED_COLLECTION': 'Cacher les collections terminées'
 });
