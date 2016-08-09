@@ -42,6 +42,10 @@ const bookSchema = new Schema({
         name: String,
         value: String
     }],
+    lastElement: {
+        type: Boolean,
+        default: false
+    },
     created: {
         type: Date,
         default: Date.now

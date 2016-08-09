@@ -2,6 +2,7 @@
     <div class="page-header">
         <h1 >
             <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="goToStats();" data-ng-bind="'STATS' | translate"></button>
+            <button class="badge pull-right btn btn-primary view-field-info-margin-top" data-ng-click="showCompleted = !showCompleted" data-ng-bind="showCompleted ? 'HIDE_COMPLETED_COLLECTION' : 'SHOW_COMPLETED_COLLECTION' | translate"></button>
             {{'MY_MOVIES_COLLECTIONS' | translate}}
         </h1>
     </div>
@@ -12,7 +13,7 @@
     <div ng-show="isLoaded" class="row">
         <div class="col-md-12" >
             <uib-accordion close-others="oneAtTime" >
-                <uib-accordion-group class="collection-header-field" ng-repeat="item in collectionTab" >
+                <uib-accordion-group data-ng-hide="!showCompleted && item.isCompleted && !item.isMissing" class="collection-header-field" ng-repeat="item in collectionTab" >
                     <uib-accordion-heading >
                         <span class="hidden-xs badge view-collection-missing pull-right">
                             {{item.boughtTotal}}
