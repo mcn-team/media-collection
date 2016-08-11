@@ -15,6 +15,7 @@ module.exports = (server) => {
     server.register(require('../modules/google-book-api'), options.googleBookApi, onError);
     server.register(require('../modules/wikipedia-api'), options.wikipediaApi, onError);
     server.register(require('../modules/allocine-api'), options.allocineApi, onError);
+    server.register(require('../modules/amazon-search'), options.amazonSearch, onError);
 };
 
 const onError = (err) => {

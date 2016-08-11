@@ -169,7 +169,7 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             notes: [
-                'Requires a user\'s token',
+                'Requires an user\'s token',
                 'Returns an Array with 200 Ok'
             ],
             description: 'Sends back an Array object containing all keys used ' +
@@ -184,7 +184,7 @@ module.exports = (server) => {
         config: {
             auth: 'RequiresLogin',
             notes: [
-                'Requires a user\'s token',
+                'Requires an user\'s token',
                 'Returns an Array with 200 Ok'
             ],
             description: 'Sends back an Array object containing all the books model Object ' +
