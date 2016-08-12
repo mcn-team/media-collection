@@ -59,7 +59,6 @@ function getActors(obj) {
                 idxs.push(index);
             }
         });
-        console.log(tab);
         idxs.forEach(function (current) {
             tab.splice(current, 1);
         })
@@ -134,7 +133,7 @@ function cleanedGeneriqRes(bodyRes) {
 exports.searchByTitle = function(toSearch, callback) {
     request(mwApi.wikiBaseUrl + mwApi.entryPoint + '/api.php?action=query&generator=search&gsrsearch=' + toSearch + '&prop=info&inprop=url&format=json', function (error, response, body) {
         if (error && response.statusCode != 200) {
-            console.log('Error while requesting the wikimedia api');
+            console.error('Error while requesting the wikimedia api');
             return;
         }
 
