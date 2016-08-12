@@ -1,6 +1,7 @@
 'use strict';
 
 const validators = require('./validators');
+const controllers = require('./controllers');
 
 module.exports = (server) => {
     server.route({
@@ -17,9 +18,6 @@ module.exports = (server) => {
             'Sends back an HTTP 200 OK and an Object containing the data registered on ' +
             'Amazon website related to this book.'
         },
-        handler: (request, reply) => {
-            //TODO: Controllers
-            return reply({message: 'Ok', isbn: request.params.isbn}).code(200);
-        }
+        handler: controllers.getDataByISBN
     });
 };
