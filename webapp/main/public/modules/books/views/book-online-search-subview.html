@@ -25,22 +25,36 @@
     </div>
 </div>
 <section data-uib-collapse="isCollapsed" class="col-xs-12 row micro-margin-top-fixed">
-    <div class="col-xs-12 col-md-5">
+    <div class="col-xs-12 col-md-5 micro-margin-top-fixed">
         <div class="col-xs-12 input-group">
             <span class="input-group-addon" data-ng-bind="'TITLE' | translate"></span>
-            <select data-ng-model="searchSelected.title" class="form-control" name="titleSearch" id="titleSearch" data-ng-options="item for item in searchResponse.title"></select>
+            <select data-ng-model="searchSelected.title" class="form-control" name="titleSearch" id="titleSearch" data-ng-options="item for item in searchResponse.title">
+                <option value="" data-ng-bind="'NONE' | translate"></option>
+            </select>
         </div>
     </div>
-    <div class="col-xs-12 col-md-5">
+    <div class="col-xs-12 col-md-5 micro-margin-top-fixed">
         <div class="col-xs-12 input-group">
             <span class="input-group-addon" data-ng-bind="'COLLECTION' | translate"></span>
-            <select data-ng-model="searchSelected.collection" class="form-control" name="collectionSearch" id="collectionSearch" data-ng-options="item for item in searchResponse.title"></select>
+            <select data-ng-model="searchSelected.collection" class="form-control" name="collectionSearch" id="collectionSearch" data-ng-options="item for item in searchResponse.title">
+                <option value="" data-ng-bind="'NONE' | translate"></option>
+            </select>
         </div>
     </div>
-    <div class="col-xs-12 col-md-2">
+    <div class="col-xs-12 col-md-2 micro-margin-top-fixed">
         <div class="col-xs-12 input-group">
             <span class="input-group-addon" data-ng-bind="'VOLUME' | translate"></span>
-            <select data-ng-model="searchSelected.volume" class="form-control" name="volumeSearch" id="volumeSearch" data-ng-options="item for item in searchResponse.volume"></select>
+            <select data-ng-model="searchSelected.volume" class="form-control" name="volumeSearch" id="volumeSearch" data-ng-options="item for item in searchResponse.volume">
+                <option value="" data-ng-bind="'NONE' | translate"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4 micro-margin-top-fixed">
+        <div class="col-xs-12 input-group">
+            <span class="input-group-addon" data-ng-bind="'PRICE' | translate"></span>
+            <select data-ng-model="searchSelected.price" class="form-control" name="priceSearch" id="priceSearch" data-ng-options="item as item + ' €' for item in searchResponse.price">
+                <option value="" data-ng-bind="'NONE' | translate"></option>
+            </select>
         </div>
     </div>
     <div class="micro-margin-top-fixed col-xs-12">

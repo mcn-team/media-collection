@@ -127,21 +127,22 @@ angular.module('books').controller('CreateBookController', [
                 if ($scope.mediaModel.searchIsbn.length === 13) {
                     convertedIsbn = IsbnConverter.convertISBN($scope.mediaModel.searchIsbn);
                 } else {
-                    convertedIsbn = $scope.mediaModel.searchIsbn.length;
+                    convertedIsbn = $scope.mediaModel.searchIsbn;
                 }
 
                 BookServices.getBookByISBN(convertedIsbn).then(function (response) {
                     $scope.searchResponse = response.data;
                     if ($scope.searchResponse.title && $scope.searchResponse.title.length > 0) {
                         $scope.searchSelected.title = $scope.searchResponse.title[0];
-                    }
-
-                    if ($scope.searchResponse.title && $scope.searchResponse.title.length > 0) {
                         $scope.searchSelected.collection = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
                     }
 
                     if ($scope.searchResponse.volume && $scope.searchResponse.volume.length > 0) {
                         $scope.searchSelected.volume = $scope.searchResponse.volume[0];
+                    }
+
+                    if ($scope.searchResponse.price && $scope.searchResponse.price.length > 0) {
+                        $scope.searchSelected.price = $scope.searchResponse.price[0];
                     }
 
                     $scope.isCollapsed = false;
@@ -158,7 +159,8 @@ angular.module('books').controller('CreateBookController', [
                     isbn: $scope.mediaModel.searchIsbn,
                     title: $scope.searchSelected.title,
                     collectionName: $scope.searchSelected.collection,
-                    volume: $scope.searchSelected.volume
+                    volume: $scope.searchSelected.volume,
+                    price: $scope.searchSelected.price
                 };
 
                 $scope.mediaModel = BooksDataService.fillBookModel(searchedData);
