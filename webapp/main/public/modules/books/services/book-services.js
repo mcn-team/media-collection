@@ -46,7 +46,7 @@ angular.module('books').factory('BookServices', [
         };
 
         bookServices.getBookByISBN = function (isbn) {
-            return $http.get(buildEndpoint('/isbn/' + isbn), httpConfig);
+            return $http.get(buildEndpoint('/amazon/' + isbn), httpConfig);
         };
 
         bookServices.getCollectionsList = function () {

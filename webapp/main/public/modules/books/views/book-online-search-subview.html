@@ -1,10 +1,10 @@
 <div class="pull-right">
-    <button class="btn btn-primary" data-ng-show="searchType === 'google'" data-ng-click="searchType = 'wiki'" data-ng-bind="'GOOGLE_BOOK' | translate"></button>
-    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'google'" data-ng-bind="'WIKIPEDIA' | translate"></button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'amazon'" data-ng-click="searchType = 'wiki'" data-ng-bind="'AMAZON' | translate"></button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'amazon'" data-ng-bind="'WIKIPEDIA' | translate"></button>
 </div>
-<h3 data-ng-show="searchType === 'google'" data-ng-bind="'GOOGLE_HEADER' | translate"></h3>
+<h3 data-ng-show="searchType === 'amazon'" data-ng-bind="'AMAZON_HEADER' | translate"></h3>
 <h3 data-ng-show="searchType === 'wiki'" data-ng-bind="'WIKI_HEADER' | translate"></h3>
-<div data-ng-show="searchType === 'google' && isLoaded && !isDuplicate">
+<div data-ng-show="searchType === 'amazon' && isLoaded && !isDuplicate">
     <div class="col-xs-12 micro-margin-top-fixed input-group">
         <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="{{'ISBN_PLACEHOLDER' | translate}}" >
         <span class="input-group-btn">
@@ -24,3 +24,27 @@
         </span>
     </div>
 </div>
+<section data-uib-collapse="isCollapsed" class="col-xs-12 row micro-margin-top-fixed">
+    <div class="col-xs-12 col-md-5">
+        <div class="col-xs-12 input-group">
+            <span class="input-group-addon" data-ng-bind="'TITLE' | translate"></span>
+            <select data-ng-model="searchSelected.title" class="form-control" name="titleSearch" id="titleSearch" data-ng-options="item for item in searchResponse.title"></select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-5">
+        <div class="col-xs-12 input-group">
+            <span class="input-group-addon" data-ng-bind="'COLLECTION' | translate"></span>
+            <select data-ng-model="searchSelected.collection" class="form-control" name="collectionSearch" id="collectionSearch" data-ng-options="item for item in searchResponse.title"></select>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 input-group">
+            <span class="input-group-addon" data-ng-bind="'VOLUME' | translate"></span>
+            <select data-ng-model="searchSelected.volume" class="form-control" name="volumeSearch" id="volumeSearch" data-ng-options="item for item in searchResponse.volume"></select>
+        </div>
+    </div>
+    <div class="micro-margin-top-fixed col-xs-12">
+        <button type="button" class="pull-right btn btn-danger micro-margin-left-fixed" data-ng-click="cancelSearch()" data-ng-bind="'CANCEL' | translate"></button>
+        <button type="button" class="pull-right btn btn-success" data-ng-click="validateSearch()" data-ng-bind="'VALIDATE' | translate"></button>
+    </div>
+</section>
