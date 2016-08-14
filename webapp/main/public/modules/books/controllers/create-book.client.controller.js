@@ -2,9 +2,9 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$uibModal', '$window', 'Authentication',
-    'BookServices', 'BooksDataService', 'UploadServices', 'IsbnConverter',
+    'BookServices', 'BooksDataService', 'UploadServices',
     function($scope, $location, $uibModal, $window, Authentication,
-             BookServices, BooksDataService, UploadServices, IsbnConverter) {
+             BookServices, BooksDataService, UploadServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -13,22 +13,6 @@ angular.module('books').controller('CreateBookController', [
         $scope.isCollapsed = true;
         $scope.searchType = 'amazon';
         $scope.searchSelected = {};
-
-        // $scope.searchResponse = {
-        //     'cover': 'https://images-eu.ssl-images-amazon.com/images/I/51XCTa9VurL._SY291_BO1,204,203,200_QL40_.jpg',
-        //     'title': [
-        //         'Le Conclave des ombres',
-        //         ' Tome 1',
-        //         ' Serre du faucon argenté'
-        //     ],
-        //     'author': 'Raymond E. Feist',
-        //     'volume': [
-        //         '1'
-        //     ]
-        // };
-        // $scope.selectedTitle = $scope.searchResponse.title[0];
-        // $scope.selectedCollection = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
-        // $scope.selectedVolume = $scope.searchResponse.volume[0];
 
         $scope.uploadCover = false;
 
@@ -113,14 +97,6 @@ angular.module('books').controller('CreateBookController', [
                 });
             }
 
-            //ISBN FIELD
-            $scope.checkIsbn = function() {
-                return !$scope.mediaModel.searchIsbn ||
-                    ($scope.mediaModel.searchIsbn.length !== 10 && $scope.mediaModel.searchIsbn.length !== 13) ||
-                    ($scope.mediaModel.searchIsbn.length === 10 && !IsbnConverter.validISBN10($scope.mediaModel.searchIsbn)) ||
-                    ($scope.mediaModel.searchIsbn.length === 13 && !IsbnConverter.validISBN13($scope.mediaModel.searchIsbn));
-            };
-
             $scope.searchByIsbn = function() {
                 $scope.isSearching = true;
                 $scope.isCollapsed = false;
@@ -142,6 +118,8 @@ angular.module('books').controller('CreateBookController', [
 
                 }, function (errorResponse) {
                     $scope.error = errorResponse.data.error;
+                    $scope.isSearching = false;
+                    $scope.isCollapsed = true;
                     console.error(errorResponse);
                 });
             };
