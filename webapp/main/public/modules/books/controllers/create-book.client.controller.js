@@ -10,7 +10,25 @@ angular.module('books').controller('CreateBookController', [
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
         $scope.isDuplicate = false;
-        $scope.searchType = 'google';
+        $scope.isCollapsed = true;
+        $scope.searchType = 'amazon';
+        $scope.searchSelected = {};
+
+        // $scope.searchResponse = {
+        //     'cover': 'https://images-eu.ssl-images-amazon.com/images/I/51XCTa9VurL._SY291_BO1,204,203,200_QL40_.jpg',
+        //     'title': [
+        //         'Le Conclave des ombres',
+        //         ' Tome 1',
+        //         ' Serre du faucon argenté'
+        //     ],
+        //     'author': 'Raymond E. Feist',
+        //     'volume': [
+        //         '1'
+        //     ]
+        // };
+        // $scope.selectedTitle = $scope.searchResponse.title[0];
+        // $scope.selectedCollection = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
+        // $scope.selectedVolume = $scope.searchResponse.volume[0];
 
         $scope.uploadCover = false;
 
@@ -104,21 +122,51 @@ angular.module('books').controller('CreateBookController', [
             };
 
             $scope.searchByIsbn = function() {
-                var convertedIsbn = null;
+                $scope.isSearching = true;
+                $scope.isCollapsed = false;
+                BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
+                    $scope.isSearching = false;
+                    $scope.searchResponse = response.data;
+                    if ($scope.searchResponse.title && $scope.searchResponse.title.length > 0) {
+                        $scope.searchSelected.title = $scope.searchResponse.title[0];
+                        $scope.searchSelected.collection = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
+                    }
 
-                if ($scope.mediaModel.searchIsbn.length === 13) {
-                    convertedIsbn = IsbnConverter.convertISBN($scope.mediaModel.searchIsbn);
-                } else {
-                    convertedIsbn = $scope.mediaModel.searchIsbn.length;
-                }
+                    if ($scope.searchResponse.volume && $scope.searchResponse.volume.length > 0) {
+                        $scope.searchSelected.volume = $scope.searchResponse.volume[0];
+                    }
 
-                BookServices.getBookByISBN(convertedIsbn).then(function (response) {
-                    $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
-                    $scope.mediaModel = BooksDataService.fillBookModel(response.data);
+                    if ($scope.searchResponse.price && $scope.searchResponse.price.length > 0) {
+                        $scope.searchSelected.price = $scope.searchResponse.price[0];
+                    }
+
                 }, function (errorResponse) {
                     $scope.error = errorResponse.data.error;
                     console.error(errorResponse);
                 });
+            };
+
+            $scope.validateSearch = function () {
+                var searchedData = {
+                    authors: [$scope.searchResponse.author],
+                    cover: $scope.searchResponse.cover,
+                    isbn: $scope.mediaModel.searchIsbn,
+                    title: $scope.searchSelected.title,
+                    collectionName: $scope.searchSelected.collection,
+                    volume: $scope.searchSelected.volume,
+                    price: $scope.searchSelected.price,
+                    publisher: $scope.searchResponse.publisher,
+                    pageCount: $scope.searchResponse.pages
+                };
+
+                $scope.mediaModel = BooksDataService.fillBookModel(searchedData);
+                $scope.cancelSearch();
+            };
+
+            $scope.cancelSearch = function () {
+                $scope.isCollapsed = true;
+                delete $scope.searchResponse;
+                $scope.searchSelected = {};
             };
 
             $scope.searchByTitle = function () {
@@ -192,6 +240,11 @@ angular.module('books').controller('CreateBookController', [
             book.user = $scope.authentication.user._id;
             if (book.collectionName && book.volume < 0) {
                 $scope.error = 'Volume is missing';
+                return;
+            }
+
+            if (!book.collectionName && !book.title) {
+                $scope.error = 'Fields are empty';
                 return;
             }
 

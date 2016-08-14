@@ -46,6 +46,43 @@ const searchDataFromLink = (params, callback) => {
     request(params.link, (err, response, payload) => {
         let $ = cheerio.load(payload);
         const cover = $('#imgBlkFront').attr('src');
+        const prices = [];
+        const details = [];
+
+        $('#buybox span.offer-price').each(function () {
+            let price = parseFloat($(this).text().match(/[0-9]+[,|\.][0-9]*/)[0].replace(',', '.'));
+
+            if (!isNaN(price)) {
+                prices.push(price);
+            }
+        });
+
+        $('#formats').find('li').each(function () {
+            let extractedPrice = $(this).find('span span span a span span').text().trim();
+            if (extractedPrice) {
+                let price = parseFloat(extractedPrice.match(/[0-9]+[,|\.][0-9]*/)[0].replace(',', '.'));
+
+                if (!isNaN(price)) {
+                    prices.push(price);
+                }
+            }
+        });
+
+        $('#detail_bullets_id').find('li').each(function () {
+            let extractedDetail = $(this).text().trim();
+
+            if (extractedDetail) {
+                if (extractedDetail.indexOf('pages') > 0) {
+                    let pages = parseInt(extractedDetail.match(/[0-9]+/)[0]);
+
+                    if (!isNaN(pages)) {
+                        params.pages = pages;
+                    }
+                } else if (/(editeur|edition)/i.test(extractedDetail)) {
+                    params.publisher = extractedDetail.split(/[:|;]/)[1].replace(/\(.*\)/, '').trim();
+                }
+            }
+        });
 
         if (cover) {
             params.cover = cover;
@@ -53,6 +90,10 @@ const searchDataFromLink = (params, callback) => {
 
         if (!params.author) {
             params.author = $('#byline span.author a.contributorNameID').first().text() || $('#byline span.author a').first().text();
+        }
+
+        if (prices.length > 0) {
+            params.price = prices;
         }
 
         return callback(err, params);

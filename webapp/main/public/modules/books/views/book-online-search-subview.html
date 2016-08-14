@@ -1,18 +1,20 @@
 <div class="pull-right">
-    <button class="btn btn-primary" data-ng-show="searchType === 'google'" data-ng-click="searchType = 'wiki'" data-ng-bind="'GOOGLE_BOOK' | translate"></button>
-    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'google'" data-ng-bind="'WIKIPEDIA' | translate"></button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'amazon'" data-ng-click="searchType = 'wiki'" data-ng-bind="'AMAZON' | translate"></button>
+    <button class="btn btn-primary" data-ng-show="searchType === 'wiki'" data-ng-click="searchType = 'amazon'" data-ng-bind="'WIKIPEDIA' | translate"></button>
 </div>
-<h3 data-ng-show="searchType === 'google'" data-ng-bind="'GOOGLE_HEADER' | translate"></h3>
+<h3 data-ng-show="searchType === 'amazon'" data-ng-bind="'AMAZON_HEADER' | translate"></h3>
 <h3 data-ng-show="searchType === 'wiki'" data-ng-bind="'WIKI_HEADER' | translate"></h3>
-<div data-ng-show="searchType === 'google' && isLoaded && !isDuplicate">
-    <div class="col-xs-12 micro-margin-top-fixed input-group">
-        <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="{{'ISBN_PLACEHOLDER' | translate}}" >
-        <span class="input-group-btn">
-            <button class="btn btn-primary" id="searchByIsbn" type="button" data-ng-disabled="checkIsbn()" data-ng-click="searchByIsbn();" >
-                <img class="form-icon-btn-size" data-ng-src="/assets/img/magnifier13.png">
-            </button>
-        </span>
-    </div>
+<div data-ng-show="searchType === 'amazon' && isLoaded && !isDuplicate">
+    <form data-ng-submit="searchByIsbn()" novalidate>
+        <div class="col-xs-12 micro-margin-top-fixed input-group">
+            <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="{{'ISBN_PLACEHOLDER' | translate}}" >
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="searchByIsbn" type="submit" data-ng-disabled="checkIsbn()">
+                    <img class="form-icon-btn-size" data-ng-src="/assets/img/magnifier13.png">
+                </button>
+            </span>
+        </div>
+    </form>
 </div>
 <div data-ng-show="searchType === 'wiki' && isLoaded && !isDuplicate">
     <div class="col-xs-12 micro-margin-top-fixed input-group">
@@ -24,3 +26,58 @@
         </span>
     </div>
 </div>
+<section data-uib-collapse="isCollapsed" class="col-xs-12 row micro-margin-top-fixed">
+    <div data-ng-if="isSearching" class="text-center" >
+        <img src="/assets/img/loader-md.gif">
+    </div>
+    <section data-ng-show="!isSearching && searchResponse">
+        <div class="col-xs-12 col-md-5 micro-margin-top-fixed">
+            <div class="col-xs-12 input-group">
+                <span class="input-group-addon" data-ng-bind="'TITLE' | translate"></span>
+                <select data-ng-model="searchSelected.title" class="form-control" name="titleSearch" id="titleSearch" data-ng-options="item for item in searchResponse.title">
+                    <option value="" data-ng-bind="'-- ' + ('NONE' | translate) + ' --'"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-5 micro-margin-top-fixed">
+            <div class="col-xs-12 input-group">
+                <span class="input-group-addon" data-ng-bind="'COLLECTION' | translate"></span>
+                <select data-ng-model="searchSelected.collection" class="form-control" name="collectionSearch" id="collectionSearch" data-ng-options="item for item in searchResponse.title">
+                    <option value="" data-ng-bind="'-- ' + ('NONE' | translate) + ' --'"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-2 micro-margin-top-fixed">
+            <div class="col-xs-12 input-group">
+                <span class="input-group-addon" data-ng-bind="'VOLUME' | translate"></span>
+                <select data-ng-model="searchSelected.volume" class="form-control" name="volumeSearch" id="volumeSearch" data-ng-options="item for item in searchResponse.volume">
+                    <option value="" data-ng-bind="'-- ' + ('NONE' | translate) + ' --'"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4 micro-margin-top-fixed">
+            <div class="col-xs-12 input-group">
+                <span class="input-group-addon" data-ng-bind="'PRICE' | translate"></span>
+                <select data-ng-model="searchSelected.price" class="form-control" name="priceSearch" id="priceSearch" data-ng-options="item as item + ' €' for item in searchResponse.price">
+                    <option value="" data-ng-bind="'-- ' + ('NONE' | translate) + ' --'"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4 micro-margin-top-fixed">
+            <div class="col-xs-12 input-group">
+                <span class="input-group-addon" data-ng-bind="'PAGES' | translate"></span>
+                <input data-ng-model="searchResponse.pages" class="form-control" name="pagesSearch" id="pagesSearch">
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4 micro-margin-top-fixed">
+            <div class="col-xs-12 input-group">
+                <span class="input-group-addon" data-ng-bind="'PUBLISHER' | translate"></span>
+                <input data-ng-model="searchResponse.publisher" class="form-control" name="publisherSearch" id="publisherSearch">
+            </div>
+        </div>
+        <div class="micro-margin-top-fixed col-xs-12">
+            <button type="button" class="pull-right btn btn-success micro-margin-left-fixed" data-ng-click="validateSearch()" data-ng-bind="'VALIDATE' | translate"></button>
+            <button type="button" class="pull-right btn btn-danger" data-ng-click="cancelSearch()" data-ng-bind="'CANCEL' | translate"></button>
+        </div>
+    </section>
+</section>
