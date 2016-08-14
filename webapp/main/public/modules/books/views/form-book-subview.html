@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset data-uib-collapse="!isCollapsed" >
     <div class="form-group">
         <div class="col-xs-12 col-md-6 row">
             <h3 data-ng-bind="'GENERAL_INFO' | translate"></h3>
@@ -40,6 +40,19 @@
                 <div class="controls">
                     <input data-ng-model="mediaModel.volumeId" data-ng-disabled="mediaModel.collectionName ? false : true" type="number" id="volume" class="form-control" >
                 </div>
+            </div>
+            <div data-ng-show="mediaModel.collectionName ? true : false" class="col-xs-12 micro-margin-top-fixed">
+                <label class="control-label" for="lastVolume" data-ng-bind="'LAST_VOLUME' | translate"></label>
+                <div class="checkbox">
+                    <label>
+                        <input data-ng-focus="showLastItemAlert = true" data-ng-blur="showLastItemAlert = false" data-ng-model="mediaModel.lastItem" data-ng-disabled="mediaModel.collectionName ? false : true" type="checkbox" id="lastVolume" class="" >
+                        <span><small>This media is the last volume of the collection</small></span>
+                    </label>
+                </div>
+                <span class="text-info" data-ng-show="mediaModel.lastItem && showLastItemAlert === true">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <strong data-ng-bind="'LAST_VOLUME_ALERT' | translate"></strong>
+                </span>
             </div>
             <div class="col-xs-12">
                 <label class="control-label" for="author" data-ng-bind="'AUTHOR' | translate"></label>

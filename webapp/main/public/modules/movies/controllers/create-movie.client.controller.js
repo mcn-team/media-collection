@@ -26,7 +26,7 @@ angular.module('movies').controller('CreateMoviesController', [
 
         $scope.initCreate = function () {
             function cloneCallback(result) {
-                $scope.mediaModel = MovieDataService.fillMovieModel(result.data);
+                $scope.mediaModel = MovieDataService.fillMovieModel(result);
                 $scope.isLoaded = true;
                 $scope.isDuplicate = true;
             }
@@ -49,7 +49,8 @@ angular.module('movies').controller('CreateMoviesController', [
             $scope.mediaModel.movieRate = 7;
             if ($location.search() && $location.search().param) {
                 $scope.isLoaded = false;
-                MovieServices.getMovie($location.search().param).then(function(result) {
+                MovieServices.getMovie($location.search().param)
+                    .then(function(result) {
                         cloneCallback(result.data);
                     });
             }

@@ -24,9 +24,9 @@ angular.module('mediacollection').constant('English', {
     'EMAIL': 'Email',
     'USERNAME': 'Username',
     'PASSWORD': 'Password',
-    'GOOGLE_BOOK': 'Google Book',
     'WIKIPEDIA': 'Wikipedia',
-    'GOOGLE_HEADER': 'Search by ISBN with Google Book',
+    'AMAZON': 'Amazon Book',
+    'AMAZON_HEADER': 'Search by ISBN with Amazon Book',
     'WIKI_HEADER': 'Search by title with Wikipedia',
     'ISBN_PLACEHOLDER': 'Enter an ISBN',
     'TITLE_PLACEHOLDER': 'Enter a title',
@@ -179,5 +179,9 @@ angular.module('mediacollection').constant('English', {
     'SAVE': 'Save',
     'RESET': 'Reset',
     'FEED_INTERVAL_ERROR': 'Must be superior or equal to 10',
-    'SUCCESSFUL_SAVE': 'Successfully saved'
+    'SUCCESSFUL_SAVE': 'Successfully saved',
+    'LAST_VOLUME': 'Last volume',
+    'LAST_VOLUME_ALERT': 'Check this if this volume is the last one of the collection and there will be no others. This field is used for identifying complete collection. You can edit a media to change it.',
+    'SHOW_COMPLETED_COLLECTION': 'Display completed collections',
+    'HIDE_COMPLETED_COLLECTION': 'Hide completed collections'
 });

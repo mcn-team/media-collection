@@ -2,15 +2,17 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$uibModal', '$window', 'Authentication',
-    'BookServices', 'BooksDataService', 'UploadServices', 'IsbnConverter',
+    'BookServices', 'BooksDataService', 'UploadServices',
     function($scope, $location, $uibModal, $window, Authentication,
-             BookServices, BooksDataService, UploadServices, IsbnConverter) {
+             BookServices, BooksDataService, UploadServices) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
         $scope.isDuplicate = false;
-        $scope.searchType = 'google';
+        $scope.isCollapsed = true;
+        $scope.searchType = 'amazon';
+        $scope.searchSelected = {};
 
         $scope.uploadCover = false;
 
@@ -95,30 +97,54 @@ angular.module('books').controller('CreateBookController', [
                 });
             }
 
-            //ISBN FIELD
-            $scope.checkIsbn = function() {
-                return !$scope.mediaModel.searchIsbn ||
-                    ($scope.mediaModel.searchIsbn.length !== 10 && $scope.mediaModel.searchIsbn.length !== 13) ||
-                    ($scope.mediaModel.searchIsbn.length === 10 && !IsbnConverter.validISBN10($scope.mediaModel.searchIsbn)) ||
-                    ($scope.mediaModel.searchIsbn.length === 13 && !IsbnConverter.validISBN13($scope.mediaModel.searchIsbn));
-            };
-
             $scope.searchByIsbn = function() {
-                var convertedIsbn = null;
+                $scope.isSearching = true;
+                $scope.isCollapsed = false;
+                BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
+                    $scope.isSearching = false;
+                    $scope.searchResponse = response.data;
+                    if ($scope.searchResponse.title && $scope.searchResponse.title.length > 0) {
+                        $scope.searchSelected.title = $scope.searchResponse.title[0];
+                        $scope.searchSelected.collection = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
+                    }
 
-                if ($scope.mediaModel.searchIsbn.length === 13) {
-                    convertedIsbn = IsbnConverter.convertISBN($scope.mediaModel.searchIsbn);
-                } else {
-                    convertedIsbn = $scope.mediaModel.searchIsbn.length;
-                }
+                    if ($scope.searchResponse.volume && $scope.searchResponse.volume.length > 0) {
+                        $scope.searchSelected.volume = $scope.searchResponse.volume[0];
+                    }
 
-                BookServices.getBookByISBN(convertedIsbn).then(function (response) {
-                    $scope.mediaModel.isbn = $scope.mediaModel.searchIsbn;
-                    $scope.mediaModel = BooksDataService.fillBookModel(response.data);
+                    if ($scope.searchResponse.price && $scope.searchResponse.price.length > 0) {
+                        $scope.searchSelected.price = $scope.searchResponse.price[0];
+                    }
+
                 }, function (errorResponse) {
                     $scope.error = errorResponse.data.error;
+                    $scope.isSearching = false;
+                    $scope.isCollapsed = true;
                     console.error(errorResponse);
                 });
+            };
+
+            $scope.validateSearch = function () {
+                var searchedData = {
+                    authors: [$scope.searchResponse.author],
+                    cover: $scope.searchResponse.cover,
+                    isbn: $scope.mediaModel.searchIsbn,
+                    title: $scope.searchSelected.title,
+                    collectionName: $scope.searchSelected.collection,
+                    volume: $scope.searchSelected.volume,
+                    price: $scope.searchSelected.price,
+                    publisher: $scope.searchResponse.publisher,
+                    pageCount: $scope.searchResponse.pages
+                };
+
+                $scope.mediaModel = BooksDataService.fillBookModel(searchedData);
+                $scope.cancelSearch();
+            };
+
+            $scope.cancelSearch = function () {
+                $scope.isCollapsed = true;
+                delete $scope.searchResponse;
+                $scope.searchSelected = {};
             };
 
             $scope.searchByTitle = function () {
@@ -192,6 +218,11 @@ angular.module('books').controller('CreateBookController', [
             book.user = $scope.authentication.user._id;
             if (book.collectionName && book.volume < 0) {
                 $scope.error = 'Volume is missing';
+                return;
+            }
+
+            if (!book.collectionName && !book.title) {
+                $scope.error = 'Fields are empty';
                 return;
             }
 

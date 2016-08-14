@@ -88,6 +88,7 @@ angular.module('movies').factory('MovieDataService', [
                 cover: movie.cover,
                 movieRate: movie.movieRate,
                 customFields: movie.customFields ? movie.customFields : [],
+                lastItem: movie.lastElement,
                 summary: movie.summary
             };
         };
@@ -127,6 +128,7 @@ angular.module('movies').factory('MovieDataService', [
                 cover: model.cover,
                 movieRate: model.movieRate,
                 customFields: model.customFields,
+                lastElement: model.lastItem,
                 summary: model.summary
             };
         };
@@ -164,7 +166,8 @@ angular.module('movies').factory('MovieDataService', [
                         element.data.push({
                             collectionName: element._id,
                             episode: i,
-                            bought: false
+                            bought: false,
+                            missing: true
                         });
                     }
                 }
@@ -174,6 +177,23 @@ angular.module('movies').factory('MovieDataService', [
             collections.sort(sortCollections);
 
             return collections;
+        };
+
+        movieServices.setCompletedCollection = function (collectionList) {
+            var newCollectionList = [].concat(collectionList);
+            _.forEach(newCollectionList, function (element) {
+                var filteredCompleted = _.filter(element.data, { lastElement: true });
+                if (filteredCompleted.length > 0) {
+                    element.isCompleted = true;
+                }
+
+                var filteredMissing = _.filter(element.data, { missing: true });
+                if (filteredMissing.length > 0) {
+                    element.isMissing = true;
+                }
+            });
+
+            return newCollectionList;
         };
 
         return movieServices;

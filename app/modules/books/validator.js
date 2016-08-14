@@ -19,6 +19,7 @@ const commonBookPayload = {
     summary: Joi.string().allow(''),
     price: Joi.number().precision(2).positive().allow(null),
     customFields: Joi.array(),
+    lastElement: Joi.boolean(),
     created: Joi.date().iso(),
     user: Joi.string().hex().length(24)
 };
