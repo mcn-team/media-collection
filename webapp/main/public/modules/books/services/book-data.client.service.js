@@ -77,7 +77,7 @@ angular.module('books').factory('BooksDataService', [
 
             return {
                 type: book.type || 'book',
-                title: book.title,
+                title: book.title || undefined,
                 custom: {},
                 collectionName: book.collectionName ? book.collectionName : undefined,
                 volumeId: isNaN(volume) ? undefined : volume,
@@ -86,8 +86,8 @@ angular.module('books').factory('BooksDataService', [
                 author: bookServices.getListLastOne(book.authors),
                 publishingDate: book.publishingDate ? new Date(book.publishingDate) : undefined,
                 isbn: book.isbn,
-                publisher: book.publisher,
-                pageCount: book.pageCount && parseInt(book.pageCount),
+                publisher: book.publisher || undefined,
+                pageCount: book.pageCount ? parseInt(book.pageCount) : undefined,
                 price: book.price && parseFloat(book.price),
                 read: book.read  || 'NOTREAD',
                 bought: book.bought === undefined ? true : book.bought,
