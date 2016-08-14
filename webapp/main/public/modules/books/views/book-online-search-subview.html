@@ -5,14 +5,19 @@
 <h3 data-ng-show="searchType === 'amazon'" data-ng-bind="'AMAZON_HEADER' | translate"></h3>
 <h3 data-ng-show="searchType === 'wiki'" data-ng-bind="'WIKI_HEADER' | translate"></h3>
 <div data-ng-show="searchType === 'amazon' && isLoaded && !isDuplicate">
-    <form data-ng-submit="searchByIsbn()" novalidate>
+    <form name="isbnSearchForm" data-ng-submit="isbnSearchForm.$valid && searchByIsbn()" novalidate>
         <div class="col-xs-12 micro-margin-top-fixed input-group">
-            <input type="text" data-ng-model="mediaModel.searchIsbn" id="search-google" class="form-control" placeholder="{{'ISBN_PLACEHOLDER' | translate}}" >
+            <input type="text" data-ng-model="mediaModel.searchIsbn" name="isbnSearch" id="isbnSearch" class="form-control" placeholder="{{'ISBN_PLACEHOLDER' | translate}}"
+                   is-isbn data-ng-pattern="/^\d{13}$|^\d{10}$/">
             <span class="input-group-btn">
-                <button class="btn btn-primary" id="searchByIsbn" type="submit" data-ng-disabled="checkIsbn()">
+                <button class="btn btn-primary" id="searchByIsbn" type="submit">
                     <img class="form-icon-btn-size" data-ng-src="/assets/img/magnifier13.png">
                 </button>
             </span>
+        </div>
+        <div class="text-danger">
+            <div data-ng-show="isbnSearchForm.$submitted && isbnSearchForm.isbnSearch.$error.pattern">ISBN should only have 10 or 13 digits</div>
+            <div data-ng-show="isbnSearchForm.$submitted && isbnSearchForm.isbnSearch.$error.isIsbn">ISBN is incorrect. Check the source</div>
         </div>
     </form>
 </div>
