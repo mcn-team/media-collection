@@ -8,6 +8,7 @@ module.exports = (server) => {
         method: 'GET',
         path: '/{isbn}',
         config: {
+            auth: 'RequiresLogin',
             validate: { params: validators.isbnParamsSchema },
             notes: [
                 'Requires an user\'s token',

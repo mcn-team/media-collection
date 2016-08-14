@@ -47,6 +47,8 @@ const searchDataFromLink = (params, callback) => {
         let $ = cheerio.load(payload);
         const cover = $('#imgBlkFront').attr('src');
         const prices = [];
+        const details = [];
+
         $('#buybox span.offer-price').each(function () {
             let price = parseFloat($(this).text().match(/[0-9]+[,|\.][0-9]*/)[0].replace(',', '.'));
 
@@ -62,6 +64,22 @@ const searchDataFromLink = (params, callback) => {
 
                 if (!isNaN(price)) {
                     prices.push(price);
+                }
+            }
+        });
+
+        $('#detail_bullets_id').find('li').each(function () {
+            let extractedDetail = $(this).text().trim();
+
+            if (extractedDetail) {
+                if (extractedDetail.indexOf('pages') > 0) {
+                    let pages = parseInt(extractedDetail.match(/[0-9]+/)[0]);
+
+                    if (!isNaN(pages)) {
+                        params.pages = pages;
+                    }
+                } else if (/(editeur|edition)/i.test(extractedDetail)) {
+                    params.publisher = extractedDetail.split(/[:|;]/)[1].replace(/\(.*\)/, '').trim();
                 }
             }
         });

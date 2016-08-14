@@ -122,15 +122,10 @@ angular.module('books').controller('CreateBookController', [
             };
 
             $scope.searchByIsbn = function() {
-                var convertedIsbn = null;
-
-                if ($scope.mediaModel.searchIsbn.length === 13) {
-                    convertedIsbn = IsbnConverter.convertISBN($scope.mediaModel.searchIsbn);
-                } else {
-                    convertedIsbn = $scope.mediaModel.searchIsbn;
-                }
-
-                BookServices.getBookByISBN(convertedIsbn).then(function (response) {
+                $scope.isSearching = true;
+                $scope.isCollapsed = false;
+                BookServices.getBookByISBN($scope.mediaModel.searchIsbn).then(function (response) {
+                    $scope.isSearching = false;
                     $scope.searchResponse = response.data;
                     if ($scope.searchResponse.title && $scope.searchResponse.title.length > 0) {
                         $scope.searchSelected.title = $scope.searchResponse.title[0];
@@ -145,7 +140,6 @@ angular.module('books').controller('CreateBookController', [
                         $scope.searchSelected.price = $scope.searchResponse.price[0];
                     }
 
-                    $scope.isCollapsed = false;
                 }, function (errorResponse) {
                     $scope.error = errorResponse.data.error;
                     console.error(errorResponse);
@@ -160,7 +154,9 @@ angular.module('books').controller('CreateBookController', [
                     title: $scope.searchSelected.title,
                     collectionName: $scope.searchSelected.collection,
                     volume: $scope.searchSelected.volume,
-                    price: $scope.searchSelected.price
+                    price: $scope.searchSelected.price,
+                    publisher: $scope.searchResponse.publisher,
+                    pageCount: $scope.searchResponse.pages
                 };
 
                 $scope.mediaModel = BooksDataService.fillBookModel(searchedData);
@@ -244,6 +240,11 @@ angular.module('books').controller('CreateBookController', [
             book.user = $scope.authentication.user._id;
             if (book.collectionName && book.volume < 0) {
                 $scope.error = 'Volume is missing';
+                return;
+            }
+
+            if (!book.collectionName && !book.title) {
+                $scope.error = 'Fields are empty';
                 return;
             }
 
