@@ -26,6 +26,26 @@ angular.module('books').controller('EditBookController', [
             $scope.overStar = value;
         };
 
+        $scope.mediaType = {
+            book: { icon: 'book139.png', next: 'comics' },
+            comics: { icon: 'speechbubble17.png', next: 'manga' },
+            manga: { icon: 'manga2.png', next: 'book' }
+        };
+        
+        $scope.changeTypeField = function () {
+            $scope.mediaModel.type = $scope.mediaType[$scope.mediaModel.type].next;
+        };
+
+        $scope.readStatus = {
+            NOTREAD: { icon: 'eye48.png', next: 'ONGOING', class: 'btn-danger' },
+            ONGOING: { icon: 'open161.png', next: 'READ', class: 'btn-info' },
+            READ: { icon: 'view8.png', next: 'NOTREAD', class: 'btn-success' }
+        };
+
+        $scope.changeReadStatus = function () {
+            $scope.mediaModel.read = $scope.readStatus[$scope.mediaModel.read].next;
+        };
+
         $scope.ratingStates = [
             {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
             {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},

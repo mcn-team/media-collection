@@ -39,12 +39,6 @@ angular.module('mediacollection').constant('French', {
     'VALIDATE': 'Valider',
     'OK': 'Ok',
     'CANCEL': 'Annuler',
-    'DUPLICATE_BOOK': 'Dupliquer un livre',
-    'DUPLICATE_COMICS': 'Dupliquer une BD',
-    'DUPLICATE_MANGA': 'Dupliquer un manga',
-    'NEW_BOOK': 'Ajouter un livre',
-    'NEW_COMICS': 'Ajouter une BD',
-    'NEW_MANGA': 'Ajouter un manga',
     'GENERAL_INFO': 'Informations générales',
     'ADD_INFO': 'Informations supplémentaires',
     'RATING': 'Note',
@@ -183,5 +177,8 @@ angular.module('mediacollection').constant('French', {
     'LAST_VOLUME': 'Dernier volume',
     'LAST_VOLUME_ALERT': 'Cochez cette case si ce volume est le dernier de sa collection de manière definitive. Cette case sert à identifier les collections qui sont terminée. Vous pouvez la modifier en éditant un média.',
     'SHOW_COMPLETED_COLLECTION': 'Afficher les collections terminées',
-    'HIDE_COMPLETED_COLLECTION': 'Cacher les collections terminées'
+    'HIDE_COMPLETED_COLLECTION': 'Cacher les collections terminées',
+    'NEW_MEDIA': 'Ajouter un nouveau média',
+    'EDIT_MEDIA': 'Editer un média',
+    'DUPLICATE_MEDIA': 'Dupliquer un média'
 });

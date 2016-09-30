@@ -39,12 +39,6 @@ angular.module('mediacollection').constant('English', {
     'VALIDATE': 'Validate',
     'OK': 'Ok',
     'CANCEL': 'Cancel',
-    'DUPLICATE_BOOK': 'Duplicate a book',
-    'DUPLICATE_COMICS': 'Duplicate a comics',
-    'DUPLICATE_MANGA': 'Duplicate a manga',
-    'NEW_BOOK': 'Add a book',
-    'NEW_COMICS': 'Add a comics',
-    'NEW_MANGA': 'Add a manga',
     'GENERAL_INFO': 'General info',
     'ADD_INFO': 'Additional info',
     'RATING': 'Rating',
@@ -183,5 +177,8 @@ angular.module('mediacollection').constant('English', {
     'LAST_VOLUME': 'Last volume',
     'LAST_VOLUME_ALERT': 'Check this if this volume is the last one of the collection and there will be no others. This field is used for identifying complete collection. You can edit a media to change it.',
     'SHOW_COMPLETED_COLLECTION': 'Display completed collections',
-    'HIDE_COMPLETED_COLLECTION': 'Hide completed collections'
+    'HIDE_COMPLETED_COLLECTION': 'Hide completed collections',
+    'NEW_MEDIA': 'Add a new media',
+    'EDIT_MEDIA': 'Edit a media',
+    'DUPLICATE_MEDIA': 'Duplicate a media'
 });

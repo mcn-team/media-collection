@@ -11,14 +11,8 @@
             <div class="col-xs-12 col-sm-2">
                 <label class="control-label" data-ng-bind="'TYPE' | translate"></label>
                 <div >
-                    <button class="btn btn-primary" data-ng-show="mediaModel.type === 'book'" data-ng-click="mediaModel.type = 'comics'" data-ng-model="mediaModel.type" >
-                        <img class="form-icon-btn-size" data-ng-src="/assets/img/book139.png">
-                    </button>
-                    <button class="btn btn-primary" data-ng-show="mediaModel.type === 'comics'" data-ng-click="mediaModel.type = 'manga'" data-ng-model="mediaModel.type" >
-                        <img class="form-icon-btn-size" data-ng-src="/assets/img/speechbubble17.png">
-                    </button>
-                    <button class="btn btn-primary" data-ng-show="mediaModel.type === 'manga'" data-ng-click="mediaModel.type = 'book'" data-ng-model="mediaModel.type" >
-                        <img class="form-icon-btn-size" data-ng-src="/assets/img/manga2.png">
+                    <button class="btn btn-primary" data-ng-click="changeTypeField()" data-ng-model="mediaModel.type" >
+                        <img class="form-icon-btn-size" data-ng-src="/assets/img/{{mediaType[mediaModel.type].icon}}">
                     </button>
                 </div>
             </div>
@@ -135,14 +129,8 @@
             <div class="col-xs-6 col-sm-2">
                 <label class="control-label" data-ng-bind="'READ' | translate"></label>
                 <div >
-                    <button class="btn btn-success" data-ng-show="mediaModel.read === 'READ'" data-ng-click="mediaModel.read = 'ONGOING'" data-ng-model="mediaModel.read" >
-                        <img class="form-icon-btn-size" data-ng-src="/assets/img/view8.png">
-                    </button>
-                    <button class="btn btn-info" data-ng-show="mediaModel.read === 'ONGOING'" data-ng-click="mediaModel.read = 'NOTREAD'" data-ng-model="mediaModel.read" >
-                        <img class="form-icon-btn-size" data-ng-src="/assets/img/open161.png">
-                    </button>
-                    <button class="btn btn-danger" data-ng-show="mediaModel.read === 'NOTREAD'" data-ng-click="mediaModel.read = 'READ'" data-ng-model="mediaModel.read" >
-                        <img class="form-icon-btn-size" data-ng-src="/assets/img/eye48.png">
+                    <button class="btn" data-ng-class="readStatus[mediaModel.read].class" data-ng-click="changeReadStatus()" data-ng-model="mediaModel.read" >
+                        <img class="form-icon-btn-size" data-ng-src="/assets/img/{{readStatus[mediaModel.read].icon}}">
                     </button>
                 </div>
             </div>
