@@ -8,13 +8,21 @@ const responseHelper = require('../../utils/response-helper');
 
 const scrapping = ($, result) => {
     $('#s-results-list-atf').find('li').each(function () {
-        result.data.push({
+        const scrappedData = {
             cover: $(this).find('.a-col-left a img').attr('src'),
-            title: $(this).find('.a-col-right a h2').text().split(/:|,|\s\-\s/),
+            title: $(this).find('.a-col-right a h2').text().split(/\(|\)|:|,|\s\-\s/),
             author: $(this).find('.a-col-right div.a-spacing-none span a').text(),
             volume: $(this).find('.a-col-right a h2').text().match(/[0-9]+/),
             link: $(this).find('.a-col-left a').attr('href')
-        });
+        };
+
+        for (let i = 0; i < scrappedData.title.length; i++) {
+            scrappedData.title[i] = scrappedData.title[i].trim();
+        }
+
+        _.pull(scrappedData.title, '');
+
+        result.data.push(scrappedData);
     });
 
     return result;
