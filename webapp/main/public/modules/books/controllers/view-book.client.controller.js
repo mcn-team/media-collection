@@ -70,7 +70,9 @@ angular.module('books').controller('ViewBookController', [
             };
 
             function findBookCallback() {
+                var localeOptions = { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 };
                 $scope.mediaModel = BooksDataService.fillBookModel($scope.book);
+                $scope.mediaModel.price = $scope.mediaModel.price ? $scope.mediaModel.price.toLocaleString('fr-FR', localeOptions) : '';
                 $scope.isLoaded = true;
             }
 

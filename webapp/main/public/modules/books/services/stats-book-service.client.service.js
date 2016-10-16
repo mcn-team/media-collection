@@ -4,6 +4,8 @@ angular.module('books').factory('StatsBookService', [
     function() {
         // Stats book service service logic
         // ...
+        
+        var localeOptions = { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
         var statService = {};
 
@@ -99,7 +101,7 @@ angular.module('books').factory('StatsBookService', [
                 }
             });
             statistics.collections.value = collectionsRef.length;
-            statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', localeOptions);
             statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
             statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.media.value);
             statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
