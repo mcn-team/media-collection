@@ -99,7 +99,7 @@ angular.module('books').factory('StatsBookService', [
                 }
             });
             statistics.collections.value = collectionsRef.length;
-            statistics.mediaValue.value = statistics.mediaValue.value.toFixed(2);
+            statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
             statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
             statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.media.value);
             statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
