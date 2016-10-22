@@ -33,48 +33,72 @@
                     <li class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field | translate" ></h4>
                         <div class="progress default-cursor">
-                            <div data-uib-popover="{{($parent.stats.done.popover | translate) + ' : ' + $parent.stats.done.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.done.percent + '%;'}}">
-                                {{$parent.stats.done.percent + ' %' }}
-                            </div>
-                            <div data-ng-if="$parent.stats.onGoing" data-uib-popover="{{($parent.stats.onGoing.popover | translate) + ' : ' + $parent.stats.onGoing.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-info" style="{{'width: ' + $parent.stats.onGoing.percent + '%;'}}">
-                                {{$parent.stats.onGoing.percent + ' %'}}
-                            </div>
-                            <div data-uib-popover="{{($parent.stats.notDone.popover | translate) + ' : ' + $parent.stats.notDone.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.notDone.percent + '%;'}}">
-                                {{$parent.stats.notDone.percent + ' %'}}
-                            </div>
+                            <div class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.done.percent + '%;'}}"></div>
+                            <div data-ng-if="$parent.stats.onGoing" class="progress-bar progress-bar-info" style="{{'width: ' + $parent.stats.onGoing.percent + '%;'}}"></div>
+                            <div class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.notDone.percent + '%;'}}"></div>
                         </div>
                         <div class="text-center" >
-                            <div class="stats-legend-horizontal-center" >
-                                <div class="stats-legend-icons success-bg-color" ></div>
-                                <span class="stats-legend-margin-right" > - {{$parent.stats.done.field | translate}}</span>
-                                <div data-ng-if="$parent.stats.onGoing" class="stats-legend-icons info-bg-color" ></div>
-                                <span data-ng-if="$parent.stats.onGoing" class="stats-legend-margin-right" > - {{$parent.stats.onGoing.field | translate}}</span>
-                                <div class="stats-legend-icons danger-bg-color" ></div>
-                                <span > - {{$parent.stats.notDone.field | translate}}</span>
+                            <div class="stats-legend-horizontal-center default-cursor" >
+                                <span data-uib-popover="{{($parent.stats.done.popover | translate) + ' : ' + $parent.stats.done.value}}" data-popover-trigger="mouseenter">
+                                    <div class="stats-legend-icons success-bg-color" ></div>
+                                    <span class="stats-legend-margin-right" >
+                                        -
+                                        {{$parent.stats.done.field | translate}}
+                                        ({{$parent.stats.done.stats + ' %' }})
+                                    </span>
+                                </span>
+                                <span data-ng-if="$parent.stats.onGoing"  data-uib-popover="{{($parent.stats.onGoing.popover | translate) + ' : ' + $parent.stats.onGoing.value}}" data-popover-trigger="mouseenter">
+                                    <div class="stats-legend-icons info-bg-color" ></div>
+                                    <span class="stats-legend-margin-right" >
+                                        -
+                                        {{$parent.stats.onGoing.field | translate}}
+                                        ({{$parent.stats.onGoing.stats + ' %'}})
+                                    </span>
+                                </span>
+                                <span data-uib-popover="{{($parent.stats.notDone.popover | translate) + ' : ' + $parent.stats.notDone.value}}" data-popover-trigger="mouseenter">
+                                    <div class="stats-legend-icons danger-bg-color" ></div>
+                                    <span>
+                                        -
+                                        {{$parent.stats.notDone.field | translate}}
+                                        ({{$parent.stats.notDone.stats + ' %'}})
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="'BUY_STATS' | translate"></h4>
                         <div class="progress default-cursor">
-                            <div data-uib-popover="{{($parent.stats.bought.popover | translate) + ' : ' + $parent.stats.bought.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.bought.percent + '%;'}}">
-                                {{$parent.stats.bought.percent + ' %' }}
-                            </div>
-                            <div data-uib-popover="{{($parent.stats.toBought.popover | translate) + ' : ' + $parent.stats.toBought.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toBought.percent + '%;'}}">
-                                {{$parent.stats.toBought.percent + ' %'}}
-                            </div>
-                            <div data-ng-if="$parent.stats.mediaMissing" data-uib-popover="{{($parent.stats.mediaMissing.popover | translate) + ' : ' + $parent.stats.mediaMissing.value}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.mediaMissing.percent + '%;'}}">
-                                {{$parent.stats.mediaMissing.percent + ' %'}}
-                            </div>
+                            <div class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.bought.percent + '%;'}}"></div>
+                            <div class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toBought.percent + '%;'}}"></div>
+                            <div data-ng-if="$parent.stats.mediaMissing" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.mediaMissing.percent + '%;'}}"></div>
                         </div>
                         <div class="text-center" >
-                            <div class="stats-legend-horizontal-center" >
-                                <div class="stats-legend-icons success-bg-color" ></div>
-                                <span class="stats-legend-margin-right" > - {{$parent.stats.bought.field | translate}}</span>
-                                <div class="stats-legend-icons warning-bg-color" ></div>
-                                <span class="{{$parent.stats.mediaMissing ? 'stats-legend-margin-right' : ''}} stats-legend-margin-right"> - {{$parent.stats.toBought.field | translate}}</span>
-                                <div data-ng-if="$parent.stats.mediaMissing"  class="stats-legend-icons danger-bg-color" ></div>
-                                <span data-ng-if="$parent.stats.mediaMissing"  > - {{$parent.stats.mediaMissing.field | translate}}</span>
+                            <div class="stats-legend-horizontal-center default-cursor" >
+                                <span data-uib-popover="{{($parent.stats.bought.popover | translate) + ' : ' + $parent.stats.bought.value}}" data-popover-trigger="mouseenter">
+                                    <div class="stats-legend-icons success-bg-color" ></div>
+                                    <span class="stats-legend-margin-right" >
+                                        -
+                                        {{$parent.stats.bought.field | translate}}
+                                        ({{$parent.stats.bought.stats + ' %' }})
+                                    </span>
+                                </span>
+                                <span data-uib-popover="{{($parent.stats.toBought.popover | translate) + ' : ' + $parent.stats.toBought.value}}" data-popover-trigger="mouseenter">
+                                    <div class="stats-legend-icons warning-bg-color" ></div>
+                                    <span class="{{$parent.stats.mediaMissing ? 'stats-legend-margin-right' : ''}} stats-legend-margin-right">
+                                        -
+                                        {{$parent.stats.toBought.field | translate}}
+                                        ({{$parent.stats.toBought.stats + ' %'}})
+                                    </span>
+                                </span>
+                                <span data-ng-if="$parent.stats.mediaMissing" data-uib-popover="{{($parent.stats.mediaMissing.popover | translate) + ' : ' + $parent.stats.mediaMissing.value}}" data-popover-trigger="mouseenter">
+                                    <div class="stats-legend-icons danger-bg-color" ></div>
+                                    <span>
+                                        -
+                                        {{$parent.stats.mediaMissing.field | translate}}
+                                        ({{$parent.stats.mediaMissing.stats + ' %'}})
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </li>
@@ -88,7 +112,7 @@
                                 {{$parent.stats.toWatchDuration.percent + ' %'}}
                             </div>
                         </div>
-                        <div class="text-center" >
+                        <div class="text-center">
                             <div class="stats-legend-horizontal-center" >
                                 <div class="stats-legend-icons success-bg-color" ></div>
                                 <span class="stats-legend-margin-right" > - {{$parent.stats.totalSeenDuration.field | translate}}</span>

@@ -4,6 +4,8 @@ angular.module('books').factory('StatsBookService', [
     function() {
         // Stats book service service logic
         // ...
+        
+        var localeOptions = { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
         var statService = {};
 
@@ -98,20 +100,53 @@ angular.module('books').factory('StatsBookService', [
                     collectionsStatistics(current);
                 }
             });
+
             statistics.collections.value = collectionsRef.length;
-            statistics.mediaValue.value = statistics.mediaValue.value.toFixed(2);
+            statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', localeOptions);
             statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
+            statistics.done.stats = (statistics.done.value * 100 / statistics.media.value).toFixed(2);
+            if (statistics.done.percent === 0) {
+                statistics.done.percent += 1;
+            }
             statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.media.value);
+            statistics.onGoing.stats = (statistics.onGoing.value * 100 / statistics.media.value).toFixed(2);
+            if (statistics.onGoing.percent === 0) {
+                statistics.onGoing.percent += 1;
+            }
             statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
+            statistics.notDone.stats = (statistics.notDone.value * 100 / statistics.media.value).toFixed(2);
+            if (statistics.notDone.percent === 0) {
+                statistics.notDone.percent += 1;
+            }
             if (array && array[0] && !array[0].data) {
                 statistics.bought.percent = Math.floor(statistics.bought.value * 100 / statistics.media.value);
+                statistics.bought.stats = (statistics.bought.value * 100 / statistics.media.value).toFixed(2);
+                if (statistics.bought.percent === 0) {
+                    statistics.bought.percent += 1;
+                }
                 statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / statistics.media.value);
-//                statistics.mediaMissing = undefined;
+                statistics.toBought.stats = (statistics.toBought.value * 100 / statistics.media.value).toFixed(2);
+                if (statistics.toBought.percent === 0) {
+                    statistics.toBought.percent += 1;
+                }
+                statistics.mediaMissing = undefined;
             } else {
                 statistics.mediaMissing.value -= statistics.toBought.value;
                 statistics.bought.percent = Math.floor(statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
+                statistics.bought.stats = (statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
+                if (statistics.bought.percent === 0) {
+                    statistics.bought.percent += 1;
+                }
                 statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
+                statistics.toBought.stats = (statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
+                if (statistics.toBought.percent === 0) {
+                    statistics.toBought.percent += 1;
+                }
                 statistics.mediaMissing.percent = Math.floor(statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
+                statistics.mediaMissing.stats = (statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
+                if (statistics.mediaMissing.percent === 0) {
+                    statistics.mediaMissing.percent += 1;
+                }
             }
             checkPercents();
             return statistics;
