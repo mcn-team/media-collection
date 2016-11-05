@@ -30,13 +30,13 @@
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item" >
+                    <li data-ng-if="$parent.stats" class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field | translate" ></h4>
-                        <div class="progress default-cursor">
-                            <div class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.done.percent + '%;'}}"></div>
-                            <div data-ng-if="$parent.stats.onGoing" class="progress-bar progress-bar-info" style="{{'width: ' + $parent.stats.onGoing.percent + '%;'}}"></div>
-                            <div class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.notDone.percent + '%;'}}"></div>
-                        </div>
+                        <uib-progress max="$parent.$parent.stats.media.value">
+                            <uib-bar value="$parent.$parent.$parent.stats.done.value" type="success"></uib-bar>
+                            <uib-bar value="$parent.$parent.$parent.stats.onGoing.value" type="info"></uib-bar>
+                            <uib-bar value="$parent.$parent.$parent.stats.notDone.value" type="danger"></uib-bar>
+                        </uib-progress>
                         <div class="text-center" >
                             <div class="stats-legend-horizontal-center default-cursor" >
                                 <span data-uib-popover="{{($parent.stats.done.popover | translate) + ' : ' + $parent.stats.done.value}}" data-popover-trigger="mouseenter">
@@ -66,13 +66,13 @@
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item" >
+                    <li data-ng-if="$parent.stats" class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="'BUY_STATS' | translate"></h4>
-                        <div class="progress default-cursor">
-                            <div class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.bought.percent + '%;'}}"></div>
-                            <div class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toBought.percent + '%;'}}"></div>
-                            <div data-ng-if="$parent.stats.mediaMissing" class="progress-bar progress-bar-danger" style="{{'width: ' + $parent.stats.mediaMissing.percent + '%;'}}"></div>
-                        </div>
+                        <uib-progress max="$parent.$parent.stats.mediaMissing ? $parent.$parent.stats.mediaMissing.total : $parent.$parent.stats.media.value">
+                            <uib-bar value="$parent.$parent.$parent.stats.bought.value" type="success"></uib-bar>
+                            <uib-bar value="$parent.$parent.$parent.stats.toBought.value" type="warning"></uib-bar>
+                            <uib-bar data-ng-if="$parent.$parent.$parent.stats.mediaMissing" value="$parent.$parent.$parent.stats.mediaMissing.value" type="danger"></uib-bar>
+                        </uib-progress>
                         <div class="text-center" >
                             <div class="stats-legend-horizontal-center default-cursor" >
                                 <span data-uib-popover="{{($parent.stats.bought.popover | translate) + ' : ' + $parent.stats.bought.value}}" data-popover-trigger="mouseenter">
