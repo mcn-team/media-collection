@@ -82,20 +82,23 @@ angular.module('books').factory('StatsBookService', [
 
             statistics.collections.value = collectionsRef.length;
             statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', localeOptions);
-            statistics.done.stats = (statistics.done.value * 100 / statistics.media.value).toFixed(2);
-            statistics.onGoing.stats = (statistics.onGoing.value * 100 / statistics.media.value).toFixed(2);
-            statistics.notDone.stats = (statistics.notDone.value * 100 / statistics.media.value).toFixed(2);
+
+            // If no match, calculation will try to divide by 0. Avoid this NaN result with a check of the media.value
+            statistics.done.stats = statistics.media.value !== 0 ? (statistics.done.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+            statistics.onGoing.stats = statistics.media.value !== 0 ? (statistics.onGoing.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+            statistics.notDone.stats = statistics.media.value !== 0 ? (statistics.notDone.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
             if (array && array[0] && !array[0].data) {
-                statistics.bought.stats = (statistics.bought.value * 100 / statistics.media.value).toFixed(2);
-                statistics.toBought.stats = (statistics.toBought.value * 100 / statistics.media.value).toFixed(2);
+                statistics.bought.stats = statistics.media.value !== 0 ? (statistics.bought.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+                statistics.toBought.stats = statistics.media.value !== 0 ? (statistics.toBought.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
                 statistics.mediaMissing = undefined;
             } else {
                 statistics.mediaMissing.value -= statistics.toBought.value;
-                statistics.bought.stats = (statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
-                statistics.toBought.stats = (statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
-                statistics.mediaMissing.stats = (statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
+                statistics.bought.stats = statistics.media.value !== 0 ? (statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.toBought.stats = statistics.media.value !== 0 ? (statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.mediaMissing.stats = statistics.media.value !== 0 ? (statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
                 statistics.mediaMissing.total = statistics.mediaMissing.value + statistics.media.value;
             }
+
             return statistics;
         };
 
