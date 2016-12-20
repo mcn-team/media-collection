@@ -180,5 +180,6 @@ angular.module('mediacollection').constant('English', {
     'HIDE_COMPLETED_COLLECTION': 'Hide completed collections',
     'NEW_MEDIA': 'Add a new media',
     'EDIT_MEDIA': 'Edit a media',
-    'DUPLICATE_MEDIA': 'Duplicate a media'
+    'DUPLICATE_MEDIA': 'Duplicate a media',
+    'TOP': 'Scroll to top'
 });

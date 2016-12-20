@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('books').controller('ListCollectionController', [
-    '$scope', '$location', '$anchorScroll', 'Authentication',
+    '$scope', '$location', '$anchorScroll', '$window', 'Authentication',
     'StatsBookService', 'BookServices', 'BooksDataService',
-    function($scope, $location, $anchorScroll, Authentication, StatsBookService, BookServices, BooksDataService) {
+    function($scope, $location, $anchorScroll, $window, Authentication, StatsBookService, BookServices, BooksDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.showCompleted = false;
+
+        $scope.goToTop = function () {
+            $window.scrollTo(0, 0);
+        };
 
         $scope.goToStats = function() {
             $location.hash('stats');

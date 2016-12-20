@@ -9,6 +9,10 @@ angular.module('books').controller('ListBooksController', [
         $scope.authentication = Authentication.checkAuth();
         $scope.mediaType = 'Book';
 
+        $scope.goToTop = function () {
+            $window.scrollTo(0, 0);
+        };
+
         $scope.goToStats = function() {
             $location.hash('stats');
             $anchorScroll();
