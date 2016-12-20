@@ -70,27 +70,6 @@ angular.module('books').factory('StatsBookService', [
         // Public API
 
         statService.calculate = function (array) {
-
-            function checkStatsCategoryPercents(firstKey, secondKey, thirdKey) {
-                var total = statistics[firstKey].percent + statistics[secondKey].percent + (statistics[thirdKey] && statistics[thirdKey].percent ? statistics[thirdKey].percent : 0);
-                if (total < 100) {
-                    if (statistics[firstKey].percent > 0 ) {
-                        statistics[firstKey].percent += 1;
-                    } else if (statistics[secondKey].percent > 0) {
-                        statistics[secondKey].percent += 1;
-                    } else if (thirdKey && statistics[thirdKey] && statistics[thirdKey].percent && statistics[thirdKey].percent > 0) {
-                        statistics[thirdKey].percent += 1;
-                    }
-                    if (statistics[firstKey].percent + statistics[secondKey].percent + (statistics[thirdKey] && statistics[thirdKey].percent ? statistics[thirdKey].percent : 0) < 100) {
-                        checkStatsCategoryPercents(secondKey, thirdKey, firstKey);
-                    }
-                }
-            }
-            function checkPercents() {
-                checkStatsCategoryPercents('done', 'onGoing', 'notDone');
-                checkStatsCategoryPercents('bought', 'toBought', 'mediaMissing');
-            }
-
             initStatistics();
             collectionsRef = [];
             angular.forEach(array, function (current) {
@@ -103,52 +82,23 @@ angular.module('books').factory('StatsBookService', [
 
             statistics.collections.value = collectionsRef.length;
             statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', localeOptions);
-            statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
-            statistics.done.stats = (statistics.done.value * 100 / statistics.media.value).toFixed(2);
-            if (statistics.done.percent === 0) {
-                statistics.done.percent += 1;
-            }
-            statistics.onGoing.percent = Math.floor(statistics.onGoing.value * 100 / statistics.media.value);
-            statistics.onGoing.stats = (statistics.onGoing.value * 100 / statistics.media.value).toFixed(2);
-            if (statistics.onGoing.percent === 0) {
-                statistics.onGoing.percent += 1;
-            }
-            statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
-            statistics.notDone.stats = (statistics.notDone.value * 100 / statistics.media.value).toFixed(2);
-            if (statistics.notDone.percent === 0) {
-                statistics.notDone.percent += 1;
-            }
+
+            // If no match, calculation will try to divide by 0. Avoid this NaN result with a check of the media.value
+            statistics.done.stats = statistics.media.value !== 0 ? (statistics.done.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+            statistics.onGoing.stats = statistics.media.value !== 0 ? (statistics.onGoing.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+            statistics.notDone.stats = statistics.media.value !== 0 ? (statistics.notDone.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
             if (array && array[0] && !array[0].data) {
-                statistics.bought.percent = Math.floor(statistics.bought.value * 100 / statistics.media.value);
-                statistics.bought.stats = (statistics.bought.value * 100 / statistics.media.value).toFixed(2);
-                if (statistics.bought.percent === 0) {
-                    statistics.bought.percent += 1;
-                }
-                statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / statistics.media.value);
-                statistics.toBought.stats = (statistics.toBought.value * 100 / statistics.media.value).toFixed(2);
-                if (statistics.toBought.percent === 0) {
-                    statistics.toBought.percent += 1;
-                }
+                statistics.bought.stats = statistics.media.value !== 0 ? (statistics.bought.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+                statistics.toBought.stats = statistics.media.value !== 0 ? (statistics.toBought.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
                 statistics.mediaMissing = undefined;
             } else {
                 statistics.mediaMissing.value -= statistics.toBought.value;
-                statistics.bought.percent = Math.floor(statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
-                statistics.bought.stats = (statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
-                if (statistics.bought.percent === 0) {
-                    statistics.bought.percent += 1;
-                }
-                statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
-                statistics.toBought.stats = (statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
-                if (statistics.toBought.percent === 0) {
-                    statistics.toBought.percent += 1;
-                }
-                statistics.mediaMissing.percent = Math.floor(statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
-                statistics.mediaMissing.stats = (statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2);
-                if (statistics.mediaMissing.percent === 0) {
-                    statistics.mediaMissing.percent += 1;
-                }
+                statistics.bought.stats = statistics.media.value !== 0 ? (statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.toBought.stats = statistics.media.value !== 0 ? (statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.mediaMissing.stats = statistics.media.value !== 0 ? (statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.mediaMissing.total = statistics.mediaMissing.value + statistics.media.value;
             }
-            checkPercents();
+
             return statistics;
         };
 

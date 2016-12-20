@@ -6,6 +6,8 @@ angular.module('movies').factory('StatsMovieService', [
 
         var statistics = {};
 
+        var localeOptions = { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
         var initStatistics = function () {
             statistics = {
                 collections: { field: 'COLLECTION_NUMBER', value: 0 },
@@ -69,27 +71,6 @@ angular.module('movies').factory('StatsMovieService', [
         // Public API
 
         statService.calculate = function (array) {
-
-            function checkStatsCategoryPercents(firstKey, secondKey, thirdKey) {
-                var total = statistics[firstKey].percent + statistics[secondKey].percent + (statistics[thirdKey] && statistics[thirdKey].percent ? statistics[thirdKey].percent : 0);
-                if (total < 100) {
-                    if (statistics[firstKey].percent > 0 ) {
-                        statistics[firstKey].percent += 1;
-                    } else if (statistics[secondKey].percent > 0) {
-                        statistics[secondKey].percent += 1;
-                    } else if (thirdKey && statistics[thirdKey] && statistics[thirdKey].percent && statistics[thirdKey].percent > 0) {
-                        statistics[thirdKey].percent += 1;
-                    }
-                    if (statistics[firstKey].percent + statistics[secondKey].percent + (statistics[thirdKey] && statistics[thirdKey].percent ? statistics[thirdKey].percent : 0) < 100) {
-                        checkStatsCategoryPercents(secondKey, thirdKey, firstKey);
-                    }
-                }
-            }
-            function checkPercents() {
-                checkStatsCategoryPercents('done', 'notDone');
-                checkStatsCategoryPercents('bought', 'toBought', 'mediaMissing');
-                checkStatsCategoryPercents('totalSeenDuration', 'toWatchDuration');
-            }
             initStatistics();
             collectionsRef = [];
 
@@ -102,22 +83,23 @@ angular.module('movies').factory('StatsMovieService', [
             });
 
             statistics.collections.value = collectionsRef.length;
-            statistics.mediaValue.value = statistics.mediaValue.value.toFixed(2);
-            statistics.done.percent = Math.floor(statistics.done.value * 100 / statistics.media.value);
-            statistics.notDone.percent = Math.floor(statistics.notDone.value * 100 / statistics.media.value);
-            statistics.totalSeenDuration.percent = Math.floor(statistics.totalSeenDuration.value * 100 / statistics.totalDuration.value);
-            statistics.toWatchDuration.percent = Math.floor(statistics.toWatchDuration.value * 100 / statistics.totalDuration.value);
+            statistics.mediaValue.value = statistics.mediaValue.value.toLocaleString('fr-FR', localeOptions);
+
+            statistics.done.stats = statistics.media.value !== 0 ? (statistics.done.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+            statistics.notDone.stats = statistics.media.value !== 0 ? (statistics.notDone.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+
+            statistics.totalSeenDuration.stats = statistics.media.value !== 0 ? (statistics.totalSeenDuration.value * 100 / statistics.totalDuration.value).toFixed(2) : (0).toFixed(2);
+            statistics.toWatchDuration.stats = statistics.media.value !== 0 ? (statistics.toWatchDuration.value * 100 / statistics.totalDuration.value).toFixed(2) : (0).toFixed(2);
 
             if (array && array[0] && array[0].title) {
-                statistics.bought.percent = Math.floor(statistics.bought.value * 100 / statistics.media.value);
-                statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / statistics.media.value);
+                statistics.bought.stats = statistics.media.value !== 0 ? (statistics.bought.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
+                statistics.toBought.stats = statistics.media.value !== 0 ? (statistics.toBought.value * 100 / statistics.media.value).toFixed(2) : (0).toFixed(2);
                 statistics.mediaMissing = undefined;
             } else {
-                statistics.bought.percent = Math.floor(statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
-                statistics.toBought.percent = Math.floor(statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
-                statistics.mediaMissing.percent = Math.floor(statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value));
+                statistics.bought.stats = statistics.media.value !== 0 ? (statistics.bought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.toBought.stats = statistics.media.value !== 0 ? (statistics.toBought.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
+                statistics.mediaMissing.stats = statistics.media.value !== 0 ? (statistics.mediaMissing.value * 100 / (statistics.bought.value + statistics.mediaMissing.value + statistics.toBought.value)).toFixed(2) : (0).toFixed(2);
             }
-            checkPercents();
 
             return statistics;
         };

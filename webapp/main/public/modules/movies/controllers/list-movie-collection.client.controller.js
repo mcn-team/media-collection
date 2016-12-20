@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('movies').controller('ListMovieCollectionController', [
-    '$scope', '$location', 'Authentication', '$anchorScroll',
+    '$scope', '$location', 'Authentication', '$anchorScroll', '$window',
     'StatsMovieService', 'MovieServices', 'MovieDataService',
-    function($scope, $location, Authentication, $anchorScroll, StatsMovieService, MovieServices, MovieDataService) {
+    function($scope, $location, Authentication, $anchorScroll, $window, StatsMovieService, MovieServices, MovieDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.showCompleted = false;
+
+        $scope.goToTop = function () {
+            $window.scrollTo(0, 0);
+        };
 
         $scope.goToStats = function() {
             $location.hash('stats');
