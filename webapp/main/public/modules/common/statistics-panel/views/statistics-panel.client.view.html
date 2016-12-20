@@ -34,7 +34,7 @@
                         <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field | translate" ></h4>
                         <uib-progress max="$parent.$parent.stats.media.value">
                             <uib-bar value="$parent.$parent.$parent.stats.done.value" type="success"></uib-bar>
-                            <uib-bar value="$parent.$parent.$parent.stats.onGoing.value" type="info" data-ng-if="$parent.stats.onGoing"></uib-bar>
+                            <uib-bar value="$parent.$parent.$parent.stats.onGoing.value" type="info" data-ng-if="$parent.$parent.$parent.stats.onGoing"></uib-bar>
                             <uib-bar value="$parent.$parent.$parent.stats.notDone.value" type="danger"></uib-bar>
                         </uib-progress>
                         <div class="text-center" >
