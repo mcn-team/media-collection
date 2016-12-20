@@ -34,7 +34,7 @@
                         <h4 class="view-field-status-margin" data-ng-bind="$parent.stats.headerDone.field | translate" ></h4>
                         <uib-progress max="$parent.$parent.stats.media.value">
                             <uib-bar value="$parent.$parent.$parent.stats.done.value" type="success"></uib-bar>
-                            <uib-bar value="$parent.$parent.$parent.stats.onGoing.value" type="info"></uib-bar>
+                            <uib-bar value="$parent.$parent.$parent.stats.onGoing.value" type="info" data-ng-if="$parent.stats.onGoing"></uib-bar>
                             <uib-bar value="$parent.$parent.$parent.stats.notDone.value" type="danger"></uib-bar>
                         </uib-progress>
                         <div class="text-center" >
@@ -47,7 +47,7 @@
                                         ({{$parent.stats.done.stats + ' %' }})
                                     </span>
                                 </span>
-                                <span data-ng-if="$parent.stats.onGoing"  data-uib-popover="{{($parent.stats.onGoing.popover | translate) + ' : ' + $parent.stats.onGoing.value}}" data-popover-trigger="mouseenter">
+                                <span data-ng-if="$parent.stats.onGoing" data-uib-popover="{{($parent.stats.onGoing.popover | translate) + ' : ' + $parent.stats.onGoing.value}}" data-popover-trigger="mouseenter">
                                     <div class="stats-legend-icons info-bg-color" ></div>
                                     <span class="stats-legend-margin-right" >
                                         -
@@ -104,20 +104,24 @@
                     </li>
                     <li data-ng-if="$parent.stats.totalSeenDuration" class="list-group-item" >
                         <h4 class="view-field-status-margin" data-ng-bind="'TIME_STATS' | translate"></h4>
-                        <div class="progress default-cursor">
-                            <div data-uib-popover="{{($parent.stats.totalSeenDuration.popover | translate) + ' : ' + $parent.stats.totalSeenDuration.value.toString().NumberFormat(' ') + ' min'}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-success" style="{{'width: ' + $parent.stats.totalSeenDuration.percent + '%;'}}">
-                                {{$parent.stats.totalSeenDuration.percent + ' %' }}
-                            </div>
-                            <div data-uib-popover="{{($parent.stats.toWatchDuration.popover | translate) + ' : ' + $parent.stats.toWatchDuration.value.toString().NumberFormat(' ') + ' min'}}" data-popover-trigger="mouseenter" class="progress-bar progress-bar-warning" style="{{'width: ' + $parent.stats.toWatchDuration.percent + '%;'}}">
-                                {{$parent.stats.toWatchDuration.percent + ' %'}}
-                            </div>
-                        </div>
+                        <uib-progress max="$parent.$parent.stats.totalDuration && $parent.$parent.stats.totalDuration.value">
+                            <uib-bar value="$parent.$parent.$parent.stats.totalSeenDuration.value" type="success"></uib-bar>
+                            <uib-bar value="$parent.$parent.$parent.stats.toWatchDuration.value" type="warning"></uib-bar>
+                        </uib-progress>
                         <div class="text-center">
                             <div class="stats-legend-horizontal-center" >
                                 <div class="stats-legend-icons success-bg-color" ></div>
-                                <span class="stats-legend-margin-right" > - {{$parent.stats.totalSeenDuration.field | translate}}</span>
+                                <span class="stats-legend-margin-right" >
+                                    -
+                                    {{ $parent.stats.totalSeenDuration.field | translate }}
+                                    ({{ $parent.stats.totalSeenDuration.stats + ' %' }})
+                                </span>
                                 <div class="stats-legend-icons warning-bg-color" ></div>
-                                <span> - {{$parent.stats.toWatchDuration.field | translate}}</span>
+                                <span>
+                                    -
+                                    {{ $parent.stats.toWatchDuration.field | translate }}
+                                    ({{ $parent.stats.toWatchDuration.stats + ' %' }})
+                                </span>
                             </div>
                         </div>
                     </li>
