@@ -180,5 +180,6 @@ angular.module('mediacollection').constant('French', {
     'HIDE_COMPLETED_COLLECTION': 'Cacher les collections terminées',
     'NEW_MEDIA': 'Ajouter un nouveau média',
     'EDIT_MEDIA': 'Editer un média',
-    'DUPLICATE_MEDIA': 'Dupliquer un média'
+    'DUPLICATE_MEDIA': 'Dupliquer un média',
+    'TOP': 'Aller en haut'
 });
