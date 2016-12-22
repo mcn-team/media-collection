@@ -10,6 +10,7 @@ module.exports = (server) => {
     server.register(require('../modules/auth'), options.auth, onError);
     server.register(require('../modules/users'), options.users, onError);
     server.register(require('../modules/books'), options.books, onError);
+    server.register(require('../modules/authors'), options.authors, onError);
     server.register(require('../modules/movies'), options.movies, onError);
     server.register(require('../modules/upload'), options.upload, onError);
     server.register(require('../modules/google-book-api'), options.googleBookApi, onError);
