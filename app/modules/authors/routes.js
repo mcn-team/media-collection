@@ -1,5 +1,7 @@
 'use strict';
 
+const controllers = require('./controllers');
+
 module.exports = (server) => {
     server.route({
         method: 'GET',
@@ -12,8 +14,6 @@ module.exports = (server) => {
             ],
             description: 'Sends back the full list of authors registered in the database.'
         },
-        handler: (request, reply) => {
-            return reply().code(204);
-        }
+        handler: controllers.compileAuthorsList
     });
 };

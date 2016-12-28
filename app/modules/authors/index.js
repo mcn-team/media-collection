@@ -5,6 +5,7 @@ const logger = require('../../utils/logger');
 const authorsModule = {
     register: (server, options, next) => {
         try {
+            require('./model');
             require('./routes')(server);
             logger.logLoading('Authors');
         } catch (err) {
