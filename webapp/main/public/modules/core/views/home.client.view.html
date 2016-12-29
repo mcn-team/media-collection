@@ -53,6 +53,9 @@
         <div class="col-md-12" data-ng-include="'modules/light-rss-feed/views/light-rss-feed.client.view.html'"></div>
     </div>
     <div class="byline col-xs-12 micro-margin-top">
-        <p class="author">By the <a rel="author" href="https://github.com/mcn-team">MediaCollection Team.</a></p>
+        <p class="author">
+            <span data-ng-bind="HomeCtrl.versionLabel"></span>
+             - By the <a rel="author" href="https://github.com/mcn-team">MediaCollection Team.</a>
+        </p>
     </div>
 </section>
