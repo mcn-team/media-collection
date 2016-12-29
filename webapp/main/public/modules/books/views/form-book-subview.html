@@ -53,13 +53,24 @@
             </div>
             <div class="col-xs-12" data-ng-repeat="item in mediaModel.authorsList"  >
                 <div class="input-group">
-                    <input type="text" data-ng-model="item" data-ng-blur="updateField('authorsList', $index, item)" class="form-control " title="author">
+                    <input type="text" data-ng-model="item" data-ng-blur="updateField('authorsList', $index, item)" class="form-control " title="author"
+                           data-uib-typeahead="authorName for authorName in existingAuthors | filter:$viewValue | limitTo:8">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-danger" type="button" data-ng-click="deleteField('authorsList', $index)" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/delete96.png">
                         </button>
                     </span>
                 </div>
+                <span class="text-info" data-ng-show="checkForAuthorMissSpell($index)">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span>
+                        {{ 'DID_YOU_MEAN' | translate }}
+                        <strong><a class="cursor-pointer" data-ng-click="replaceAuthors($index)">
+                            {{ checkForAuthorMissSpell($index).label }}
+                        </a></strong>
+                        {{ '?' }}
+                    </span>
+                </span>
                 <br/>
             </div>
             <div class="col-xs-12">

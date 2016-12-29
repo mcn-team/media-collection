@@ -2,9 +2,9 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$uibModal', '$window', 'Authentication',
-    'BookServices', 'BooksDataService', 'UploadServices',
+    'BookServices', 'BooksDataService', 'UploadServices', 'StringHelpers', 'lodash',
     function($scope, $location, $uibModal, $window, Authentication,
-             BookServices, BooksDataService, UploadServices) {
+             BookServices, BooksDataService, UploadServices, StringHelpers, _) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -13,6 +13,7 @@ angular.module('books').controller('CreateBookController', [
         $scope.isCollapsed = true;
         $scope.searchType = 'amazon';
         $scope.searchSelected = {};
+        $scope.probableAuthorMissSpell = [];
 
         $scope.uploadCover = false;
 
@@ -91,6 +92,15 @@ angular.module('books').controller('CreateBookController', [
                 $scope.mediaModel.read = $scope.readStatus[$scope.mediaModel.read].next;
             };
 
+            $scope.replaceAuthors = function (index) {
+                $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMissSpell, { index: index }).label;
+                _.remove($scope.probableAuthorMissSpell, { index: index });
+            };
+
+            $scope.checkForAuthorMissSpell = function (index) {
+                return _.find($scope.probableAuthorMissSpell, { index: index });
+            };
+
             $scope.addField = function(itemList, item) {
                 for (var i = 0; i < $scope.mediaModel[itemList].length; i++) {
                     if ($scope.mediaModel[itemList][i] === $scope.mediaModel[item]) {
@@ -99,6 +109,16 @@ angular.module('books').controller('CreateBookController', [
                     }
                 }
                 $scope.mediaModel[itemList].push($scope.mediaModel[item]);
+
+                _.forEach($scope.existingAuthors, function (element) {
+                    var result = StringHelpers.SimilarText(element, $scope.mediaModel[item], true);
+                    var misspell = null;
+
+                    if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
+                        $scope.probableAuthorMissSpell.push({ label: element, percent: result, index: $scope.mediaModel[itemList].length - 1 });
+                    }
+                });
+
                 $scope.mediaModel[item] = '';
             };
 
