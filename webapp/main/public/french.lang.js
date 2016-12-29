@@ -175,6 +175,7 @@ angular.module('mediacollection').constant('French', {
     'FEED_INTERVAL_ERROR': 'Doit être supérieur à 10',
     'SUCCESSFUL_SAVE': 'Sauvegardé',
     'LAST_VOLUME': 'Dernier volume',
+    'LAST_VOLUME_LABEL': 'Ce média est le dernier de sa collection',
     'LAST_VOLUME_ALERT': 'Cochez cette case si ce volume est le dernier de sa collection de manière definitive. Cette case sert à identifier les collections qui sont terminée. Vous pouvez la modifier en éditant un média.',
     'SHOW_COMPLETED_COLLECTION': 'Afficher les collections terminées',
     'HIDE_COMPLETED_COLLECTION': 'Cacher les collections terminées',
@@ -183,5 +184,6 @@ angular.module('mediacollection').constant('French', {
     'DUPLICATE_MEDIA': 'Dupliquer un média',
     'TOP': 'Aller en haut',
     'DID_YOU_MEAN': 'Vouliez-vous dire',
-    'NO': 'Non'
+    'NO': 'Non',
+    'HIDE_MESSAGE': 'Cacher le message'
 });

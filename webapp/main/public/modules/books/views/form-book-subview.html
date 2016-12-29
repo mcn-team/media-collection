@@ -54,13 +54,16 @@
                 <label class="control-label" for="lastVolume" data-ng-bind="'LAST_VOLUME' | translate"></label>
                 <div class="checkbox">
                     <label>
-                        <input data-ng-focus="showLastItemAlert = true" data-ng-blur="showLastItemAlert = false" data-ng-model="mediaModel.lastItem" data-ng-disabled="mediaModel.collectionName ? false : true" type="checkbox" id="lastVolume" class="" >
-                        <span><small>This media is the last volume of the collection</small></span>
+                        <input data-ng-change="checkLastItem()" data-ng-model="mediaModel.lastItem" data-ng-disabled="mediaModel.collectionName ? false : true" type="checkbox" id="lastVolume" class="" >
+                        <span><small data-ng-bind="'LAST_VOLUME_LABEL' | translate"></small></span>
                     </label>
                 </div>
                 <span class="text-info" data-ng-show="mediaModel.lastItem && showLastItemAlert === true">
                     <i class="fa fa-exclamation-triangle"></i>
                     <strong data-ng-bind="'LAST_VOLUME_ALERT' | translate"></strong>
+                    <strong>
+                        <a class="cursor-pointer" data-ng-bind="'HIDE_MESSAGE' | translate" data-ng-click="hideLastItem()"></a>
+                    </strong>
                 </span>
             </div>
             <div class="col-xs-12">
