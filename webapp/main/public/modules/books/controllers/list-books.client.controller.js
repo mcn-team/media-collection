@@ -18,6 +18,14 @@ angular.module('books').controller('ListBooksController', [
             $anchorScroll();
         };
 
+        BookServices.getAuthorsNameList().then(function (result) {
+            $scope.existingAuthors = result.data;
+        });
+
+        BookServices.getCollectionNames().then(function (result) {
+            $scope.existingCollections = result.data;
+        });
+
         $scope.updateMode = function () {
             if ($scope.searchParam === 'multi') {
                 $window.sessionStorage.removeItem('bookSearchMode');

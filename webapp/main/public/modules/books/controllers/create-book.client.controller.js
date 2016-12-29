@@ -58,6 +58,10 @@ angular.module('books').controller('CreateBookController', [
                 $scope.listExisting = result.data;
             });
 
+            BookServices.getAuthorsNameList().then(function (result) {
+                $scope.existingAuthors = result.data;
+            });
+
             $scope.mediaModel = {
                 authorsList: [],
                 custom: {},

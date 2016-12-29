@@ -64,7 +64,8 @@
             </div>
             <div class="col-xs-12">
                 <div class="input-group">
-                    <input type="text" data-ng-model="mediaModel.author" id="author" class="form-control" placeholder="{{'AUTHOR' | translate}}">
+                    <input type="text" data-ng-model="mediaModel.author" id="author" class="form-control" placeholder="{{'AUTHOR' | translate}}"
+                           data-uib-typeahead="authorName for authorName in existingAuthors | filter:$viewValue | limitTo:8">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-success" id="addActorBtn" type="button" data-ng-disabled="checkField('author')" data-ng-click="addField('authorsList', 'author')" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/plus24.png">
