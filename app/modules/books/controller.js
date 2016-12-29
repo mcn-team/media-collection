@@ -74,3 +74,9 @@ exports.getBooksFromCollection = (request, reply) => {
         responseHelper.controllerReply(err, res, reply);
     });
 };
+
+exports.getAuthorNamesList = (request, reply) => {
+    services.findAuthorNamesList((err, res) => {
+        responseHelper.controllerReply(err, res, reply);
+    });
+};
