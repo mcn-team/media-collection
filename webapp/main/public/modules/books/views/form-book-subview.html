@@ -26,8 +26,23 @@
                 <label class="control-label" for="collectionName" data-ng-bind="'COLLECTION' | translate"></label>
                 <div class="controls">
                     <input type="text" data-ng-model="mediaModel.collectionName" id="collectionName" class="form-control" placeholder="{{'COLLECTION' | translate}}"
-                           data-uib-typeahead="collection for collection in listExisting | filter:$viewValue | limitTo:8">
+                           data-uib-typeahead="collection for collection in listExisting | filter:$viewValue | limitTo:8" data-ng-blur="checkForCollectionMisspell()">
                 </div>
+                <span class="text-info" data-ng-show="getCollectionMisspell($index)">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span>
+                        {{ 'DID_YOU_MEAN' | translate }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-click="replaceCollection()">
+                                {{ getCollectionMisspell().label }}
+                            </a>
+                        </strong>
+                        {{ '?' }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-bind="'NO' | translate" data-ng-click="removeCollectionMisspellWarning()"></a>
+                        </strong>
+                    </span>
+                </span>
             </div>
             <div data-ng-show="mediaModel.collectionName ? true : false" class="col-xs-12 col-sm-3">
                 <label class="control-label" for="volume" data-ng-bind="'VOLUME' | translate"></label>
@@ -61,18 +76,18 @@
                         </button>
                     </span>
                 </div>
-                <span class="text-info" data-ng-show="getAuthorMissSpell($index)">
+                <span class="text-info" data-ng-show="getAuthorMisspell($index)">
                     <i class="fa fa-exclamation-triangle"></i>
                     <span>
                         {{ 'DID_YOU_MEAN' | translate }}
                         <strong>
                             <a class="cursor-pointer" data-ng-click="replaceAuthors($index)">
-                                {{ getAuthorMissSpell($index).label }}
+                                {{ getAuthorMisspell($index).label }}
                             </a>
                         </strong>
                         {{ '?' }}
                         <strong>
-                            <a class="cursor-pointer" data-ng-bind="'NO' | translate" data-ng-click="removeMissSpellWarning($index)"></a>
+                            <a class="cursor-pointer" data-ng-bind="'NO' | translate" data-ng-click="removeMisspellWarning($index)"></a>
                         </strong>
                     </span>
                 </span>

@@ -13,7 +13,8 @@ angular.module('books').controller('CreateBookController', [
         $scope.isCollapsed = true;
         $scope.searchType = 'amazon';
         $scope.searchSelected = {};
-        $scope.probableAuthorMissSpell = [];
+        $scope.probableAuthorMisspell = [];
+        $scope.probableCollectionMisspell = null;
 
         var possibleErrors = false;
 
@@ -98,31 +99,58 @@ angular.module('books').controller('CreateBookController', [
             * MISS SPELL FUNCTIONS
             */
             var checkPossibleErrors = function () {
-                return $scope.probableAuthorMissSpell.length <= 0;
+                return $scope.probableAuthorMisspell.length <= 0 && !$scope.probableCollectionMisspell;
             };
 
-            $scope.removeMissSpellWarning = function (index) {
-                _.remove($scope.probableAuthorMissSpell, { index: index });
+            $scope.removeMisspellWarning = function (index) {
+                _.remove($scope.probableAuthorMisspell, { index: index });
                 possibleErrors = !checkPossibleErrors();
             };
 
             $scope.replaceAuthors = function (index) {
-                $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMissSpell, { index: index }).label;
-                _.remove($scope.probableAuthorMissSpell, { index: index });
+                $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMisspell, { index: index }).label;
+                _.remove($scope.probableAuthorMisspell, { index: index });
                 possibleErrors = !checkPossibleErrors();
             };
 
-            $scope.getAuthorMissSpell = function (index) {
-                return _.find($scope.probableAuthorMissSpell, { index: index });
+            $scope.getAuthorMisspell = function (index) {
+                return _.find($scope.probableAuthorMisspell, { index: index });
             };
 
-            var checkForAuthorMissSpell = function (item) {
+            var checkForAuthorMisspell = function (item, index) {
                 _.forEach($scope.existingAuthors, function (element) {
                     var result = StringHelpers.SimilarText(element, item || $scope.mediaModel.author, true);
                     var misspell = null;
 
                     if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
-                        $scope.probableAuthorMissSpell.push({ label: element, percent: result, index: $scope.mediaModel.authorsList.length - 1 });
+                        var idx = index === undefined ? $scope.mediaModel.authorsList.length - 1 : index;
+                        $scope.probableAuthorMisspell.push({ label: element, percent: result, index: idx });
+                        possibleErrors = true;
+                    }
+                });
+            };
+
+            $scope.removeCollectionMisspellWarning = function () {
+                $scope.probableCollectionMisspell = null;
+                possibleErrors = !checkPossibleErrors();
+            };
+
+            $scope.replaceCollection = function () {
+                $scope.mediaModel.collectionName = $scope.probableCollectionMisspell.label;
+                $scope.probableCollectionMisspell = null;
+            };
+
+            $scope.getCollectionMisspell = function () {
+                return $scope.probableCollectionMisspell;
+            };
+
+            $scope.checkForCollectionMisspell = function () {
+                _.forEach($scope.listExisting, function (element) {
+                    var result = StringHelpers.SimilarText(element, $scope.mediaModel.collectionName, true);
+                    var misspell = null;
+
+                    if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
+                        $scope.probableCollectionMisspell = { label: element, percent: result };
                         possibleErrors = true;
                     }
                 });
@@ -141,7 +169,7 @@ angular.module('books').controller('CreateBookController', [
 
                 $scope.mediaModel[itemList].push($scope.mediaModel[item]);
 
-                checkForAuthorMissSpell();
+                checkForAuthorMisspell();
 
                 $scope.mediaModel[item] = '';
             };
@@ -156,7 +184,7 @@ angular.module('books').controller('CreateBookController', [
 
             $scope.updateField = function (key, index, data) {
                 $scope.mediaModel[key][index] = data;
-                checkForAuthorMissSpell(data);
+                checkForAuthorMisspell(data, index);
             };
 
             if ($location.search() && $location.search().param) {
