@@ -70,6 +70,10 @@ angular.module('books').factory('BookServices', [
             return $http.post(buildEndpoint('/books/many'), payload, httpConfig);
         };
 
+        bookServices.getAuthorsNameList = function () {
+            return $http.get(buildEndpoint('/books/authors'), httpConfig);
+        };
+
         return bookServices;
     }
 ]);
