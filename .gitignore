@@ -31,3 +31,6 @@ storage/
 
 # Production files
 webapp/main/dist/
+
+# System
+.DS_Store
