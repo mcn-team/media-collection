@@ -181,5 +181,7 @@ angular.module('mediacollection').constant('French', {
     'NEW_MEDIA': 'Ajouter un nouveau média',
     'EDIT_MEDIA': 'Editer un média',
     'DUPLICATE_MEDIA': 'Dupliquer un média',
-    'TOP': 'Aller en haut'
+    'TOP': 'Aller en haut',
+    'DID_YOU_MEAN': 'Vouliez-vous dire',
+    'NO': 'Non'
 });
