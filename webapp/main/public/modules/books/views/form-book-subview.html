@@ -61,14 +61,19 @@
                         </button>
                     </span>
                 </div>
-                <span class="text-info" data-ng-show="checkForAuthorMissSpell($index)">
+                <span class="text-info" data-ng-show="getAuthorMissSpell($index)">
                     <i class="fa fa-exclamation-triangle"></i>
                     <span>
                         {{ 'DID_YOU_MEAN' | translate }}
-                        <strong><a class="cursor-pointer" data-ng-click="replaceAuthors($index)">
-                            {{ checkForAuthorMissSpell($index).label }}
-                        </a></strong>
+                        <strong>
+                            <a class="cursor-pointer" data-ng-click="replaceAuthors($index)">
+                                {{ getAuthorMissSpell($index).label }}
+                            </a>
+                        </strong>
                         {{ '?' }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-bind="'NO' | translate" data-ng-click="removeMissSpellWarning($index)"></a>
+                        </strong>
                     </span>
                 </span>
                 <br/>

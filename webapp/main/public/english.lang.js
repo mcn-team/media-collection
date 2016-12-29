@@ -182,5 +182,6 @@ angular.module('mediacollection').constant('English', {
     'EDIT_MEDIA': 'Edit a media',
     'DUPLICATE_MEDIA': 'Duplicate a media',
     'TOP': 'Scroll to top',
-    'DID_YOU_MEAN': 'Did you mean'
+    'DID_YOU_MEAN': 'Did you mean',
+    'NO': 'No'
 });

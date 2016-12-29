@@ -1,15 +1,19 @@
 'use strict';
 
 angular.module('books').controller('EditBookController', [
-    '$scope', '$stateParams', '$location', '$window',
-    'Authentication', 'BooksDataService', 'BookServices', 'UploadServices',
-    function($scope, $stateParams, $location, $window, Authentication, BooksDataService, BookServices, UploadServices) {
+    '$scope', '$stateParams', '$location', '$window', 'lodash',
+    'Authentication', 'BooksDataService', 'BookServices', 'UploadServices', 'StringHelpers',
+    function($scope, $stateParams, $location, $window, _,
+             Authentication, BooksDataService, BookServices, UploadServices, StringHelpers) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = false;
         $scope.isLoaded = false;
         $scope.isEdit = $stateParams.bookId;
         $scope.mediaModel = {};
+        $scope.probableAuthorMissSpell = [];
+
+        var possibleErrors = false;
 
         $scope.loadFile = function (files) {
             $scope.mediaModel.file = files[0];
@@ -56,6 +60,11 @@ angular.module('books').controller('EditBookController', [
 
         // Update existing Book
         $scope.validateForm = function() {
+            if (possibleErrors) {
+                possibleErrors = false;
+                return;
+            }
+
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book._id = $scope.mediaModel._id;
 
@@ -87,12 +96,50 @@ angular.module('books').controller('EditBookController', [
             $scope.listExisting = result.data;
         });
 
+        BookServices.getAuthorsNameList().then(function (result) {
+            $scope.existingAuthors = result.data;
+        });
+
         // Find existing Book
         $scope.findOne = function() {
 
             function getOneCallback() {
 
                 $scope.isCustomField = $scope.mediaModel.customFields ? true : false;
+
+                /*
+                 * MISS SPELL FUNCTIONS
+                 */
+                var checkPossibleErrors = function () {
+                    return $scope.probableAuthorMissSpell.length <= 0;
+                };
+
+                $scope.removeMissSpellWarning = function (index) {
+                    _.remove($scope.probableAuthorMissSpell, { index: index });
+                    possibleErrors = !checkPossibleErrors();
+                };
+
+                $scope.replaceAuthors = function (index) {
+                    $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMissSpell, { index: index }).label;
+                    _.remove($scope.probableAuthorMissSpell, { index: index });
+                    possibleErrors = !checkPossibleErrors();
+                };
+
+                $scope.getAuthorMissSpell = function (index) {
+                    return _.find($scope.probableAuthorMissSpell, { index: index });
+                };
+
+                var checkForAuthorMissSpell = function (item) {
+                    _.forEach($scope.existingAuthors, function (element) {
+                        var result = StringHelpers.SimilarText(element, item || $scope.mediaModel.author, true);
+                        var misspell = null;
+
+                        if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
+                            $scope.probableAuthorMissSpell.push({ label: element, percent: result, index: $scope.mediaModel.authorsList.length - 1 });
+                            possibleErrors = true;
+                        }
+                    });
+                };
 
                 $scope.addField = function(itemList, item) {
                     for (var i = 0; i < $scope.mediaModel[itemList].length; i++) {
@@ -101,7 +148,11 @@ angular.module('books').controller('EditBookController', [
                             return;
                         }
                     }
+
                     $scope.mediaModel[itemList].push($scope.mediaModel[item]);
+
+                    checkForAuthorMissSpell();
+
                     $scope.mediaModel[item] = '';
                 };
 
@@ -115,6 +166,7 @@ angular.module('books').controller('EditBookController', [
 
                 $scope.updateField = function (key, index, data) {
                     $scope.mediaModel[key][index] = data;
+                    checkForAuthorMissSpell(data);
                 };
 
                 $scope.addCustomField = function (key, val) {

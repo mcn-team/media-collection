@@ -15,6 +15,8 @@ angular.module('books').controller('CreateBookController', [
         $scope.searchSelected = {};
         $scope.probableAuthorMissSpell = [];
 
+        var possibleErrors = false;
+
         $scope.uploadCover = false;
 
         $scope.loadFile = function (files) {
@@ -91,16 +93,44 @@ angular.module('books').controller('CreateBookController', [
             $scope.changeReadStatus = function () {
                 $scope.mediaModel.read = $scope.readStatus[$scope.mediaModel.read].next;
             };
+            
+            /*
+            * MISS SPELL FUNCTIONS
+            */
+            var checkPossibleErrors = function () {
+                return $scope.probableAuthorMissSpell.length <= 0;
+            };
+
+            $scope.removeMissSpellWarning = function (index) {
+                _.remove($scope.probableAuthorMissSpell, { index: index });
+                possibleErrors = !checkPossibleErrors();
+            };
 
             $scope.replaceAuthors = function (index) {
                 $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMissSpell, { index: index }).label;
                 _.remove($scope.probableAuthorMissSpell, { index: index });
+                possibleErrors = !checkPossibleErrors();
             };
 
-            $scope.checkForAuthorMissSpell = function (index) {
+            $scope.getAuthorMissSpell = function (index) {
                 return _.find($scope.probableAuthorMissSpell, { index: index });
             };
 
+            var checkForAuthorMissSpell = function (item) {
+                _.forEach($scope.existingAuthors, function (element) {
+                    var result = StringHelpers.SimilarText(element, item || $scope.mediaModel.author, true);
+                    var misspell = null;
+
+                    if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
+                        $scope.probableAuthorMissSpell.push({ label: element, percent: result, index: $scope.mediaModel.authorsList.length - 1 });
+                        possibleErrors = true;
+                    }
+                });
+            };
+
+            /*
+             * AUTHORS FIELD FUNCTIONS
+             */
             $scope.addField = function(itemList, item) {
                 for (var i = 0; i < $scope.mediaModel[itemList].length; i++) {
                     if ($scope.mediaModel[itemList][i] === $scope.mediaModel[item]) {
@@ -108,16 +138,10 @@ angular.module('books').controller('CreateBookController', [
                         return;
                     }
                 }
+
                 $scope.mediaModel[itemList].push($scope.mediaModel[item]);
 
-                _.forEach($scope.existingAuthors, function (element) {
-                    var result = StringHelpers.SimilarText(element, $scope.mediaModel[item], true);
-                    var misspell = null;
-
-                    if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
-                        $scope.probableAuthorMissSpell.push({ label: element, percent: result, index: $scope.mediaModel[itemList].length - 1 });
-                    }
-                });
+                checkForAuthorMissSpell();
 
                 $scope.mediaModel[item] = '';
             };
@@ -132,7 +156,9 @@ angular.module('books').controller('CreateBookController', [
 
             $scope.updateField = function (key, index, data) {
                 $scope.mediaModel[key][index] = data;
+                checkForAuthorMissSpell(data);
             };
+
             if ($location.search() && $location.search().param) {
                 $scope.isDuplicate = true;
                 $scope.isLoaded = false;
@@ -241,6 +267,11 @@ angular.module('books').controller('CreateBookController', [
         // Validation du formulaire de la page Nouveau Livre
 
         $scope.validateForm = function() {
+            if (possibleErrors) {
+                possibleErrors = false;
+                return;
+            }
+
             var successCallback = function () {
                 $location.path('books/' + $scope.bookId);
                 $scope.mediaModel = {};
