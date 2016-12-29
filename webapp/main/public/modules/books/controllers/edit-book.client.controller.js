@@ -109,6 +109,19 @@ angular.module('books').controller('EditBookController', [
                 $scope.isCustomField = $scope.mediaModel.customFields ? true : false;
 
                 /*
+                 * LAST ITEM FUNCTIONS
+                 */
+                $scope.checkLastItem = function () {
+                    if ($scope.mediaModel.lastItem) {
+                        $scope.showLastItemAlert = true;
+                    }
+                };
+
+                $scope.hideLastItem = function () {
+                    $scope.showLastItemAlert = false;
+                };
+
+                /*
                  * MISS SPELL FUNCTIONS
                  */
                 var checkPossibleErrors = function () {

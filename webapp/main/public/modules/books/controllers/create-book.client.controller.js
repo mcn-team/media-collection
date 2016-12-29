@@ -94,7 +94,20 @@ angular.module('books').controller('CreateBookController', [
             $scope.changeReadStatus = function () {
                 $scope.mediaModel.read = $scope.readStatus[$scope.mediaModel.read].next;
             };
-            
+
+            /*
+            * LAST ITEM FUNCTIONS
+             */
+            $scope.checkLastItem = function () {
+                if ($scope.mediaModel.lastItem) {
+                    $scope.showLastItemAlert = true;
+                }
+            };
+
+            $scope.hideLastItem = function () {
+                $scope.showLastItemAlert = false;
+            };
+
             /*
             * MISS SPELL FUNCTIONS
             */
