@@ -1,10 +1,9 @@
 {
   "name": "mediacollection-server",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "HAPI server for Media Collection",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "Kaze",
