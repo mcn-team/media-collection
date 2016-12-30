@@ -10,12 +10,12 @@
     </div>
     <div data-ng-if="HomeCtrl.authentication.user" >
         <div id="dashboard" class="dashbord-div col-xs-12 col-md-push-3 col-md-6" >
-            <mc-dashboard-btn data-mc-icon="'/assets/img/add-book.png'" data-mc-popover="'ADD_BOOK' | translate" data-mc-url="'/#!/books/create'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-book.png'" data-mc-popover="'BOOK_LIST' | translate" data-mc-url="'/#!/books'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-books.png'" data-mc-popover="'BOOK_COLLECTION' | translate" data-mc-url="'/#!/books/collections'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/add-movie.png'" data-mc-popover="'ADD_MOVIE' | translate" data-mc-url="'/#!/movies/create'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-movies.png'" data-mc-popover="'MOVIE_LIST' | translate" data-mc-url="'/#!/movies'" ></mc-dashboard-btn>
-            <mc-dashboard-btn data-mc-icon="'/assets/img/list-collection-movies.png'" data-mc-popover="'MOVIE_COLLECTION' | translate" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/book-add.png'" data-mc-popover="'ADD_BOOK' | translate" data-mc-url="'/#!/books/create'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/book-list.png'" data-mc-popover="'BOOK_LIST' | translate" data-mc-url="'/#!/books'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/book-collection.png'" data-mc-popover="'BOOK_COLLECTION' | translate" data-mc-url="'/#!/books/collections'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/movie-add.png'" data-mc-popover="'ADD_MOVIE' | translate" data-mc-url="'/#!/movies/create'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/movie-list.png'" data-mc-popover="'MOVIE_LIST' | translate" data-mc-url="'/#!/movies'" ></mc-dashboard-btn>
+            <mc-dashboard-btn data-mc-icon="'/assets/img/movie-collection.png'" data-mc-popover="'MOVIE_COLLECTION' | translate" data-mc-url="'/#!/movies/collections'" ></mc-dashboard-btn>
         </div>
         <div data-ng-class="HomeCtrl.fadeInClass.book" class="elements-margin-top col-xs-12 col-sm-6 col-md-pull-6 col-md-3">
             <div data-ng-if="HomeCtrl.lastBookResult" class="thumbnail">
@@ -53,6 +53,9 @@
         <div class="col-md-12" data-ng-include="'modules/light-rss-feed/views/light-rss-feed.client.view.html'"></div>
     </div>
     <div class="byline col-xs-12 micro-margin-top">
-        <p class="author">By the <a rel="author" href="https://github.com/mcn-team">MediaCollection Team.</a></p>
+        <p class="author">
+            By the <a rel="author" href="https://github.com/mcn-team">MediaCollection Team.</a> - 
+            <span data-ng-bind="HomeCtrl.versionLabel"></span>
+        </p>
     </div>
 </section>

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core').controller('HomeController', [
-    'Authentication', 'BookServices', 'MovieServices', 'UserServices',
-    function(Authentication, BookServices, MovieServices, UserServices) {
+    '$location', 'Authentication', 'BookServices', 'MovieServices', 'UserServices', 'Config',
+    function($location, Authentication, BookServices, MovieServices, UserServices, Config) {
         var self = this;
         // This provides Authentication context.
         self.authentication = Authentication.isAuthenticated();
@@ -11,6 +11,13 @@ angular.module('core').controller('HomeController', [
             movie: 'hidden-op',
             show: 'hidden-op'
         };
+
+        var host = $location.host();
+
+        self.versionLabel = 'v' + Config.version;
+        if (host.indexOf('dev.') !== -1 || host.indexOf('localhost') !== -1) {
+            self.versionLabel += ' - DEV BUILD';
+        }
 
         function successCallback(response) {
             self.isSigned = !response.data.exists;

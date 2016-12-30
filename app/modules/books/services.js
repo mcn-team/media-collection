@@ -130,3 +130,9 @@ exports.findBooksFromCollection = (params, callback) => {
         responseHelper.serviceCallback(err, books, 200, callback);
     });
 };
+
+exports.findAuthorNamesList = (callback) => {
+    Book.distinct('authors').exec((err, authors) => {
+        responseHelper.serviceCallback(err, authors.sort(), 200, callback);
+    });
+};

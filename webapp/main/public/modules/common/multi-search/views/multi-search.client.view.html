@@ -5,10 +5,8 @@
                 <h3 class="panel-title" data-ng-bind="'MULTI_SEARCH' | translate"></h3>
             </div>
             <div class="panel-body" >
-                <div class="{{$parent.multiSearch.collectionSearch ? 'col-sm-5 col-md-5' : 'col-sm-6 col-md-6'}} col-xs-12 col-lg-3 multi-search-margin-bottom">
-                    <label class="control-label" for="collectionSearch" data-ng-bind="'COLLECTION' | translate">Collection</label>
-                    <input class="form-control" id="collectionSearch" data-ng-model="$parent.multiSearch.collectionSearch" placeholder="{{'COLLECTION' | translate}}" formnovalidate="formnovalidate">
-                </div>
+                <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/collection.client.view.html'" ></section>
+                <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/collection.client.view.html'" ></section>
                 <section data-ng-show="$parent.mediaType === 'Book'" data-ng-include="'modules/common/multi-search/books-subviews/volume.client.view.html'" ></section>
                 <section data-ng-show="$parent.mediaType === 'Movie'" data-ng-include="'modules/common/multi-search/movies-subviews/episode.client.view.html'" ></section>
                 <div class="col-xs-12 {{$parent.multiSearch.collectionSearch ? 'col-sm-5 col-md-5 col-lg-3' : 'col-sm-6 col-md-6 col-lg-4'}} multi-search-margin-bottom">

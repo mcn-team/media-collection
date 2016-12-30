@@ -2,9 +2,9 @@
 
 angular.module('books').controller('CreateBookController', [
     '$scope', '$location', '$uibModal', '$window', 'Authentication',
-    'BookServices', 'BooksDataService', 'UploadServices',
+    'BookServices', 'BooksDataService', 'UploadServices', 'StringHelpers', 'lodash',
     function($scope, $location, $uibModal, $window, Authentication,
-             BookServices, BooksDataService, UploadServices) {
+             BookServices, BooksDataService, UploadServices, StringHelpers, _) {
         $scope.authentication = Authentication.checkAuth();
         $scope.isLoaded = true;
         $scope.ratingMax = 10;
@@ -13,6 +13,10 @@ angular.module('books').controller('CreateBookController', [
         $scope.isCollapsed = true;
         $scope.searchType = 'amazon';
         $scope.searchSelected = {};
+        $scope.probableAuthorMisspell = [];
+        $scope.probableCollectionMisspell = null;
+
+        var possibleErrors = false;
 
         $scope.uploadCover = false;
 
@@ -58,6 +62,10 @@ angular.module('books').controller('CreateBookController', [
                 $scope.listExisting = result.data;
             });
 
+            BookServices.getAuthorsNameList().then(function (result) {
+                $scope.existingAuthors = result.data;
+            });
+
             $scope.mediaModel = {
                 authorsList: [],
                 custom: {},
@@ -87,6 +95,83 @@ angular.module('books').controller('CreateBookController', [
                 $scope.mediaModel.read = $scope.readStatus[$scope.mediaModel.read].next;
             };
 
+            /*
+            * LAST ITEM FUNCTIONS
+             */
+            $scope.checkLastItem = function () {
+                if ($scope.mediaModel.lastItem) {
+                    $scope.showLastItemAlert = true;
+                }
+            };
+
+            $scope.hideLastItem = function () {
+                $scope.showLastItemAlert = false;
+            };
+
+            /*
+            * MISS SPELL FUNCTIONS
+            */
+            var checkPossibleErrors = function () {
+                return $scope.probableAuthorMisspell.length <= 0 && !$scope.probableCollectionMisspell;
+            };
+
+            $scope.removeMisspellWarning = function (index) {
+                _.remove($scope.probableAuthorMisspell, { index: index });
+                possibleErrors = !checkPossibleErrors();
+            };
+
+            $scope.replaceAuthors = function (index) {
+                $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMisspell, { index: index }).label;
+                _.remove($scope.probableAuthorMisspell, { index: index });
+                possibleErrors = !checkPossibleErrors();
+            };
+
+            $scope.getAuthorMisspell = function (index) {
+                return _.find($scope.probableAuthorMisspell, { index: index });
+            };
+
+            var checkForAuthorMisspell = function (item, index) {
+                _.forEach($scope.existingAuthors, function (element) {
+                    var result = StringHelpers.SimilarText(element, item || $scope.mediaModel.author, true);
+                    var misspell = null;
+
+                    if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
+                        var idx = index === undefined ? $scope.mediaModel.authorsList.length - 1 : index;
+                        $scope.probableAuthorMisspell.push({ label: element, percent: result, index: idx });
+                        possibleErrors = true;
+                    }
+                });
+            };
+
+            $scope.removeCollectionMisspellWarning = function () {
+                $scope.probableCollectionMisspell = null;
+                possibleErrors = !checkPossibleErrors();
+            };
+
+            $scope.replaceCollection = function () {
+                $scope.mediaModel.collectionName = $scope.probableCollectionMisspell.label;
+                $scope.probableCollectionMisspell = null;
+            };
+
+            $scope.getCollectionMisspell = function () {
+                return $scope.probableCollectionMisspell;
+            };
+
+            $scope.checkForCollectionMisspell = function () {
+                _.forEach($scope.listExisting, function (element) {
+                    var result = StringHelpers.SimilarText(element, $scope.mediaModel.collectionName, true);
+                    var misspell = null;
+
+                    if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
+                        $scope.probableCollectionMisspell = { label: element, percent: result };
+                        possibleErrors = true;
+                    }
+                });
+            };
+
+            /*
+             * AUTHORS FIELD FUNCTIONS
+             */
             $scope.addField = function(itemList, item) {
                 for (var i = 0; i < $scope.mediaModel[itemList].length; i++) {
                     if ($scope.mediaModel[itemList][i] === $scope.mediaModel[item]) {
@@ -94,7 +179,11 @@ angular.module('books').controller('CreateBookController', [
                         return;
                     }
                 }
+
                 $scope.mediaModel[itemList].push($scope.mediaModel[item]);
+
+                checkForAuthorMisspell();
+
                 $scope.mediaModel[item] = '';
             };
 
@@ -108,7 +197,9 @@ angular.module('books').controller('CreateBookController', [
 
             $scope.updateField = function (key, index, data) {
                 $scope.mediaModel[key][index] = data;
+                checkForAuthorMisspell(data, index);
             };
+
             if ($location.search() && $location.search().param) {
                 $scope.isDuplicate = true;
                 $scope.isLoaded = false;
@@ -217,6 +308,11 @@ angular.module('books').controller('CreateBookController', [
         // Validation du formulaire de la page Nouveau Livre
 
         $scope.validateForm = function() {
+            if (possibleErrors) {
+                possibleErrors = false;
+                return;
+            }
+
             var successCallback = function () {
                 $location.path('books/' + $scope.bookId);
                 $scope.mediaModel = {};

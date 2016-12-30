@@ -26,8 +26,23 @@
                 <label class="control-label" for="collectionName" data-ng-bind="'COLLECTION' | translate"></label>
                 <div class="controls">
                     <input type="text" data-ng-model="mediaModel.collectionName" id="collectionName" class="form-control" placeholder="{{'COLLECTION' | translate}}"
-                           data-uib-typeahead="collection for collection in listExisting | filter:$viewValue | limitTo:8">
+                           data-uib-typeahead="collection for collection in listExisting | filter:$viewValue | limitTo:8" data-ng-blur="checkForCollectionMisspell()">
                 </div>
+                <span class="text-info" data-ng-show="getCollectionMisspell($index)">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span>
+                        {{ 'DID_YOU_MEAN' | translate }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-click="replaceCollection()">
+                                {{ getCollectionMisspell().label }}
+                            </a>
+                        </strong>
+                        {{ '?' }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-bind="'NO' | translate" data-ng-click="removeCollectionMisspellWarning()"></a>
+                        </strong>
+                    </span>
+                </span>
             </div>
             <div data-ng-show="mediaModel.collectionName ? true : false" class="col-xs-12 col-sm-3">
                 <label class="control-label" for="volume" data-ng-bind="'VOLUME' | translate"></label>
@@ -39,13 +54,16 @@
                 <label class="control-label" for="lastVolume" data-ng-bind="'LAST_VOLUME' | translate"></label>
                 <div class="checkbox">
                     <label>
-                        <input data-ng-focus="showLastItemAlert = true" data-ng-blur="showLastItemAlert = false" data-ng-model="mediaModel.lastItem" data-ng-disabled="mediaModel.collectionName ? false : true" type="checkbox" id="lastVolume" class="" >
-                        <span><small>This media is the last volume of the collection</small></span>
+                        <input data-ng-change="checkLastItem()" data-ng-model="mediaModel.lastItem" data-ng-disabled="mediaModel.collectionName ? false : true" type="checkbox" id="lastVolume" class="" >
+                        <span><small data-ng-bind="'LAST_VOLUME_LABEL' | translate"></small></span>
                     </label>
                 </div>
                 <span class="text-info" data-ng-show="mediaModel.lastItem && showLastItemAlert === true">
                     <i class="fa fa-exclamation-triangle"></i>
                     <strong data-ng-bind="'LAST_VOLUME_ALERT' | translate"></strong>
+                    <strong>
+                        <a class="cursor-pointer" data-ng-bind="'HIDE_MESSAGE' | translate" data-ng-click="hideLastItem()"></a>
+                    </strong>
                 </span>
             </div>
             <div class="col-xs-12">
@@ -53,18 +71,35 @@
             </div>
             <div class="col-xs-12" data-ng-repeat="item in mediaModel.authorsList"  >
                 <div class="input-group">
-                    <input type="text" data-ng-model="item" data-ng-blur="updateField('authorsList', $index, item)" class="form-control " title="author">
+                    <input type="text" data-ng-model="item" data-ng-blur="updateField('authorsList', $index, item)" class="form-control " title="author"
+                           data-uib-typeahead="authorName for authorName in existingAuthors | filter:$viewValue | limitTo:8">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-danger" type="button" data-ng-click="deleteField('authorsList', $index)" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/delete96.png">
                         </button>
                     </span>
                 </div>
+                <span class="text-info" data-ng-show="getAuthorMisspell($index)">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span>
+                        {{ 'DID_YOU_MEAN' | translate }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-click="replaceAuthors($index)">
+                                {{ getAuthorMisspell($index).label }}
+                            </a>
+                        </strong>
+                        {{ '?' }}
+                        <strong>
+                            <a class="cursor-pointer" data-ng-bind="'NO' | translate" data-ng-click="removeMisspellWarning($index)"></a>
+                        </strong>
+                    </span>
+                </span>
                 <br/>
             </div>
             <div class="col-xs-12">
                 <div class="input-group">
-                    <input type="text" data-ng-model="mediaModel.author" id="author" class="form-control" placeholder="{{'AUTHOR' | translate}}">
+                    <input type="text" data-ng-model="mediaModel.author" id="author" class="form-control" placeholder="{{'AUTHOR' | translate}}"
+                           data-uib-typeahead="authorName for authorName in existingAuthors | filter:$viewValue | limitTo:8">
                     <span class="input-group-btn">
                         <button class="pull-right btn btn-success" id="addActorBtn" type="button" data-ng-disabled="checkField('author')" data-ng-click="addField('authorsList', 'author')" >
                             <img class="form-icon-btn-size" data-ng-src="/assets/img/plus24.png">

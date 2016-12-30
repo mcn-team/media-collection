@@ -192,4 +192,19 @@ module.exports = (server) => {
         },
         handler: controller.getBooksFromCollection
     });
+
+    server.route({
+        method: 'GET',
+        path: '/authors',
+        config: {
+            auth: 'RequiresLogin',
+            notes: [
+                'Requires an user\'s token',
+                'Returns an Array with 200 OK'
+            ],
+            description: 'Sends back an Array of strings containing a list of all authors name ' +
+            'registered in the book collection.'
+        },
+        handler: controller.getAuthorNamesList
+    });
 };

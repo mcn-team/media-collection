@@ -1,15 +1,11 @@
 {
   "name": "mediacollection",
   "description": "Store, organize and browse your media",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "MediaCollection Team",
   "engines": {
     "node": "0.10.x",
     "npm": "1.4.x"
-  },
-  "scripts": {
-    "start": "grunt",
-    "test": "grunt test"
   },
   "dependencies": {},
   "devDependencies": {
