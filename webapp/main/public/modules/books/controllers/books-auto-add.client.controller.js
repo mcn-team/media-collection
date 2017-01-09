@@ -69,6 +69,10 @@ angular.module('books').controller('BookAutoAddController', [
                     }
                 });
 
+                if (book.price) {
+                    book.price = parseFloat(book.price.replace(/[^0-9.,]/g, '').replace(',', '.'));
+                }
+
                 payload.push(book);
             });
 
