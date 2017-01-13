@@ -24,7 +24,7 @@ const commonBookPayload = {
     user: Joi.string().hex().length(24)
 };
 
-exports.bookCreatePayload = _.merge({
+const bookCreatePayload = exports.bookCreatePayload = _.merge({
     title: Joi.string().trim().allow('').optional(),
     type: Joi.string().required()
 }, commonBookPayload);
@@ -42,3 +42,5 @@ exports.collectionsParams = {
     collection: Joi.string().required(),
     volume: Joi.number().integer().required()
 };
+
+exports.bookMultipleInsert = Joi.array().items(bookCreatePayload);
