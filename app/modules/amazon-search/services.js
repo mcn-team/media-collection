@@ -62,7 +62,6 @@ const searchDataFromLink = (params, callback) => {
         $('div.ProductSummary-description ul.ProductSummary-descTech').find('li').each(function () {
             let extractedDetail = $(this).find('> span:first-child').text().trim();
 
-            console.log(extractedDetail);
             if (extractedDetail) {
                 if (/(editeur|edition)/i.test(extractedDetail)) {
                     params.publisher = $(this).find('strong > span > a').text().trim();
@@ -79,10 +78,6 @@ const searchDataFromLink = (params, callback) => {
         if (cover) {
             params.cover = cover;
         }
-
-        // if (!params.author) {
-        //     params.author = $('#byline span.author a.contributorNameID').first().text() || $('#byline span.author a').first().text();
-        // }
 
         if (prices.length > 0) {
             params.price = prices;
