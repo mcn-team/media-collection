@@ -1,6 +1,6 @@
 <section ng-controller="rssFeedController">
     <div class="col-xs-12 col-md-6 row">
-        <div class="col-xs-12">
+        <div class="col-xs-12" data-ng-if="feeds['sortie_bd']">
             <h2>
                 <a href="http://www.planetebd.com">{{formatFeedTitle(feeds['sortie_bd'].feed.title)}}</a>
                 <img ng-click="nextFeed('sortie_bd')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" data-ng-if="feeds['sortie_manga']">
             <h2>
                 <a href="http://www.planetebd.com">{{formatFeedTitle(feeds['sortie_manga'].feed.title)}}</a>
                 <img ng-click="nextFeed('sortie_manga')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-md-6 row">
-        <div class="col-xs-12">
+        <div class="col-xs-12" data-ng-if="feeds['sortie_film']">
             <h2>
                 <a href="http://www.fnac.com">Fnac - Nouveaut&eacute;s Films</a>
                 <img ng-click="nextFeed('sortie_film')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12" data-ng-if="feeds['sortie_series']">
             <h2>
                 <a href="http://www.fnac.com">Fnac - Nouveaut&eacute;s S&eacute;ries</a>
                 <img ng-click="nextFeed('sortie_series')" ng-src="/assets/img/rightarrow7.png" class="feed-controls pull-right" >
