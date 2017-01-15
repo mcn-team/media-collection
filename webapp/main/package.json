@@ -1,7 +1,7 @@
 {
   "name": "mediacollection",
   "description": "Store, organize and browse your media",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "MediaCollection Team",
   "engines": {
     "node": "0.10.x",

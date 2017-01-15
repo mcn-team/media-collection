@@ -153,6 +153,7 @@ module.exports = (server) => {
         method: 'POST',
         path: '/many',
         config: {
+            validate: { payload: validator.bookMultipleInsert },
             auth: 'RequiresLogin',
             notes: [
                 'Receives an array of Book object as payload',

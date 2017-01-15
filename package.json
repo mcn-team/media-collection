@@ -1,0 +1,22 @@
+{
+  "name": "media-collection",
+  "version": "1.0.0",
+  "description": "Media Collection =========== Gestionnaire de médiathèque par collections",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "4.4.4",
+    "npm": "3.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcn-team/media-collection.git"
+  },
+  "author": "Media Collection Team",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/mcn-team/media-collection/issues"
+  },
+  "homepage": "https://github.com/mcn-team/media-collection#readme"
+}
