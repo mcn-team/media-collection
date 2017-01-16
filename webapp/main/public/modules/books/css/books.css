@@ -117,3 +117,11 @@
 }
 .is-disabled { color: #ccc; }
 label.checkbox-description { font-weight: normal; }
+.btn-inactive {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+.status-radio > label {
+    padding: 2px;
+    box-shadow: none !important;
+}
