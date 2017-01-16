@@ -62,21 +62,21 @@
                 <div data-ng-bind="'PUBLICATION_DATE' | translate"></div>
                 <h4 id="publishingDate" data-ng-bind="mediaModel.publishingDate | date: medium " ></h4>
             </div>
-            <div data-ng-show="mediaModel.price" class="col-sm-6 col-lg-4 list-group-item ">
+            <div data-ng-show="book.price" class="col-sm-6 col-lg-4 list-group-item ">
                 <div data-ng-bind="'PRICE' | translate"></div>
-                <h4 id="price" data-ng-bind="mediaModel.price" ></h4>
+                <h4 id="price" data-ng-bind="book.price" ></h4>
             </div>
             <div class="col-xs-12 col-lg-8 no-padding-side item-focus list-group-item-margin view-status">
                 <div class="col-xs-6 list-group-item">
                     <div data-ng-bind="'READ' | translate"></div>
                     <div class="btn-group status-radio">
-                        <label data-ng-class="{ 'btn-inactive': mediaModel.read !== 'NOTREAD' }" class="btn" ng-model="mediaModel.read" uib-btn-radio="'NOTREAD'">
+                        <label data-ng-click="updateStatus()" data-ng-class="{ 'btn-inactive': mediaModel.read !== 'NOTREAD' }" class="btn" ng-model="mediaModel.read" uib-btn-radio="'NOTREAD'">
                             <img data-ng-src="/assets/img/view-notdone.png">
                         </label>
-                        <label data-ng-class="{ 'btn-inactive': mediaModel.read !== 'ONGOING' }" class="btn" ng-model="mediaModel.read" uib-btn-radio="'ONGOING'">
+                        <label data-ng-click="updateStatus()" data-ng-class="{ 'btn-inactive': mediaModel.read !== 'ONGOING' }" class="btn" ng-model="mediaModel.read" uib-btn-radio="'ONGOING'">
                             <img data-ng-src="/assets/img/view-ongoing-read.png">
                         </label>
-                        <label data-ng-class="{ 'btn-inactive': mediaModel.read !== 'READ' }" class="btn" ng-model="mediaModel.read" uib-btn-radio="'READ'">
+                        <label data-ng-click="updateStatus()" data-ng-class="{ 'btn-inactive': mediaModel.read !== 'READ' }" class="btn" ng-model="mediaModel.read" uib-btn-radio="'READ'">
                             <img data-ng-src="/assets/img/view-done.png">
                         </label>
                     </div>
@@ -84,10 +84,10 @@
                 <div class="col-xs-6 list-group-item ">
                     <div data-ng-bind="'BOUGHT' | translate"></div>
                     <div class="btn-group status-radio">
-                        <label data-ng-class="{ 'btn-inactive': mediaModel.bought }" class="btn" ng-model="mediaModel.bought" uib-btn-radio="false">
+                        <label data-ng-click="updateStatus()" data-ng-class="{ 'btn-inactive': mediaModel.bought }" class="btn" ng-model="mediaModel.bought" uib-btn-radio="false">
                             <img data-ng-src="/assets/img/view-notbought.png">
                         </label>
-                        <label data-ng-class="{ 'btn-inactive': !mediaModel.bought }" class="btn" ng-model="mediaModel.bought" uib-btn-radio="true">
+                        <label data-ng-click="updateStatus()" data-ng-class="{ 'btn-inactive': !mediaModel.bought }" class="btn" ng-model="mediaModel.bought" uib-btn-radio="true">
                             <img data-ng-src="/assets/img/view-bought.png">
                         </label>
                     </div>

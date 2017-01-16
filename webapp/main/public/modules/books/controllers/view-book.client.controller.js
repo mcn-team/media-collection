@@ -4,23 +4,23 @@ angular.module('books').controller('ViewBookController', [
     '$scope', '$location', '$stateParams', '$uibModal', '$log', '$timeout',
     'lodash', 'BookServices', 'Authentication', 'BooksDataService',
     function ($scope, $location, $stateParams, $uibModal, $log, $timeout,
-              _, BookServices, Authentication, BooksDataService) {
+        _, BookServices, Authentication, BooksDataService) {
         $scope.authentication = Authentication.checkAuth();
         $scope.ratingMax = 10;
         $scope.isReadonly = true;
         $scope.showPercent = false;
 
-        $scope.hoveringOver = function() {
+        $scope.hoveringOver = function () {
             $scope.percent = 100 * ($scope.mediaModel.bookRate / $scope.ratingMax);
             $scope.showPercent = true;
         };
 
         $scope.ratingStates = [
-            {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-            {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-            {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-            {stateOn: 'glyphicon-heart'},
-            {stateOff: 'glyphicon-off'}
+            { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
+            { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },
+            { stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle' },
+            { stateOn: 'glyphicon-heart' },
+            { stateOff: 'glyphicon-off' }
         ];
 
         function openAutoAddModal(size, result) {
@@ -63,27 +63,40 @@ angular.module('books').controller('ViewBookController', [
             });
         };
 
-        $scope.findOneView = function() {
+        $scope.findOneView = function () {
 
-            $scope.duplicateItem = function() {
-                $location.path('/books/create').search({param: $scope.book._id});
+            $scope.updateStatus = function () {
+                var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
+                book._id = $scope.book._id;
+
+                var successCallback = function() {};
+                var failureCallback = function (errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                };
+
+                BookServices.updateBook(book._id, book).then(successCallback, failureCallback);
+            };
+
+            $scope.duplicateItem = function () {
+                $location.path('/books/create').search({ param: $scope.book._id });
             };
 
             function findBookCallback() {
                 var localeOptions = { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 };
                 $scope.mediaModel = BooksDataService.fillBookModel($scope.book);
-                $scope.mediaModel.price = $scope.mediaModel.price ? $scope.mediaModel.price.toLocaleString('fr-FR', localeOptions) : '';
+                $scope.book.price = $scope.mediaModel.price ? $scope.mediaModel.price.toLocaleString('fr-FR', localeOptions) : '';
                 $scope.isLoaded = true;
             }
 
             BookServices.getBook($stateParams.bookId).then(function (result) {
                 $scope.book = result.data;
+                $scope.book._id = result.data._id;
                 findBookCallback();
             });
         };
 
         // Remove existing Book
-        $scope.remove = function() {
+        $scope.remove = function () {
             BookServices.deleteBook($stateParams.bookId).then(function () {
                 $location.path('books');
             });
