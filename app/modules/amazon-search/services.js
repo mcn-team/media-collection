@@ -137,7 +137,7 @@ const alternativeSearchByIsbn = (params, callback) => {
 const alternativeScrapping = ($, result) => {
     const scrappedData = {
         link: $('#dontTouchThisDiv div.Article-itemInfo p.Article-desc > a:first-child').attr('href'),
-        title: $('#dontTouchThisDiv div.Article-itemInfo p.Article-desc > a:first-child').text().split(/\(|\)|:|,|\s\-\s/),
+        title: $('#dontTouchThisDiv div.Article-itemInfo div.Article-infoContent > p.Article-desc:first-child > a:first-child').text().split(/\(|\)|:|,|\s\-\s/),
         volume: $('#dontTouchThisDiv div.Article-itemInfo p.Article-desc > a:first-child').text().match(/[0-9]+/),
         author: $('#dontTouchThisDiv div.Article-itemInfo p.Article-descSub > a:first-child').text()
     };
