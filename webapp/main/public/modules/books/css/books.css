@@ -56,8 +56,8 @@
     max-width: 18px;
 }
 .list-cover-size {
-    height: 110px;
-    max-width: 80px;
+    max-height: 110px;
+    max-width: 110px;
 }
 .cancel-button { width: 76px; }
 .micro-margin-top-fixed { margin-top: 15px; }
@@ -117,3 +117,11 @@
 }
 .is-disabled { color: #ccc; }
 label.checkbox-description { font-weight: normal; }
+.btn-inactive {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+.status-radio > label {
+    padding: 2px;
+    box-shadow: none !important;
+}

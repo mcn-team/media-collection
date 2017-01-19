@@ -1,6 +1,6 @@
 {
   "name": "mediacollection-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "HAPI server for Media Collection",
   "main": "server.js",
   "scripts": {
