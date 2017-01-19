@@ -204,8 +204,8 @@ angular.module('books').controller('CreateBookController', [
                     $scope.isSearching = false;
                     $scope.searchResponse = response.data;
                     if ($scope.searchResponse.title && $scope.searchResponse.title.length > 0) {
-                        $scope.searchSelected.title = $scope.searchResponse.title[0];
-                        $scope.searchSelected.collection = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
+                        $scope.searchSelected.title = $scope.searchResponse.title[$scope.searchResponse.title.length - 1];
+                        $scope.searchSelected.collection = $scope.searchResponse.title[0];
                     }
 
                     if ($scope.searchResponse.volume && $scope.searchResponse.volume.length > 0) {
