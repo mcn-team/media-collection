@@ -14,8 +14,6 @@ angular.module('books').controller('EditBookController', [
         $scope.probableAuthorMisspell = [];
         $scope.probableCollectionMisspell = null;
 
-        var possibleErrors = false;
-
         $scope.loadFile = function (files) {
             $scope.mediaModel.file = files[0];
             var reader = new FileReader();
@@ -61,11 +59,6 @@ angular.module('books').controller('EditBookController', [
 
         // Update existing Book
         $scope.validateForm = function() {
-            if (possibleErrors) {
-                possibleErrors = false;
-                return;
-            }
-
             var book = BooksDataService.createBookFromBookModel($scope.mediaModel);
             book._id = $scope.mediaModel._id;
 
@@ -124,19 +117,13 @@ angular.module('books').controller('EditBookController', [
                 /*
                  * MISS SPELL FUNCTIONS
                  */
-                var checkPossibleErrors = function () {
-                    return $scope.probableAuthorMisspell.length <= 0 && !$scope.probableCollectionMisspell;
-                };
-
                 $scope.removeMisspellWarning = function (index) {
                     _.remove($scope.probableAuthorMisspell, { index: index });
-                    possibleErrors = !checkPossibleErrors();
                 };
 
                 $scope.replaceAuthors = function (index) {
                     $scope.mediaModel.authorsList[index] = _.find($scope.probableAuthorMisspell, { index: index }).label;
                     _.remove($scope.probableAuthorMisspell, { index: index });
-                    possibleErrors = !checkPossibleErrors();
                 };
 
                 $scope.getAuthorMisspell = function (index) {
@@ -151,14 +138,12 @@ angular.module('books').controller('EditBookController', [
                         if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
                             var idx = index === undefined ? $scope.mediaModel.authorsList.length - 1 : index;
                             $scope.probableAuthorMisspell.push({ label: element, percent: result, index: idx });
-                            possibleErrors = true;
                         }
                     });
                 };
 
                 $scope.removeCollectionMisspellWarning = function () {
                     $scope.probableCollectionMisspell = null;
-                    possibleErrors = !checkPossibleErrors();
                 };
 
                 $scope.replaceCollection = function () {
@@ -177,7 +162,6 @@ angular.module('books').controller('EditBookController', [
 
                         if (result > 65 && result < 100 && (!misspell || misspell.percent < result)) {
                             $scope.probableCollectionMisspell = { label: element, percent: result };
-                            possibleErrors = true;
                         }
                     });
                 };
